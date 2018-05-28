@@ -91,10 +91,15 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="1、Linux shell简介1.1、Shell概述Shell本身是一个用C语言编写的程序，它是用户使用Unix/Linux的桥梁，用户的大部分工作都是通过Shell完成的。 Shell既是一种命令语言，又是一种程序设计语言： 作为命令语言，它交互式地解释和执行用户输入的命令； 作为程序设计语言，它定义了各种变量和参数，并提供了许多在高级语言中才具有的控制结构，包括循环和分支。 Shell它虽然不">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-28T09:23:52.262Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-28-152309.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-28-152343.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-28-152610.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-28-152650.png">
+<meta property="og:updated_time" content="2018-05-28T15:32:39.799Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux学习笔记-4">
 <meta name="twitter:description" content="1、Linux shell简介1.1、Shell概述Shell本身是一个用C语言编写的程序，它是用户使用Unix/Linux的桥梁，用户的大部分工作都是通过Shell完成的。 Shell既是一种命令语言，又是一种程序设计语言： 作为命令语言，它交互式地解释和执行用户输入的命令； 作为程序设计语言，它定义了各种变量和参数，并提供了许多在高级语言中才具有的控制结构，包括循环和分支。 Shell它虽然不">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-28-152309.png">
 
 
 
@@ -537,8 +542,237 @@
 <p><strong>推荐给所有变量加上花括号, 这个是好的编程习惯</strong></p>
 <p>已定义的<strong>非只读</strong>变量, 可以被重新定义</p>
 </li>
+<li><p><strong>只读变量</strong></p>
+<p>使用 readonly 命令可以将变量定义为只读变量，只读变量的值不能被改变。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">myUrl=<span class="string">"http://www.w3cschool.cc"</span></span><br><span class="line"><span class="built_in">readonly</span> myUrl</span><br><span class="line">myUrl=<span class="string">"http://www.runoob.com"</span></span><br><span class="line">---</span><br><span class="line"><span class="comment"># 会报错</span></span><br><span class="line">zsh: <span class="built_in">read</span>-only variable: myUrl</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除变量, 只读变量不能删除, 变量被删除后不能再次使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset variable_name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>变量类型</p>
+<ul>
+<li><strong>1) 局部变量</strong>  局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。</li>
+<li><strong>2) 环境变量</strong>  所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。</li>
+<li><strong>3) shell变量</strong>  shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行</li>
+</ul>
+</li>
 </ol>
-<h2 id="2-2、运算符"><a href="#2-2、运算符" class="headerlink" title="2.2、运算符"></a>2.2、运算符</h2><h3 id="2-2-1、算数运算符"><a href="#2-2-1、算数运算符" class="headerlink" title="2.2.1、算数运算符"></a>2.2.1、算数运算符</h3>
+<h3 id="2-18-字符串"><a href="#2-18-字符串" class="headerlink" title="2.18 字符串"></a>2.18 字符串</h3><h4 id="获取字符串长度"><a href="#获取字符串长度" class="headerlink" title="获取字符串长度"></a>获取字符串长度</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string=<span class="string">"abcd"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#string&#125;</span> <span class="comment">#输出 4</span></span><br></pre></td></tr></table></figure>
+<h4 id="提取子字符串"><a href="#提取子字符串" class="headerlink" title="提取子字符串"></a>提取子字符串</h4><p>以下实例从字符串第 <strong>2</strong> 个字符开始截取 <strong>4</strong> 个字符：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string=<span class="string">"runoob is a great site"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;string:1:4&#125;</span> <span class="comment"># 输出 unoo</span></span><br></pre></td></tr></table></figure>
+<h4 id="查找子字符串"><a href="#查找子字符串" class="headerlink" title="查找子字符串"></a>查找子字符串</h4><p>查找字符 “<strong>i</strong> 或 <strong>s</strong>“ 的位置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string=<span class="string">"runoob is a great company"</span></span><br><span class="line"><span class="built_in">echo</span> `expr index <span class="string">"<span class="variable">$string</span>"</span> is`  <span class="comment"># 输出 8</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-19-Shell-数组"><a href="#2-19-Shell-数组" class="headerlink" title="2.19  Shell 数组"></a><strong>2.19  Shell 数组</strong></h3><p> bash支持一维数组（不支持多维数组），并且没有限定数组的大小。</p>
+<p>类似与C语言，数组元素的下标由0开始编号。获取数组中的元素要利用下标，下标可以是整数或算术表达式，其值应大于或等于0。 </p>
+<h4 id="定义数组"><a href="#定义数组" class="headerlink" title="定义数组"></a><strong>定义数组</strong></h4><p>在Shell中，用括号来表示数组，数组元素用”空格”符号分割开。定义数组的一般形式为： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数组名=(值1 值2 ... 值n)</span><br></pre></td></tr></table></figure>
+<p>还可以单独定义数组的各个分量： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array_name[0]=value0</span><br><span class="line">array_name[1]=value1</span><br><span class="line">array_name[n]=valuen</span><br></pre></td></tr></table></figure>
+<p>可以不使用连续的下标，而且下标的范围没有限制。 </p>
+<h4 id="获取数组的长度"><a href="#获取数组的长度" class="headerlink" title="获取数组的长度"></a>获取数组的长度</h4><p> 获取数组长度的方法与获取字符串长度的方法相同，例如： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取得数组元素的个数</span></span><br><span class="line">length=<span class="variable">$&#123;#array_name[@]&#125;</span></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">length=<span class="variable">$&#123;#array_name[*]&#125;</span></span><br><span class="line"><span class="comment"># 取得数组单个元素的长度</span></span><br><span class="line">lengthn=<span class="variable">$&#123;#array_name[n]&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2、运算符"><a href="#2-2、运算符" class="headerlink" title="2.2、运算符"></a>2.2、运算符</h2><h3 id="2-2-1、算数运算符"><a href="#2-2-1、算数运算符" class="headerlink" title="2.2.1、算数运算符"></a>2.2.1、算数运算符</h3><h4 id="1-用expr"><a href="#1-用expr" class="headerlink" title="1.  用expr"></a>1.  用expr</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">格式 expr m + n 注意expr运算符间要有空格</span><br><span class="line">例如计算（2＋3）×4 的值</span><br><span class="line">1、分步计算</span><br><span class="line">	S=`expr 2 + 3`</span><br><span class="line">	expr <span class="variable">$S</span> \* 4       <span class="comment">##   *号需要转义</span></span><br><span class="line">2、一步完成计算</span><br><span class="line">	expr `expr 2 + 3 ` \* 4</span><br><span class="line">	    <span class="built_in">echo</span> `expr \`expr 2 + 3\` \* 4`</span><br></pre></td></tr></table></figure>
+<p>用<code>expr</code>还可以<strong>计算字符串的长度</strong>，<strong>子字符串出现的位置</strong>，<strong>截取字符串</strong>等等 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cts1 ~ <span class="comment"># name='woshishuaige'</span></span><br><span class="line">cts1 ~ <span class="comment"># expr length name</span></span><br><span class="line">4</span><br><span class="line">cts1 ~ <span class="comment"># expr length $name</span></span><br><span class="line">12</span><br><span class="line">cts1 ~ <span class="comment"># expr index $name shuai</span></span><br><span class="line">3</span><br><span class="line">cts1 ~ <span class="comment"># expr substr $name 6 2</span></span><br><span class="line">sh</span><br></pre></td></tr></table></figure>
+<p>详情请翻阅: expr –help</p>
+<h4 id="2-用"><a href="#2-用" class="headerlink" title="2.  用(())"></a>2.  用<code>(())</code></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">((1+2))</span><br><span class="line">(((2+3)*4))</span><br><span class="line">count=1</span><br><span class="line">((count++))</span><br><span class="line">((++count))</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$count</span></span><br><span class="line"><span class="comment"># 但是要想取到运算结果，需要用$引用</span></span><br><span class="line">a=$((1+2))</span><br></pre></td></tr></table></figure>
+<h4 id="3-用"><a href="#3-用" class="headerlink" title="3.  用\$[]"></a>3.  用\$[]</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SS=$[2+3]</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$SS</span></span><br><span class="line">SS=$[2*3]</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$SS</span></span><br><span class="line"><span class="built_in">echo</span> $[(2 + 3)*3]</span><br></pre></td></tr></table></figure>
+<h4 id="4-用let"><a href="#4-用let" class="headerlink" title="4.  用let"></a>4.  用<code>let</code></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">first=1</span><br><span class="line">second=2</span><br><span class="line"><span class="built_in">let</span> third=first+second</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;third&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="5-用-bc"><a href="#5-用-bc" class="headerlink" title="5.  用  | bc"></a>5.  用  <code>| bc</code></h4><p><strong>以上命令都只对整形数值有效，不适用于浮点数</strong> </p>
+<p>如果有浮点数参与运算，可以将echo与bc命令结合起来使用，代码如下 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"1.212*3"</span> | bc         <span class="comment">## 简单浮点运算</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"scale=2;3/8"</span> | bc      <span class="comment">##将输出结果设置为2位</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"obase=2;127"</span> | bc     <span class="comment">##输出运算结果的二进制</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"obase=10;ibase=2;101111111"</span> | bc     <span class="comment">##将二进制转换成十进制</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"10^10"</span> | bc          <span class="comment">##求幂指数</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"sqrt(100)"</span> | bc        <span class="comment">##开平方</span></span><br></pre></td></tr></table></figure>
+<p>除了用bc做尽职转换以外，还可以这样做： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> $((base<span class="comment">#number))  表示把任意base进制的数number转换成十进制</span></span><br><span class="line">例子：</span><br><span class="line"><span class="built_in">echo</span> $((8<span class="comment">#377))   返回255</span></span><br><span class="line"><span class="built_in">echo</span> $((025))		返回21 ， 八进制</span><br><span class="line"><span class="built_in">echo</span> $((0xA4))    返回164 ， 十六进制</span><br></pre></td></tr></table></figure>
+<p>使用bc还可以用来比较浮点数的大小： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop02 bin]<span class="comment"># echo "1.2 &lt; 2" |bc</span></span><br><span class="line">1</span><br><span class="line">[root@hadoop02 bin]<span class="comment"># echo "1.2 &gt; 2" |bc</span></span><br><span class="line">0</span><br><span class="line">[root@hadoop02 bin]<span class="comment"># echo "1.2 == 2.2" |bc</span></span><br><span class="line">0</span><br><span class="line">[root@hadoop02 bin]<span class="comment"># echo "1.2 != 2.2" |bc</span></span><br><span class="line">1</span><br><span class="line">看出规律了嘛？运算如果为真返回 1，否则返回 0，写一个例子：</span><br><span class="line">[root@hadoop02 bin]<span class="comment"># [ $(echo "2.2 &gt; 2" |bc) -eq 1 ] &amp;&amp; echo yes || echo no</span></span><br><span class="line">yes</span><br><span class="line">[root@hadoop02 bin]<span class="comment"># [ $(echo "2.2 &lt; 2" |bc) -eq 1 ] &amp;&amp; echo yes || echo no</span></span><br><span class="line">no</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-2、关系运算符"><a href="#2-2-2、关系运算符" class="headerlink" title="2.2.2、关系运算符"></a>2.2.2、关系运算符</h3><p>下面给出一张关系运算符的列表： </p>
+<table>
+<thead>
+<tr>
+<th><strong>运算符</strong></th>
+<th style="text-align:center"><strong>等同运算符</strong></th>
+<th style="text-align:left"><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-eq</td>
+<td style="text-align:center">=</td>
+<td style="text-align:left">检测两个数是否相等，相等返回true</td>
+</tr>
+<tr>
+<td>-ne</td>
+<td style="text-align:center">!=</td>
+<td style="text-align:left">检测两个数是否相等，不相等返回true</td>
+</tr>
+<tr>
+<td>-ge</td>
+<td style="text-align:center">&gt;=</td>
+<td style="text-align:left">检测左边的数是否大等于右边的，如果是，则返回true</td>
+</tr>
+<tr>
+<td>-gt</td>
+<td style="text-align:center">&gt;</td>
+<td style="text-align:left">检测左边的数是否大于右边的，如果是，则返回true</td>
+</tr>
+<tr>
+<td>-le</td>
+<td style="text-align:center">&lt;=</td>
+<td style="text-align:left">检测左边的数是否小于等于右边的，如果是，则返回true</td>
+</tr>
+<tr>
+<td>-lt</td>
+<td style="text-align:center">&lt;</td>
+<td style="text-align:left">检测左边的数是否小于右边的，如果是，则返回true</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-2-3、布尔运算符"><a href="#2-2-3、布尔运算符" class="headerlink" title="2.2.3、布尔运算符"></a>2.2.3、布尔运算符</h3><table>
+<thead>
+<tr>
+<th><strong>运算符</strong></th>
+<th><strong>等同运算符</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>!</td>
+<td>!</td>
+<td>非运算，表达式为 true 则返回false，否则返回true</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>&amp;&amp;</td>
+<td>与运算，两个表达式都为true 才返回true</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>\</td>
+<td>\</td>
+<td></td>
+<td>或运算，有一个表达式为true 则返回true</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-2-4、字符串运算符"><a href="#2-2-4、字符串运算符" class="headerlink" title="2.2.4、字符串运算符"></a>2.2.4、字符串运算符</h3><table>
+<thead>
+<tr>
+<th><strong>运算符</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>检测两个字符串是否相等，相等返回true</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>检测两个字符串是否相等，不相等返回true</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>检测字符串长度是否为0，为0返回true</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>检测字符串长度是否为0，不为0返回true</td>
+</tr>
+<tr>
+<td>str</td>
+<td>检测字符串是否为空，不为空返回true</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-2-5、文件运算符"><a href="#2-2-5、文件运算符" class="headerlink" title="2.2.5、文件运算符"></a>2.2.5、文件运算符</h3><table>
+<thead>
+<tr>
+<th><strong>运算符</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-d</td>
+<td>检测文件是否是目录，如果是，则返回true</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回true</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>检测文件（包括目录）是否存在，如果是，则返回true</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>检测文件是否为空（文件大小是否大于0），不为空返回true</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>检测文件是否可读，如果是，则返回true</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>检测文件是否可写，如果是，则返回true</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>检测文件是否可执行，如果是，则返回true</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>检测文件是否是块设备文件，如果是，则返回true</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>检测文件是否是字符设备文件，如果是，则返回true</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-3、流程控制"><a href="#2-3、流程控制" class="headerlink" title="2.3、流程控制"></a>2.3、流程控制</h2><h3 id="2-3-1、if"><a href="#2-3-1、if" class="headerlink" title="2.3.1、if"></a>2.3.1、if</h3><h4 id="if-then-elif-then-else-fi"><a href="#if-then-elif-then-else-fi" class="headerlink" title="if.. then ..elif.. then.. else..fi"></a>if.. then ..elif.. then.. else..fi</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># if语法格式：</span></span><br><span class="line"><span class="keyword">if</span> condition</span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">    statements </span><br><span class="line">[<span class="keyword">elif</span> condition </span><br><span class="line">    <span class="keyword">then</span> statements. ..] </span><br><span class="line">[<span class="keyword">else</span> </span><br><span class="line">    statements ] </span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例程序：</span></span><br><span class="line"></span><br><span class="line">[root@hadoop02 bin]<span class="comment"># vi g.sh</span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">## read a value for NAME from stdin</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"please input your name:"</span> NAME</span><br><span class="line"><span class="comment">## printf '%s\n' $NAME</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$NAME</span> = root ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"hello <span class="variable">$&#123;NAME&#125;</span>,  welcome !"</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$NAME</span> = hadoop ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"hello <span class="variable">$&#123;NAME&#125;</span>,  welcome !"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"I don’t know you !"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 规则解释</span></span><br><span class="line">[ condition ]   (注：condition前后要有空格)</span><br><span class="line"><span class="comment">#非空返回true，可使用$?验证（0为true，&gt;1为false）</span></span><br><span class="line">[ hadoop ]</span><br><span class="line"><span class="comment">#空返回false</span></span><br><span class="line">[  ]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意[  ]内部的=周边的空格</span></span><br></pre></td></tr></table></figure>
+<h4 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ condition ] &amp;&amp; <span class="built_in">echo</span> OK || <span class="built_in">echo</span> notok</span><br><span class="line"><span class="comment"># 条件满足，执行&amp;&amp;后面的语句；条件不满足，执行||后面的语句</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-28-152309.png" alt=""></p>
+<h4 id="条件判断组合"><a href="#条件判断组合" class="headerlink" title="条件判断组合"></a>条件判断组合</h4><blockquote>
+<p> 条件判断组合有两种使用方式： <code>[]</code>  和 <code>[[]]</code></p>
+<p>注意它们的区别：</p>
+<p><strong>[[ ]]</strong> <strong>中逻辑组合可以使用 &amp;&amp;  ||</strong> <strong>符号</strong></p>
+<p><strong>[]</strong> <strong>里面逻辑组合可以用  -a   -o</strong> </p>
+</blockquote>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-28-152343.png" alt=""></p>
+<h4 id="常用判断运算符"><a href="#常用判断运算符" class="headerlink" title="常用判断运算符"></a><strong>常用判断运算符</strong></h4><p><strong>1. 字符串比较</strong></p>
+<blockquote>
+<p>= 判断相等<br>!= 判断不相等<br>-z 字符串长度是为0返回true<br>-n 字符串长度是不为0返回true</p>
+</blockquote>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-28-152610.png" alt=""></p>
+<p><strong>2. 整数比较</strong> </p>
+<blockquote>
+<p><strong>-lt</strong> <strong>小于  less than</strong> </p>
+<p><strong>-le</strong> <strong>小于等于</strong></p>
+<p><strong>-eq</strong> <strong>等于</strong></p>
+<p><strong>-gt</strong> <strong>大于 great than</strong></p>
+<p><strong>-ge</strong> <strong>大于等于</strong></p>
+<p><strong>-ne</strong> <strong>不等于</strong></p>
+</blockquote>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-28-152650.png" alt=""></p>
+<p><strong>3.  文件判断</strong></p>
+<blockquote>
+<p>-d 是否为目录</p>
+<p><code>if [ -d /bin ]; then echo ok; else echo notok;fi</code></p>
+<p>-f 是否为文件</p>
+<p><code>if [ -f /bin/ls ]; then echo ok; else echo notok;fi</code></p>
+<p>-e 是否存在</p>
+<p><code>if [ -e /bin/ls ]; then echo ok; else echo notok;fi</code></p>
+</blockquote>
+<h3 id="2-3-2、while"><a href="#2-3-2、while" class="headerlink" title="2.3.2、while"></a>2.3.2、while</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> expression</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">   <span class="built_in">command</span></span><br><span class="line">   ……</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">----------------------</span><br><span class="line"></span><br><span class="line">i=1</span><br><span class="line"><span class="keyword">while</span> ((i&lt;=3))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line">  <span class="built_in">let</span> i++</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">----------------------</span><br><span class="line"></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">i=1</span><br><span class="line"><span class="keyword">while</span> [ <span class="variable">$i</span> -le 3 ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line">  <span class="built_in">let</span> i++</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 命令执行完毕，控制返回循环顶部，从头开始直至测试条件为假</span></span><br><span class="line"><span class="comment"># 换种方式：循环体会一直执行，直到条件表达式expression为false</span></span><br><span class="line"><span class="comment"># 注意：上述let i++ 可以写成 i=$(($i+1))或者i=$((i+1))</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-3、case"><a href="#2-3-3、case" class="headerlink" title="2.3.3、case"></a>2.3.3、case</h3><p>Case语法（通过下面这个例子展示）： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line">start)</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"starting"</span></span><br><span class="line">	;;</span><br><span class="line">stop)</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"stoping"</span></span><br><span class="line">	;;</span><br><span class="line">*)</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"Usage: &#123;start|stop&#125;"</span></span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-4、for"><a href="#2-3-4、for" class="headerlink" title="2.3.4、for"></a>2.3.4、for</h3><p><strong>语法格式：</strong> </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 变量 <span class="keyword">in</span> 列表</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line"><span class="built_in">command</span></span><br><span class="line">……</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表是一组值（数字、字符串等）组成的序列，每个值通过空格分隔。每循环一次，就将列表中的下一个值赋给变量</span></span><br></pre></td></tr></table></figure>
+<p><strong>三种方式</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方式1</span></span><br><span class="line"><span class="keyword">for</span> N <span class="keyword">in</span> 1 2 3; <span class="keyword">do</span> <span class="built_in">echo</span> <span class="variable">$N</span>; <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式2</span></span><br><span class="line"><span class="keyword">for</span> N <span class="keyword">in</span> &#123;1..3&#125;; <span class="keyword">do</span> <span class="built_in">echo</span> <span class="variable">$N</span>; <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式3</span></span><br><span class="line"><span class="keyword">for</span> ((i=0; i&lt;=2; i++)); <span class="keyword">do</span> <span class="built_in">echo</span> <span class="string">"welcome <span class="variable">$i</span> times"</span>; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-5、util"><a href="#2-3-5、util" class="headerlink" title="2.3.5、util"></a>2.3.5、util</h3>
       
     </div>
     
@@ -785,7 +1019,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、Linux-shell简介"><span class="nav-number">1.</span> <span class="nav-text">1、Linux shell简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1、Shell概述"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、Shell概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2、Shell基本格式"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、Shell基本格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3、Shell执行方式"><span class="nav-number">1.3.</span> <span class="nav-text">1.3、Shell执行方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4、Shell注释"><span class="nav-number">1.4.</span> <span class="nav-text">1.4、Shell注释</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、Shell基本语法"><span class="nav-number">2.</span> <span class="nav-text">2、Shell基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1、变量"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1、系统变量"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1、系统变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2、自定义变量"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2、自定义变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3、变量高级用法"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3、变量高级用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4、反引号赋值"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4、反引号赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-5、变量有用技巧"><span class="nav-number">2.1.5.</span> <span class="nav-text">2.1.5、变量有用技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-6特殊变量"><span class="nav-number">2.1.6.</span> <span class="nav-text">2.1.6特殊变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-7-变量的其他注意点"><span class="nav-number">2.1.7.</span> <span class="nav-text">2.1.7 变量的其他注意点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2、运算符"><span class="nav-number">2.2.</span> <span class="nav-text">2.2、运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1、算数运算符"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1、算数运算符</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、Linux-shell简介"><span class="nav-number">1.</span> <span class="nav-text">1、Linux shell简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1、Shell概述"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、Shell概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2、Shell基本格式"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、Shell基本格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3、Shell执行方式"><span class="nav-number">1.3.</span> <span class="nav-text">1.3、Shell执行方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4、Shell注释"><span class="nav-number">1.4.</span> <span class="nav-text">1.4、Shell注释</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、Shell基本语法"><span class="nav-number">2.</span> <span class="nav-text">2、Shell基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1、变量"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1、系统变量"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1、系统变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2、自定义变量"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2、自定义变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3、变量高级用法"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3、变量高级用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4、反引号赋值"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4、反引号赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-5、变量有用技巧"><span class="nav-number">2.1.5.</span> <span class="nav-text">2.1.5、变量有用技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-6特殊变量"><span class="nav-number">2.1.6.</span> <span class="nav-text">2.1.6特殊变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-7-变量的其他注意点"><span class="nav-number">2.1.7.</span> <span class="nav-text">2.1.7 变量的其他注意点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-18-字符串"><span class="nav-number">2.1.8.</span> <span class="nav-text">2.18 字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取字符串长度"><span class="nav-number">2.1.8.1.</span> <span class="nav-text">获取字符串长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提取子字符串"><span class="nav-number">2.1.8.2.</span> <span class="nav-text">提取子字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找子字符串"><span class="nav-number">2.1.8.3.</span> <span class="nav-text">查找子字符串</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-19-Shell-数组"><span class="nav-number">2.1.9.</span> <span class="nav-text">2.19  Shell 数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义数组"><span class="nav-number">2.1.9.1.</span> <span class="nav-text">定义数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取数组的长度"><span class="nav-number">2.1.9.2.</span> <span class="nav-text">获取数组的长度</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2、运算符"><span class="nav-number">2.2.</span> <span class="nav-text">2.2、运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1、算数运算符"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1、算数运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-用expr"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">1.  用expr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-用"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">2.  用(())</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-用"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">3.  用\$[]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-用let"><span class="nav-number">2.2.1.4.</span> <span class="nav-text">4.  用let</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-用-bc"><span class="nav-number">2.2.1.5.</span> <span class="nav-text">5.  用  | bc</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2、关系运算符"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2、关系运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3、布尔运算符"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3、布尔运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4、字符串运算符"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.2.4、字符串运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-5、文件运算符"><span class="nav-number">2.2.5.</span> <span class="nav-text">2.2.5、文件运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3、流程控制"><span class="nav-number">2.3.</span> <span class="nav-text">2.3、流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1、if"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1、if</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#if-then-elif-then-else-fi"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">if.. then ..elif.. then.. else..fi</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三元运算符"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">三元运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件判断组合"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">条件判断组合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用判断运算符"><span class="nav-number">2.3.1.4.</span> <span class="nav-text">常用判断运算符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2、while"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2、while</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3、case"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3、case</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4、for"><span class="nav-number">2.3.4.</span> <span class="nav-text">2.3.4、for</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-5、util"><span class="nav-number">2.3.5.</span> <span class="nav-text">2.3.5、util</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

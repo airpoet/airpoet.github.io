@@ -95,7 +95,9 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-141519.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-142820.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-150724.png">
-<meta property="og:updated_time" content="2018-05-29T10:31:07.924Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-144555.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-145439.jpg">
+<meta property="og:updated_time" content="2018-05-29T15:06:51.670Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux学习笔记-2">
 <meta name="twitter:description" content="1. VI文本编辑器学会使用vi编辑器是学习Linux系统的必备技术之一，因为一般的Linux服务器是没有GUI界面的，Linux运维及开发人员基本上都是通过命令行的方式进行文本编辑或程序编写的。vi编辑器是Linux内置的文本编辑器，几乎所有的类unix系统中都内置了vi编辑器，而其它编辑器则不一定，另外很多软件会调用vi编辑进行内容编写，例如crontab定时任务。较之于其它编辑器或GUI编辑">
@@ -829,7 +831,7 @@
 <p>与Linux用户组信息相关的文件有两个：分别是/etc/group和 /etc/gshadow </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看文件/etc/group文件内容，选取一个普通组行：</span></span><br><span class="line">hadoop:x:500:</span><br><span class="line">hadoop:组名</span><br><span class="line">x:组密码占位符</span><br><span class="line">500:组id</span><br></pre></td></tr></table></figure>
 <h3 id="2-用户操作"><a href="#2-用户操作" class="headerlink" title="2. 用户操作"></a>2. 用户操作</h3><p>Linux中的用户管理主要涉及到用户账号的添加、删除和修改。所有操作都影响/etc/passwd中的文件内容</p>
-<h5 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-c&lt;备注&gt;：修改用户帐号的备注文字；</span><br><span class="line">-d&lt;登入目录&gt;：修改用户登入时的目录；</span><br><span class="line">-e&lt;有效期限&gt;：修改帐号的有效期限；</span><br><span class="line">-f&lt;缓冲天数&gt;：修改在密码过期后多少天即关闭该帐号；</span><br><span class="line">-g&lt;群组&gt;：修改用户所属的群组；</span><br><span class="line">-G&lt;群组&gt;；修改用户所属的附加群组；</span><br><span class="line">-l&lt;帐号名称&gt;：修改用户帐号名称；</span><br><span class="line">-L：锁定用户密码，使密码无效；</span><br><span class="line">-s&lt;shell&gt;：修改用户登入后所使用的shell；</span><br><span class="line">-u&lt;uid&gt;：修改用户ID；</span><br><span class="line">-U:解除密码锁定。</span><br></pre></td></tr></table></figure>
+<h5 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-c&lt;备注&gt;：修改用户帐号的备注文字；</span><br><span class="line">-d&lt;登入目录&gt;：修改用户登入时的目录；</span><br><span class="line">-e&lt;有效期限&gt;：修改帐号的有效期限；</span><br><span class="line">-f&lt;缓冲天数&gt;：修改在密码过期后多少天即关闭该帐号；</span><br><span class="line">-g&lt;群组&gt;：修改用户所属的群组；</span><br><span class="line">-G&lt;群组&gt;；修改用户所属的附加群组；</span><br><span class="line">-l&lt;帐号名称&gt;：修改用户帐号名称；</span><br><span class="line"></span><br><span class="line">-L：锁定用户密码，使密码无效；</span><br><span class="line">-U:解除密码锁定。</span><br><span class="line"></span><br><span class="line">-s&lt;shell&gt;：修改用户登入后所使用的shell；</span><br><span class="line">-u&lt;uid&gt;：修改用户ID；</span><br></pre></td></tr></table></figure>
 <h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><blockquote>
 <p> 登录名：指定要修改信息的用户登录名。</p>
 </blockquote>
@@ -840,12 +842,36 @@
 <p>usermod -G bigdata spark                           ## 设置组, spark用户添加到bigdata组中</p>
 <p>usermod -c “mylove spark” spark              ## -c:  添加备注信息</p>
 <p><strong>一步完成</strong>：<strong>useradd -G bigdata -c “mylove” spark</strong>  # spark用户添加到bigdata组中, 并设置备注为 mylover</p>
+<p><code>useradd -u 508 -g 514 -G 1001 user3</code> 添加用户user3时, 指定用户uid 和 主组-g, 附属组-G, 组必须要先存在</p>
+<p>useradd -u(添加的时候修改用户id) 508 -g 514(<code>-g是添加组</code>, 此组号码必须存在)</p>
+<blockquote>
+<p> <em>指定user4 的家目录</em></p>
+<p><code>useradd -u 520 -g 1000 -d /home/user44 user4</code></p>
+</blockquote>
+<blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt; &gt; 不创建user4的家目录, user5刚创建的时候, 家就被毁了</span><br><span class="line">&gt; &gt; `useradd -u 508 -g 1000 -M user6</span><br><span class="line">&gt; &gt; </span><br><span class="line">&gt; &gt; 当user6没有家的时候, 这样显示</span><br><span class="line">&gt; &gt; `bash-4.1$ ....</span><br><span class="line">&gt; &gt; 此时应该这样操作</span><br><span class="line">&gt; &gt; cp -v /etc/skel/.b* /home/user6</span><br><span class="line">&gt; &gt; <span class="string">"/etc/skel/.bash_logout"</span> -&gt; <span class="string">"/home/user6/.bash_logout"</span></span><br><span class="line">&gt; &gt; <span class="string">"/etc/skel/.bash_profile"</span> -&gt; <span class="string">"/home/user6/.bash_profile"</span></span><br><span class="line">&gt; &gt; <span class="string">"/etc/skel/.bashrc"</span> -&gt; <span class="string">"/home/user6/.bashrc"</span></span><br><span class="line">&gt; &gt; su user6</span><br><span class="line">&gt; &gt; [user6@cts1 shixuanji]$ </span><br><span class="line">&gt; &gt; </span><br><span class="line">&gt; &gt; --------</span><br><span class="line">&gt; &gt; 查看进程  ps -au | grep xxx</span><br><span class="line">&gt; &gt; 杀死进程  <span class="built_in">kill</span> -9 xxx</span><br><span class="line">&gt; &gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; &gt; <span class="comment"># 不允许用户登录</span></span><br><span class="line">&gt; &gt; useradd -u 523 -g 1000 -s /sbin/nologin user7</span><br><span class="line">&gt; &gt; </span><br><span class="line">&gt; &gt; <span class="comment"># 修改此用户登录权限为 /bin/bash</span></span><br><span class="line">&gt; &gt; usermod -s /bin/bash user7</span><br><span class="line">&gt; &gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
 </blockquote>
 </li>
 <li><p><strong>设置密码</strong> </p>
 <blockquote>
 <p><strong>passwd spark</strong></p>
 <p>根据提示设置密码即可</p>
+<p>创建密码工具 mkpasswd</p>
+<p><code>mkpasswd -l 14</code> 创建一个14位数的密码</p>
+<p><code>mkpasswd -l 15 -s 0</code>:  -s是设置特殊符号的长度, 这里是不要特殊符号</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">### 修改密码</span></span><br><span class="line">&gt; <span class="comment"># 此时只需要输入一遍密码</span></span><br><span class="line">&gt; passwd --stdin user4 </span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment"># 通过管道可以直接更改</span></span><br><span class="line">&gt; <span class="built_in">echo</span> <span class="string">"123"</span> | passwd --stdin user4</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment"># 通过手动输入回车符 `\n` 来实现2遍确认  -e：激活转义字符。</span></span><br><span class="line">&gt; <span class="built_in">echo</span> -e <span class="string">"123\n123\n"</span> | passwd user4</span><br><span class="line">&gt; </span><br><span class="line">&gt; =======<span class="comment">#额外知识点</span></span><br><span class="line">&gt; <span class="comment"># 使用echo -e选项时，若字符串中出现以下字符，则特别加以处理，而不会将它当成一般文字输出：</span></span><br><span class="line">&gt;     \a 发出警告声；</span><br><span class="line">&gt;     \b 删除前一个字符；</span><br><span class="line">&gt;     \c 最后不加上换行符号；</span><br><span class="line">&gt;     \f 换行但光标仍旧停留在原来的位置；</span><br><span class="line">&gt;     \n 换行且光标移至行首；</span><br><span class="line">&gt;     \r 光标移至行首，但不换行；</span><br><span class="line">&gt;     \t 插入tab；</span><br><span class="line">&gt;     \v 与\f相同；</span><br><span class="line">&gt;     \ 插入\字符；</span><br><span class="line">&gt;     \nnn 插入nnn（八进制）所代表的ASCII字符；</span><br><span class="line">&gt; </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
 </blockquote>
 </li>
 <li><p><strong>修改用户</strong> </p>
@@ -853,13 +879,22 @@
 <p>修改spark登录名为storm：<strong>usermod -l spark storm</strong></p>
 <p>将spark添加到bigdata和root组：<strong>usermod -G root,bigdata spark</strong></p>
 <p>查看spark的组信息：<strong>groups spark</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># usermod : usermodify</span></span><br><span class="line">&gt; <span class="comment"># 使用的参数跟useradd 几乎一样</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; chfn user4 : 修改用户的finger, 电话, 办公室等...</span><br><span class="line">&gt; <span class="comment"># 修改后, 其实这里就是修改的备注选项</span></span><br><span class="line">&gt; $ ☞ grep shixuanji /etc/passwd</span><br><span class="line">&gt; shixuanji:x:500:500:airpoet,sh,110,110:/home/shixuanji:/bin/bash</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment"># 修改备注, 这里又把之前改chfn又改了</span></span><br><span class="line">&gt; $ ☞ usermod -c <span class="string">"哎呀我去"</span> shixuanji</span><br><span class="line">&gt; $ ☞ grep shixuanji /etc/passwd  </span><br><span class="line">&gt; shixuanji:x:500:500:哎呀我去:/home/shixuanji:/bin/bash</span><br><span class="line">&gt; </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 </li>
 <li><p><strong>删除用户</strong></p>
 <blockquote>
 <p><strong>userdel -r spark</strong></p>
-<p>加一个-r就表示把用户及用户的主目录都删除</p>
+<p>加一个-r就表示把用户及用户的家目录, 信箱地址等都删除</p>
 </blockquote>
+</li>
+<li><p>查看用户的信息</p>
+<blockquote>
+<p><strong>id</strong> 用户名</p>
+</blockquote>
+</li>
+<li><p><strong>root用户以其他用户的权限执行某条命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[~] su -c <span class="string">"touch /tmp/shixuanji.txt"</span> - shixuanji                                                                                   22:32:02</span><br><span class="line">[~] ls -l /tmp/shixuanji.txt                                                                                                         22:32:25</span><br><span class="line">-rw-rw-r--. 1 shixuanji shixuanji 0 5月  29 22:32 /tmp/shixuanji.txt</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h3 id="3-组操作"><a href="#3-组操作" class="headerlink" title="3. 组操作"></a>3. 组操作</h3><p>前面我们知道，组是权限的集合。在linux系统中，每个用户都有一个用户组，没有指定时都默认为私有组，私有组名同用户名一致，建立用户组的好处是系统能对一个用户组中的所有用户的操作权限进行集中管理。组管理涉及组的添加、删除和修改。组的增加、删除和修改实际上就对/etc/group文件的更新 </p>
@@ -902,12 +937,28 @@
 <h3 id="4-为用户配置sudoer权限"><a href="#4-为用户配置sudoer权限" class="headerlink" title="4. 为用户配置sudoer权限"></a>4. 为用户配置sudoer权限</h3><p>普通情况下，使用普通用户进行一些简单的操作就OK，但是普通用户和root用户的区别就在于root用户能对系统做任何事，但是普通用户就不行。处处受限。那么假如在某些情况下，普通用户想拥有更大的权限做更多的事情，虽然有权限限制，但也不是不可以。部分操作还是可以赋予更高的权限让普通用户做一次。这就需要给普通用户配置root权限了。意思就是让普通用户使用root权限去做一些操作，这当然是需要配置的。 </p>
 <blockquote>
 <p>用root编辑 <strong>vi /etc/sudoers</strong></p>
+<p>直接用命令 <code>visudo</code>也可以直接编辑此文件</p>
 <p>在文件的如下位置，为hadoop添加一行即可</p>
 <p>root ALL=(ALL) ALL</p>
 <p>hadoop ALL=(ALL) ALL</p>
 <p>spark ALL=(ALL) ALL</p>
 <p>然后，hadoop用户和spark用户就可以用sudo来执行系统级别的指令</p>
 <p>[hadoop\@hadoop01 ~]\$ <strong>sudo useradd huangxiaoming</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; ~ ➤ su shixuanji   <span class="comment"># 修改了配置文件之后, 用sudo可以访问root</span></span><br><span class="line">&gt; [shixuanji@cts1 root]$ sudo /bin/ls /root</span><br><span class="line">&gt; [sudo] password <span class="keyword">for</span> shixuanji:</span><br><span class="line">&gt; anaconda-ks.cfg  date.txt  Documents  git-2018-05-22  install.log.syslog  Music     Public     Videos</span><br><span class="line">&gt; autojump	 Desktop   Downloads  install.log     k-vim		  Pictures  Templates  wget-log</span><br><span class="line">&gt; [shixuanji@cts1 root]$ ls /root</span><br><span class="line">&gt; ls: 无法打开目录/root: 权限不够</span><br><span class="line">&gt; [shixuanji@cts1 root]$</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>让一个普通用户可以无密码登录到root用户, 还是修改配置文件 <code></code>/etc/sudoers`</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-144555.jpg" alt=""></p>
+<p><strong>禁止远程登录</strong></p>
+<p>修改 <code>vi /etc/ssh/sshd_config</code> 此文件中的 <code>#PermitRootLogin yes</code> 为 no</p>
+<p>这样就不能远程 ssh 登录了</p>
+<p>查看系统日志</p>
+<ul>
+<li>查看登录错误之类的日志  <code>tail /var log/secure</code></li>
+</ul>
+<p>有时候, 登录时, 要过几秒才让输入登录密码</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-145439.jpg" alt=""></p>
+<p>修改 <code>/etc/ssh/sshd_config</code>中的<code>UseDNS=no</code>, 就不会去找DNS了</p>
 </blockquote>
 <h3 id="5-切换用户"><a href="#5-切换用户" class="headerlink" title="5. 切换用户"></a>5. 切换用户</h3><p>在linux的系统使用过程当中，免不了会有多个用户来回切换使用。</p>
 <p>所以在此提供切换用户的使用操作：切换用户使用的命令是 </p>

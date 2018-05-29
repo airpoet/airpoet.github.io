@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-150724.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-144555.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-145439.jpg">
-<meta property="og:updated_time" content="2018-05-29T15:08:48.410Z">
+<meta property="og:updated_time" content="2018-05-29T15:14:05.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux学习笔记-2">
 <meta name="twitter:description" content="1. VI文本编辑器学会使用vi编辑器是学习Linux系统的必备技术之一，因为一般的Linux服务器是没有GUI界面的，Linux运维及开发人员基本上都是通过命令行的方式进行文本编辑或程序编写的。vi编辑器是Linux内置的文本编辑器，几乎所有的类unix系统中都内置了vi编辑器，而其它编辑器则不一定，另外很多软件会调用vi编辑进行内容编写，例如crontab定时任务。较之于其它编辑器或GUI编辑">
@@ -1015,9 +1015,9 @@
 <p>权限模式：指定文件的权限模式；<br>文件：要改变权限的文件。</p>
 </li>
 </ol>
-<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p><strong>修改文件权限</strong> </p>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p><strong>变更 文件/目录 的权限</strong> </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接修改</span></span><br><span class="line">chmod g-rw haha.dat		<span class="comment">## 表示将haha.dat对所属组的rw权限取消</span></span><br><span class="line">chmod o-rw haha.dat		<span class="comment">## 表示将haha.dat对其他人的rw权限取消</span></span><br><span class="line">chmod u+x haha.dat		<span class="comment">## 表示将haha.dat对所属用户的权限增加x</span></span><br><span class="line">chmod a-x haha.dat        <span class="comment">## 表示将haha.dat对所用户取消x权限</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以用数字的方式来修改权限(常用)</span></span><br><span class="line">chmod  664  haha.dat</span><br><span class="line">就会修改成   rw-rw-r--</span><br><span class="line">如果要将一个文件夹的所有内容权限统一修改，则可以-R参数</span><br><span class="line">chmod  -R  770  aaa/</span><br></pre></td></tr></table></figure>
-<p><strong>修改文件所有权</strong> </p>
+<p><strong>变更 文件/目录 的拥有者 或 所属组</strong> </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &lt;只有root权限能执行&gt;</span></span><br><span class="line">chown angela  aaa		<span class="comment">## 改变所属用户</span></span><br><span class="line">chown :angela  aaa		<span class="comment">## 改变所属组</span></span><br><span class="line">chown angela:angela aaa/	<span class="comment">## 同时修改所属用户和所属组</span></span><br></pre></td></tr></table></figure>
 <h1 id="6-压缩打包"><a href="#6-压缩打包" class="headerlink" title="6. 压缩打包"></a>6. 压缩打包</h1><h3 id="gzip"><a href="#gzip" class="headerlink" title="gzip"></a>gzip</h3><p>gzip是在Linux系统中经常使用的一个对文件进行压缩和解压缩的命令，既方便又好用。</p>
 <p>gzip是个使用广泛的压缩程序，文件经它压缩过后，其名称后面会多处“.gz”扩展名。</p>

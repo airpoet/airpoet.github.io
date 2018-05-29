@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-150724.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-144555.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-145439.jpg">
-<meta property="og:updated_time" content="2018-05-29T15:06:51.670Z">
+<meta property="og:updated_time" content="2018-05-29T15:08:48.410Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux学习笔记-2">
 <meta name="twitter:description" content="1. VI文本编辑器学会使用vi编辑器是学习Linux系统的必备技术之一，因为一般的Linux服务器是没有GUI界面的，Linux运维及开发人员基本上都是通过命令行的方式进行文本编辑或程序编写的。vi编辑器是Linux内置的文本编辑器，几乎所有的类unix系统中都内置了vi编辑器，而其它编辑器则不一定，另外很多软件会调用vi编辑进行内容编写，例如crontab定时任务。较之于其它编辑器或GUI编辑">
@@ -947,16 +947,16 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; ~ ➤ su shixuanji   <span class="comment"># 修改了配置文件之后, 用sudo可以访问root</span></span><br><span class="line">&gt; [shixuanji@cts1 root]$ sudo /bin/ls /root</span><br><span class="line">&gt; [sudo] password <span class="keyword">for</span> shixuanji:</span><br><span class="line">&gt; anaconda-ks.cfg  date.txt  Documents  git-2018-05-22  install.log.syslog  Music     Public     Videos</span><br><span class="line">&gt; autojump	 Desktop   Downloads  install.log     k-vim		  Pictures  Templates  wget-log</span><br><span class="line">&gt; [shixuanji@cts1 root]$ ls /root</span><br><span class="line">&gt; ls: 无法打开目录/root: 权限不够</span><br><span class="line">&gt; [shixuanji@cts1 root]$</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
-<p>让一个普通用户可以无密码登录到root用户, 还是修改配置文件 <code></code>/etc/sudoers`</p>
+<p><strong>让一个普通用户可以无密码登录到root用户</strong>, 还是修改配置文件 <code></code>/etc/sudoers`</p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-144555.jpg" alt=""></p>
 <p><strong>禁止远程登录</strong></p>
 <p>修改 <code>vi /etc/ssh/sshd_config</code> 此文件中的 <code>#PermitRootLogin yes</code> 为 no</p>
 <p>这样就不能远程 ssh 登录了</p>
-<p>查看系统日志</p>
+<p><strong>查看系统日志</strong></p>
 <ul>
 <li>查看登录错误之类的日志  <code>tail /var log/secure</code></li>
 </ul>
-<p>有时候, 登录时, 要过几秒才让输入登录密码</p>
+<p><strong>有时候, 登录时, 要过几秒才让输入登录密码</strong></p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-145439.jpg" alt=""></p>
 <p>修改 <code>/etc/ssh/sshd_config</code>中的<code>UseDNS=no</code>, 就不会去找DNS了</p>
 </blockquote>

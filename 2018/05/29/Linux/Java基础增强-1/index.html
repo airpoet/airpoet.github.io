@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="文艺, it, 大数据, 诗歌" />
+  <meta name="keywords" content="原创,技术,Java," />
 
 
 
@@ -84,9 +84,9 @@
 
 
 <meta name="description" content="1、集合框架1.1  、集合框架体系图 Java  的集合框架主要分为五大类体系：1、Collection（常用的 List 和 Set，和不常用的 Queue 和 Vector 和 Stack），单元素集合2、Map（常用的 HashMap 和 TreeMap，不常用的 HashTable），Key-Value 映射3、Iterator（迭代器）4、工具类（Collections 和 Array">
-<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
+<meta name="keywords" content="原创,技术,Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A.P的文艺杂谈">
+<meta property="og:title" content="Java基础增强-1 集合反射设计模式排序 inputing...">
 <meta property="og:url" content="https://airpoet.github.io/2018/05/29/Linux/Java基础增强-1/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="1、集合框架1.1  、集合框架体系图 Java  的集合框架主要分为五大类体系：1、Collection（常用的 List 和 Set，和不常用的 Queue 和 Vector 和 Stack），单元素集合2、Map（常用的 HashMap 和 TreeMap，不常用的 HashTable），Key-Value 映射3、Iterator（迭代器）4、工具类（Collections 和 Array">
@@ -97,9 +97,9 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-032801.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-033547.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-035232.jpg">
-<meta property="og:updated_time" content="2018-05-29T04:03:42.178Z">
+<meta property="og:updated_time" content="2018-05-29T06:20:10.392Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A.P的文艺杂谈">
+<meta name="twitter:title" content="Java基础增强-1 集合反射设计模式排序 inputing...">
 <meta name="twitter:description" content="1、集合框架1.1  、集合框架体系图 Java  的集合框架主要分为五大类体系：1、Collection（常用的 List 和 Set，和不常用的 Queue 和 Vector 和 Stack），单元素集合2、Map（常用的 HashMap 和 TreeMap，不常用的 HashTable），Key-Value 映射3、Iterator（迭代器）4、工具类（Collections 和 Array">
 <meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-030737.jpg">
 
@@ -137,7 +137,7 @@
 
 
 
-  <title> | A.P的文艺杂谈</title>
+  <title>Java基础增强-1 集合反射设计模式排序 inputing... | A.P的文艺杂谈</title>
   
 
 
@@ -315,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Java基础增强-1 集合反射设计模式排序 inputing...</h1>
         
 
         <div class="post-meta">
@@ -337,6 +337,39 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -422,7 +455,12 @@
 <p>JDK8 : 桶表 + 链表 + 二叉树 </p>
 <pre><code>- **二叉树**: 检索深度 &gt; 8 的时候, 转化为二叉树, 减少查询深度
 </code></pre><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-035232.jpg" alt=""></p>
-<h4 id="HashSet-—-HashMap-的源码实现"><a href="#HashSet-—-HashMap-的源码实现" class="headerlink" title="HashSet — HashMap 的源码实现"></a>HashSet — HashMap 的源码实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The default initial capacity - MUST be a power of two.</span></span><br><span class="line"><span class="comment"> * 桶表默认容量 16</span></span><br><span class="line"><span class="comment"> * 控制hashcode 不超16范围, a.hashcode = xx % 16 (hashcode 取模 桶个数)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// aka 16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The maximum capacity, used if a higher value is implicitly specified</span></span><br><span class="line"><span class="comment"> * by either of the constructors with arguments.</span></span><br><span class="line"><span class="comment"> * MUST be a power of two &lt;= 1&lt;&lt;30.</span></span><br><span class="line"><span class="comment"> * 桶表最大 2^30</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The load factor used when none specified in constructor.</span></span><br><span class="line"><span class="comment"> * 扩容因子: 0.75</span></span><br><span class="line"><span class="comment"> * 扩容: 每次2倍</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The bin count threshold for using a tree rather than list for a</span></span><br><span class="line"><span class="comment"> * bin.  Bins are converted to trees when adding an element to a</span></span><br><span class="line"><span class="comment"> * bin with at least this many nodes. The value must be greater</span></span><br><span class="line"><span class="comment"> * than 2 and should be at least 8 to mesh with assumptions in</span></span><br><span class="line"><span class="comment"> * tree removal about conversion back to plain bins upon</span></span><br><span class="line"><span class="comment"> * shrinkage.</span></span><br><span class="line"><span class="comment"> * 链表: hash算法值相同的时候, 会把值相同的放在一个链表上, 链表上的元素个数</span></span><br><span class="line"><span class="comment"> * 超过8个时, 转化为二叉树, 提升查询效率</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TREEIFY_THRESHOLD = <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The bin count threshold for untreeifying a (split) bin during a</span></span><br><span class="line"><span class="comment"> * resize operation. Should be less than TREEIFY_THRESHOLD, and at</span></span><br><span class="line"><span class="comment"> * most 6 to mesh with shrinkage detection under removal.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNTREEIFY_THRESHOLD = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The smallest table capacity for which bins may be treeified.</span></span><br><span class="line"><span class="comment"> * (Otherwise the table is resized if too many nodes in a bin.)</span></span><br><span class="line"><span class="comment"> * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts</span></span><br><span class="line"><span class="comment"> * between resizing and treeification thresholds.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MIN_TREEIFY_CAPACITY = <span class="number">64</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="HashSet-—-HashMap-的源码实现"><a href="#HashSet-—-HashMap-的源码实现" class="headerlink" title="HashSet — HashMap 的源码实现"></a>HashSet — HashMap 的源码实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The default initial capacity - MUST be a power of two.</span></span><br><span class="line"><span class="comment"> * 桶表默认容量 16</span></span><br><span class="line"><span class="comment"> * 控制hashcode 不超16范围, a.hashcode = xx % 16 (hashcode 取模 桶个数)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// aka 16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * MUST be a power of two &lt;= 1&lt;&lt;30.</span></span><br><span class="line"><span class="comment"> * 桶表最大 2^30</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 扩容因子: 0.75</span></span><br><span class="line"><span class="comment"> * 扩容: 每次2倍</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 链表: hash算法值相同的时候, 会把值相同的放在一个链表上, 链表上的元素个数</span></span><br><span class="line"><span class="comment"> * 超过8个时, 转化为二叉树, 提升查询效率</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TREEIFY_THRESHOLD = <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The bin count threshold for untreeifying a (split) bin during a</span></span><br><span class="line"><span class="comment"> * resize operation. Should be less than TREEIFY_THRESHOLD, and at</span></span><br><span class="line"><span class="comment"> * most 6 to mesh with shrinkage detection under removal.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNTREEIFY_THRESHOLD = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The smallest table capacity for which bins may be treeified.</span></span><br><span class="line"><span class="comment"> * (Otherwise the table is resized if too many nodes in a bin.)</span></span><br><span class="line"><span class="comment"> * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts</span></span><br><span class="line"><span class="comment"> * between resizing and treeification thresholds.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MIN_TREEIFY_CAPACITY = <span class="number">64</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="TreeSet的默认排序"><a href="#TreeSet的默认排序" class="headerlink" title="TreeSet的默认排序"></a>TreeSet的默认排序</h4><ul>
+<li>TreeSet是有序的不可重复的, 有序是指元素值的大小</li>
+<li>数值类型: 按照大小进行升序排序</li>
+<li>字符串类型: 按照字典顺序进行升序排序</li>
+</ul>
 
       
     </div>
@@ -461,6 +499,16 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
       
 
       
@@ -581,7 +629,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -592,7 +640,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -656,7 +704,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、集合框架"><span class="nav-number">1.</span> <span class="nav-text">1、集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-、集合框架体系图"><span class="nav-number">1.1.</span> <span class="nav-text">1.1  、集合框架体系图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-的集合框架主要分为五大类体系："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Java  的集合框架主要分为五大类体系：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-中的集合和数组的区别"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Java  中的集合和数组的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Collection-接口中的方法："><span class="nav-number">1.1.0.3.</span> <span class="nav-text">Collection 接口中的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-接口中的方法："><span class="nav-number">1.1.0.4.</span> <span class="nav-text">Map 接口中的方法：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2、常用集合特性概述"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、常用集合特性概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1、List-系"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1、List 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组-初始容量-扩容-jdk10"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">数组 初始容量+扩容 (jdk10)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedList-add-E-e"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">LinkedList  add(E e)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2、Set-系"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2、Set 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-内部判断相等的标准"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">HashSet 内部判断相等的标准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-—-HashMap-的源码实现"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">HashSet — HashMap 的源码实现</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、集合框架"><span class="nav-number">1.</span> <span class="nav-text">1、集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-、集合框架体系图"><span class="nav-number">1.1.</span> <span class="nav-text">1.1  、集合框架体系图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-的集合框架主要分为五大类体系："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Java  的集合框架主要分为五大类体系：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-中的集合和数组的区别"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Java  中的集合和数组的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Collection-接口中的方法："><span class="nav-number">1.1.0.3.</span> <span class="nav-text">Collection 接口中的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-接口中的方法："><span class="nav-number">1.1.0.4.</span> <span class="nav-text">Map 接口中的方法：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2、常用集合特性概述"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、常用集合特性概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1、List-系"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1、List 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组-初始容量-扩容-jdk10"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">数组 初始容量+扩容 (jdk10)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedList-add-E-e"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">LinkedList  add(E e)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2、Set-系"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2、Set 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-内部判断相等的标准"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">HashSet 内部判断相等的标准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-—-HashMap-的源码实现"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">HashSet — HashMap 的源码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TreeSet的默认排序"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">TreeSet的默认排序</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -822,7 +870,7 @@
         var disqus_config = function () {
           this.page.url = 'https://airpoet.github.io/2018/05/29/Linux/Java基础增强-1/';
           this.page.identifier = '2018/05/29/Linux/Java基础增强-1/';
-          this.page.title = '';
+          this.page.title = 'Java基础增强-1 集合反射设计模式排序 inputing...';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

@@ -97,7 +97,8 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-032801.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-033547.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-035232.jpg">
-<meta property="og:updated_time" content="2018-05-29T07:26:21.828Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-085510.jpg">
+<meta property="og:updated_time" content="2018-05-29T09:22:17.657Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java基础增强-1 集合反射设计模式排序 inputing...">
 <meta name="twitter:description" content="1、集合框架1.1  、集合框架体系图 Java  的集合框架主要分为五大类体系：1、Collection（常用的 List 和 Set，和不常用的 Queue 和 Vector 和 Stack），单元素集合2、Map（常用的 HashMap 和 TreeMap，不常用的 HashTable），Key-Value 映射3、Iterator（迭代器）4、工具类（Collections 和 Array">
@@ -430,8 +431,8 @@
 <h4 id="LinkedList-add-E-e"><a href="#LinkedList-add-E-e" class="headerlink" title="LinkedList  add(E e)"></a>LinkedList  add(E e)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># add(E e) 源码</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        linkLast(e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">linkLast</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; l = last;</span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; newNode = <span class="keyword">new</span> Node&lt;&gt;(l, e, <span class="keyword">null</span>);</span><br><span class="line">    last = newNode;</span><br><span class="line">    <span class="keyword">if</span> (l == <span class="keyword">null</span>)</span><br><span class="line">        first = newNode;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        l.next = newNode;</span><br><span class="line">    size++;</span><br><span class="line">    modCount++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="1-2-2、Set-系"><a href="#1-2-2、Set-系" class="headerlink" title="1.2.2、Set 系"></a>1.2.2、Set 系</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-033547.jpg" alt=""></p>
-<p>Set 特点：<strong>元素放入无顺序，元素不可重复</strong></p>
-<p>Set 接口的实现类：HashSet，TreeSet，LinkedHashSet</p>
+<p><strong>Set</strong> 特点：<strong>元素放入无顺序，元素不可重复</strong></p>
+<p><strong>Set</strong> 接口的实现类：HashSet，TreeSet，LinkedHashSet</p>
 <p><strong>HashSet</strong>（底层由 HashMap 实现）底层通过 hashCode()和 equals()进行去重。</p>
 <h4 id="HashSet-内部判断相等的标准"><a href="#HashSet-内部判断相等的标准" class="headerlink" title="HashSet 内部判断相等的标准"></a>HashSet 内部判断相等的标准</h4><p><em>HashSet 判断两个元素相等的标准</em>：</p>
 <p>​    两个对象通过 equals()方法比较相等，并且两个对象的 hashCode()方法返回值也相等</p>
@@ -480,7 +481,8 @@
 <li>key不可以重复</li>
 <li>不可以为null</li>
 </ol>
-<h4 id="2-concurrentHash-简单分析"><a href="#2-concurrentHash-简单分析" class="headerlink" title="2. concurrentHash 简单分析"></a>2. concurrentHash 简单分析</h4><ul>
+<h4 id="2-concurrentHash-简单分析"><a href="#2-concurrentHash-简单分析" class="headerlink" title="2. concurrentHash 简单分析"></a>2. concurrentHash 简单分析</h4><p>是从 JDK1.5 之后提供的一个 HashTable 的替代实现，采 一个 map 中的元素分成很多的 segment，通过 lock 机制可以对每个 segment 加读写锁，从 而提高 map 的效率，底层实现采用数组+链表+红黑树的存储结构</p>
+<ul>
 <li>Java并发包中的,  既是线程安全的, 又不至于效率过低</li>
 <li>怎么实现: <strong>分段锁机制</strong><ul>
 <li>分段锁: 只加载在某一段数据上</li>
@@ -492,16 +494,41 @@
 </ul>
 </li>
 </ul>
+<h4 id="3-put-amp-get-的流程"><a href="#3-put-amp-get-的流程" class="headerlink" title="3. put &amp; get 的流程"></a>3. put &amp; get 的流程</h4><p><strong>put 的大致流程如下：</strong></p>
+<ol>
+<li>通过 hashcode 方法计算出 key 的 hash 值</li>
+<li>通过 hash%length 计算出存储在 table 中的 index（源码中是使用 hash&amp;(length-1)，这样结 果相同，但是更快）</li>
+<li>如果此时 table[index]的值为空，那么就直接存储，如果不为空那么就链接到这个数所在 的链表的头部。（在 JDK1.8 中，如果链表长度大于 8 就转化成红黑树）</li>
+</ol>
+<p><strong>get 的大致流程如下：</strong></p>
+<ol>
+<li><p>通过 hashcode 计算出 key 的 hash 值</p>
+</li>
+<li><p>通过 hash%length 计算出存储在 table 中的 index（源码中是使用 hash&amp;(length-1)，这样结 果相同，但是更快）</p>
+</li>
+<li>遍历 table[index]所在的链表，只有当 key 与该节点中的 key 的值相同时才取出。</li>
+</ol>
 <h2 id="1-3-掌握重点"><a href="#1-3-掌握重点" class="headerlink" title="1.3 掌握重点"></a>1.3 掌握重点</h2><p><strong>List</strong>:  ArrayList,   LinkList</p>
 <p><strong>Set</strong>:   HashSet,    TreeSet</p>
 <ul>
 <li>需要掌握的方法:  add ,   get,    contains</li>
 </ul>
-<p>Map:  HashMap</p>
+<p><strong>Map</strong>:  HashMap</p>
 <ul>
 <li>需要掌握的方法:    put    get    map的循环遍历    containsKey….</li>
 </ul>
-<h2 id="1-4-其他文档"><a href="#1-4-其他文档" class="headerlink" title="1.4 其他文档"></a>1.4 其他文档</h2><p>…</p>
+<h2 id="1-4-功能方法"><a href="#1-4-功能方法" class="headerlink" title="1.4 功能方法"></a>1.4 功能方法</h2><h4 id="1-4-1-List-的功能方法"><a href="#1-4-1-List-的功能方法" class="headerlink" title="1.4.1 List 的功能方法"></a>1.4.1 List 的功能方法</h4><p><strong>ArrayList</strong>: 由数组实现的 List。允许对元素进行快速随机访问，但是向 List 中间插入与移 除元素的速度很慢。ListIterator 只应该用来由后向前遍历 ArrayList，而不是用来插入和移除 元素。因为那比 LinkedList 开销要大很多。</p>
+<p><strong>LinkedList</strong> : 对顺序访问进行了优化，向 List 中间插入与删除的开销并不大。随机访问则 相对较慢。(使用 ArrayList 代替。)还具有下列方 法：addFirst(), addLast(), getFirst(), getLast(), removeFirst() 和 removeLast(), 这些方法 (没有在任何接口或基类中定义过)使得 LinkedList 可以当作堆栈、队列和双向队列使用。</p>
+<h4 id="1-4-2-Set的功能方法"><a href="#1-4-2-Set的功能方法" class="headerlink" title="1.4.2 Set的功能方法"></a>1.4.2 Set的功能方法</h4><p><strong>Set</strong> : 存入 Set 的每个元素都必须是唯一的，因为 Set 不保存重复元素。加入 Set 的元素 必须定义 equals()方法以确保对象的唯一性。Set 与 Collection 有完全一样的接口。Set 接口 不保证维护元素的次序。</p>
+<p><strong>HashSet</strong> : 为快速查找设计的 Set。存入 HashSet 的对象必须定义 hashCode()。</p>
+<p>TreeSet : 保存次序的 Set，底层为树结构。使用它可以从 Set 中提取有序的序列。</p>
+<p><strong>LinkedHashSet</strong> : 具有 HashSet 的查询速度，且内部使用链表维护元素的顺序(插入的次 序 。于是在使用迭代器遍历 Set 时，结果会按元素插入的次序显示。</p>
+<h4 id="1-4-3-Map-的功能方法"><a href="#1-4-3-Map-的功能方法" class="headerlink" title="1.4.3 Map 的功能方法"></a>1.4.3 Map 的功能方法</h4><p>Map : 维护“键值对”的关联性，使你可以通过“键”查找“值”</p>
+<p><strong>HashMap</strong> : Map 基于散列表的实现。插入和查询“键值对”的开销是固定的。可以通过 构造器设置容量 capacity 和负载因子 load factor，以调整容器的性能。</p>
+<p><strong>LinkedHashMap</strong> : 类似于 HashMap，但是迭代遍历它时，取得“键值对”的顺序是其插 入次序，或者是最近最少使用(LRU)的次序。只比 HashMap 慢一点。而在迭代访问时发而更 快，因为它使用链表维护内部次序。</p>
+<p><strong>TreeMap</strong> : 基于红黑树数据结构的实现。查看“键”或“键值对”时，它们会被排序(次 序由 Comparabel 或 Comparator 决定)。TreeMap 的特点在 于，你得到的结果是经过排序的。 TreeMap 是唯一的带有 subMap()方法的 Map，它可以返回一个子树。</p>
+<p>WeakHashMap : 弱键(weak key)Map，Map 中使用的对象也被允许释放: 这是为解决特 殊问题设计的。如果没有 map 之外的引用指向某个“键”，则此“键”可以被垃圾收集器回 收。</p>
+<p>IdentifyHashMap : 使用==代替 equals()对“键”作比较的 hash map。专为解决特殊问题 而设计。</p>
 <hr>
 <h1 id="2、反射"><a href="#2、反射" class="headerlink" title="2、反射"></a>2、反射</h1><h3 id="2-1-反射"><a href="#2-1-反射" class="headerlink" title="2.1 反射"></a>2.1 反射</h3><p><strong>反射</strong>: 将 Java 类中的各个<strong>成分</strong> (属性, 方法, 构造方法) <strong>映射成对应的类</strong></p>
 <ul>
@@ -522,6 +549,10 @@
 <li>Field: 属性的描述类</li>
 <li>Method: 方法的描述类</li>
 </ul>
+<p><strong>Java 预定义类型</strong></p>
+<p>是否是预定义类型: <code>isPromitive()</code>,  8种基本数据类型 + void 都是预定义类型</p>
+<p>引用类型, 包装类不是预定义类型.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="keyword">int</span>.class.isPrimitive());     <span class="comment">// true</span></span><br><span class="line">System.out.println(Integer.class.isPrimitive()); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
 <h3 id="2-2-Class"><a href="#2-2-Class" class="headerlink" title="2.2 Class"></a>2.2 Class</h3><p><strong>Class</strong> : 用于<strong>描述所有类的类</strong>,  Class 类描述了类的属性信息，如类名、访问权限、包名、字 段名称列表、方法名称列表等,  <strong>Class就是反射的基础.</strong></p>
 <p><strong>获取Class的3种方式</strong></p>
 <pre><code>1. `Class.forName`(&quot;类名字符串&quot;) (注意：类名字符串必须是全称，包名+类名)
@@ -529,8 +560,78 @@
 - 如果没有的话, 就先加载到内存
 2. `类名.class`
 3. `实例对象.getClass()`
-</code></pre><h3 id="2-3-Constructor"><a href="#2-3-Constructor" class="headerlink" title="2.3 Constructor"></a>2.3 Constructor</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// API</span></span><br><span class="line"><span class="comment">// 补充: 可变参数  Class&lt;?&gt;... parameterTypes</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Constructor&lt;T&gt; <span class="title">getConstructor</span><span class="params">(Class&lt;?&gt;... parameterTypes)</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> Constructor&lt;?&gt;[] getConstructors() <span class="keyword">throws</span> SecurityException &#123;&#125;</span><br></pre></td></tr></table></figure>
-
+</code></pre><h3 id="2-3-Constructor"><a href="#2-3-Constructor" class="headerlink" title="2.3 Constructor"></a>2.3 Constructor</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// API</span></span><br><span class="line"><span class="comment">// 补充: 可变参数  Class&lt;?&gt;... parameterTypes</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Constructor&lt;T&gt; <span class="title">getConstructor</span><span class="params">(Class&lt;?&gt;... parameterTypes)</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> Constructor&lt;?&gt;[] getConstructors() <span class="keyword">throws</span> SecurityException &#123;&#125; </span><br><span class="line"></span><br><span class="line">================<span class="comment">//使用=============================</span></span><br><span class="line"><span class="comment">////////获取构造方法//////////</span></span><br><span class="line"><span class="comment">// 获取某个类的所有构造方法：</span></span><br><span class="line">Constructor[] constructor = Class.forName(<span class="string">"java.lang.String"</span>).getConstructors();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取某个特殊（特定参数）的构造方法：</span></span><br><span class="line">Constructor constructor = Class.forName(<span class="string">"java.lang.String"</span>).getConstructor(StringBuffer.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">////////创建实例对象//////////</span></span><br><span class="line"><span class="comment">// 通常方式，直接调用构造方法：</span></span><br><span class="line">String str = <span class="keyword">new</span> String(<span class="string">"huangbo"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反射方式：调用实参构造</span></span><br><span class="line">String str = (String)constructor.newInstance(<span class="keyword">new</span> StringBuffer(<span class="string">"huangbo"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反射方式：调用空参构造</span></span><br><span class="line">String obj = (String)Class.forName(<span class="string">"java.lanng.String"</span>).newInstance();</span><br><span class="line"></span><br><span class="line">只有两个类拥有 newInstance()方法，分别是 Class 类和 Constructor 类 </span><br><span class="line">Class 类中的 newInstance() 方法是不带参数的，</span><br><span class="line">Constructor 类中的 newInstance()方法是带参数的(Object)，需要提供 必要的参数</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-Field"><a href="#2-4-Field" class="headerlink" title="2.4 Field"></a>2.4 Field</h3><p><code>Field</code>类代表某个类中的一个成员变量，设有一个 obj 对象，Field 对象不是 obj 具体的变量值， 而是指代的是 obj 所属类的哪一个变量，可以通过 <code>Field(对象).get(obj)</code>获取相应的变量值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// API</span></span><br><span class="line"><span class="keyword">public</span> Field[] getFields() <span class="keyword">throws</span> SecurityException &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Field <span class="title">getField</span><span class="params">(String name)</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">================<span class="comment">//使用=============================</span></span><br><span class="line"><span class="comment">// getField 方法只能获取声明为 public 的变量，对于私有变量，可以通过 getDeclaredField()方法获 取 private 变量</span></span><br><span class="line">Field field = obj.getClass().getDeclaredField();</span><br><span class="line"><span class="comment">// 将 private 变量设置为可访问；继承自父类AccessibleObject 的方法才可获取变量值</span></span><br><span class="line">field.setAccessible(<span class="keyword">true</span>); </span><br><span class="line"><span class="comment">// 获得对象值, 传入对象</span></span><br><span class="line">field.get(obj); </span><br><span class="line"><span class="comment">// 反射替换,设置对象值</span></span><br><span class="line"><span class="comment">// 传入对象,值</span></span><br><span class="line"><span class="comment">// 把 obj 对象的 field 属性的值替换为 newValue</span></span><br><span class="line">field.set(obj,newValue)</span><br></pre></td></tr></table></figure>
+<h3 id="2-5-Method"><a href="#2-5-Method" class="headerlink" title="2.5 Method"></a>2.5 Method</h3><p>Method 类代表某个类中的成员方法</p>
+<p>Method 对象不是具体的方法，而是来代表类中哪一个方法，与对象无关</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取: 得到类中某一个方法：</span></span><br><span class="line">Method methodCharAt = Class.forName(<span class="string">"java.lang.String"</span>).getMethod(<span class="string">"charAt"</span>,<span class="keyword">int</span>.class)</span><br><span class="line"></span><br><span class="line"><span class="comment">// getMethod 方法用于得到一个方法对象，该方法接受的参数首先要有该方法名（String 类型），</span></span><br><span class="line"><span class="comment">// 然后通过参数列表来区分重载那个方法，参数类型用 Class 对象来表示(如为 int 就用 int.class)</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 调用方法：</span></span><br><span class="line"><span class="comment">//普通方式：</span></span><br><span class="line">str.charAt(<span class="number">1</span>)</span><br><span class="line"><span class="comment">//反射方式：</span></span><br><span class="line">methodCharAt.invoke(str,<span class="number">1</span>)</span><br><span class="line"><span class="comment">// 以上两种调用方式等价</span></span><br></pre></td></tr></table></figure>
+<h1 id="3-设计模式"><a href="#3-设计模式" class="headerlink" title="3. 设计模式"></a>3. 设计模式</h1><p>设计模式（Design pattern）代表了面向对象编程中最佳的实践，通常被有经验的面向对象的 软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方 案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p>
+<p>设计模式只不过针对某些具体场景提供了一些效率较高的以复杂度换灵活性的手段而已</p>
+<p><a href="http://www.runoob.com/design-pattern/design-pattern-tutorial.html" target="_blank" rel="noopener">推荐学习站点</a></p>
+<h3 id="3-1-设计模式-–-六大原则"><a href="#3-1-设计模式-–-六大原则" class="headerlink" title="3.1 设计模式 – 六大原则"></a>3.1 设计模式 – 六大原则</h3><p><strong>总原则：开闭原则</strong>（Open Close Principle）</p>
+<p>开闭原则就是说对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修改原有的 代码，而是要扩展原有代码，实现一个热插拔的效果。所以一句话概括就是：为了使程序的 扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类等，后面的 具体设计中我们会提到这点。</p>
+<p><strong>六大原则：</strong></p>
+<ol>
+<li><p><strong>单一职责原则</strong> </p>
+<p>不要存在多于一个导致类变更的原因，也就是说每个类应该实现单一的职责，如若不然，就 应该把类拆分。</p>
+</li>
+<li><p><strong>里氏替换原则</strong>（Liskov Substitution Principle）</p>
+<p>里氏替换原则中，子类对父类的方法尽量不要重写和重载。因为父类代表了定义好的结构，通过这个规范的接口与外界交互，子类不应该随便破坏它。</p>
+</li>
+<li><p><strong>依赖倒转原则</strong>（Dependence Inversion Principle）</p>
+<p>这个是开闭原则的基础，具体内容：面向接口编程，依赖于抽象而不依赖于具体。写代码 时用到具体类时，不与具体类交互，而与具体类的上层接口交互。</p>
+</li>
+<li><p><strong>接口隔离原则</strong>（Interface Segregation Principle）</p>
+<p>这个原则的意思是：每个接口中不存在子类用不到却必须实现的方法，如果不然，就要将 接口拆分。使用多个隔离的接口，比使用单个接口（多个接口方法集合到一个的接口）要好。</p>
+</li>
+<li><p><strong>迪米特法则</strong>（最少知道原则）（Demeter Principle）</p>
+<p>就是说：一个类对自己依赖的类知道的越少越好 。也就是说无论被依赖的类多么复杂，都 应该将逻辑封装在方法的内部，通过 public 方法提供给外部。这样当被依赖的类变化时，才 能最小的影响该类。</p>
+</li>
+<li><p><strong>合成复用原则</strong>（Composite Reuse Principle）</p>
+<p>原则是尽量首先使用合成/聚合的方式，而不是使用继承。</p>
+</li>
+</ol>
+<h3 id="3-2-设计模式-–-分类"><a href="#3-2-设计模式-–-分类" class="headerlink" title="3.2 设计模式 – 分类"></a>3.2 设计模式 – 分类</h3><p>总体来说设计模式分为三大类：</p>
+<ul>
+<li><strong>创建型模式</strong>，共五种：工厂方法模式、抽象工厂模式、<u><strong>单例模式</strong></u>、建造者模式、原型模式。</li>
+<li><strong>结构型模式</strong>，共七种：适配器模式、<u><strong>装饰器模式</strong></u>、<u><strong>代理模式</strong></u>、外观模式、桥接模式、组合 模式、享元模式。</li>
+<li><strong>行为型模式</strong>，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模 式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。</li>
+</ul>
+<h3 id="3-3-常见设计模式"><a href="#3-3-常见设计模式" class="headerlink" title="3.3 常见设计模式"></a>3.3 常见设计模式</h3><h4 id="3-3-1-单例模式-手写"><a href="#3-3-1-单例模式-手写" class="headerlink" title="3.3.1 单例模式(手写)"></a>3.3.1 单例模式(手写)</h4><p>单例模式（Singleton Pattern）是 Java 中最简单的,也是最最最常用的设计模式之一。这种类 型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。</p>
+<p>注意: </p>
+<ol>
+<li>单例类只能有一个实例。</li>
+<li>单例类必须自己创建自己的唯一实例。</li>
+<li>单例类必须给所有其他对象提供这一实例。</li>
+</ol>
+<p><strong>共有六种实现：</strong></p>
+<p>1、懒汉式，线程不安全</p>
+<p>2、懒汉式，线程安全</p>
+<p>3、饿汉式</p>
+<p>4、<strong>双检锁/双重校验锁</strong>（DCL，即 double-checked locking） –面试必备</p>
+<p>5、登记式/静态内部类</p>
+<p>6、枚举</p>
+<p><a href="http://www.runoob.com/design-pattern/singleton-pattern.html" target="_blank" rel="noopener">详细请看</a></p>
+<h4 id="3-3-2-装饰器模式-手写"><a href="#3-3-2-装饰器模式-手写" class="headerlink" title="3.3.2 装饰器模式(手写)"></a>3.3.2 装饰器模式(手写)</h4><p><strong>首先看一段代码</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-085510.jpg" alt=""></p>
+<blockquote>
+<p> <strong>代码分析:</strong> </p>
+<ol>
+<li>构造一个缓冲的字符输入流。包装了一个文件字符输入流。</li>
+<li>事实上，BufferedReader 就是用来<strong>增强</strong> FileReader 的读取的功能的。</li>
+<li>FileReader 只有 read()方法， 但是 BufferedReader 中却增加了一个 readLine()的逐行读取 的功能</li>
+<li>所以这就相当于是 BufferedReader 装饰了 FileReader，让 FileReader 变得更强大</li>
+</ol>
+</blockquote>
+<h5 id="装饰器模式概念"><a href="#装饰器模式概念" class="headerlink" title="装饰器模式概念"></a>装饰器模式概念</h5><ul>
+<li>装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结 构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。</li>
+<li>这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下， 提供了额外的功能。</li>
+</ul>
+<h5 id="装饰器模式实现方式"><a href="#装饰器模式实现方式" class="headerlink" title="装饰器模式实现方式"></a>装饰器模式实现方式</h5><pre><code> 1. 定义包装类
+ 2. 将要装饰的模式作为参数传入包装类
+3. 实现要加强的方法
+</code></pre>
       
     </div>
     
@@ -773,7 +874,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、集合框架"><span class="nav-number">1.</span> <span class="nav-text">1、集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-、集合框架体系图"><span class="nav-number">1.1.</span> <span class="nav-text">1.1  、集合框架体系图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-的集合框架主要分为五大类体系："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Java  的集合框架主要分为五大类体系：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-中的集合和数组的区别"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Java  中的集合和数组的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Collection-接口中的方法："><span class="nav-number">1.1.0.3.</span> <span class="nav-text">Collection 接口中的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-接口中的方法："><span class="nav-number">1.1.0.4.</span> <span class="nav-text">Map 接口中的方法：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2、常用集合特性概述"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、常用集合特性概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-List-系"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 List 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组-初始容量-扩容-jdk10"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">数组 初始容量+扩容 (jdk10)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedList-add-E-e"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">LinkedList  add(E e)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2、Set-系"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2、Set 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-内部判断相等的标准"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">HashSet 内部判断相等的标准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-—-HashMap-的源码实现"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">HashSet — HashMap 的源码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TreeSet的默认排序"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">TreeSet的默认排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2、Map-系"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.2、Map 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HashMap-amp-Hashtable-的区别"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">1. HashMap &amp; Hashtable 的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-concurrentHash-简单分析"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">2. concurrentHash 简单分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-掌握重点"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 掌握重点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-其他文档"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 其他文档</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、反射"><span class="nav-number">2.</span> <span class="nav-text">2、反射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-反射"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Class"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Constructor"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3 Constructor</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、集合框架"><span class="nav-number">1.</span> <span class="nav-text">1、集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-、集合框架体系图"><span class="nav-number">1.1.</span> <span class="nav-text">1.1  、集合框架体系图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-的集合框架主要分为五大类体系："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Java  的集合框架主要分为五大类体系：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-中的集合和数组的区别"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Java  中的集合和数组的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Collection-接口中的方法："><span class="nav-number">1.1.0.3.</span> <span class="nav-text">Collection 接口中的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-接口中的方法："><span class="nav-number">1.1.0.4.</span> <span class="nav-text">Map 接口中的方法：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2、常用集合特性概述"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、常用集合特性概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-List-系"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 List 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组-初始容量-扩容-jdk10"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">数组 初始容量+扩容 (jdk10)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedList-add-E-e"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">LinkedList  add(E e)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2、Set-系"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2、Set 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-内部判断相等的标准"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">HashSet 内部判断相等的标准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-—-HashMap-的源码实现"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">HashSet — HashMap 的源码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TreeSet的默认排序"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">TreeSet的默认排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2、Map-系"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.2、Map 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HashMap-amp-Hashtable-的区别"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">1. HashMap &amp; Hashtable 的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-concurrentHash-简单分析"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">2. concurrentHash 简单分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-put-amp-get-的流程"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">3. put &amp; get 的流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-掌握重点"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 掌握重点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-功能方法"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 功能方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1-List-的功能方法"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">1.4.1 List 的功能方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2-Set的功能方法"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">1.4.2 Set的功能方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-3-Map-的功能方法"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">1.4.3 Map 的功能方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、反射"><span class="nav-number">2.</span> <span class="nav-text">2、反射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-反射"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Class"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Constructor"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3 Constructor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Field"><span class="nav-number">2.0.4.</span> <span class="nav-text">2.4 Field</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Method"><span class="nav-number">2.0.5.</span> <span class="nav-text">2.5 Method</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-设计模式"><span class="nav-number">3.</span> <span class="nav-text">3. 设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-设计模式-–-六大原则"><span class="nav-number">3.0.1.</span> <span class="nav-text">3.1 设计模式 – 六大原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-设计模式-–-分类"><span class="nav-number">3.0.2.</span> <span class="nav-text">3.2 设计模式 – 分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-常见设计模式"><span class="nav-number">3.0.3.</span> <span class="nav-text">3.3 常见设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-单例模式-手写"><span class="nav-number">3.0.3.1.</span> <span class="nav-text">3.3.1 单例模式(手写)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-装饰器模式-手写"><span class="nav-number">3.0.3.2.</span> <span class="nav-text">3.3.2 装饰器模式(手写)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#装饰器模式概念"><span class="nav-number">3.0.3.2.1.</span> <span class="nav-text">装饰器模式概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#装饰器模式实现方式"><span class="nav-number">3.0.3.2.2.</span> <span class="nav-text">装饰器模式实现方式</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

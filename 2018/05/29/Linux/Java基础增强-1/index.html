@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-032801.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-033547.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-035232.jpg">
-<meta property="og:updated_time" content="2018-05-29T06:20:10.392Z">
+<meta property="og:updated_time" content="2018-05-29T07:26:21.828Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java基础增强-1 集合反射设计模式排序 inputing...">
 <meta name="twitter:description" content="1、集合框架1.1  、集合框架体系图 Java  的集合框架主要分为五大类体系：1、Collection（常用的 List 和 Set，和不常用的 Queue 和 Vector 和 Stack），单元素集合2、Map（常用的 HashMap 和 TreeMap，不常用的 HashTable），Key-Value 映射3、Iterator（迭代器）4、工具类（Collections 和 Array">
@@ -415,7 +415,7 @@
 <p>2、数组元素即可以是基本类型的值，也可以是对象。集合里只能保存对象（实际上只是保存对象的引用变量），基本数据类型的变量要转换成对应的包装类才能放入集合类中。</p>
 <h4 id="Collection-接口中的方法："><a href="#Collection-接口中的方法：" class="headerlink" title="Collection 接口中的方法："></a>Collection 接口中的方法：</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-031118.jpg" alt=""></p>
 <h4 id="Map-接口中的方法："><a href="#Map-接口中的方法：" class="headerlink" title="Map 接口中的方法："></a>Map 接口中的方法：</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-031258.jpg" alt=""></p>
-<h2 id="1-2、常用集合特性概述"><a href="#1-2、常用集合特性概述" class="headerlink" title="1.2、常用集合特性概述"></a>1.2、常用集合特性概述</h2><h3 id="1-2-1、List-系"><a href="#1-2-1、List-系" class="headerlink" title="1.2.1、List 系"></a>1.2.1、List 系</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-032801.jpg" alt=""></p>
+<h2 id="1-2、常用集合特性概述"><a href="#1-2、常用集合特性概述" class="headerlink" title="1.2、常用集合特性概述"></a>1.2、常用集合特性概述</h2><h3 id="1-2-1-List-系"><a href="#1-2-1-List-系" class="headerlink" title="1.2.1 List 系"></a>1.2.1 List 系</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-032801.jpg" alt=""></p>
 <p>List 特点：<strong>元素有放入顺序，元素可重复</strong></p>
 <p>List 接口有三个实现类：LinkedList，ArrayList，Vector</p>
 <p>LinkedList：底层基于链表实现，链表内存是散乱的，每一个元素存储本身内存地址的同时还 存储下一个元素的地址。<strong>链表增删快，查找慢</strong></p>
@@ -428,6 +428,7 @@
 <p>2、对于需要快速随机访问元素，应该使用 ArrayList。（查询）</p>
 <p>3、对于“单线程环境”或者“多线程环境，但 List 仅仅只会被单个线程操作”，此时应该使 用非同步的类(如 ArrayList)。对于“多线程环境，且 List 可能同时被多个线程操作”，此时， 应该使用同步的类(如 Vector)。</p>
 <h4 id="LinkedList-add-E-e"><a href="#LinkedList-add-E-e" class="headerlink" title="LinkedList  add(E e)"></a>LinkedList  add(E e)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># add(E e) 源码</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        linkLast(e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">linkLast</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; l = last;</span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; newNode = <span class="keyword">new</span> Node&lt;&gt;(l, e, <span class="keyword">null</span>);</span><br><span class="line">    last = newNode;</span><br><span class="line">    <span class="keyword">if</span> (l == <span class="keyword">null</span>)</span><br><span class="line">        first = newNode;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        l.next = newNode;</span><br><span class="line">    size++;</span><br><span class="line">    modCount++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
 <h3 id="1-2-2、Set-系"><a href="#1-2-2、Set-系" class="headerlink" title="1.2.2、Set 系"></a>1.2.2、Set 系</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-033547.jpg" alt=""></p>
 <p>Set 特点：<strong>元素放入无顺序，元素不可重复</strong></p>
 <p>Set 接口的实现类：HashSet，TreeSet，LinkedHashSet</p>
@@ -459,8 +460,76 @@
 <h4 id="TreeSet的默认排序"><a href="#TreeSet的默认排序" class="headerlink" title="TreeSet的默认排序"></a>TreeSet的默认排序</h4><ul>
 <li>TreeSet是有序的不可重复的, 有序是指元素值的大小</li>
 <li>数值类型: 按照大小进行升序排序</li>
-<li>字符串类型: 按照字典顺序进行升序排序</li>
+<li>字符串类型: 按照字典顺序进行升序排序<ul>
+<li>字符串从左到右, 一位一位的比较</li>
 </ul>
+</li>
+<li>自定义TreeSet类型: 实现 <code>compareTo</code>方法, <strong>返回为0</strong>的情况会默认<strong>覆盖</strong></li>
+</ul>
+<hr>
+<h3 id="1-2-2、Map-系"><a href="#1-2-2、Map-系" class="headerlink" title="1.2.2、Map 系"></a>1.2.2、Map 系</h3><p><strong>Map 特点</strong>：存储的元素是键值对，在 JDK1.8 版本中是 Node，在老版本中是 Entry</p>
+<p><strong>Map 接 口 有 五 个 常用 实 现 类</strong> ： HashMap ， HashTable ， LinkeHashMap ， TreeMap ，</p>
+<p><u>ConcurrentHashMap</u></p>
+<h4 id="1-HashMap-amp-Hashtable-的区别"><a href="#1-HashMap-amp-Hashtable-的区别" class="headerlink" title="1. HashMap &amp; Hashtable 的区别"></a>1. HashMap &amp; Hashtable 的区别</h4><p><strong>HashMap</strong></p>
+<pre><code>1.   非线程安全, 效率高
+2.   key不可以重复
+3.   key可以为null,  但只能有一个key为null
+</code></pre><p><strong>Hashtable</strong></p>
+<ol>
+<li>线程安全, 效率低</li>
+<li>key不可以重复</li>
+<li>不可以为null</li>
+</ol>
+<h4 id="2-concurrentHash-简单分析"><a href="#2-concurrentHash-简单分析" class="headerlink" title="2. concurrentHash 简单分析"></a>2. concurrentHash 简单分析</h4><ul>
+<li>Java并发包中的,  既是线程安全的, 又不至于效率过低</li>
+<li>怎么实现: <strong>分段锁机制</strong><ul>
+<li>分段锁: 只加载在某一段数据上</li>
+</ul>
+</li>
+<li>MySql: 查询 - 95%,  增删改 - 5%<ul>
+<li><strong>读锁:  共享锁,</strong>  一个线程进行操作的时候不应吸纳另一个线程的结构</li>
+<li><strong>写锁:  排它锁,</strong>  一个线程在进行操作的时候不允许其他任何线程的操作</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-3-掌握重点"><a href="#1-3-掌握重点" class="headerlink" title="1.3 掌握重点"></a>1.3 掌握重点</h2><p><strong>List</strong>:  ArrayList,   LinkList</p>
+<p><strong>Set</strong>:   HashSet,    TreeSet</p>
+<ul>
+<li>需要掌握的方法:  add ,   get,    contains</li>
+</ul>
+<p>Map:  HashMap</p>
+<ul>
+<li>需要掌握的方法:    put    get    map的循环遍历    containsKey….</li>
+</ul>
+<h2 id="1-4-其他文档"><a href="#1-4-其他文档" class="headerlink" title="1.4 其他文档"></a>1.4 其他文档</h2><p>…</p>
+<hr>
+<h1 id="2、反射"><a href="#2、反射" class="headerlink" title="2、反射"></a>2、反射</h1><h3 id="2-1-反射"><a href="#2-1-反射" class="headerlink" title="2.1 反射"></a>2.1 反射</h3><p><strong>反射</strong>: 将 Java 类中的各个<strong>成分</strong> (属性, 方法, 构造方法) <strong>映射成对应的类</strong></p>
+<ul>
+<li>在运行时判断任意一个对象的所属的类 Class。</li>
+<li>在运行时判断构造任意一个类的对象 Constructor。</li>
+<li>在运行时判断任意一个类所具有的成员变量 Field 和方法 Method。</li>
+<li>在运行时调用任意一个对象的方法。method.invoke(object, args)</li>
+</ul>
+<p><strong>反射的好处</strong></p>
+<ul>
+<li>提高了整个代码的灵活性</li>
+<li>不需要知道细节</li>
+</ul>
+<p>反射用的最多的时候, 就是写框架的时候</p>
+<p><strong>反射中需要掌握3个类:</strong> </p>
+<ul>
+<li>Constructor: 构造器的描述类</li>
+<li>Field: 属性的描述类</li>
+<li>Method: 方法的描述类</li>
+</ul>
+<h3 id="2-2-Class"><a href="#2-2-Class" class="headerlink" title="2.2 Class"></a>2.2 Class</h3><p><strong>Class</strong> : 用于<strong>描述所有类的类</strong>,  Class 类描述了类的属性信息，如类名、访问权限、包名、字 段名称列表、方法名称列表等,  <strong>Class就是反射的基础.</strong></p>
+<p><strong>获取Class的3种方式</strong></p>
+<pre><code>1. `Class.forName`(&quot;类名字符串&quot;) (注意：类名字符串必须是全称，包名+类名)
+- 如果 `.class`已经被加载到内存了, 直接返回
+- 如果没有的话, 就先加载到内存
+2. `类名.class`
+3. `实例对象.getClass()`
+</code></pre><h3 id="2-3-Constructor"><a href="#2-3-Constructor" class="headerlink" title="2.3 Constructor"></a>2.3 Constructor</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// API</span></span><br><span class="line"><span class="comment">// 补充: 可变参数  Class&lt;?&gt;... parameterTypes</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Constructor&lt;T&gt; <span class="title">getConstructor</span><span class="params">(Class&lt;?&gt;... parameterTypes)</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> Constructor&lt;?&gt;[] getConstructors() <span class="keyword">throws</span> SecurityException &#123;&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -704,7 +773,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、集合框架"><span class="nav-number">1.</span> <span class="nav-text">1、集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-、集合框架体系图"><span class="nav-number">1.1.</span> <span class="nav-text">1.1  、集合框架体系图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-的集合框架主要分为五大类体系："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Java  的集合框架主要分为五大类体系：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-中的集合和数组的区别"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Java  中的集合和数组的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Collection-接口中的方法："><span class="nav-number">1.1.0.3.</span> <span class="nav-text">Collection 接口中的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-接口中的方法："><span class="nav-number">1.1.0.4.</span> <span class="nav-text">Map 接口中的方法：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2、常用集合特性概述"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、常用集合特性概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1、List-系"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1、List 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组-初始容量-扩容-jdk10"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">数组 初始容量+扩容 (jdk10)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedList-add-E-e"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">LinkedList  add(E e)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2、Set-系"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2、Set 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-内部判断相等的标准"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">HashSet 内部判断相等的标准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-—-HashMap-的源码实现"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">HashSet — HashMap 的源码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TreeSet的默认排序"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">TreeSet的默认排序</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、集合框架"><span class="nav-number">1.</span> <span class="nav-text">1、集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-、集合框架体系图"><span class="nav-number">1.1.</span> <span class="nav-text">1.1  、集合框架体系图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-的集合框架主要分为五大类体系："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Java  的集合框架主要分为五大类体系：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-中的集合和数组的区别"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Java  中的集合和数组的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Collection-接口中的方法："><span class="nav-number">1.1.0.3.</span> <span class="nav-text">Collection 接口中的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-接口中的方法："><span class="nav-number">1.1.0.4.</span> <span class="nav-text">Map 接口中的方法：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2、常用集合特性概述"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、常用集合特性概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-List-系"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 List 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组-初始容量-扩容-jdk10"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">数组 初始容量+扩容 (jdk10)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedList-add-E-e"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">LinkedList  add(E e)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2、Set-系"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2、Set 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-内部判断相等的标准"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">HashSet 内部判断相等的标准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-—-HashMap-的源码实现"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">HashSet — HashMap 的源码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TreeSet的默认排序"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">TreeSet的默认排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2、Map-系"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.2、Map 系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HashMap-amp-Hashtable-的区别"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">1. HashMap &amp; Hashtable 的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-concurrentHash-简单分析"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">2. concurrentHash 简单分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-掌握重点"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 掌握重点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-其他文档"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 其他文档</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、反射"><span class="nav-number">2.</span> <span class="nav-text">2、反射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-反射"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Class"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Constructor"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3 Constructor</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -92,7 +92,7 @@
 <meta property="og:description" content="1. 系统服务管理 检查本机httpd服务是否开启, 使用命令service httpd status 开启/关闭/重启 httpd服务 service httpd start/stop/restart 查看所有的服务状态 service --status-all 过滤出某个服务service –status-all | grep httpd` 防火墙服务  sevice iptables sta">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-161852.jpg">
-<meta property="og:updated_time" content="2018-05-30T14:10:06.710Z">
+<meta property="og:updated_time" content="2018-05-30T14:23:17.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux学习笔记-3">
 <meta name="twitter:description" content="1. 系统服务管理 检查本机httpd服务是否开启, 使用命令service httpd status 开启/关闭/重启 httpd服务 service httpd start/stop/restart 查看所有的服务状态 service --status-all 过滤出某个服务service –status-all | grep httpd` 防火墙服务  sevice iptables sta">
@@ -655,7 +655,7 @@
 </ol>
 <p>​        修改<strong><em>hostname</em></strong>,  <code>vi /etc/sysconfig/network</code>, 把<code>HOSTNAME</code>改为要修改的名字</p>
 <h4 id="5-免密登录"><a href="#5-免密登录" class="headerlink" title="5. 免密登录"></a>5. 免密登录</h4><ol>
-<li>新机生成自己公钥 <code>ssh-kepygen</code>, 注意: 如果原本主机中已经生成, 此处在提示<code>verwrite (y/n)?</code>的时候要选择y, 才会重新生成覆盖</li>
+<li>新机生成自己公钥 <code>ssh-keygen</code>, 注意: 如果原本主机中已经生成, 此处在提示<code>verwrite (y/n)?</code>的时候要选择y, 才会重新生成覆盖</li>
 <li><p>把新主机公钥发送给其它机器 <code>ssh-copy-id root@xxx(其它主机ip)</code>, 此命令相当于 下面2条命令的效果</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa.pub &gt; authorized_keys</span><br><span class="line">scp -r authorized_keys root@192.168.123.202:/root/.ssh/</span><br></pre></td></tr></table></figure>
 </li>

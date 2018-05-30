@@ -92,7 +92,7 @@
 <meta property="og:description" content="1. 系统服务管理 检查本机httpd服务是否开启, 使用命令service httpd status 开启/关闭/重启 httpd服务 service httpd start/stop/restart 查看所有的服务状态 service --status-all 过滤出某个服务service –status-all | grep httpd` 防火墙服务  sevice iptables sta">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-161852.jpg">
-<meta property="og:updated_time" content="2018-05-30T11:38:31.296Z">
+<meta property="og:updated_time" content="2018-05-30T12:01:50.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux学习笔记-3">
 <meta name="twitter:description" content="1. 系统服务管理 检查本机httpd服务是否开启, 使用命令service httpd status 开启/关闭/重启 httpd服务 service httpd start/stop/restart 查看所有的服务状态 service --status-all 过滤出某个服务service –status-all | grep httpd` 防火墙服务  sevice iptables sta">
@@ -554,10 +554,10 @@
 <li><p>首先检查虚拟机的 CD/DVD驱动器是否有挂载iso镜像文件</p>
 </li>
 <li><p>找到挂载源的位置 在 /dev/sr0下, 将其挂载到/mnt下创建的cdrom文件夹下</p>
-<p><code>mount -t iso9660 -o ro /dev/sr0 /mnt/cdrom</code></p>
+<p><code>mount -t iso9660 -o ro /dev/sr0 /media/cdrom</code></p>
 </li>
 <li><p>配置开机挂载 , <code>vi /etc/fstab</code>, 增加一行</p>
-<p><code>/dev/cdrom   /mnt/cdrom   iso9660 defaults   0 0</code></p>
+<p><code>/dev/cdrom   /media/cdrom   iso9660 defaults   0 0</code></p>
 </li>
 <li><p>创建软连接, 设置可以通过web访问</p>
 <p><code>ln -s /mnt/cdrom/ /var/www/html/yumsorurce</code></p>

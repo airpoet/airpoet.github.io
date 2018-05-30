@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-30-063904.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-30-064204.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-04-06-022747.jpg">
-<meta property="og:updated_time" content="2018-05-30T09:09:29.466Z">
+<meta property="og:updated_time" content="2018-05-30T09:29:14.835Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java基础增强-2 并发编程 inputing...">
 <meta name="twitter:description" content="1. 多线程基本知识1.1 多线程运行的原理 原理：CPU 在线程中做时间片的切换。  一个(多核中的一个) CPU 在在运行程序的过程中某个时刻点上，只能运行一个程序。而 CPU 可以在 多个程序之间进行高速的切换 (轮询制)。而切换频率和速度太快，导致人的肉眼看不到。 1.2 实现线程的两种方式 继承 Thread 声明实现Runnable接口 还可以实现Callable接口   1.3 线程">
@@ -493,6 +493,7 @@
 <li><strong><code>lock()</code>，阻塞方法</strong>，该方法是平常使用得最多的一个方法，就是用来获取锁。如果锁已被 其他线程获取，则进行等待。由于在前面讲到如果采用 Lock，必须主动去释放锁，并且在 发生异常时，不会自动释放锁。因此一般来说，使用 Lock 必须在 try{}catch{}块中进行，并 且将释放锁的操作放在 finally 块中进行，以保证锁一定被被释放，防止死锁的发生。</li>
 <li><strong><code>tryLock()</code>，非阻塞方法</strong>，该方法是有返回值的，它表示用来尝试获取锁，如果获取成功， 则返回 true，如果获取失败（即锁已被其他线程获取），则返回 false，也就说这个方法无论 如何都会立即返回。在拿不到锁时不会一直在那等待。</li>
 </ol>
+<p>ip在128以上</p>
 
       
     </div>

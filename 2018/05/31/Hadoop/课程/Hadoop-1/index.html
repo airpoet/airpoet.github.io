@@ -93,7 +93,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-31-031034.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-31-035029.png">
-<meta property="og:updated_time" content="2018-05-31T03:54:53.524Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-31-063457.png">
+<meta property="og:updated_time" content="2018-05-31T06:35:53.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop学习笔记-1">
 <meta name="twitter:description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip单机实现逻辑: 大文件实现逻辑:   1. 将这个足够到的文件进行切分, 切分成很多小文件 2. 将多个小文件分发给多个机器, 统计每个ip出现的次数,  每个都求出出现次数最多的ip 3. 合并求出最最终的最大值  2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个">
@@ -459,9 +460,26 @@
 <li>图示待整理</li>
 </ol>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-31-035029.png" alt="image-20180531115029949"></p>
-<p>练习: 写一个基数排序, 随机生成的20个数, 运用基数排序排序</p>
+<ol start="6">
+<li>练习: 写一个基数排序, 随机生成的20个数, 运用基数排序排序</li>
+</ol>
 </li>
 </ul>
+<ul>
+<li><p>对于本题</p>
+<ul>
+<li>不需要统计次数, 存在标记为1, 不存在就是0</li>
+<li>所以存的时候最好用boolean存,  用位数组 <code>bit[]</code></li>
+<li>可以设计多个hash算法, 用来校验某一种hashCode相同的情况</li>
+<li><strong>影响误判率3要素</strong>: hash算法个数 k - 数据量n - 数组长度 m</li>
+<li><strong>布隆过滤器 </strong>公式: k = 0.7*(m/n), 此时的误判率最小<ul>
+<li><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-31-063457.png" alt="image-20180531143456418"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
 
       
     </div>

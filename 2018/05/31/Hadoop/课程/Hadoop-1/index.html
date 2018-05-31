@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="文艺, it, 大数据, 诗歌" />
+  <meta name="keywords" content="原创,技术,Hadoop," />
 
 
 
@@ -83,17 +83,21 @@
 
 
 
-<meta name="description" content="没有边界就没有自由.">
-<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
-<meta property="og:type" content="website">
-<meta property="og:title" content="A.P的文艺杂谈">
-<meta property="og:url" content="https://airpoet.github.io/categories/Java/index.html">
+<meta name="description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip单机实现逻辑: 大文件实现逻辑:   1. 将这个足够到的文件进行切分, 切分成很多小文件 2. 将多个小文件分发给多个机器, 统计每个ip出现的次数,  每个都求出出现次数最多的ip 3. 合并求出最最终的最大值  2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个">
+<meta name="keywords" content="原创,技术,Hadoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop学习笔记-1">
+<meta property="og:url" content="https://airpoet.github.io/2018/05/31/Hadoop/课程/Hadoop-1/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="没有边界就没有自由.">
+<meta property="og:description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip单机实现逻辑: 大文件实现逻辑:   1. 将这个足够到的文件进行切分, 切分成很多小文件 2. 将多个小文件分发给多个机器, 统计每个ip出现的次数,  每个都求出出现次数最多的ip 3. 合并求出最最终的最大值  2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-31-031034.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-31-035029.png">
+<meta property="og:updated_time" content="2018-05-31T03:54:53.524Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A.P的文艺杂谈">
-<meta name="twitter:description" content="没有边界就没有自由.">
+<meta name="twitter:title" content="Hadoop学习笔记-1">
+<meta name="twitter:description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip单机实现逻辑: 大文件实现逻辑:   1. 将这个足够到的文件进行切分, 切分成很多小文件 2. 将多个小文件分发给多个机器, 统计每个ip出现的次数,  每个都求出出现次数最多的ip 3. 合并求出最最终的最大值  2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-31-031034.png">
 
 
 
@@ -123,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://airpoet.github.io/categories/Java/"/>
+  <link rel="canonical" href="https://airpoet.github.io/2018/05/31/Hadoop/课程/Hadoop-1/"/>
 
 
 
 
 
-  <title>分类: Java | A.P的文艺杂谈</title>
+  <title>Hadoop学习笔记-1 | A.P的文艺杂谈</title>
   
 
 
@@ -148,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -276,83 +280,275 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Java<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/05/31/Hadoop/课程/Hadoop-1/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/05/30/Java/Java基础增强-2/" itemprop="url">
-              
-                <span itemprop="name">Java基础增强-2 并发编程</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Hadoop学习笔记-1</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-30T14:28:56+08:00"
-              content="2018-05-30" >
-          05-30
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-31T10:08:21+08:00">
+                2018-05-31
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/31/Hadoop/课程/Hadoop-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/05/31/Hadoop/课程/Hadoop-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/29/Java/Java基础增强-1/" itemprop="url">
-              
-                <span itemprop="name">Java基础增强-1 集合反射设计模式排序</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-29T09:39:15+08:00"
-              content="2018-05-29" >
-          05-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><h4 id="1-有一个很大的-4T-的文件-文件中存储的是ip-每行存储一个-要求求出出现此处最多的那个ip"><a href="#1-有一个很大的-4T-的文件-文件中存储的是ip-每行存储一个-要求求出出现此处最多的那个ip" class="headerlink" title="1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip"></a>1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip</h4><p><strong>单机</strong>实现逻辑:</p>
+<p><strong>大文件</strong>实现逻辑: </p>
+<pre><code> 1. 将这个足够到的文件进行切分, 切分成很多小文件
+2. 将多个小文件分发给多个机器, 统计每个ip出现的次数,  每个都求出出现次数最多的ip
+3. 合并求出最最终的最大值
+</code></pre><hr>
+<h4 id="2-有两个很大的文件-两个文件中存储的都是url-求出两个文件中相同的url"><a href="#2-有两个很大的文件-两个文件中存储的都是url-求出两个文件中相同的url" class="headerlink" title="2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文件中相同的url"></a>2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文件中相同的url</h4><p><strong>小文件</strong>实现逻辑: </p>
+<pre><code> 1. 先创建两个文件读取流, 用来读取2个文件
+2. 创建两个集合 set1, set2
+3. 进行文件读取 并 分别 放到set1, set2中
+4. 循环遍历其中一个set1,  判断set1中取出的每个url 是否在set2中 `set2.contains(url)`
+</code></pre><p><strong>大文件</strong>实现逻辑</p>
+<p>将2个大文件都分别排序, 然后按照相同的规则进行切分</p>
+<p>总任务数 =  切分的成的小任务的数量</p>
+<p><u><strong>但是</strong></u>大文件排序是一个非常消耗性能的事情, 如果不需要排序就可以做到的话,  就尽量不要排序</p>
+<p>hash算法 –&gt; 给每一个对象生成一个唯一的hash值 0-Integer.Max</p>
+<p>相同的 url的 hashcode值一定相同</p>
+<p><strong>想要分成几块, 就对几取模,  按照余数分成若干块</strong></p>
+<p><u><strong>但是</strong></u>, 分区块数一定要一样吗, 不一定, 比如, 左边分4个,  右边分8个,  <strong>一定要成倍数关系</strong></p>
+<p>上述的: <strong>左边 Ln &lt;==&gt; 右边 (2 -1)*4 + n 和 n</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-31-031034.png" alt="image-20180531111034348"></p>
+<hr>
+<h4 id="3-有一个很小的文件-存储的都是url-每行一个-怎样快速判断给定的一个url是否在这个文件中"><a href="#3-有一个很小的文件-存储的都是url-每行一个-怎样快速判断给定的一个url是否在这个文件中" class="headerlink" title="3. 有一个很小的文件, 存储的都是url, 每行一个, 怎样快速判断给定的一个url是否在这个文件中"></a>3. 有一个很小的文件, 存储的都是url, 每行一个, 怎样快速判断给定的一个url是否在这个文件中</h4><p><strong>小文件</strong>:  IO + 集合(set)</p>
+<ol>
+<li>创建io 和 集合</li>
+<li>进行文件读取放在 set集合中</li>
+<li>set.contains(url) ==&gt;  true:存在,  false: 不存在</li>
+</ol>
+<p><strong>大文件:</strong>  </p>
+<p>思路1:  用hashCode() 进行分区, 然后用要查找的 url 取模定位 </p>
+<pre><code>-      但是这样定位到了还是要一个个找
+</code></pre><p><strong>思路2:</strong> </p>
+<ul>
+<li><p>数组的查询性能比较高, 数组可以通过下标</p>
+</li>
+<li><p><strong>基数排序</strong></p>
+<ol>
+<li>数组的索引代表的是数据的原始值, 数组中存储的值, 是原始值出现的次数</li>
+<li>放到对应下标的位置,  值只存出现的次数</li>
+<li>如果数组中对应的下表存储的值为0, 代表此下标的值没有出现过, 就不需要输出</li>
+<li><strong>缺点:</strong> <ul>
+<li>数据范围过大时, 数组长度不好创建</li>
+<li>数组的类型不好确定</li>
+<li>如果数据比较分散时, 会造成资源浪费</li>
+</ul>
+</li>
+<li>图示待整理</li>
+</ol>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-31-035029.png" alt="image-20180531115029949"></p>
+<p>练习: 写一个基数排序, 随机生成的20个数, 运用基数排序排序</p>
+</li>
+</ul>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/31/Hadoop/概览/Hadoop体系概览/" rel="next" title="Hadoop体系概览">
+                <i class="fa fa-chevron-left"></i> Hadoop体系概览
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -360,6 +556,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -380,8 +590,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -476,6 +695,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引入"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#面试题"><span class="nav-number">1.0.1.</span> <span class="nav-text">面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-有一个很大的-4T-的文件-文件中存储的是ip-每行存储一个-要求求出出现此处最多的那个ip"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-有两个很大的文件-两个文件中存储的都是url-求出两个文件中相同的url"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文件中相同的url</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-有一个很小的文件-存储的都是url-每行一个-怎样快速判断给定的一个url是否在这个文件中"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">3. 有一个很小的文件, 存储的都是url, 每行一个, 怎样快速判断给定的一个url是否在这个文件中</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -630,6 +865,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -647,6 +886,18 @@
       <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/05/31/Hadoop/课程/Hadoop-1/';
+          this.page.identifier = '2018/05/31/Hadoop/课程/Hadoop-1/';
+          this.page.title = 'Hadoop学习笔记-1';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

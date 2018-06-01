@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip单机实现逻辑: 大文件实现逻辑:  1. 将这个足够到的文件进行切分, 切分成很多小文件 2. 将多个小文件分发给多个机器, 统计每个ip出现的次数,  每个都求出出现次数最多的ip 3. 合并求出最最终的最大值  2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文">
+<meta name="description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip1234567891011121314151617181920212223242526272829303132333435如果这个文件是小文件：	io流+集合	实现思路：		创建一个流进行文件读取		读取出来的数据存储到map集合中  key：ip    value:次数			统计逻">
 <meta name="keywords" content="原创,技术,Hadoop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop学习笔记-1 inputing">
 <meta property="og:url" content="https://airpoet.github.io/2018/05/31/Hadoop/课程/Hadoop-1/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip单机实现逻辑: 大文件实现逻辑:  1. 将这个足够到的文件进行切分, 切分成很多小文件 2. 将多个小文件分发给多个机器, 统计每个ip出现的次数,  每个都求出出现次数最多的ip 3. 合并求出最最终的最大值  2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文">
+<meta property="og:description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip1234567891011121314151617181920212223242526272829303132333435如果这个文件是小文件：	io流+集合	实现思路：		创建一个流进行文件读取		读取出来的数据存储到map集合中  key：ip    value:次数			统计逻">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-01T11:28:26.455Z">
+<meta property="og:updated_time" content="2018-06-01T11:38:18.980Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop学习笔记-1 inputing">
-<meta name="twitter:description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip单机实现逻辑: 大文件实现逻辑:  1. 将这个足够到的文件进行切分, 切分成很多小文件 2. 将多个小文件分发给多个机器, 统计每个ip出现的次数,  每个都求出出现次数最多的ip 3. 合并求出最最终的最大值  2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文">
+<meta name="twitter:description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip1234567891011121314151617181920212223242526272829303132333435如果这个文件是小文件：	io流+集合	实现思路：		创建一个流进行文件读取		读取出来的数据存储到map集合中  key：ip    value:次数			统计逻">
 
 
 
@@ -407,26 +407,9 @@
       
 
       
-        <h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><h4 id="1-有一个很大的-4T-的文件-文件中存储的是ip-每行存储一个-要求求出出现此处最多的那个ip"><a href="#1-有一个很大的-4T-的文件-文件中存储的是ip-每行存储一个-要求求出出现此处最多的那个ip" class="headerlink" title="1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip"></a>1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip</h4><p><strong>单机</strong>实现逻辑:</p>
-<p><strong>大文件</strong>实现逻辑: </p>
-<pre><code>1. 将这个足够到的文件进行切分, 切分成很多小文件
-2. 将多个小文件分发给多个机器, 统计每个ip出现的次数,  每个都求出出现次数最多的ip
-3. 合并求出最最终的最大值
-</code></pre><hr>
-<h4 id="2-有两个很大的文件-两个文件中存储的都是url-求出两个文件中相同的url"><a href="#2-有两个很大的文件-两个文件中存储的都是url-求出两个文件中相同的url" class="headerlink" title="2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文件中相同的url"></a>2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文件中相同的url</h4><p><strong>小文件</strong>实现逻辑: </p>
-<pre><code>1. 先创建两个文件读取流, 用来读取2个文件
-2. 创建两个集合 set1, set2
-3. 进行文件读取 并 分别 放到set1, set2中
-4. 循环遍历其中一个set1,  判断set1中取出的每个url 是否在set2中 `set2.contains(url)`
-</code></pre><p><strong>大文件</strong>实现逻辑</p>
-<p>将2个大文件都分别排序, 然后按照相同的规则进行切分</p>
-<p>总任务数 =  切分的成的小任务的数量</p>
-<p><u><strong>但是</strong></u>大文件排序是一个非常消耗性能的事情, 如果不需要排序就可以做到的话,  就尽量不要排序</p>
-<p>hash算法 –&gt; 给每一个对象生成一个唯一的hash值 0-Integer.Max</p>
-<p>相同的 url的 hashcode值一定相同</p>
-<p><strong>想要分成几块, 就对几取模,  按照余数分成若干块</strong></p>
-<p><u><strong>但是</strong></u>, 分区块数一定要一样吗, 不一定, 比如, 左边分4个,  右边分8个,  <strong>一定要成倍数关系</strong></p>
-<p>上述的: <strong>左边 Ln &lt;==&gt; 右边 (2 -1)*4 + n 和 n</strong></p>
+        <h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><h4 id="1-有一个很大的-4T-的文件-文件中存储的是ip-每行存储一个-要求求出出现此处最多的那个ip"><a href="#1-有一个很大的-4T-的文件-文件中存储的是ip-每行存储一个-要求求出出现此处最多的那个ip" class="headerlink" title="1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip"></a>1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">如果这个文件是小文件：</span><br><span class="line">	io流+集合</span><br><span class="line">	实现思路：</span><br><span class="line">		创建一个流进行文件读取</span><br><span class="line">		读取出来的数据存储到map集合中  key：ip    value:次数</span><br><span class="line">			统计逻辑：</span><br><span class="line">				判断读取的ip是否已经存在在map中</span><br><span class="line">					存在：取出value+<span class="number">1</span></span><br><span class="line">					不存在：将ip作为key   <span class="number">1</span>作为value</span><br><span class="line">		怎么求ip出现次数最多的</span><br><span class="line">			遍历map    遍历key，取出value找出最大值  value最大的key就是要找的ip</span><br><span class="line">我的文件足够大：大到一台机器装不下     </span><br><span class="line">	数组   集合  变量------&gt;基于内存的</span><br><span class="line">	怎么办？？？？？</span><br><span class="line">	服务器的<span class="number">2</span>T</span><br><span class="line">	<span class="number">1</span>.在最早的时候我们的思维模式就是纵向扩展，增加单个节点的性能    <span class="number">8</span>T</span><br><span class="line">	摩尔定律：硬件性能<span class="number">18</span>-<span class="number">24</span>个月会提升一倍</span><br><span class="line">	<span class="number">4</span>T------<span class="number">2</span>h</span><br><span class="line">	<span class="number">4</span>T------<span class="number">1</span>h    前提是数据量不发生改变</span><br><span class="line">	但是往往数据量的变化速度远远大于服务器性能的提升速度</span><br><span class="line">	经过<span class="number">18</span>个月</span><br><span class="line">		服务器性能提升了一倍</span><br><span class="line">		数据量------提升了<span class="number">10</span>倍</span><br><span class="line">		<span class="number">4</span>T------<span class="number">2</span>h</span><br><span class="line">		<span class="number">40</span>t-----<span class="number">20</span>h   目前只需要<span class="number">10</span>h</span><br><span class="line">	纵向扩展不可行？</span><br><span class="line">	横向扩展：如果一台机器处理不了数据   使用多台机器</span><br><span class="line">	<span class="number">4</span>T------<span class="number">2</span>h</span><br><span class="line">	<span class="number">4</span>t----<span class="number">4</span>个机器----<span class="number">0.5</span>小时</span><br><span class="line">	分而治之的思想：</span><br><span class="line">		一个机器计算性能有限  这个时候可以使用多台机器共同计算  每台机器承担一部分计算量</span><br><span class="line">	最终实现：</span><br><span class="line">		<span class="number">1</span>.先将这个足够大的文件进行切分  切分成了多个小文件</span><br><span class="line">		<span class="number">2</span>.将多个小文件分发给多个机器进行统计每个ip出现的次数   每个求出出现次数最多的ip</span><br><span class="line">		<span class="number">3</span>.合并求出最终的最大值</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="2-有两个很大的文件-两个文件中存储的都是url-求出两个文件中相同的url"><a href="#2-有两个很大的文件-两个文件中存储的都是url-求出两个文件中相同的url" class="headerlink" title="2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文件中相同的url"></a>2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文件中相同的url</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">如果文件是小文件：</span><br><span class="line">	io流+集合（set）</span><br><span class="line">	实现逻辑：</span><br><span class="line">		<span class="number">1</span>.先创建两个文件读取流，用来读取两个文件</span><br><span class="line">		<span class="number">2</span>.创建两个集合set1    set2</span><br><span class="line">		<span class="number">3</span>.进行文件读取并分别set1   set2中</span><br><span class="line">		<span class="number">4</span>.循环遍历其中一个set1，判断set1中取出的每个url是否在set2中  set2.contains(url)</span><br><span class="line">大文件的时候怎么办？</span><br><span class="line">	我们也采用分而治之的思想：将两个大文件都进行切分，每个大文件都切成多个小文件</span><br><span class="line">	一个大任务=<span class="number">4</span>*<span class="number">4</span>个小任务</span><br><span class="line">	这样虽然可以达到目的但是效率太低？怎么办？</span><br><span class="line">	排序，切分（规则同一）   最终将任务减少到<span class="number">4</span>个</span><br><span class="line">	但是大文件排序仍然是一个非常消耗性能的事情，如果不需要排序就可做到这个效果尽量不要排序</span><br><span class="line">	怎么办？	</span><br><span class="line">	hash算法的目的----》给每一个对象生成一个“唯一”的hash值<span class="number">0</span>-Integer_MAX</span><br><span class="line">	是否可以运用hash算法解决这个问题</span><br><span class="line">	url.hashCode()%分段的个数   两个文件分段规则一定相同吗？</span><br><span class="line">	url.hashCode()肯定一样</span><br><span class="line">	分段个数一定相同吗？可以不一样  如果不一样的话  必须成倍数关系</span><br><span class="line">	最终的解决方案：</span><br><span class="line">		分而治之+分段规则</span><br><span class="line">	分段：分区</span><br></pre></td></tr></table></figure>
 <hr>
 <h4 id="3-有一个很小的文件-存储的都是url-每行一个-怎样快速判断给定的一个url是否在这个文件中"><a href="#3-有一个很小的文件-存储的都是url-每行一个-怎样快速判断给定的一个url是否在这个文件中" class="headerlink" title="3. 有一个很小的文件, 存储的都是url, 每行一个, 怎样快速判断给定的一个url是否在这个文件中"></a>3. 有一个很小的文件, 存储的都是url, 每行一个, 怎样快速判断给定的一个url是否在这个文件中</h4><p><strong>小文件</strong>:  IO + 集合(set)</p>
 <ol>
@@ -441,8 +424,7 @@
 </ul>
 <p><strong>思路2:</strong> </p>
 <ul>
-<li><p>数组的查询性能比较高, 数组可以通过下标</p>
-</li>
+<li>数组的查询性能比较高, 数组可以通过下标</li>
 <li><p><strong>基数排序</strong></p>
 <ol>
 <li>数组的索引代表的是数据的原始值, 数组中存储的值, 是原始值出现的次数</li>
@@ -454,10 +436,7 @@
 <li>如果数据比较分散时, 会造成资源浪费</li>
 </ul>
 </li>
-<li><p>图示待整理</p>
-</li>
-<li><p>练习: 写一个基数排序, 随机生成的20个数, 运用基数排序排序</p>
-</li>
+<li><u>练习: 写一个基数排序, 随机生成的20个数, 运用基数排序排序</u></li>
 </ol>
 </li>
 </ul>

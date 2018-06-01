@@ -87,11 +87,11 @@
 <meta name="keywords" content="原创,技术,Hadoop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop学习笔记-1 inputing">
-<meta property="og:url" content="https://airpoet.github.io/2018/05/31/Hadoop/课程/Hadoop-1/index.html">
+<meta property="og:url" content="https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop-1/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip1234567891011121314151617181920212223242526272829303132333435如果这个文件是小文件：	io流+集合	实现思路：		创建一个流进行文件读取		读取出来的数据存储到map集合中  key：ip    value:次数			统计逻">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-01T16:55:01.825Z">
+<meta property="og:updated_time" content="2018-06-01T17:38:44.627Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop学习笔记-1 inputing">
 <meta name="twitter:description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip1234567891011121314151617181920212223242526272829303132333435如果这个文件是小文件：	io流+集合	实现思路：		创建一个流进行文件读取		读取出来的数据存储到map集合中  key：ip    value:次数			统计逻">
@@ -124,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="https://airpoet.github.io/2018/05/31/Hadoop/课程/Hadoop-1/"/>
+  <link rel="canonical" href="https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop-1/"/>
 
 
 
@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/05/31/Hadoop/课程/Hadoop-1/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -372,9 +372,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/31/Hadoop/课程/Hadoop-1/#comments" itemprop="discussionUrl">
+                <a href="/2018/05/31/Hadoop/Study/Hadoop-1/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/31/Hadoop/课程/Hadoop-1/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/05/31/Hadoop/Study/Hadoop-1/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -463,20 +463,19 @@
 </ul>
 </li>
 </ul>
-<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><pre><code>- 海量的数据
-</code></pre><h3 id="大数据特点-4V"><a href="#大数据特点-4V" class="headerlink" title="大数据特点:  4V"></a>大数据特点:  4V</h3><ol>
+<h3 id="大数据特点-4V"><a href="#大数据特点-4V" class="headerlink" title="大数据特点:  4V"></a>大数据特点:  4V</h3><ol>
 <li><h5 id="数据量大"><a href="#数据量大" class="headerlink" title="数据量大"></a>数据量大</h5><blockquote>
 <p>1 Byte =8 bit<br>1 KB = 1,024 Bytes = 8192 bit<br>1 MB = 1,024 KB = 1,048,576 Bytes<br>1 GB = 1,024 MB = 1,048,576 KB<br>1 TB = 1,024 GB = 1,048,576 MB   （普通用户数据级别）<br>1 PB = 1,024 TB = 1,048,576 GB（企业级数据级别）<br>1 EB = 1,024 PB = 1,048,576 TB<br>1 ZB = 1,024 EB = 1,048,576 PB（全球数据总量级别）</p>
 </blockquote>
-<pre><code>2. 数据增长速度快
-3. 数据种类多
-</code></pre><ul>
-<li>文字 图片  音频 视频..<ol start="4">
-<li>数据的价值密度低  整体价值高</li>
-</ol>
 </li>
+<li><p>数据增长速度快</p>
+</li>
+<li><p>数据种类多</p>
+<ul>
+<li>文字 图片  音频 视频..</li>
 </ul>
 </li>
+<li>数据的价值密度低  整体价值高</li>
 </ol>
 <h3 id="数据来源"><a href="#数据来源" class="headerlink" title="数据来源"></a>数据来源</h3><ol>
 <li>公司中的自己的业务数据  淘宝  京东</li>
@@ -519,7 +518,7 @@
 <li>不存在绝对的均衡</li>
 </ul>
 <hr>
-<h1 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h1><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><ul>
+<h1 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h1><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
 <li>一个分布式的开源框架</li>
 <li>支持成千上万的节点, 每个节点依靠本地的计算和存储</li>
 <li>在应用层面提供高可用性</li>
@@ -689,6 +688,7 @@
 </ul>
 <h3 id="3-完全分布式"><a href="#3-完全分布式" class="headerlink" title="==3. 完全分布式=="></a>==3. 完全分布式==</h3><p><strong>规划</strong></p>
 <p><strong>目前疑点:</strong>  NodeManager是根据什么配置到每台机器上的??</p>
+<p>根据表征, 可能是根据 slave文件</p>
 <table>
 <thead>
 <tr>
@@ -1055,7 +1055,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/31/Hadoop/概览/Hadoop体系概览/" rel="next" title="Hadoop体系概览">
+              <a href="/2018/05/31/Hadoop/Overview/Hadoop体系概览/" rel="next" title="Hadoop体系概览">
                 <i class="fa fa-chevron-left"></i> Hadoop体系概览
               </a>
             
@@ -1065,7 +1065,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/02/Hadoop/概览/Hadoop相关书籍/" rel="prev" title="Hadoop相关书籍">
+              <a href="/2018/06/02/Hadoop/Overview/Hadoop相关书籍/" rel="prev" title="Hadoop相关书籍">
                 Hadoop相关书籍 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -1250,7 +1250,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引入"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#面试题"><span class="nav-number">1.0.1.</span> <span class="nav-text">面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-有一个很大的-4T-的文件-文件中存储的是ip-每行存储一个-要求求出出现此处最多的那个ip"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-有两个很大的文件-两个文件中存储的都是url-求出两个文件中相同的url"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文件中相同的url</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-有一个很小的文件-存储的都是url-每行一个-怎样快速判断给定的一个url是否在这个文件中"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">3. 有一个很小的文件, 存储的都是url, 每行一个, 怎样快速判断给定的一个url是否在这个文件中</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大数据基本介绍"><span class="nav-number">2.</span> <span class="nav-text">大数据基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据"><span class="nav-number">2.0.1.</span> <span class="nav-text">数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构划分"><span class="nav-number">2.0.2.</span> <span class="nav-text">结构划分:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">2.0.3.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据特点-4V"><span class="nav-number">2.0.4.</span> <span class="nav-text">大数据特点:  4V</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据量大"><span class="nav-number">2.0.4.0.1.</span> <span class="nav-text">数据量大</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据来源"><span class="nav-number">2.0.5.</span> <span class="nav-text">数据来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">2.0.6.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据价值"><span class="nav-number">2.0.7.</span> <span class="nav-text">数据价值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几个概念"><span class="nav-number">3.</span> <span class="nav-text">几个概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集群"><span class="nav-number">3.0.1.</span> <span class="nav-text">集群:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式"><span class="nav-number">3.0.2.</span> <span class="nav-text">分布式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡-Nginx"><span class="nav-number">3.0.3.</span> <span class="nav-text">负载均衡: Nginx</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop"><span class="nav-number">4.</span> <span class="nav-text">Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-1"><span class="nav-number">4.0.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop的模块"><span class="nav-number">4.0.2.</span> <span class="nav-text">Hadoop的模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop的搭建"><span class="nav-number">4.0.3.</span> <span class="nav-text">Hadoop的搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建前的准备"><span class="nav-number">4.0.3.1.</span> <span class="nav-text">搭建前的准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方式1-伪分布式"><span class="nav-number">4.0.3.2.</span> <span class="nav-text">方式1:  伪分布式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方式2-完全分布式"><span class="nav-number">4.0.3.3.</span> <span class="nav-text">方式2:  完全分布式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能遇到的错误"><span class="nav-number">4.0.4.</span> <span class="nav-text">可能遇到的错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建过程中"><span class="nav-number">4.0.4.1.</span> <span class="nav-text">搭建过程中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动过程中"><span class="nav-number">4.0.4.2.</span> <span class="nav-text">启动过程中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#某些进程启动不了"><span class="nav-number">4.0.4.3.</span> <span class="nav-text">某些进程启动不了</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#措辞1-暴力"><span class="nav-number">4.0.4.3.1.</span> <span class="nav-text">措辞1: 暴力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#措施2-单独启动某些进程"><span class="nav-number">4.0.4.3.2.</span> <span class="nav-text">措施2: 单独启动某些进程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建过程中的注意事项"><span class="nav-number">4.0.5.</span> <span class="nav-text">==搭建过程中的注意事项==</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群的安装模式"><span class="nav-number">5.</span> <span class="nav-text">集群的安装模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-单机模式"><span class="nav-number">5.0.1.</span> <span class="nav-text">1. 单机模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-伪分布式"><span class="nav-number">5.0.2.</span> <span class="nav-text">2. 伪分布式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-完全分布式"><span class="nav-number">5.0.3.</span> <span class="nav-text">==3. 完全分布式==</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-高可用"><span class="nav-number">5.0.4.</span> <span class="nav-text">==4. 高可用==</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-联邦机制"><span class="nav-number">5.0.5.</span> <span class="nav-text">5. 联邦机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop的核心模块"><span class="nav-number">6.</span> <span class="nav-text">Hadoop的核心模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS"><span class="nav-number">6.1.</span> <span class="nav-text">HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HDFS是什么"><span class="nav-number">6.1.1.</span> <span class="nav-text">1. HDFS是什么:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-HDFS-设计思想"><span class="nav-number">6.1.2.</span> <span class="nav-text">2. HDFS 设计思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HDFS-的整体结构"><span class="nav-number">6.1.3.</span> <span class="nav-text">3. HDFS 的整体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#namenode"><span class="nav-number">6.1.3.1.</span> <span class="nav-text">namenode:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#datanode"><span class="nav-number">6.1.3.2.</span> <span class="nav-text">datanode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#secondarynamenode"><span class="nav-number">6.1.3.3.</span> <span class="nav-text">secondarynamenode:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HDFS优缺点"><span class="nav-number">6.1.4.</span> <span class="nav-text">4. HDFS优缺点:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HDFS的应用"><span class="nav-number">6.1.5.</span> <span class="nav-text">==5. HDFS的应用:==</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HDFS命令方式"><span class="nav-number">6.1.5.1.</span> <span class="nav-text">1. HDFS命令方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Java-API的方式"><span class="nav-number">6.1.5.2.</span> <span class="nav-text">2.  Java API的方式</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引入"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#面试题"><span class="nav-number">1.0.1.</span> <span class="nav-text">面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-有一个很大的-4T-的文件-文件中存储的是ip-每行存储一个-要求求出出现此处最多的那个ip"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-有两个很大的文件-两个文件中存储的都是url-求出两个文件中相同的url"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文件中相同的url</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-有一个很小的文件-存储的都是url-每行一个-怎样快速判断给定的一个url是否在这个文件中"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">3. 有一个很小的文件, 存储的都是url, 每行一个, 怎样快速判断给定的一个url是否在这个文件中</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大数据基本介绍"><span class="nav-number">2.</span> <span class="nav-text">大数据基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据"><span class="nav-number">2.0.1.</span> <span class="nav-text">数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构划分"><span class="nav-number">2.0.2.</span> <span class="nav-text">结构划分:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据特点-4V"><span class="nav-number">2.0.3.</span> <span class="nav-text">大数据特点:  4V</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据量大"><span class="nav-number">2.0.3.0.1.</span> <span class="nav-text">数据量大</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据来源"><span class="nav-number">2.0.4.</span> <span class="nav-text">数据来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">2.0.5.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据价值"><span class="nav-number">2.0.6.</span> <span class="nav-text">数据价值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几个概念"><span class="nav-number">3.</span> <span class="nav-text">几个概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集群"><span class="nav-number">3.0.1.</span> <span class="nav-text">集群:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式"><span class="nav-number">3.0.2.</span> <span class="nav-text">分布式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡-Nginx"><span class="nav-number">3.0.3.</span> <span class="nav-text">负载均衡: Nginx</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop"><span class="nav-number">4.</span> <span class="nav-text">Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">4.0.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop的模块"><span class="nav-number">4.0.2.</span> <span class="nav-text">Hadoop的模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop的搭建"><span class="nav-number">4.0.3.</span> <span class="nav-text">Hadoop的搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建前的准备"><span class="nav-number">4.0.3.1.</span> <span class="nav-text">搭建前的准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方式1-伪分布式"><span class="nav-number">4.0.3.2.</span> <span class="nav-text">方式1:  伪分布式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方式2-完全分布式"><span class="nav-number">4.0.3.3.</span> <span class="nav-text">方式2:  完全分布式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能遇到的错误"><span class="nav-number">4.0.4.</span> <span class="nav-text">可能遇到的错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建过程中"><span class="nav-number">4.0.4.1.</span> <span class="nav-text">搭建过程中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动过程中"><span class="nav-number">4.0.4.2.</span> <span class="nav-text">启动过程中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#某些进程启动不了"><span class="nav-number">4.0.4.3.</span> <span class="nav-text">某些进程启动不了</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#措辞1-暴力"><span class="nav-number">4.0.4.3.1.</span> <span class="nav-text">措辞1: 暴力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#措施2-单独启动某些进程"><span class="nav-number">4.0.4.3.2.</span> <span class="nav-text">措施2: 单独启动某些进程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建过程中的注意事项"><span class="nav-number">4.0.5.</span> <span class="nav-text">==搭建过程中的注意事项==</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群的安装模式"><span class="nav-number">5.</span> <span class="nav-text">集群的安装模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-单机模式"><span class="nav-number">5.0.1.</span> <span class="nav-text">1. 单机模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-伪分布式"><span class="nav-number">5.0.2.</span> <span class="nav-text">2. 伪分布式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-完全分布式"><span class="nav-number">5.0.3.</span> <span class="nav-text">==3. 完全分布式==</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-高可用"><span class="nav-number">5.0.4.</span> <span class="nav-text">==4. 高可用==</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-联邦机制"><span class="nav-number">5.0.5.</span> <span class="nav-text">5. 联邦机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop的核心模块"><span class="nav-number">6.</span> <span class="nav-text">Hadoop的核心模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS"><span class="nav-number">6.1.</span> <span class="nav-text">HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HDFS是什么"><span class="nav-number">6.1.1.</span> <span class="nav-text">1. HDFS是什么:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-HDFS-设计思想"><span class="nav-number">6.1.2.</span> <span class="nav-text">2. HDFS 设计思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HDFS-的整体结构"><span class="nav-number">6.1.3.</span> <span class="nav-text">3. HDFS 的整体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#namenode"><span class="nav-number">6.1.3.1.</span> <span class="nav-text">namenode:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#datanode"><span class="nav-number">6.1.3.2.</span> <span class="nav-text">datanode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#secondarynamenode"><span class="nav-number">6.1.3.3.</span> <span class="nav-text">secondarynamenode:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HDFS优缺点"><span class="nav-number">6.1.4.</span> <span class="nav-text">4. HDFS优缺点:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HDFS的应用"><span class="nav-number">6.1.5.</span> <span class="nav-text">==5. HDFS的应用:==</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HDFS命令方式"><span class="nav-number">6.1.5.1.</span> <span class="nav-text">1. HDFS命令方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Java-API的方式"><span class="nav-number">6.1.5.2.</span> <span class="nav-text">2.  Java API的方式</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1434,8 +1434,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://airpoet.github.io/2018/05/31/Hadoop/课程/Hadoop-1/';
-          this.page.identifier = '2018/05/31/Hadoop/课程/Hadoop-1/';
+          this.page.url = 'https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop-1/';
+          this.page.identifier = '2018/05/31/Hadoop/Study/Hadoop-1/';
           this.page.title = 'Hadoop学习笔记-1 inputing';
         };
         var d = document, s = d.createElement('script');

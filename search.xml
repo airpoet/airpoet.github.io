@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[HashMap的实现原理]]></title>
+    <url>%2F2018%2F06%2F02%2FJava%2FHashMap%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%2F</url>
+    <content type="text"><![CDATA[1.什么是HashMap Hash: 散列将一个任意的长度通过某种(hash函数)算法转换成一个固定值 Map: 地图, (x,y)存储 底层就是一个数组结构, 数组中的每一项又是一个链表, 当新建一个HashMap的时候, 就会初始化一个数组 总结: 通过 hash 出来值, 然后通过值定位到某个 map, 然后value 存储到这个 map中, value只不过是 key 的附属. 2.源码分析先给出结论数据结构:1. 底层是数组 2. `Entry` 就是数组中的元素 3. 每个`Map.Entry`其实就是一个`key-value`对, 它持有一个指向下一个元素的引用`Entry&lt;K,V&gt; next;`, 这就构成了链表 存取实现: 存储put : 过程 先根据 key 的 hashCode 重新计算 hash 值, 根据 hash 值得到这个元素在数组中的位置(下标) 如果数组该位置上已经存放有其他元素了, 那么在这个位置上的元素将以链表的形式存放, 新加入的放在链头, 最先加入的放在链尾. 如果数组该位置上没有元素, 就直接将该元素放到数组中的该位置上. 注意点 当系统决定存储 HashMap 中的 key-value 对时，完全没有考虑 Entry 中的 value，仅仅只是根据 key来计算并决定每个Entry的存储位置。当系统决定了 key的存储位置之后，value随之保存在那里即可。 对于于任意给定的对象，只要它的 hashCode()返回值相同，那么程序调用 hash(int h)方法所计算得到的hash 码值总是相同的。 本质上就是把 hash 值对数组长度取模运算， 这样一来，元素的分布相对来说是比较均匀的 但是系统是用的位运算， 方法更巧妙， 消耗更小 读取get 过程 首先计算 key 的 hashCode，找到数组中对应位置的某一元素，然后通过key 的 equals 方法在对应位置的链表中找到需要的元素。 存储实现归纳 HashMap 在底层将 key-value 当成一个整体进行处理，这个整体就是一个 Entry 对象。 HashMap 底层采用一个 Entry[] 数组来保存所有的 key- value 对，当需要存储一个 Entry 对象时，会根据 hash 算法来决定其在数组中的存储位置，在根据 equals 方法决定其在该数组位置上的链表中的存储位置； 当需要取出一个 Entry 时，也会根据 hash 算法找到其在数组中的存储位置，再根据 equals 方法从该位置上的链表中取出该 Entry。 3. HashMap 的性能参数123456789101112131415161718192021222324252627282930313233343536/** * 桶表默认容量 16, 必须是 2 的倍数， 便于后面的 位运算 * 控制hashcode 不超16范围, a.hashcode = xx % 16 (hashcode 取模 桶个数) */static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; // aka 16/** * MUST be a power of two &lt;= 1&lt;&lt;30. * 桶表最大 2^30 */static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;/** * 扩容因子（负载因子）: 0.75 * 扩容: 每次2倍 */static final float DEFAULT_LOAD_FACTOR = 0.75f;/** * 链表: hash算法值相同的时候, 会把值相同的放在一个链表上, 链表上的元素个数 * 超过8个时, 链表转化为二叉树, 提升查询效率 */static final int TREEIFY_THRESHOLD = 8;/** * 小于6个， 又变回链表 */static final int UNTREEIFY_THRESHOLD = 6;/** * The smallest table capacity for which bins may be treeified. * (Otherwise the table is resized if too many nodes in a bin.) * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts * between resizing and treeification thresholds. */static final int MIN_TREEIFY_CAPACITY = 64;]]></content>
+      <categories>
+        <category>Java</category>
+        <category>知识点</category>
+      </categories>
+      <tags>
+        <tag>原创</tag>
+        <tag>技术</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[▍无题]]></title>
     <url>%2F2018%2F06%2F02%2FPoetry%2F%E6%97%A0%E9%A2%98%2F</url>
     <content type="text"><![CDATA[在淮海中路看油画，要把天空调弱 让油菜花暗下去，看眉式清秀之人离开身体 穿过街巷中涂抹过的人群，悄悄投了水。 在淮海中路1411号，春光遮蔽了暗疾 鸟鸣带来逼仄和飞行感，一个人的身体像麻绳 裸露在新鲜空气中，骨头开裂出花朵。 眼底的云又白又黑，膝盖的青色愈爱愈深 穿过死后潭水的寂静，背部长出的鱼鳞 一年比一年薄，月亮一日比一日旧。 与春风交换身体，与素不相识之人抱头痛哭 与我，许下再死一次的诺言，这么多年了 她说，我爱你依旧，胜过画中人。 作者 / 隐居的事]]></content>

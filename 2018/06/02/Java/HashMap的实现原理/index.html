@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="文艺, it, 大数据, 诗歌" />
+  <meta name="keywords" content="原创,技术,Java," />
 
 
 
@@ -83,17 +83,20 @@
 
 
 
-<meta name="description" content="没有边界就没有自由.">
-<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
-<meta property="og:type" content="website">
-<meta property="og:title" content="A.P的文艺杂谈">
-<meta property="og:url" content="https://airpoet.github.io/archives/2018/page/2/index.html">
+<meta name="description" content="1.什么是HashMap Hash: 散列将一个任意的长度通过某种(hash函数)算法转换成一个固定值 Map: 地图,  (x,y)存储 底层就是一个数组结构, 数组中的每一项又是一个链表, 当新建一个HashMap的时候, 就会初始化一个数组 总结: 通过 hash 出来值, 然后通过值定位到某个 map, 然后value 存储到这个 map中, value只不过是 key 的附属. 2.源码">
+<meta name="keywords" content="原创,技术,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap的实现原理">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/02/Java/HashMap的实现原理/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="没有边界就没有自由.">
+<meta property="og:description" content="1.什么是HashMap Hash: 散列将一个任意的长度通过某种(hash函数)算法转换成一个固定值 Map: 地图,  (x,y)存储 底层就是一个数组结构, 数组中的每一项又是一个链表, 当新建一个HashMap的时候, 就会初始化一个数组 总结: 通过 hash 出来值, 然后通过值定位到某个 map, 然后value 存储到这个 map中, value只不过是 key 的附属. 2.源码">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-02-024247.jpg">
+<meta property="og:updated_time" content="2018-06-02T03:17:20.481Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A.P的文艺杂谈">
-<meta name="twitter:description" content="没有边界就没有自由.">
+<meta name="twitter:title" content="HashMap的实现原理">
+<meta name="twitter:description" content="1.什么是HashMap Hash: 散列将一个任意的长度通过某种(hash函数)算法转换成一个固定值 Map: 地图,  (x,y)存储 底层就是一个数组结构, 数组中的每一项又是一个链表, 当新建一个HashMap的时候, 就会初始化一个数组 总结: 通过 hash 出来值, 然后通过值定位到某个 map, 然后value 存储到这个 map中, value只不过是 key 的附属. 2.源码">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-02-024247.jpg">
 
 
 
@@ -123,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="https://airpoet.github.io/archives/2018/page/2/"/>
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/02/Java/HashMap的实现原理/"/>
 
 
 
 
 
-  <title>归档 | A.P的文艺杂谈</title>
+  <title>HashMap的实现原理 | A.P的文艺杂谈</title>
   
 
 
@@ -148,7 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -276,115 +279,264 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 12 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/02/Java/HashMap的实现原理/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/05/26/Linux/Linux学习笔记-1/" itemprop="url">
-              
-                <span itemprop="name">Linux学习笔记-1</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">HashMap的实现原理</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-26T23:37:15+08:00"
-              content="2018-05-26" >
-          05-26
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-02T10:25:19+08:00">
+                2018-06-02
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/知识点/" itemprop="url" rel="index">
+                    <span itemprop="name">知识点</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/02/Java/HashMap的实现原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/02/Java/HashMap的实现原理/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/25/Linux/Linux学习笔记-3/" itemprop="url">
-              
-                <span itemprop="name">Linux学习笔记-3</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-25T08:17:16+08:00"
-              content="2018-05-25" >
-          05-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <h1 id="1-什么是HashMap"><a href="#1-什么是HashMap" class="headerlink" title="1.什么是HashMap"></a>1.什么是HashMap</h1><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-02-024247.jpg" alt=""></p>
+<p><strong>Hash</strong>: 散列将一个任意的长度通过某种(hash函数)算法转换成一个固定值</p>
+<p><strong>Map</strong>: 地图,  (x,y)存储</p>
+<p>底层就是一个数组结构, 数组中的每一项又是一个链表, 当新建一个HashMap的时候, 就会初始化一个数组</p>
+<p><strong>总结</strong>: 通过 hash 出来值, 然后通过值定位到某个 map, 然后value 存储到这个 map中, <strong>value只不过是 key 的附属.</strong></p>
+<h1 id="2-源码分析"><a href="#2-源码分析" class="headerlink" title="2.源码分析"></a>2.源码分析</h1><h3 id="先给出结论"><a href="#先给出结论" class="headerlink" title="先给出结论"></a>先给出结论</h3><h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构:"></a>数据结构:</h4><pre><code>1. 底层是数组
+2. `Entry` 就是数组中的元素
+3. 每个`Map.Entry`其实就是一个`key-value`对,  它持有一个指向下一个元素的引用`Entry&lt;K,V&gt; next;`, 这就构成了链表
+</code></pre><h4 id="存取实现"><a href="#存取实现" class="headerlink" title="存取实现:"></a>存取实现:</h4><ul>
+<li><strong>存储<code>put</code></strong> :<ul>
+<li><strong>过程</strong><ul>
+<li>先根据 <code>key</code> 的 <code>hashCode</code> 重新计算 <code>hash</code> 值, 根据 <code>hash</code> 值得到这个元素在数组中的位置(下标)</li>
+<li>如果数组该位置上已经存放有其他元素了,  那么在这个位置上的元素将以链表的形式存放, 新加入的放在链头, 最先加入的放在链尾.  </li>
+<li>如果数组该位置上没有元素, 就直接将该元素放到数组中的该位置上.</li>
+</ul>
+</li>
+<li><strong>注意点</strong><ul>
+<li>当系统决定存储 <code>HashMap</code> 中的 <code>key-value</code> 对时，完全没有考虑 <code>Entry</code> 中的 <code>value</code>，仅仅只是根据 <code>key</code>来计算并决定每个<code>Entry</code>的存储位置。当系统决定了 <code>key</code>的存储位置之后，<code>value</code>随之保存在那里即可。</li>
+<li>对于于任意给定的对象，只要它的 <code>hashCode()</code>返回值相同，那么程序调用 <code>hash(int h)</code>方法所计算得到的<code>hash</code> 码值总是相同的。</li>
+<li>本质上就是<strong>把 <code>hash</code> 值对数组长度取模运算</strong>， 这样一来，<strong>元素的分布相对来说是比较均匀的</strong></li>
+<li>但是系统是用的<strong>位运算</strong>， 方法更巧妙， 消耗更小</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>读取<code>get</code></strong><ul>
+<li><strong>过程</strong><ul>
+<li>首先计算 <code>key</code> 的 <code>hashCode</code>，找到数组中对应位置的某一元素，然后通过<code>key</code> 的 <code>equals</code> 方法在对应位置的链表中找到需要的元素。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="存储实现归纳"><a href="#存储实现归纳" class="headerlink" title="存储实现归纳"></a>存储实现归纳</h4><ul>
+<li><p><strong>HashMap</strong> 在底层将 <strong>key-value</strong> 当成一个<u>整体</u>进行处理，这个整体就是一个 <strong>Entry</strong> 对象。</p>
+</li>
+<li><p><strong>HashMap</strong> 底层采用一个 <strong>Entry[]</strong> 数组来保存所有的 <strong>key- value</strong> 对，当需要<strong><em>存储</em></strong>一个 <strong>Entry</strong> 对象时，会根据 <strong>hash</strong> 算法来<u>决定其在数组中的存储位置</u>，在根据 <strong>equals</strong> 方法<u>决定其在该数组位置上的链表中的存储位置</u>；</p>
+</li>
+<li>当需要<strong><em>取出</em></strong>一个 <strong>Entry</strong> 时，也会根据 <strong>hash</strong> 算法<u>找到其在数组中的存储位置</u>，再根据 <strong>equals</strong> 方法<u>从该位置上的链表中取出</u>该 <strong>Entry</strong>。</li>
+</ul>
+<h1 id="3-HashMap-的性能参数"><a href="#3-HashMap-的性能参数" class="headerlink" title="3.  HashMap 的性能参数"></a>3.  HashMap 的性能参数</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 桶表默认容量 16,  必须是 2 的倍数， 便于后面的 位运算</span></span><br><span class="line"><span class="comment"> * 控制hashcode 不超16范围, a.hashcode = xx % 16 (hashcode 取模 桶个数)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// aka 16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * MUST be a power of two &lt;= 1&lt;&lt;30.</span></span><br><span class="line"><span class="comment"> * 桶表最大 2^30</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 扩容因子（负载因子）: 0.75</span></span><br><span class="line"><span class="comment"> * 扩容: 每次2倍</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 链表: hash算法值相同的时候, 会把值相同的放在一个链表上, 链表上的元素个数</span></span><br><span class="line"><span class="comment"> * 超过8个时, 链表转化为二叉树, 提升查询效率</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TREEIFY_THRESHOLD = <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 小于6个， 又变回链表</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNTREEIFY_THRESHOLD = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The smallest table capacity for which bins may be treeified.</span></span><br><span class="line"><span class="comment"> * (Otherwise the table is resized if too many nodes in a bin.)</span></span><br><span class="line"><span class="comment"> * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts</span></span><br><span class="line"><span class="comment"> * between resizing and treeification thresholds.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MIN_TREEIFY_CAPACITY = <span class="number">64</span>;</span><br></pre></td></tr></table></figure>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/02/Poetry/无题/" rel="next" title="▍无题">
+                <i class="fa fa-chevron-left"></i> ▍无题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2018/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2018/">1</a><span class="page-number current">2</span>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -392,6 +544,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -412,8 +578,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -514,6 +689,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-什么是HashMap"><span class="nav-number">1.</span> <span class="nav-text">1.什么是HashMap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-源码分析"><span class="nav-number">2.</span> <span class="nav-text">2.源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先给出结论"><span class="nav-number">2.0.1.</span> <span class="nav-text">先给出结论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">数据结构:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存取实现"><span class="nav-number">2.0.1.2.</span> <span class="nav-text">存取实现:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储实现归纳"><span class="nav-number">2.0.1.3.</span> <span class="nav-text">存储实现归纳</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-HashMap-的性能参数"><span class="nav-number">3.</span> <span class="nav-text">3.  HashMap 的性能参数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -668,6 +859,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -685,6 +880,18 @@
       <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/06/02/Java/HashMap的实现原理/';
+          this.page.identifier = '2018/06/02/Java/HashMap的实现原理/';
+          this.page.title = 'HashMap的实现原理';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

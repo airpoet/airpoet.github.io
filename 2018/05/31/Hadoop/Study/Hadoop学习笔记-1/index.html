@@ -86,14 +86,14 @@
 <meta name="description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip1234567891011121314151617181920212223242526272829303132333435如果这个文件是小文件：	io流+集合	实现思路：		创建一个流进行文件读取		读取出来的数据存储到map集合中  key：ip    value:次数			统计逻">
 <meta name="keywords" content="原创,技术,Hadoop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop学习笔记-1 inputing">
-<meta property="og:url" content="https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop-1/index.html">
+<meta property="og:title" content="Hadoop学习笔记-1 简介&amp;安装">
+<meta property="og:url" content="https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop学习笔记-1/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip1234567891011121314151617181920212223242526272829303132333435如果这个文件是小文件：	io流+集合	实现思路：		创建一个流进行文件读取		读取出来的数据存储到map集合中  key：ip    value:次数			统计逻">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-01T17:38:44.627Z">
+<meta property="og:updated_time" content="2018-06-02T07:11:09.616Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hadoop学习笔记-1 inputing">
+<meta name="twitter:title" content="Hadoop学习笔记-1 简介&amp;安装">
 <meta name="twitter:description" content="引入面试题1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip1234567891011121314151617181920212223242526272829303132333435如果这个文件是小文件：	io流+集合	实现思路：		创建一个流进行文件读取		读取出来的数据存储到map集合中  key：ip    value:次数			统计逻">
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop-1/"/>
+  <link rel="canonical" href="https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop学习笔记-1/"/>
 
 
 
 
 
-  <title>Hadoop学习笔记-1 inputing | A.P的文艺杂谈</title>
+  <title>Hadoop学习笔记-1 简介&安装 | A.P的文艺杂谈</title>
   
 
 
@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop-1/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop学习笔记-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hadoop学习笔记-1 inputing</h1>
+          <h1 class="post-title" itemprop="name headline">Hadoop学习笔记-1 简介&安装</h1>
         
 
         <div class="post-meta">
@@ -372,9 +372,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/31/Hadoop/Study/Hadoop-1/#comments" itemprop="discussionUrl">
+                <a href="/2018/05/31/Hadoop/Study/Hadoop学习笔记-1/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/31/Hadoop/Study/Hadoop-1/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/05/31/Hadoop/Study/Hadoop学习笔记-1/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -560,7 +560,8 @@
 <h4 id="方式1-伪分布式"><a href="#方式1-伪分布式" class="headerlink" title="方式1:  伪分布式"></a>方式1:  伪分布式</h4><p><strong>所有进程全部运行在同一个节点上</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">1）上传</span><br><span class="line">2）解压</span><br><span class="line">3）修改配置文件</span><br><span class="line">	配置文件的目录：HADOOP_HOME/etc/hadoop</span><br><span class="line">    需要修改6个配置文件：</span><br><span class="line">    1）hadoop-env.sh</span><br><span class="line">   	 <span class="built_in">export</span> JAVA_HOME=/home/hadoop/jdk1.8.0_73/</span><br><span class="line">   	 </span><br><span class="line">    2)core-site.xml</span><br><span class="line">    	核心配置文件</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://hadoop:9000&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">    3)hdfs-site.xml</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        </span><br><span class="line">     4)yarn-site.xml</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">     </span><br><span class="line">     5)mapred-site.xml</span><br><span class="line">     	&lt;property&gt;</span><br><span class="line">  	       &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">    	   &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">									   </span><br><span class="line">                                      </span><br><span class="line">	 6)slaves   配置的是从节点的信息</span><br><span class="line">	 </span><br><span class="line">	 7)配置环境变量</span><br><span class="line">	 	<span class="built_in">export</span> JAVA_HOME=/home/hadoop/jdk1.8.0_73</span><br><span class="line">		<span class="built_in">export</span> HADOOP_HOME=/home/hadoop/hadoop-2.7.6</span><br><span class="line">		<span class="built_in">export</span>  PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin</span><br><span class="line">		<span class="built_in">source</span> /etc/rpofile</span><br><span class="line">		验证  hadoop  version</span><br><span class="line"></span><br><span class="line">	8)先进行格式化</span><br><span class="line">		hadoop namenode -format</span><br><span class="line">	9)启动</span><br><span class="line">        start-all.sh</span><br><span class="line">        不建议   建议以下命令：</span><br><span class="line">        start-dfs.sh</span><br><span class="line">        start-yarn.sh</span><br><span class="line"></span><br><span class="line">	10）验证</span><br><span class="line">        jps   6个进程</span><br><span class="line">        3909 Jps</span><br><span class="line">        3736 ResourceManager</span><br><span class="line">        3401 DataNode</span><br><span class="line">        3306 NameNode</span><br><span class="line">        3836 NodeManager</span><br><span class="line">        3597 SecondaryNameNode</span><br><span class="line"></span><br><span class="line">		页面：</span><br><span class="line">        hdfs：namenode的ip：50070</span><br><span class="line">        yarn:resourcemanager的ip：8088</span><br></pre></td></tr></table></figure>
 <hr>
-<h4 id="方式2-完全分布式"><a href="#方式2-完全分布式" class="headerlink" title="方式2:  完全分布式"></a>方式2:  完全分布式</h4><p><strong>各个节点的安装的普通用户名必须相同  密码也得相同, 每个节点都需要操作</strong></p>
+<h4 id="方式2-完全分布式"><a href="#方式2-完全分布式" class="headerlink" title="方式2:  完全分布式"></a>方式2:  完全分布式</h4><p><a href="https://app.yinxiang.com/shard/s37/nl/7399077/c3f4c3b9-249e-42cf-87e4-fb5db3bb37e2/" target="_blank" rel="noopener">参考文档</a></p>
+<p><strong>各个节点的安装的普通用户名必须相同  密码也得相同, 每个节点都需要操作</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">搭建准备：</span><br><span class="line">	<span class="number">1</span>）ip配置</span><br><span class="line">	<span class="number">2</span>）主机名   vi /etc/sysconfig/network</span><br><span class="line">	<span class="number">3</span>）主机映射</span><br><span class="line">	<span class="number">4</span>）关闭防火墙和sellinux</span><br><span class="line">		service iptables stop</span><br><span class="line">		vi /etc/selinux/config</span><br><span class="line">		SELINUX=disabled</span><br><span class="line">	<span class="number">5</span>）将系统的启动级别改为<span class="number">3</span></span><br><span class="line"></span><br><span class="line">	<span class="number">6</span>）创建普通用户，并为普通用户添加sudolers权限</span><br><span class="line">		创建用户：useradd 用户名</span><br><span class="line">				 passwd 用户名</span><br><span class="line">				 vi /etc/sudoers</span><br><span class="line">				 hadoop  ALL=(ALL)       ALL</span><br><span class="line">	<span class="number">7</span>）配置免密登录</span><br><span class="line">		先切换到普通用户</span><br><span class="line">		每台机器都需要执行下面的操作</span><br><span class="line">		各个节点之间都做一下</span><br><span class="line">		    a. 生成秘钥 ssh-keygen</span><br><span class="line">		    b. 发送秘钥  ssh-copy-<span class="function">id <span class="title">hadoop</span><span class="params">(主机名)</span></span></span><br><span class="line"><span class="function">			c. 验证：各个节点之间都需要做相互验证</span></span><br><span class="line"><span class="function">				ssh hadoop01</span></span><br><span class="line"><span class="function">				ssh hadoop02</span></span><br><span class="line"><span class="function">				ssh hadoop03</span></span><br><span class="line"><span class="function">	8）安装jdk</span></span><br><span class="line"><span class="function">		卸载jdk：</span></span><br><span class="line"><span class="function">		rpm -qa|grep jdk</span></span><br><span class="line"><span class="function">		rpm -e java-1.7.0-openjdk-1.7.0.99-2.6.5.1.el6.x86_64 --nodeps</span></span><br><span class="line"><span class="function">				</span></span><br><span class="line"><span class="function">	9）时间同步   伪分布式不需要   分布式需要，必须做</span></span><br><span class="line"><span class="function">		1)不能联网的时候    手动指定   date -s 时间  或者手动搭建一个时间服务器</span></span><br><span class="line"><span class="function">		2）能联网的时候    找一个公网中的公用的时间服务器  所有节点的时间和公网中的时间服务器保持一致</span></span><br><span class="line"><span class="function">			ntpdate 公网的时间服务器地址</span></span><br><span class="line"><span class="function">			</span></span><br><span class="line"><span class="function">			完全分布式必须要做  每个节点都需要执行</span></span><br><span class="line"><span class="function">	10) 选择安装版本：</span></span><br><span class="line"><span class="function">		不选太陈旧的版本也不选最新的版本</span></span><br><span class="line"><span class="function">		2.7.6</span></span><br><span class="line"><span class="function">	11) 安装</span></span><br><span class="line"><span class="function">		一定切换用户    普通用户</span></span><br><span class="line"><span class="function">		先在一个节点上执行所有的修改  在远程发送到其他节点</span></span><br><span class="line"><span class="function">                1）上传</span></span><br><span class="line"><span class="function">                2）解压d</span></span><br><span class="line"><span class="function">                3）配置环境变量</span></span><br><span class="line"><span class="function">                4）修改配置文件</span></span><br><span class="line"><span class="function">                    6个配置文件</span></span><br><span class="line"><span class="function">                    集群规划</span></span><br><span class="line"><span class="function">                    ....</span></span><br><span class="line"><span class="function">                    ....</span></span><br><span class="line"><span class="function">                    </span></span><br><span class="line"><span class="function">                5)远程发送</span></span><br><span class="line"><span class="function">                scp -r hadoop-2.7.6 hadoop02:$PWD</span></span><br><span class="line"><span class="function">                scp -r hadoop-2.7.6 hadoop03:$PWD</span></span><br><span class="line"><span class="function">                </span></span><br><span class="line"><span class="function">                scp -r /home/ap/apps/hadoop-2.7.6/etc/hadoop ap@cs1:/home/ap/apps/hadoop-2.7.6/etc</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">                远程发送/etc/pofile</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">                执行source /etc/pofile</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">                6）进行格式化     必须在namenode的节点（hdfs的主节点）</span></span><br><span class="line"><span class="function">                hadoop namenode -format</span></span><br><span class="line"><span class="function">            不配置目录默认/tmp  临时目录   可以随时回收的</span></span><br><span class="line"><span class="function">                7)启动</span></span><br><span class="line"><span class="function">                启动hdfs    start-dfs.sh  在任意节点都可以</span></span><br><span class="line"><span class="function">                启动yarn     start-yarn.sh   在yarn的主节点执行</span></span><br><span class="line"><span class="function">                jps命令查看</span></span><br><span class="line"><span class="function">                网页：</span></span><br><span class="line"><span class="function">                hdfs:     hadoop01:50070</span></span><br><span class="line"><span class="function">                yarn      hadoop03:8088</span></span><br><span class="line"><span class="function">                    </span></span><br><span class="line"><span class="function">                    </span></span><br><span class="line"><span class="function">测试yarn集群是否启动成功 <span class="params">(提交MapReduce例子程序试跑)</span></span></span><br><span class="line"><span class="function">	ls apps/hadoop-2.7.6/share/hadoop/mapreduce</span></span><br><span class="line"><span class="function">	bin/hadoop jar hadoop-mapreduce-examples-2.6.5.jar  pi 5 5</span></span><br></pre></td></tr></table></figure>
 <h3 id="可能遇到的错误"><a href="#可能遇到的错误" class="headerlink" title="可能遇到的错误"></a>可能遇到的错误</h3><h4 id="搭建过程中"><a href="#搭建过程中" class="headerlink" title="搭建过程中"></a>搭建过程中</h4><ol>
 <li>主机找不到<ol>
@@ -686,7 +687,8 @@
 <li>可以看做跑在一个节点上的完全分布式</li>
 <li>有分布式文件系统, 只不过这个文件系统只有一个节点</li>
 </ul>
-<h3 id="3-完全分布式"><a href="#3-完全分布式" class="headerlink" title="==3. 完全分布式=="></a>==3. 完全分布式==</h3><p><strong>规划</strong></p>
+<h3 id="3-完全分布式"><a href="#3-完全分布式" class="headerlink" title="==3. 完全分布式=="></a>==3. 完全分布式==</h3><p><strong><a href="https://app.yinxiang.com/shard/s37/nl/7399077/c3f4c3b9-249e-42cf-87e4-fb5db3bb37e2/" target="_blank" rel="noopener">参考文档</a></strong> </p>
+<p><strong>规划</strong></p>
 <p><strong>目前疑点:</strong>  NodeManager是根据什么配置到每台机器上的??</p>
 <p>根据表征, 可能是根据 slave文件</p>
 <table>
@@ -760,244 +762,7 @@
 <li>不同的namenode管理的数据Block Pool ID  不同</li>
 </ul>
 <hr>
-<h1 id="Hadoop的核心模块"><a href="#Hadoop的核心模块" class="headerlink" title="Hadoop的核心模块"></a>Hadoop的核心模块</h1><h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><h3 id="1-HDFS是什么"><a href="#1-HDFS是什么" class="headerlink" title="1. HDFS是什么:"></a>1. HDFS是什么:</h3><ul>
-<li>分布式文件系统</li>
-</ul>
-<h3 id="2-HDFS-设计思想"><a href="#2-HDFS-设计思想" class="headerlink" title="2. HDFS 设计思想"></a>2. HDFS 设计思想</h3><ul>
-<li>分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储</li>
-<li><strong>分块存储</strong>: 每一个块叫做 block<ul>
-<li>如果一个8T的数据, 这个怎么分合适???<ul>
-<li>设置分块的时候要<strong>考虑</strong>一个事情 : <strong>负载均衡</strong></li>
-<li>块的大小不能太大, 太大会造成负载不均衡</li>
-<li><strong>hadoop2.x</strong> 中默认的切分的<strong>块的大小</strong>是: <strong>128M</strong>, 1.x中默认的是64M</li>
-<li>如果一个文件<strong>不足128M, 也会单独存一个快</strong>, <strong>快的大小就是存储数据的实际大小</strong></li>
-</ul>
-</li>
-<li>这个分块存储思想中, 如果一个块的存储节点宕机了, 这个时候, 数据的安全性得不到保证了</li>
-</ul>
-</li>
-<li>HDFS中默认块的存储采用<strong>备份机制</strong><ul>
-<li><strong>默认的备份个数是3个</strong>(总共存的, 存到datanode上的, namenode不存),  之前自己配的是2个, 所有备份相同地位是相同的.</li>
-<li>相同的数据块的备份一定存储在不同的节点上</li>
-<li>如果节点总共2个,  <code>dfs.replication=3</code> 副本个数是3个,  实际存储2个, 另一个进行<strong>记账</strong>,  当集群节点个数大于3个时, 会复制这个副本, 最终达到3个</li>
-<li>假设集群中的节点4个, 副本3个, 有一个副本的机器宕机了, 这个时候发现副本的个数 小于 设定的个数,  就会进行<strong>复制, 达到3个副本</strong>,</li>
-<li>如果 <em>这个时候</em>, 刚才宕机的节点又恢复了, 这个时候集群副本个数为4了,  集群会等待一段时间, 如果发现还是4个, 就会<strong>删除</strong>一个副本, <strong>达到3个</strong>(<u>设定值</u>)</li>
-<li>备份越多越好吗?<ul>
-<li>理论上副本数越多, 数据安全性越高</li>
-<li>但是副本数越多, 会占用过多的存储资源, 会造成集群的维护变得越困难<ul>
-<li>100 个节点, 50个副本,  在这50个副本中, 随时都有可能宕机, hdfs就需要维护副本</li>
-</ul>
-</li>
-<li>一般情况下, 3个就可以了</li>
-<li>hadoop是基于廉价的pc机设计的, 会造成机器随时可能宕机</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>HDFS的<strong>目录结构</strong><ul>
-<li>hdfs的目录结构与linux 操作系统类似,  以 <code>/</code>为跟节点,  我们将这个目录🌲称为<code>抽象目录树</code></li>
-<li>因为<strong>hdfs的目录结构</strong>代表的是所有数据节点的<strong>抽象出来的目录</strong>,  不代表任何一个节点<ul>
-<li>hdfs:  /hadoop.zip   500M  被分成4个块存储</li>
-<li>hdfs中存储的数据块 是有编号的, blk_1,  blk_2, blk_3,  blk_4</li>
-<li>/spark.zip  300M  3个块, blk_5  blk_6  blk_7</li>
-<li>底层存储的时候, 每一个block都有一个唯一的id</li>
-<li>hdfs的数据底层存储的时候吗, 还是存在真正的物理节点上.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-HDFS-的整体结构"><a href="#3-HDFS-的整体结构" class="headerlink" title="3. HDFS 的整体结构"></a>3. HDFS 的整体结构</h3><p><strong>主从结构:  一个主节点,  多个从节点</strong></p>
-<h4 id="namenode"><a href="#namenode" class="headerlink" title="namenode:"></a>namenode:</h4><ul>
-<li>用于存储元数据, 包括: <ul>
-<li>抽象目录树</li>
-<li>存储数据和block的对应关系</li>
-<li>block存储的位置<ul>
-<li>处理客户端的读写请求</li>
-<li>读: 下载</li>
-<li>写: 上传</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="datanode"><a href="#datanode" class="headerlink" title="datanode"></a>datanode</h4><ul>
-<li>负责真正的数据存储, 存储数据的block</li>
-<li>真正处理读写</li>
-</ul>
-<h4 id="secondarynamenode"><a href="#secondarynamenode" class="headerlink" title="secondarynamenode:"></a>secondarynamenode:</h4><ul>
-<li>冷备份节点: 助理<ul>
-<li>当namenode宕机的时候,  secondarynamenode不能主动切换为 namenode, 但是 secondarynamenode中存储的数据与namenode相同.</li>
-</ul>
-</li>
-<li>主要作用: <ul>
-<li>namenode宕机的时候, 帮助namenode恢复</li>
-<li>帮助namenode做一些事情, 分担namenode的压力</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-HDFS优缺点"><a href="#4-HDFS优缺点" class="headerlink" title="4. HDFS优缺点:"></a>4. HDFS优缺点:</h3><ul>
-<li><p>优点: </p>
-<ol>
-<li>可构建在廉价机器上, 成本低,  通过多副本提高可靠性, 提供了容错和恢复机制</li>
-<li>高容错性<ul>
-<li>容错性: 数据访问上, 一个节点数据丢失, 不影响整体的数据访问</li>
-<li>数据自动保存多个副本, 副本丢失后, 自动恢复, 最终恢复到用户配置的副本个数</li>
-</ul>
-</li>
-<li>适合批处理, 适合离线数据处理<ul>
-<li>移动计算而非数据, 数据位置暴露给计算框架</li>
-</ul>
-</li>
-<li>适合大数据处理<ul>
-<li>GB,  TB 甚至 PB 级数据, 百万规模以上的文件数量, 10k+ 节点规模</li>
-</ul>
-</li>
-<li>流式文件访问, 不支持数据修改, hdfs用于数据存储<ul>
-<li>一次性写入, 多次读取, 保证数据一致性</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<ul>
-<li><p><strong>缺点:</strong> </p>
-<ol>
-<li>不支持低延迟的数据访问, 不支持 <strong>实时/近实时</strong> 数据访问</li>
-<li>不擅长存储大量的小文件–kb级别的<ul>
-<li>寻址时间可能大于读取数据的时间, 不划算<ul>
-<li>进行数据访问的时候先找元数据</li>
-<li>元数据是和block对应的, 1个block块对应一条元数据</li>
-<li>1000w个1kb的文件, 存了1000w个块 — 1000w元数据</li>
-<li>在进行数据访问的时候可能花了 1s 的时间, 总体上不划算</li>
-</ul>
-</li>
-<li>这样会造成元数据存储量过大, 增加namenode的压力<ul>
-<li>在hdfs中一般情况下, 一条元数据大小 150byte 左右</li>
-<li>1000w条元数据 — 1000w * 150,  1.5G左右</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>不支持文件内容修改, 支持文件内容追加  末尾追加</li>
-</ol>
-</li>
-</ul>
-<h3 id="5-HDFS的应用"><a href="#5-HDFS的应用" class="headerlink" title="==5. HDFS的应用:=="></a>==5. HDFS的应用:==</h3><h4 id="1-HDFS命令方式"><a href="#1-HDFS命令方式" class="headerlink" title="1. HDFS命令方式"></a>1. HDFS<strong>命令方式</strong></h4><p><strong>HDFS归根结底就是一个文件系统,  类似于 linux,  需要用命令来操作</strong></p>
-<ol>
-<li><p>在hadoop中查看, 只有绝对路径的访问方式,   <code>/</code> 抽象根目录 , 具体表示为: <code>http: cs1:50070/</code></p>
-</li>
-<li><p><strong><code>hadoop fs</code> (开启原生文件系统客户端)</strong></p>
-<ol>
-<li><p><strong>列出根目录</strong>: <code>hadoop fs -ls /</code></p>
-</li>
-<li><p><strong>级联创建</strong>:  <code>hadoop fs -p /aa/bb/cc/dd</code></p>
-</li>
-<li><p><strong>上传</strong>: <code>[-put [-f][-p] [-l] &lt;localsrc&gt; ... &lt;dst&gt;]</code></p>
-<ul>
-<li>上传一个: <code>hadoop fs -put hadoop-2.7.6.tar.gz /ss</code></li>
-<li>上传多个: <code>hadoop fs -put aa.txt bb.txt /ss</code></li>
-</ul>
-</li>
-<li><p><strong>下载</strong></p>
-<ul>
-<li><code>hadoop fs -get hdfs路径 本地路径</code></li>
-</ul>
-</li>
-<li><p><strong>合并下载</strong></p>
-<ul>
-<li><code>hadoop fs -getmerge /ss/aa.txt /ss/bb.txt /home/ap/cc.txt</code></li>
-<li>会将最后一个路径之前8的当做需要合并的文件, 最后一个路径中指定的文件就是合并生成的文件</li>
-</ul>
-</li>
-<li><p><strong>查看文件内容</strong></p>
-<ul>
-<li><code>-cat</code> 查看文件内容</li>
-</ul>
-</li>
-<li><p><strong>删除文件</strong></p>
-<ul>
-<li><del>rm -rf (错误的)</del></li>
-<li>rm -r(递归)  -f(强制)</li>
-<li>文件<code>hadoop fs -rm -f /ss/aa.txt</code></li>
-<li>文件夹 <code>hadoop fs -rm -f -r /aa</code></li>
-</ul>
-</li>
-<li><p><strong>mv 修改名字, 移动</strong></p>
-<ul>
-<li><code>hadoop fs -mv  ..  ..</code></li>
-</ul>
-</li>
-<li><p><strong>cp 复制</strong></p>
-<ul>
-<li><code>hadoop fs -cp .. ..</code></li>
-</ul>
-</li>
-<li><p>在末尾追加: <code></code>-appendToFile 本地文件  hdfs文件` </p>
-<ul>
-<li>将本地文件bb.txt 追加到 htfd的 /aa/aa.txt 上<ul>
-<li><code>hadoop fs -appendToFile aa.txt /ss/bb.txt</code></li>
-</ul>
-</li>
-<li>这个追加是在原始块的末尾追加的. 会改变集群上的文件</li>
-<li>如果超过128M才会进行切分,  但这个命令<em>一般不会使用</em></li>
-</ul>
-</li>
-<li><p><strong>展示文件末尾内容</strong><code>-tail</code></p>
-<ul>
-<li><code>hadoop fs -put dd.txt /</code></li>
-<li><code></code> hadoop fs -tail /dd.txt`</li>
-</ul>
-</li>
-<li><p><strong>修改文件权限</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[ap@cs2]~/<span class="built_in">test</span>% hadoop fs -ls /</span><br><span class="line">drwxr-xr-x   - ap supergroup          0 2018-06-01 08:55 /aa</span><br><span class="line"></span><br><span class="line">[ap@cs2]~/<span class="built_in">test</span>% hadoop fs -chmod -R 777 /aa</span><br><span class="line">[ap@cs2]~/<span class="built_in">test</span>% hadoop fs -ls /</span><br><span class="line">drwxrwxrwx   - ap supergroup          0 2018-06-01 08:55 /aa</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>修改用户权限</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -chown -R 用户名:组名  hdfs目录/文件</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
-<hr>
-<p><strong>相关知识点</strong></p>
-<ul>
-<li><p>这些命令<strong>在集群中的任何节点都可以做</strong>, hdfs文件系统中, 看到的目录结构只是一个抽象目录, 实际存储在集群中的节点上</p>
-<ul>
-<li>aa.txt ,  大小150M,   <code>hadoop fs -put aa.txt /</code></li>
-<li>会在根目录下看到 /aa.txt,  但是 aa.txt 真实存储的时候, 会先进行分块, 分2块, 进行存储, 假设集群中5个存储节点,  这2个块存储在哪个节点,  由namenode进行分配</li>
-<li>图形界面点进去, 可以看到存储的块</li>
-</ul>
-</li>
-<li><p><strong>Linux的权限管理命令</strong>: </p>
-<ol>
-<li>修改 文件/文件夹 权限的 <code>chmod</code>: <ol>
-<li>可读: r ,  =4        </li>
-<li>可写: w,  =2</li>
-<li>可执行: x,  =1<ol>
-<li>最大权限是7</li>
-<li>-rw-rw-r–</li>
-<li>文件属性 d:目录  -:文件  l:链接</li>
-<li>第一组: 本用户,  第二组: 本组用户,  第三组: 其它用户</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<ul>
-<li>chmod  711 </li>
-<li>改一个文件夹下所有文件权限为711 <code>chmod -R 711 目录</code></li>
-</ul>
-<ol start="2">
-<li>修改文件所属用户和组 <code>chown</code><ul>
-<li><code>chown -R root:root  ss/</code>把ss的文件夹全部改成root用户和root组</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<hr>
-<p>​    </p>
-<h4 id="2-Java-API的方式"><a href="#2-Java-API的方式" class="headerlink" title="2.  Java API的方式"></a>2.  Java API的方式</h4>
+
       
     </div>
     
@@ -1158,7 +923,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1250,7 +1015,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引入"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#面试题"><span class="nav-number">1.0.1.</span> <span class="nav-text">面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-有一个很大的-4T-的文件-文件中存储的是ip-每行存储一个-要求求出出现此处最多的那个ip"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-有两个很大的文件-两个文件中存储的都是url-求出两个文件中相同的url"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文件中相同的url</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-有一个很小的文件-存储的都是url-每行一个-怎样快速判断给定的一个url是否在这个文件中"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">3. 有一个很小的文件, 存储的都是url, 每行一个, 怎样快速判断给定的一个url是否在这个文件中</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大数据基本介绍"><span class="nav-number">2.</span> <span class="nav-text">大数据基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据"><span class="nav-number">2.0.1.</span> <span class="nav-text">数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构划分"><span class="nav-number">2.0.2.</span> <span class="nav-text">结构划分:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据特点-4V"><span class="nav-number">2.0.3.</span> <span class="nav-text">大数据特点:  4V</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据量大"><span class="nav-number">2.0.3.0.1.</span> <span class="nav-text">数据量大</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据来源"><span class="nav-number">2.0.4.</span> <span class="nav-text">数据来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">2.0.5.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据价值"><span class="nav-number">2.0.6.</span> <span class="nav-text">数据价值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几个概念"><span class="nav-number">3.</span> <span class="nav-text">几个概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集群"><span class="nav-number">3.0.1.</span> <span class="nav-text">集群:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式"><span class="nav-number">3.0.2.</span> <span class="nav-text">分布式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡-Nginx"><span class="nav-number">3.0.3.</span> <span class="nav-text">负载均衡: Nginx</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop"><span class="nav-number">4.</span> <span class="nav-text">Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">4.0.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop的模块"><span class="nav-number">4.0.2.</span> <span class="nav-text">Hadoop的模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop的搭建"><span class="nav-number">4.0.3.</span> <span class="nav-text">Hadoop的搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建前的准备"><span class="nav-number">4.0.3.1.</span> <span class="nav-text">搭建前的准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方式1-伪分布式"><span class="nav-number">4.0.3.2.</span> <span class="nav-text">方式1:  伪分布式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方式2-完全分布式"><span class="nav-number">4.0.3.3.</span> <span class="nav-text">方式2:  完全分布式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能遇到的错误"><span class="nav-number">4.0.4.</span> <span class="nav-text">可能遇到的错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建过程中"><span class="nav-number">4.0.4.1.</span> <span class="nav-text">搭建过程中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动过程中"><span class="nav-number">4.0.4.2.</span> <span class="nav-text">启动过程中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#某些进程启动不了"><span class="nav-number">4.0.4.3.</span> <span class="nav-text">某些进程启动不了</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#措辞1-暴力"><span class="nav-number">4.0.4.3.1.</span> <span class="nav-text">措辞1: 暴力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#措施2-单独启动某些进程"><span class="nav-number">4.0.4.3.2.</span> <span class="nav-text">措施2: 单独启动某些进程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建过程中的注意事项"><span class="nav-number">4.0.5.</span> <span class="nav-text">==搭建过程中的注意事项==</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群的安装模式"><span class="nav-number">5.</span> <span class="nav-text">集群的安装模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-单机模式"><span class="nav-number">5.0.1.</span> <span class="nav-text">1. 单机模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-伪分布式"><span class="nav-number">5.0.2.</span> <span class="nav-text">2. 伪分布式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-完全分布式"><span class="nav-number">5.0.3.</span> <span class="nav-text">==3. 完全分布式==</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-高可用"><span class="nav-number">5.0.4.</span> <span class="nav-text">==4. 高可用==</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-联邦机制"><span class="nav-number">5.0.5.</span> <span class="nav-text">5. 联邦机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop的核心模块"><span class="nav-number">6.</span> <span class="nav-text">Hadoop的核心模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS"><span class="nav-number">6.1.</span> <span class="nav-text">HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HDFS是什么"><span class="nav-number">6.1.1.</span> <span class="nav-text">1. HDFS是什么:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-HDFS-设计思想"><span class="nav-number">6.1.2.</span> <span class="nav-text">2. HDFS 设计思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HDFS-的整体结构"><span class="nav-number">6.1.3.</span> <span class="nav-text">3. HDFS 的整体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#namenode"><span class="nav-number">6.1.3.1.</span> <span class="nav-text">namenode:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#datanode"><span class="nav-number">6.1.3.2.</span> <span class="nav-text">datanode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#secondarynamenode"><span class="nav-number">6.1.3.3.</span> <span class="nav-text">secondarynamenode:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HDFS优缺点"><span class="nav-number">6.1.4.</span> <span class="nav-text">4. HDFS优缺点:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HDFS的应用"><span class="nav-number">6.1.5.</span> <span class="nav-text">==5. HDFS的应用:==</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HDFS命令方式"><span class="nav-number">6.1.5.1.</span> <span class="nav-text">1. HDFS命令方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Java-API的方式"><span class="nav-number">6.1.5.2.</span> <span class="nav-text">2.  Java API的方式</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引入"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#面试题"><span class="nav-number">1.0.1.</span> <span class="nav-text">面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-有一个很大的-4T-的文件-文件中存储的是ip-每行存储一个-要求求出出现此处最多的那个ip"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">1. 有一个很大的(4T)的文件,  文件中存储的是ip, 每行存储一个, 要求求出出现此处最多的那个ip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-有两个很大的文件-两个文件中存储的都是url-求出两个文件中相同的url"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2. 有两个很大的文件, 两个文件中存储的都是url,  求出两个文件中相同的url</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-有一个很小的文件-存储的都是url-每行一个-怎样快速判断给定的一个url是否在这个文件中"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">3. 有一个很小的文件, 存储的都是url, 每行一个, 怎样快速判断给定的一个url是否在这个文件中</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大数据基本介绍"><span class="nav-number">2.</span> <span class="nav-text">大数据基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据"><span class="nav-number">2.0.1.</span> <span class="nav-text">数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构划分"><span class="nav-number">2.0.2.</span> <span class="nav-text">结构划分:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据特点-4V"><span class="nav-number">2.0.3.</span> <span class="nav-text">大数据特点:  4V</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据量大"><span class="nav-number">2.0.3.0.1.</span> <span class="nav-text">数据量大</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据来源"><span class="nav-number">2.0.4.</span> <span class="nav-text">数据来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">2.0.5.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据价值"><span class="nav-number">2.0.6.</span> <span class="nav-text">数据价值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几个概念"><span class="nav-number">3.</span> <span class="nav-text">几个概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集群"><span class="nav-number">3.0.1.</span> <span class="nav-text">集群:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式"><span class="nav-number">3.0.2.</span> <span class="nav-text">分布式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡-Nginx"><span class="nav-number">3.0.3.</span> <span class="nav-text">负载均衡: Nginx</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop"><span class="nav-number">4.</span> <span class="nav-text">Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">4.0.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop的模块"><span class="nav-number">4.0.2.</span> <span class="nav-text">Hadoop的模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop的搭建"><span class="nav-number">4.0.3.</span> <span class="nav-text">Hadoop的搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建前的准备"><span class="nav-number">4.0.3.1.</span> <span class="nav-text">搭建前的准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方式1-伪分布式"><span class="nav-number">4.0.3.2.</span> <span class="nav-text">方式1:  伪分布式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方式2-完全分布式"><span class="nav-number">4.0.3.3.</span> <span class="nav-text">方式2:  完全分布式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能遇到的错误"><span class="nav-number">4.0.4.</span> <span class="nav-text">可能遇到的错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建过程中"><span class="nav-number">4.0.4.1.</span> <span class="nav-text">搭建过程中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动过程中"><span class="nav-number">4.0.4.2.</span> <span class="nav-text">启动过程中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#某些进程启动不了"><span class="nav-number">4.0.4.3.</span> <span class="nav-text">某些进程启动不了</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#措辞1-暴力"><span class="nav-number">4.0.4.3.1.</span> <span class="nav-text">措辞1: 暴力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#措施2-单独启动某些进程"><span class="nav-number">4.0.4.3.2.</span> <span class="nav-text">措施2: 单独启动某些进程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建过程中的注意事项"><span class="nav-number">4.0.5.</span> <span class="nav-text">==搭建过程中的注意事项==</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群的安装模式"><span class="nav-number">5.</span> <span class="nav-text">集群的安装模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-单机模式"><span class="nav-number">5.0.1.</span> <span class="nav-text">1. 单机模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-伪分布式"><span class="nav-number">5.0.2.</span> <span class="nav-text">2. 伪分布式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-完全分布式"><span class="nav-number">5.0.3.</span> <span class="nav-text">==3. 完全分布式==</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-高可用"><span class="nav-number">5.0.4.</span> <span class="nav-text">==4. 高可用==</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-联邦机制"><span class="nav-number">5.0.5.</span> <span class="nav-text">5. 联邦机制</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1434,9 +1199,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop-1/';
-          this.page.identifier = '2018/05/31/Hadoop/Study/Hadoop-1/';
-          this.page.title = 'Hadoop学习笔记-1 inputing';
+          this.page.url = 'https://airpoet.github.io/2018/05/31/Hadoop/Study/Hadoop学习笔记-1/';
+          this.page.identifier = '2018/05/31/Hadoop/Study/Hadoop学习笔记-1/';
+          this.page.title = 'Hadoop学习笔记-1 简介&安装';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

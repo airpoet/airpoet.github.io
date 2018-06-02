@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-150724.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-144555.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-145439.jpg">
-<meta property="og:updated_time" content="2018-06-01T14:59:37.249Z">
+<meta property="og:updated_time" content="2018-06-02T09:13:45.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux学习笔记-2">
 <meta name="twitter:description" content="1. VI文本编辑器学会使用vi编辑器是学习Linux系统的必备技术之一，因为一般的Linux服务器是没有GUI界面的，Linux运维及开发人员基本上都是通过命令行的方式进行文本编辑或程序编写的。vi编辑器是Linux内置的文本编辑器，几乎所有的类unix系统中都内置了vi编辑器，而其它编辑器则不一定，另外很多软件会调用vi编辑进行内容编写，例如crontab定时任务。较之于其它编辑器或GUI编辑">
@@ -867,6 +867,9 @@
 <p><strong>passwd spark</strong></p>
 <p>根据提示设置密码即可</p>
 <p>创建密码工具 mkpasswd</p>
+<blockquote>
+<p>下载： <code>yum -y install expect</code></p>
+</blockquote>
 <p><code>mkpasswd -l 14</code> 创建一个14位数的密码</p>
 <p><code>mkpasswd -l 15 -s 0</code>:  -s是设置特殊符号的长度, 这里是不要特殊符号</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">### 修改密码</span></span><br><span class="line">&gt; <span class="comment"># 此时只需要输入一遍密码</span></span><br><span class="line">&gt; passwd --stdin user4 </span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment"># 通过管道可以直接更改</span></span><br><span class="line">&gt; <span class="built_in">echo</span> <span class="string">"123"</span> | passwd --stdin user4</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment"># 通过手动输入回车符 `\n` 来实现2遍确认  -e：激活转义字符。</span></span><br><span class="line">&gt; <span class="built_in">echo</span> -e <span class="string">"123\n123\n"</span> | passwd user4</span><br><span class="line">&gt; </span><br><span class="line">&gt; =======<span class="comment">#额外知识点</span></span><br><span class="line">&gt; <span class="comment"># 使用echo -e选项时，若字符串中出现以下字符，则特别加以处理，而不会将它当成一般文字输出：</span></span><br><span class="line">&gt;     \a 发出警告声；</span><br><span class="line">&gt;     \b 删除前一个字符；</span><br><span class="line">&gt;     \c 最后不加上换行符号；</span><br><span class="line">&gt;     \f 换行但光标仍旧停留在原来的位置；</span><br><span class="line">&gt;     \n 换行且光标移至行首；</span><br><span class="line">&gt;     \r 光标移至行首，但不换行；</span><br><span class="line">&gt;     \t 插入tab；</span><br><span class="line">&gt;     \v 与\f相同；</span><br><span class="line">&gt;     \ 插入\字符；</span><br><span class="line">&gt;     \nnn 插入nnn（八进制）所代表的ASCII字符；</span><br><span class="line">&gt; </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>

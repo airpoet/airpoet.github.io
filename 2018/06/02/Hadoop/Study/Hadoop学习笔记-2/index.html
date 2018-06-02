@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="Hadoop的核心组件HDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块的大小是: 1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-02T07:13:49.794Z">
+<meta property="og:updated_time" content="2018-06-02T07:24:31.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop学习笔记-2 Hadoop核心组件">
 <meta name="twitter:description" content="Hadoop的核心组件HDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块的大小是: 1">
@@ -515,8 +515,12 @@
 <ul>
 <li><p><strong>缺点:</strong> </p>
 <ol>
-<li>不支持低延迟的数据访问, 不支持 <strong>实时/近实时</strong> 数据访问</li>
-<li>不擅长存储大量的小文件–kb级别的<ul>
+<li>不支持低延迟的数据访问, 不支持 <strong>实时/近实时</strong> 数据访问, 因为涉及到多轮<code>RPC</code>调用<ol>
+<li>向 NameNode 寻址..</li>
+<li>拿到地址后， 向 DataNode 请求数据..</li>
+</ol>
+</li>
+<li><strong>不擅长存储大量的小文件</strong>–kb级别的<ul>
 <li>寻址时间可能大于读取数据的时间, 不划算<ul>
 <li>进行数据访问的时候先找元数据</li>
 <li>元数据是和block对应的, 1个block块对应一条元数据</li>
@@ -531,7 +535,7 @@
 </li>
 </ul>
 </li>
-<li>不支持文件内容修改, 支持文件内容追加  末尾追加</li>
+<li><strong>不支持文件内容修改</strong>, 仅<strong>仅支持</strong>文件<strong>末尾追加</strong> <code>append</code>， 一个文件同时只能有一个写者，<strong>不支持并发操作</strong></li>
 </ol>
 </li>
 </ul>
@@ -606,6 +610,11 @@
 </li>
 <li><p><strong>修改用户权限</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -chown -R 用户名:组名  hdfs目录/文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>帮助文档</p>
+<ul>
+<li><code>hdfs dfsadmin</code></li>
+</ul>
 </li>
 </ol>
 </li>

@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Hadoop学习笔记-3 HDFS 原理剖析]]></title>
+    <url>%2F2018%2F06%2F03%2FHadoop%2FStudy%2FHadoop%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-HDFS%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%2F</url>
+    <content type="text"><![CDATA[1. HDFS体系结构主从。。。 2.NameNode概念 [x] 是整个文件系统的管理节点。它维护着整个文件系统的文件目录树，文件/目录的元信息和每个文件对应的数据块列表。接收用户的操作请求。 [x] 在hdfs-site.xml中的dfs.namenode.name.dir属性 [x] 文件包括： [x] 文件包括: ①fsimage:元数据镜像文件。存储某一时段NameNode内存元数据信息。 ②edits:操作日志文件。 ③fstime:保存最近一次checkpoint的时间 以上这些文件是保存在linux的文件系统中。 查看 NameNode中 fsimage 的内容 查看 fsimage镜像文件内容Usage: bin/hdfs oiv [OPTIONS] -i INPUTFILE -o OUTPUTFILE 1234567# 使用离线的查看器 输出到网页查看oiv -i hadoopdata/namenode/current/fsimage_0000000000000000250 -o 0000000000000000250# 另起一个窗口查看hadoop fs -ls -R webhdfs://127.0.0.1:5978# 可以知道数据存在那个哪个 fsimage 镜像中]]></content>
+      <categories>
+        <category>Hadoop</category>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>原创</tag>
+        <tag>技术</tag>
+        <tag>Hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[▍《回答》 -北岛]]></title>
     <url>%2F2018%2F06%2F03%2FPoetry%2F%E5%9B%9E%E7%AD%94%2F</url>
     <content type="text"><![CDATA[卑鄙是卑鄙者的通行证，高尚是高尚者的墓志铭，看吧，在那镀金的天空中，飘满了死者弯曲的倒影。 冰川纪过去了，为什么到处都是冰凌？好望角发现了，为什么死海里千帆相竞？ 我来到这个世界上，只带着纸、绳索和身影，为了在审判之前，宣读那些被判决的声音。 告诉你吧，世界我–不–相–信！纵使你脚下有一千名挑战者，那就把我算作第一千零一名。 我不相信天是蓝的，我不相信雷的回声，我不相信梦是假的，我不相信死无报应。 如果海洋注定要决堤，就让所有的苦水都注入我心中，如果陆地注定要上升，就让人类重新选择生存的峰顶。 新的转机和闪闪星斗，正在缀满没有遮拦的天空。那是五千年的象形文字，那是未来人们凝视的眼睛。 作者 / 北岛]]></content>

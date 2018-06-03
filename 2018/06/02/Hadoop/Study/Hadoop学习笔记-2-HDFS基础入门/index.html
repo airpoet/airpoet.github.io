@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="Hadoop的核心组件HDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块的大小是: 1">
+<meta name="description" content="Hadoop的核心组件 之 HDFSHDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块">
 <meta name="keywords" content="原创,技术,Hadoop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop学习笔记-2 Hadoop核心组件">
-<meta property="og:url" content="https://airpoet.github.io/2018/06/02/Hadoop/Study/Hadoop学习笔记-2/index.html">
+<meta property="og:title" content="Hadoop学习笔记-2 HDFS基础入门">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/02/Hadoop/Study/Hadoop学习笔记-2-HDFS基础入门/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="Hadoop的核心组件HDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块的大小是: 1">
+<meta property="og:description" content="Hadoop的核心组件 之 HDFSHDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-03T05:37:57.646Z">
+<meta property="og:updated_time" content="2018-06-03T09:11:56.209Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hadoop学习笔记-2 Hadoop核心组件">
-<meta name="twitter:description" content="Hadoop的核心组件HDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块的大小是: 1">
+<meta name="twitter:title" content="Hadoop学习笔记-2 HDFS基础入门">
+<meta name="twitter:description" content="Hadoop的核心组件 之 HDFSHDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://airpoet.github.io/2018/06/02/Hadoop/Study/Hadoop学习笔记-2/"/>
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/02/Hadoop/Study/Hadoop学习笔记-2-HDFS基础入门/"/>
 
 
 
 
 
-  <title>Hadoop学习笔记-2 Hadoop核心组件 | A.P的文艺杂谈</title>
+  <title>Hadoop学习笔记-2 HDFS基础入门 | A.P的文艺杂谈</title>
   
 
 
@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/02/Hadoop/Study/Hadoop学习笔记-2/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/02/Hadoop/Study/Hadoop学习笔记-2-HDFS基础入门/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hadoop学习笔记-2 Hadoop核心组件</h1>
+          <h1 class="post-title" itemprop="name headline">Hadoop学习笔记-2 HDFS基础入门</h1>
         
 
         <div class="post-meta">
@@ -372,9 +372,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/02/Hadoop/Study/Hadoop学习笔记-2/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/02/Hadoop/Study/Hadoop学习笔记-2-HDFS基础入门/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/02/Hadoop/Study/Hadoop学习笔记-2/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/02/Hadoop/Study/Hadoop学习笔记-2-HDFS基础入门/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -407,7 +407,7 @@
       
 
       
-        <h1 id="Hadoop的核心组件"><a href="#Hadoop的核心组件" class="headerlink" title="Hadoop的核心组件"></a>Hadoop的核心组件</h1><h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><h3 id="1-HDFS是什么"><a href="#1-HDFS是什么" class="headerlink" title="1. HDFS是什么:"></a>1. HDFS是什么:</h3><ul>
+        <h1 id="Hadoop的核心组件-之-HDFS"><a href="#Hadoop的核心组件-之-HDFS" class="headerlink" title="Hadoop的核心组件 之 HDFS"></a>Hadoop的核心组件 之 HDFS</h1><h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><h3 id="1-HDFS是什么"><a href="#1-HDFS是什么" class="headerlink" title="1. HDFS是什么:"></a>1. HDFS是什么:</h3><ul>
 <li>分布式文件系统</li>
 </ul>
 <h3 id="2-HDFS-设计思想"><a href="#2-HDFS-设计思想" class="headerlink" title="2. HDFS 设计思想"></a>2. HDFS 设计思想</h3><ul>
@@ -539,13 +539,11 @@
 </ol>
 </li>
 </ul>
-<h3 id="5-HDFS-的-常用命令"><a href="#5-HDFS-的-常用命令" class="headerlink" title="==5. HDFS 的 常用命令:=="></a>==5. HDFS 的 常用命令:==</h3><h4 id="1-HDFS命令方式"><a href="#1-HDFS命令方式" class="headerlink" title="1. HDFS命令方式"></a>1. HDFS<strong>命令方式</strong></h4><p><strong>HDFS归根结底就是一个文件系统,  类似于 linux,  需要用命令来操作</strong></p>
-<ol>
-<li><p>在hadoop中查看, 只有绝对路径的访问方式,   <code>/</code> 抽象根目录 , 具体表示为: <code>http: cs1:50070/</code></p>
-</li>
-<li><p>注意： 当不同的用户执行 hadoop</p>
-</li>
-<li><p><strong><code>hadoop fs</code> (开启原生文件系统客户端)</strong></p>
+<h3 id="5-HDFS-的-常用命令"><a href="#5-HDFS-的-常用命令" class="headerlink" title="==5. HDFS 的 常用命令:=="></a>==5. HDFS 的 常用命令:==</h3><p><strong>HDFS归根结底就是一个文件系统,  类似于 linux,  需要用命令来操作</strong></p>
+<h4 id="1-hapdoop-fs-命令"><a href="#1-hapdoop-fs-命令" class="headerlink" title="1. hapdoop fs 命令"></a>1. <code>hapdoop fs</code> 命令</h4><blockquote>
+<p><code>hadoop fs</code> /  <code>hdfs dfs</code> 效果是一样的</p>
+<p>在hadoop中查看, 只有绝对路径的访问方式</p>
+</blockquote>
 <ol>
 <li><p>查看帮助</p>
 <ul>
@@ -643,6 +641,8 @@
 </li>
 <li><p><code>hadoop fs -count -h /tmp</code>:  -h 是友好展示</p>
 </li>
+<li><code>hdfs dfs -count -h /tmp</code>:  与上面效果一样</li>
+<li><code>hdfs dfs -count -q -h /tmp</code>:  查看文件配额， 具体看 help</li>
 </ul>
 </li>
 <li><p><strong><code>du</code>：</strong> <strong>展示文件大小</strong>， 如果参数是文件夹， 则展示文件夹下文件的大小</p>
@@ -668,8 +668,43 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -chown -R 用户名:组名  hdfs目录/文件</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<hr>
+<h4 id="2-hdfs-dfsadmin命令"><a href="#2-hdfs-dfsadmin命令" class="headerlink" title="2. hdfs dfsadmin命令"></a>2. <strong><code>hdfs dfsadmin</code>命令</strong></h4><p> 管理员对当前节点的一些操作</p>
+<ul>
+<li><strong><code>hdfs dfsadmin -report</code>  报告当前的一些状态</strong><ul>
+<li>-live  活跃的   </li>
+<li>-dead  死的</li>
+<li>-decommissioning  退役的</li>
+</ul>
 </li>
-</ol>
+<li>**<code>hdfs dfsadmin -safemode</code> 安全模式<ul>
+<li>系统刚启动的时候， 会有30秒的安全模式开启状态， 过了30秒就关了</li>
+<li>enter 进入</li>
+<li>leave 离开</li>
+<li>get  查看</li>
+</ul>
+</li>
+<li><strong><code>hdfs dfsadmin</code> 设置配额</strong><ul>
+<li><code>-setQuota</code> ： 配额是限定的文件&amp;文件夹的数量<ul>
+<li>A quota of 1 would force the directory to remain empty.</li>
+<li>空文件本身算一个文件</li>
+<li><code>bin/hdfs dfsadmin -setQuota 10 lisi</code></li>
+</ul>
+</li>
+<li><code>-clrQuota</code></li>
+<li><code>-setSpaceQuota</code>： 空间配额限定的是大小<ul>
+<li><code>bin/hdfs dfsadmin -setSpaceQuota 4k /lisi/</code></li>
+</ul>
+</li>
+<li><code>-clrSpaceQuota</code></li>
+<li><code>hdfs dfs -count -q -h /user</code>:  加上 -q 是查看配额</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="3-httpFS访问"><a href="#3-httpFS访问" class="headerlink" title="3.  httpFS访问"></a>3.  httpFS访问</h4><p>使用 REST 的形式， 可以在浏览器上直接访问集群， 可以在非 Linux 平台访问</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 编辑文件httpfs-env.sh</span><br><span class="line"># 打开此句注释, 使用内嵌的 tomcat</span><br><span class="line">export HTTPFS_HTTP_PORT=14000</span><br><span class="line"></span><br><span class="line"># 编辑文件core-site.xml</span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.proxyuser.root.hosts<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>*<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.proxyuser.root.groups<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>*<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">编辑文件hdfs-site.xml</span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.webhdfs.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">重新启动namenode，执行 sbin/httpfs.sh start</span><br><span class="line"># 执行命令</span><br><span class="line">curl -i "http://cs1:14000/webhdfs/v1?user.name=root&amp;op=LISTSTATUS"</span><br></pre></td></tr></table></figure>
+<p><a href="http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/WebHDFS.html" target="_blank" rel="noopener">更多命令参考</a></p>
 <hr>
 <p><strong>相关知识点</strong></p>
 <ul>
@@ -709,7 +744,8 @@
 </ul>
 <hr>
 <p>​    </p>
-<h4 id="2-Java-API的方式"><a href="#2-Java-API的方式" class="headerlink" title="2.  Java API的方式"></a>2.  Java API的方式</h4>
+<h3 id="6-通过-Java-API的方式操作-HDFS"><a href="#6-通过-Java-API的方式操作-HDFS" class="headerlink" title="6. 通过 Java API的方式操作 HDFS"></a>6. 通过 Java API的方式操作 HDFS</h3><p>。。。</p>
+
       
     </div>
     
@@ -962,7 +998,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop的核心组件"><span class="nav-number">1.</span> <span class="nav-text">Hadoop的核心组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS"><span class="nav-number">1.1.</span> <span class="nav-text">HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HDFS是什么"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. HDFS是什么:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-HDFS-设计思想"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. HDFS 设计思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HDFS-的整体结构"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. HDFS 的整体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#namenode"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">namenode:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#datanode"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">datanode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#secondarynamenode"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">secondarynamenode:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HDFS优缺点"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. HDFS优缺点:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HDFS-的-常用命令"><span class="nav-number">1.1.5.</span> <span class="nav-text">==5. HDFS 的 常用命令:==</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HDFS命令方式"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">1. HDFS命令方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Java-API的方式"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">2.  Java API的方式</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop的核心组件-之-HDFS"><span class="nav-number">1.</span> <span class="nav-text">Hadoop的核心组件 之 HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS"><span class="nav-number">1.1.</span> <span class="nav-text">HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HDFS是什么"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. HDFS是什么:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-HDFS-设计思想"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. HDFS 设计思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HDFS-的整体结构"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. HDFS 的整体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#namenode"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">namenode:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#datanode"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">datanode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#secondarynamenode"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">secondarynamenode:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HDFS优缺点"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. HDFS优缺点:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HDFS-的-常用命令"><span class="nav-number">1.1.5.</span> <span class="nav-text">==5. HDFS 的 常用命令:==</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-hapdoop-fs-命令"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">1. hapdoop fs 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-hdfs-dfsadmin命令"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">2. hdfs dfsadmin命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-httpFS访问"><span class="nav-number">1.1.5.3.</span> <span class="nav-text">3.  httpFS访问</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-通过-Java-API的方式操作-HDFS"><span class="nav-number">1.1.6.</span> <span class="nav-text">6. 通过 Java API的方式操作 HDFS</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1146,9 +1182,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://airpoet.github.io/2018/06/02/Hadoop/Study/Hadoop学习笔记-2/';
-          this.page.identifier = '2018/06/02/Hadoop/Study/Hadoop学习笔记-2/';
-          this.page.title = 'Hadoop学习笔记-2 Hadoop核心组件';
+          this.page.url = 'https://airpoet.github.io/2018/06/02/Hadoop/Study/Hadoop学习笔记-2-HDFS基础入门/';
+          this.page.identifier = '2018/06/02/Hadoop/Study/Hadoop学习笔记-2-HDFS基础入门/';
+          this.page.title = 'Hadoop学习笔记-2 HDFS基础入门';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

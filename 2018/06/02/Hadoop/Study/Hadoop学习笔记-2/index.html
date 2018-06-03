@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="Hadoop的核心组件HDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块的大小是: 1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-03T05:31:22.908Z">
+<meta property="og:updated_time" content="2018-06-03T05:37:57.646Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop学习笔记-2 Hadoop核心组件">
 <meta name="twitter:description" content="Hadoop的核心组件HDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块的大小是: 1">
@@ -545,7 +545,7 @@
 </li>
 <li><p>注意： 当不同的用户执行 hadoop</p>
 </li>
-<li><p>**<code>hadoop fs</code> (开启原生文件系统客户端)</p>
+<li><p><strong><code>hadoop fs</code> (开启原生文件系统客户端)</strong></p>
 <ol>
 <li><p>查看帮助</p>
 <ul>
@@ -560,7 +560,7 @@
 <li><strong>如果不指定目录， 会默认找当前用户xx对应的<code>/user/xx</code>的目录</strong></li>
 </ul>
 </li>
-<li><p><strong>级联创建 -mkdir -p</strong>:  </p>
+<li><p><strong>递归创建 -mkdir -p</strong>:  </p>
 <ul>
 <li><code>hadoop fs -mkdir -p /aa/bb/cc/dd</code></li>
 <li>不加 -p  为普通创建</li>
@@ -645,7 +645,7 @@
 </li>
 </ul>
 </li>
-<li><p><code>du</code>： 展示文件大小， 如果参数是文件夹， 则展示文件夹下文件的大小</p>
+<li><p><strong><code>du</code>：</strong> <strong>展示文件大小</strong>， 如果参数是文件夹， 则展示文件夹下文件的大小</p>
 <ul>
 <li><code>hadoop fs -du -h  /tmp</code></li>
 <li><code>hadoop fs -du -s -h  /tmp</code>: s 应该是  sum 的意思， 展示所有文件大小的总和</li>
@@ -666,11 +666,6 @@
 </li>
 <li><p><strong>修改用户权限 chown</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -chown -R 用户名:组名  hdfs目录/文件</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>帮助文档</p>
-<ul>
-<li><code>hdfs dfsadmin</code></li>
-</ul>
 </li>
 </ol>
 </li>

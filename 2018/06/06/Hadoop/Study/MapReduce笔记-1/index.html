@@ -83,17 +83,28 @@
 
 
 
-<meta name="description" content="没有边界就没有自由.">
+<meta name="description" content="hdfs 笔记  mapreduce 笔记 要传输 要实现 Writeable 方法  map  reduce  driver 执行 jar 文件的格式 12jar /home/ap/test/wordcount1.jar com.rox.mapreduce.Driver /in/countsouce /outjar 文件是 linux 路径， 第二个是类的全限定名， 第三个是 hadoop 上需">
 <meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="A.P的文艺杂谈">
-<meta property="og:url" content="https://airpoet.github.io/tags/原创/index.html">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/06/Hadoop/Study/MapReduce笔记-1/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="没有边界就没有自由.">
+<meta property="og:description" content="hdfs 笔记  mapreduce 笔记 要传输 要实现 Writeable 方法  map  reduce  driver 执行 jar 文件的格式 12jar /home/ap/test/wordcount1.jar com.rox.mapreduce.Driver /in/countsouce /outjar 文件是 linux 路径， 第二个是类的全限定名， 第三个是 hadoop 上需">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-094458.png?">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-095015.png?">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-095443.png?">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-234841.png?">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-020643.png?">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-020622.png?">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-022223.png?">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-025330.png?">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-032556.png">
+<meta property="og:updated_time" content="2018-06-07T04:01:29.288Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="A.P的文艺杂谈">
-<meta name="twitter:description" content="没有边界就没有自由.">
+<meta name="twitter:description" content="hdfs 笔记  mapreduce 笔记 要传输 要实现 Writeable 方法  map  reduce  driver 执行 jar 文件的格式 12jar /home/ap/test/wordcount1.jar com.rox.mapreduce.Driver /in/countsouce /outjar 文件是 linux 路径， 第二个是类的全限定名， 第三个是 hadoop 上需">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-094458.png?">
 
 
 
@@ -123,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://airpoet.github.io/tags/原创/"/>
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/06/Hadoop/Study/MapReduce笔记-1/"/>
 
 
 
 
 
-  <title>标签: 原创 | A.P的文艺杂谈</title>
+  <title> | A.P的文艺杂谈</title>
   
 
 
@@ -148,7 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -276,310 +287,226 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>原创<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/06/Hadoop/Study/MapReduce笔记-1/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/06/07/Hadoop/Study/MapReduce-2/" itemprop="url">
-              
-                <span itemprop="name">MapReduce笔记-2 Combiner、排序、全局计数器</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-07T11:27:55+08:00"
-              content="2018-06-07" >
-          06-07
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T17:41:22+08:00">
+                2018-06-06
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/06/Hadoop/Study/MapReduce笔记-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/06/Hadoop/Study/MapReduce笔记-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/03/Hadoop/Study/Hadoop学习笔记-3-HDFS原理剖析/" itemprop="url">
-              
-                <span itemprop="name">Hadoop学习笔记-3 HDFS 原理剖析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-03T17:12:34+08:00"
-              content="2018-06-03" >
-          06-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/02/Hadoop/Study/Hadoop学习笔记-2-HDFS基础入门/" itemprop="url">
-              
-                <span itemprop="name">Hadoop学习笔记-2 HDFS基础入门</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-02T15:07:33+08:00"
-              content="2018-06-02" >
-          06-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/02/Java/HashMap的实现原理/" itemprop="url">
-              
-                <span itemprop="name">HashMap的实现原理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-02T10:25:19+08:00"
-              content="2018-06-02" >
-          06-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/02/Hadoop/Overview/Hadoop相关书籍/" itemprop="url">
-              
-                <span itemprop="name">Hadoop相关书籍</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-02T00:20:33+08:00"
-              content="2018-06-02" >
-          06-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/31/Hadoop/Study/Hadoop学习笔记-1-简介&环境搭建/" itemprop="url">
-              
-                <span itemprop="name">Hadoop学习笔记-1 简介&安装</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-31T10:08:21+08:00"
-              content="2018-05-31" >
-          05-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/31/Hadoop/Overview/Hadoop体系概览/" itemprop="url">
-              
-                <span itemprop="name">Hadoop体系概览</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-31T00:46:03+08:00"
-              content="2018-05-31" >
-          05-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/30/Java/Java基础增强-2/" itemprop="url">
-              
-                <span itemprop="name">Java基础增强-2 并发编程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-30T14:28:56+08:00"
-              content="2018-05-30" >
-          05-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/29/Java/Java基础增强-1/" itemprop="url">
-              
-                <span itemprop="name">Java基础增强-1 集合反射设计模式排序</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-29T09:39:15+08:00"
-              content="2018-05-29" >
-          05-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/28/Linux/Linux学习笔记-5/" itemprop="url">
-              
-                <span itemprop="name">Linux学习笔记-5</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-28T09:27:24+08:00"
-              content="2018-05-28" >
-          05-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p><a href="https://mubu.com/doc/254d__SRSn" target="_blank" rel="noopener">hdfs 笔记</a> </p>
+<p><a href="https://mubu.com/doc/1BuHQkjk0G" target="_blank" rel="noopener">mapreduce 笔记</a></p>
+<p>要传输 要实现 Writeable 方法</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-094458.png?" alt="image-20180606174458189"></p>
+<p>map</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-095015.png?" alt="image-20180606175015905"></p>
+<p>reduce</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-095443.png?" alt="image-20180606175443375"></p>
+<p>driver</p>
+<p>执行 jar 文件的格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jar /home/ap/test/wordcount1.jar com.rox.mapreduce.Driver /in/countsouce /out</span><br><span class="line">jar 文件是 linux 路径， 第二个是类的全限定名， 第三个是 hadoop 上需要处理的文件， 第四个是输出结果文件， 必须是不存在的</span><br></pre></td></tr></table></figure>
+<p>mapreduce 过程</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-234841.png?" alt="image-20180607074840561"></p>
+<h2 id="复习"><a href="#复习" class="headerlink" title="复习"></a>复习</h2><p>1.MapReduce 的 wc 编程</p>
+<ul>
+<li>手写代码<ul>
+<li>Mapper</li>
+<li>Reducer</li>
+<li>Driver</li>
+</ul>
+</li>
+</ul>
+<p>2.MapTask 的并行度</p>
+<pre><code>-  在程序执行的时候运行的 maptask 的总个数
+</code></pre><p>3.ReduceTask的并行度问题</p>
+<ul>
+<li>ReduceTask 的并行度设置依赖于自己传入的参数</li>
+<li>一般经验： ReduceTask 的个数应该 = datanode 的阶段数 * （0.75~0.95）</li>
+<li>ReduceTask 在设置的时候的并行度有一定的瓶颈</li>
+<li>分区： 决定 ReduceTask 中的数据怎么分配的<ul>
+<li>默认分区方式</li>
+<li>自定义分区</li>
+</ul>
+</li>
+</ul>
+<h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><p>本地运行</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-020643.png?" alt="image-2018060710064"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-020622.png?" alt="image-20180607100622446"></p>
+<p>字符串要 wordcount 的时候， 要 trim（）， 去掉前后空格</p>
+<h5 id="第二题-分数分组等"><a href="#第二题-分数分组等" class="headerlink" title="第二题 分数分组等"></a>第二题 分数分组等</h5><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-022223.png?" alt="image-20180607102222500"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-025330.png?" alt="image-20180607105330047"></p>
+<h5 id="数据去重："><a href="#数据去重：" class="headerlink" title="数据去重："></a>数据去重：</h5><h5 id="手机号分区"><a href="#手机号分区" class="headerlink" title="手机号分区"></a>手机号分区</h5><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-032556.png" alt="image-20180607112556631"></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/04/Poetry/▍《不要温和的走进那个良夜》--迪兰托马斯/" rel="next" title="▍《Do Not Go Gentle into That Good Night》 -Dylan Thomas">
+                <i class="fa fa-chevron-left"></i> ▍《Do Not Go Gentle into That Good Night》 -Dylan Thomas
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/07/Hadoop/Study/MapReduce-2/" rel="prev" title="MapReduce笔记-2 Combiner、排序、全局计数器">
+                MapReduce笔记-2 Combiner、排序、全局计数器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/原创/page/2/">2</a><a class="extend next" rel="next" href="/tags/原创/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -587,6 +514,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -607,8 +548,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -709,6 +659,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#复习"><span class="nav-number">1.</span> <span class="nav-text">复习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作业"><span class="nav-number">2.</span> <span class="nav-text">作业</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第二题-分数分组等"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">第二题 分数分组等</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据去重："><span class="nav-number">2.0.0.2.</span> <span class="nav-text">数据去重：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#手机号分区"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">手机号分区</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -863,6 +829,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -880,6 +850,18 @@
       <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/06/06/Hadoop/Study/MapReduce笔记-1/';
+          this.page.identifier = '2018/06/06/Hadoop/Study/MapReduce笔记-1/';
+          this.page.title = '';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

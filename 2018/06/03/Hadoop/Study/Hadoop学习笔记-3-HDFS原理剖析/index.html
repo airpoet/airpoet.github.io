@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-03-125412.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-03-125556.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-03-125203.png">
-<meta property="og:updated_time" content="2018-06-03T16:38:17.001Z">
+<meta property="og:updated_time" content="2018-06-04T15:12:35.891Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop学习笔记-3 HDFS 原理剖析">
 <meta name="twitter:description" content="1.  HDFS体系结构主从。。。  2.NameNode概念 [x] 是整个文件系统的管理节点。它维护着整个文件系统的文件目录树，文件/目录的元信息和每个文件对应的数据块列表。接收用户的操作请求。   [x] 在hdfs-site.xml中的dfs.namenode.name.dir属性   [x] 文件包括：   [x] 文件包括: ①fsimage:元数据镜像文件。存储某一时段NameNod">
@@ -524,7 +524,7 @@
 </ul>
 </li>
 </ul>
-
+<h2 id="7-HDFS-的-HA"><a href="#7-HDFS-的-HA" class="headerlink" title="7.HDFS 的 HA"></a>7.HDFS 的 HA</h2>
       
     </div>
     
@@ -685,7 +685,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -707,7 +707,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -777,7 +777,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-HDFS体系结构"><span class="nav-number">1.</span> <span class="nav-text">1.  HDFS体系结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-NameNode"><span class="nav-number">2.</span> <span class="nav-text">2.NameNode</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-fsimage-和-edits的内容"><span class="nav-number">2.2.</span> <span class="nav-text">查看 fsimage 和 edits的内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Datanode"><span class="nav-number">3.</span> <span class="nav-text">3.  Datanode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-数据存储：-写文件解析"><span class="nav-number">4.</span> <span class="nav-text">4.  数据存储： 写文件解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写文件的过程："><span class="nav-number">4.1.</span> <span class="nav-text">写文件的过程：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-数据存储：-读文件解析"><span class="nav-number">5.</span> <span class="nav-text">5.  数据存储： 读文件解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读文件的过程"><span class="nav-number">5.1.</span> <span class="nav-text">读文件的过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Hadoop-Archives-（HAR-files）"><span class="nav-number">6.</span> <span class="nav-text">6.Hadoop Archives （HAR files）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-HDFS体系结构"><span class="nav-number">1.</span> <span class="nav-text">1.  HDFS体系结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-NameNode"><span class="nav-number">2.</span> <span class="nav-text">2.NameNode</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-fsimage-和-edits的内容"><span class="nav-number">2.2.</span> <span class="nav-text">查看 fsimage 和 edits的内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Datanode"><span class="nav-number">3.</span> <span class="nav-text">3.  Datanode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-数据存储：-写文件解析"><span class="nav-number">4.</span> <span class="nav-text">4.  数据存储： 写文件解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写文件的过程："><span class="nav-number">4.1.</span> <span class="nav-text">写文件的过程：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-数据存储：-读文件解析"><span class="nav-number">5.</span> <span class="nav-text">5.  数据存储： 读文件解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读文件的过程"><span class="nav-number">5.1.</span> <span class="nav-text">读文件的过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Hadoop-Archives-（HAR-files）"><span class="nav-number">6.</span> <span class="nav-text">6.Hadoop Archives （HAR files）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-HDFS-的-HA"><span class="nav-number">7.</span> <span class="nav-text">7.HDFS 的 HA</span></a></li></ol></div>
             
 
           </div>

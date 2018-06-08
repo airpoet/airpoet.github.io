@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="文艺, it, 大数据, 诗歌" />
+  <meta name="keywords" content="原创,技术,Hadoop,MapReduce," />
 
 
 
@@ -83,17 +83,34 @@
 
 
 
-<meta name="description" content="没有边界就没有自由.">
-<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
-<meta property="og:type" content="website">
-<meta property="og:title" content="A.P的文艺杂谈">
-<meta property="og:url" content="https://airpoet.github.io/archives/2018/05/index.html">
+<meta name="description" content="1.多 Job 串联1.概念当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联 2. 涉及到昨天的微博共同关注题目 A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,O">
+<meta name="keywords" content="原创,技术,Hadoop,MapReduce">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MapReduce笔记-3">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/08/Hadoop/Study/MapReduce笔记-3/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="没有边界就没有自由.">
+<meta property="og:description" content="1.多 Job 串联1.概念当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联 2. 涉及到昨天的微博共同关注题目 A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,O">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-013547.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-014513.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-031859.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-015227.jpg?">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-015838.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-020429.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-020829.jpg?rr">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-030741.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033821.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-032738.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-034602.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-031625.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033416.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033458.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-034007.png">
+<meta property="og:updated_time" content="2018-06-08T03:48:12.017Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A.P的文艺杂谈">
-<meta name="twitter:description" content="没有边界就没有自由.">
+<meta name="twitter:title" content="MapReduce笔记-3">
+<meta name="twitter:description" content="1.多 Job 串联1.概念当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联 2. 涉及到昨天的微博共同关注题目 A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,O">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-013547.png">
 
 
 
@@ -123,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="https://airpoet.github.io/archives/2018/05/"/>
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/08/Hadoop/Study/MapReduce笔记-3/"/>
 
 
 
 
 
-  <title>归档 | A.P的文艺杂谈</title>
+  <title>MapReduce笔记-3 | A.P的文艺杂谈</title>
   
 
 
@@ -148,7 +165,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -276,370 +293,335 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/08/Hadoop/Study/MapReduce笔记-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">MapReduce笔记-3</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-08T09:23:27+08:00">
+                2018-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 19 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
 
-      
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
 
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/08/Hadoop/Study/MapReduce笔记-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/08/Hadoop/Study/MapReduce笔记-3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/31/Hadoop/Study/Hadoop学习笔记-1-简介&环境搭建/" itemprop="url">
-              
-                <span itemprop="name">Hadoop学习笔记-1 简介&安装</span>
-              
-            </a>
-        
-      </h2>
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-31T10:08:21+08:00"
-              content="2018-05-31" >
-          05-31
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/31/Hadoop/Overview/Hadoop体系概览/" itemprop="url">
-              
-                <span itemprop="name">Hadoop体系概览</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-31T00:46:03+08:00"
-              content="2018-05-31" >
-          05-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/30/Java/Java基础增强-2/" itemprop="url">
-              
-                <span itemprop="name">Java基础增强-2 并发编程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-30T14:28:56+08:00"
-              content="2018-05-30" >
-          05-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <h2 id="1-多-Job-串联"><a href="#1-多-Job-串联" class="headerlink" title="1.多 Job 串联"></a>1.多 Job 串联</h2><h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h3><p>当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联</p>
+<h3 id="2-涉及到昨天的微博共同关注题目"><a href="#2-涉及到昨天的微博共同关注题目" class="headerlink" title="2. 涉及到昨天的微博共同关注题目"></a>2. 涉及到昨天的微博共同关注题目</h3><blockquote>
+<p>A:B,C,D,F,E,O<br>B:A,C,E,K<br>C:F,A,D,I<br>D:A,E,F,L<br>E:B,C,D,M,L<br>F:A,B,C,D,E,O,M<br>G:A,C,D,E,F<br>H:A,C,D,E,O<br>I:A,O<br>J:B,O<br>K:A,C,D<br>L:D,E,F<br>M:E,F,G<br>O:A,H,I,J,K</p>
+<p>以上是数据：<br>A:B,C,D,F,E,O<br>表示：B,C,D,E,F,O是A用户的好友。</p>
+<p>求所有两两用户之间的共同好友</p>
+</blockquote>
+<ol>
+<li><p><strong>第一个 MapReduce 程序</strong></p>
+<ul>
+<li>思路</li>
+</ul>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-013547.png" alt="image-20180608093547127"></p>
+</li>
+</ol>
+<ul>
+<li><p>对象可以创建在 map 方法外面， 每当启动一个 maptask 任务才会执行一个 mapper ， 这样就不会重复创建对象， <strong>mapper 类</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-014513.png" alt="image-20180608094512645"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-031859.png" alt="image-20180608111859010"></p>
+</li>
+<li><p><strong>reduce 类</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-015227.jpg?" alt=""></p>
+</li>
+</ul>
+<ol start="2">
+<li><p><strong>第二个 MapReduce 程序：</strong> </p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-015838.png" alt="image-20180608095838184"></p>
+<ul>
+<li><p><strong>map 类</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-020429.png" alt="image-20180608100429646"></p>
+</li>
+</ul>
+</li>
+</ol>
+<pre><code>![image-20180608100312428](http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-020313.png)
 
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/29/Java/Java基础增强-1/" itemprop="url">
-              
-                <span itemprop="name">Java基础增强-1 集合反射设计模式排序</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-29T09:39:15+08:00"
-              content="2018-05-29" >
-          05-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+![image-20180608100501665](http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-020501.png)
+</code></pre><ul>
+<li><p><strong>reduce 类</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-020829.jpg?rr" alt=""></p>
+</li>
+</ul>
+<ol start="3">
+<li><p>多 Job 串联</p>
+<ul>
+<li><p>基本的写到一起， job1， job2</p>
+</li>
+<li><p>用<code>JobControl</code>对象管理多 job， 会将多个 job 当做一个组中的 job 提交， 参数指的是组名， 随意起</p>
+</li>
+<li><p>原生的 job 要转为可控制的 job</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 JobControl 组</span></span><br><span class="line">JobControl jc = <span class="keyword">new</span> JobControl(<span class="string">"common_friend"</span>);</span><br><span class="line"><span class="comment">// job 拿好配置， 加入 ControlledJob 管理, 变成可控制的 job</span></span><br><span class="line">ControlledJob ajob = <span class="keyword">new</span> ControlledJob(job1.getConfiguration());</span><br><span class="line">ControlledJob bjob = <span class="keyword">new</span> ControlledJob(job2.getConfiguration());</span><br><span class="line"><span class="comment">// 添加依赖关系</span></span><br><span class="line">bjob.addDependingJob(ajob);  </span><br><span class="line"><span class="comment">//  添加 job进 JC</span></span><br><span class="line">jc.addJob(ajob);</span><br><span class="line">jc.addJob(bjob);</span><br><span class="line"><span class="comment">// 启动线程</span></span><br><span class="line">Thread jobControlTread = <span class="keyword">new</span> Thread(jc);</span><br><span class="line">jobControlTread.start();</span><br><span class="line"><span class="comment">// 在线程完成之后关闭</span></span><br><span class="line"><span class="keyword">while</span>(!jc.allFinished()) &#123;</span><br><span class="line">	Thread.sleep(<span class="number">500</span>);</span><br><span class="line">&#125;</span><br><span class="line">jobControl.stop();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="2-分组组件"><a href="#2-分组组件" class="headerlink" title="2. 分组组件"></a>2. 分组组件</h2><p><strong>map–分组–reduce</strong>  </p>
+<p>reduce 接收到的数据是按照 map 输出的 key 进行分组的, 分组的时候按照 key 相同的时候为一组,  默认都实现了 <code>WritableComparable</code>接口， 其中的 compareTo（）方法返回为0的时候 默认为一组， 返回不为0， 则分到不同组</p>
+<p><br></p>
+<p><strong>自定义分组使用场景：</strong> 默认的数据分组不能满足需求</p>
+<blockquote>
+<p>一、数据解释</p>
+<p>数据字段个数不固定：<br>第一个是课程名称，总共四个课程，computer，math，english，algorithm，<br>第二个是学生姓名，后面是每次考试的分数</p>
+<p>二、统计需求：<br>1、统计每门课程的参考人数和课程平均分</p>
+<p>2、统计每门课程参考学生的平均分，并且按课程存入不同的结果文件，要求一门课程一个结果文件</p>
+<p>3、求出每门课程参考学生成绩最高平均分的学生的信息：课程，姓名和平均分</p>
+</blockquote>
+<p><strong>第三题： 要求就是分组求最大值， 两件事情： 分组， 排序（shuffle）</strong></p>
+<p>排序输出的 key ： 分数</p>
+<p>Map 输出的 key： 科目</p>
+<p>如果是科目，怎么求最大值？</p>
+<p><strong>最佳方案</strong>： <strong>map 的 key</strong>： 科目 + 分数</p>
+<blockquote>
+<p>排序： 分数</p>
+<p>分组： 科目</p>
+</blockquote>
+<p>这样， 相同科目&amp;分数会到一组， 此时就不能使用默认的， 此时就只能自定义分组规则</p>
+<h4 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h4><p>MapReduce 中：</p>
+<p><strong>Map 端</strong></p>
+<ul>
+<li>key： 拆分课程、 分数， <strong>封装为对象（自定义排序）， 作为 key 发送</strong></li>
+<li>value： 姓名</li>
+</ul>
+<p><strong>Reduce 端</strong></p>
+<ul>
+<li>已经分好组（自定义）， 排好序的</li>
+<li>如果按照自定义的分组来： <pre><code>- 相同课程为一组， 并且这一组数据按照分数排好了序（倒序）
+</code></pre></li>
+</ul>
+<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><p> ScoreBean</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-030741.png" alt="image-20180608110741068"></p>
+<p>// 这里实现 <code>WritableComparable</code></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033821.png" alt="image-20180608113821115"></p>
+<hr>
+<p> MyGroup（自定义分组类） </p>
+<p>自定义接口需要<strong>继承</strong> <code>WritableComparator</code>类，重写下面方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(WritableComparable a, WritableComparable b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a.compareTo(b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-032738.png" alt="image-20180608112738092"></p>
+<blockquote>
+<p>注意, 这里是个坑， 调用无参构造时， 要传入 true 才会创建</p>
+</blockquote>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-034602.png" alt="image-20180608114601732"></p>
+<hr>
+<p> ScoreDouble(主类) </p>
+<p>=========Map==========</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-031625.png" alt="image-20180608111624675"></p>
+<p>=========Reduce==========</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033416.png" alt="image-20180608113416441"></p>
+<p>=========Main===========</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033458.png" alt="image-20180608113458292"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-034007.png" alt="image-20180608114006747"></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/28/Linux/Linux学习笔记-5/" itemprop="url">
-              
-                <span itemprop="name">Linux学习笔记-5</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-28T09:27:24+08:00"
-              content="2018-05-28" >
-          05-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/28/Linux/Linux学习笔记-4/" itemprop="url">
-              
-                <span itemprop="name">Linux学习笔记-4</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-28T07:20:32+08:00"
-              content="2018-05-28" >
-          05-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/27/Linux/Linux学习笔记-2/" itemprop="url">
-              
-                <span itemprop="name">Linux学习笔记-2</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-27T20:14:48+08:00"
-              content="2018-05-27" >
-          05-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/26/Linux/Linux学习笔记-1/" itemprop="url">
-              
-                <span itemprop="name">Linux学习笔记-1</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-26T23:37:15+08:00"
-              content="2018-05-26" >
-          05-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/25/Linux/Linux学习笔记-3/" itemprop="url">
-              
-                <span itemprop="name">Linux学习笔记-3</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-25T08:17:16+08:00"
-              content="2018-05-25" >
-          05-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+            <a href="/tags/MapReduce/" rel="tag"># MapReduce</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/07/Hadoop/Study/MapReduce笔记-2/" rel="next" title="MapReduce笔记-2 Combiner、排序、全局计数器">
+                <i class="fa fa-chevron-left"></i> MapReduce笔记-2 Combiner、排序、全局计数器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -647,6 +629,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -667,8 +663,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -769,6 +774,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多-Job-串联"><span class="nav-number">1.</span> <span class="nav-text">1.多 Job 串联</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-涉及到昨天的微博共同关注题目"><span class="nav-number">1.2.</span> <span class="nav-text">2. 涉及到昨天的微博共同关注题目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分组组件"><span class="nav-number">2.</span> <span class="nav-text">2. 分组组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分析："><span class="nav-number">2.0.1.</span> <span class="nav-text">分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码："><span class="nav-number">2.0.2.</span> <span class="nav-text">代码：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -923,6 +944,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -940,6 +965,18 @@
       <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/06/08/Hadoop/Study/MapReduce笔记-3/';
+          this.page.identifier = '2018/06/08/Hadoop/Study/MapReduce笔记-3/';
+          this.page.title = 'MapReduce笔记-3';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

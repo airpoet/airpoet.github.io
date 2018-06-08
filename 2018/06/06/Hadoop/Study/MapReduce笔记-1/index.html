@@ -91,20 +91,18 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="hdfs 笔记  mapreduce 笔记 要传输 要实现 Writeable 方法  map  reduce  driver 执行 jar 文件的格式 12jar /home/ap/test/wordcount1.jar com.rox.mapreduce.Driver /in/countsouce /outjar 文件是 linux 路径， 第二个是类的全限定名， 第三个是 hadoop 上需">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-094458.png?">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-094458.png?d">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-095015.png?">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-095443.png?">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-234841.png?">
-<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-020643.png?">
-<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-020622.png?">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-022223.png?">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-025330.png?">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-032556.png">
-<meta property="og:updated_time" content="2018-06-07T04:01:29.288Z">
+<meta property="og:updated_time" content="2018-06-08T02:44:33.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="A.P的文艺杂谈">
 <meta name="twitter:description" content="hdfs 笔记  mapreduce 笔记 要传输 要实现 Writeable 方法  map  reduce  driver 执行 jar 文件的格式 12jar /home/ap/test/wordcount1.jar com.rox.mapreduce.Driver /in/countsouce /outjar 文件是 linux 路径， 第二个是类的全限定名， 第三个是 hadoop 上需">
-<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-094458.png?">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-094458.png?d">
 
 
 
@@ -387,7 +385,7 @@
         <p><a href="https://mubu.com/doc/254d__SRSn" target="_blank" rel="noopener">hdfs 笔记</a> </p>
 <p><a href="https://mubu.com/doc/1BuHQkjk0G" target="_blank" rel="noopener">mapreduce 笔记</a></p>
 <p>要传输 要实现 Writeable 方法</p>
-<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-094458.png?" alt="image-20180606174458189"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-094458.png?d" alt="image-20180606174458189"></p>
 <p>map</p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-06-095015.png?" alt="image-20180606175015905"></p>
 <p>reduce</p>
@@ -419,10 +417,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><p>本地运行</p>
-<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-020643.png?" alt="image-2018060710064"></p>
-<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-020622.png?" alt="image-20180607100622446"></p>
-<p>字符串要 wordcount 的时候， 要 trim（）， 去掉前后空格</p>
+<h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><h5 id="本地运行"><a href="#本地运行" class="headerlink" title="本地运行"></a>本地运行</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.serProperty(<span class="string">"HADOOP_USER_NAME"</span>, <span class="string">"hadoop"</span>);</span><br><span class="line">conf.set(<span class="string">"fs.defaultFS"</span>, <span class="string">"hdfs://hadoop01:9000"</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>字符串要 wordcount 的时候， 要 trim（）， 去掉前后空格</strong></p>
 <h5 id="第二题-分数分组等"><a href="#第二题-分数分组等" class="headerlink" title="第二题 分数分组等"></a>第二题 分数分组等</h5><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-022223.png?" alt="image-20180607102222500"></p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-025330.png?" alt="image-20180607105330047"></p>
 <h5 id="数据去重："><a href="#数据去重：" class="headerlink" title="数据去重："></a>数据去重：</h5><h5 id="手机号分区"><a href="#手机号分区" class="headerlink" title="手机号分区"></a>手机号分区</h5><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-07-032556.png" alt="image-20180607112556631"></p>
@@ -484,7 +480,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/07/Hadoop/Study/MapReduce-2/" rel="prev" title="MapReduce笔记-2 Combiner、排序、全局计数器">
+              <a href="/2018/06/07/Hadoop/Study/MapReduce笔记-2/" rel="prev" title="MapReduce笔记-2 Combiner、排序、全局计数器">
                 MapReduce笔记-2 Combiner、排序、全局计数器 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -577,7 +573,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -669,7 +665,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#复习"><span class="nav-number">1.</span> <span class="nav-text">复习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作业"><span class="nav-number">2.</span> <span class="nav-text">作业</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第二题-分数分组等"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">第二题 分数分组等</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据去重："><span class="nav-number">2.0.0.2.</span> <span class="nav-text">数据去重：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#手机号分区"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">手机号分区</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#复习"><span class="nav-number">1.</span> <span class="nav-text">复习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作业"><span class="nav-number">2.</span> <span class="nav-text">作业</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#本地运行"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">本地运行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二题-分数分组等"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">第二题 分数分组等</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据去重："><span class="nav-number">2.0.0.3.</span> <span class="nav-text">数据去重：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#手机号分区"><span class="nav-number">2.0.0.4.</span> <span class="nav-text">手机号分区</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -87,21 +87,20 @@
 <meta name="keywords" content="原创,技术,Hadoop,MapReduce">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MapReduce笔记-2 Combiner、排序、全局计数器">
-<meta property="og:url" content="https://airpoet.github.io/2018/06/07/Hadoop/Study/MapReduce-2/index.html">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/07/Hadoop/Study/MapReduce笔记-2/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="1.  Combiner 组件1. 产生缘由：map 的并行度和切片相关， 跟数据有关， 数据越大 maptask 的并行度越高 所有的计算任务全部在 reduce 上 如果 map 可以和 reduce 分担一部分压力， reduce 性能肯定会提高 Combiner 组件的作用：  减少 reduce 端的数据量 减少 shuffle 过程的数据量 在 map 端做了一次合并，提高分布式计算程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://airpoet.github.io/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607151347876.png">
-<meta property="og:image" content="https://airpoet.github.io/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607151711728.png">
-<meta property="og:image" content="https://airpoet.github.io/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607151925077.png">
-<meta property="og:image" content="https://airpoet.github.io/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607152036484.png">
-<meta property="og:image" content="https://airpoet.github.io/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607152051923.png">
-<meta property="og:image" content="https://airpoet.github.io/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607160109108.png">
-<meta property="og:updated_time" content="2018-06-07T08:24:29.167Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-024616.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-024644.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-024648.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-024652.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-024655.png">
+<meta property="og:updated_time" content="2018-06-08T02:47:28.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-2 Combiner、排序、全局计数器">
 <meta name="twitter:description" content="1.  Combiner 组件1. 产生缘由：map 的并行度和切片相关， 跟数据有关， 数据越大 maptask 的并行度越高 所有的计算任务全部在 reduce 上 如果 map 可以和 reduce 分担一部分压力， reduce 性能肯定会提高 Combiner 组件的作用：  减少 reduce 端的数据量 减少 shuffle 过程的数据量 在 map 端做了一次合并，提高分布式计算程">
-<meta name="twitter:image" content="https://airpoet.github.io/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607151347876.png">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-024616.png">
 
 
 
@@ -131,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="https://airpoet.github.io/2018/06/07/Hadoop/Study/MapReduce-2/"/>
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/07/Hadoop/Study/MapReduce笔记-2/"/>
 
 
 
@@ -298,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/07/Hadoop/Study/MapReduce-2/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/07/Hadoop/Study/MapReduce笔记-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -379,9 +378,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/07/Hadoop/Study/MapReduce-2/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/07/Hadoop/Study/MapReduce笔记-2/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/07/Hadoop/Study/MapReduce-2/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/07/Hadoop/Study/MapReduce笔记-2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -423,8 +422,8 @@
 <li>减少 shuffle 过程的数据量</li>
 <li>在 map 端做了一次合并，提高分布式计算程序的整体性能</li>
 </ul>
-<p><strong>Combiner 组件绑 reduce 分担压力， 因此其业务逻辑和 reduce 中的业务逻辑相似</strong></p>
-<h3 id="2-自定义-Combiner-组件："><a href="#2-自定义-Combiner-组件：" class="headerlink" title="2.自定义 Combiner 组件："></a>2.自定义 Combiner 组件：</h3><p>默认情况下没有 Combiner 组件 map–combiner–reduce</p>
+<p><strong>Combiner 组件帮 reduce 分担压力， 因此其业务逻辑和 reduce 中的业务逻辑相似</strong></p>
+<h3 id="2-自定义-Combiner-组件："><a href="#2-自定义-Combiner-组件：" class="headerlink" title="2.自定义 Combiner 组件："></a>2.自定义 Combiner 组件：</h3><p>默认情况下没有 Combiner 组件，Combiner 作用时间点 — map–combiner–reduce</p>
 <ol>
 <li><p>继承 Reduce 类</p>
 <ul>
@@ -442,7 +441,7 @@
 </li>
 <li><p>什么情况下不能使用？</p>
 <ul>
-<li>注意：Combiner的输出是Reducer的输入，Combiner绝不能改变最终的计算结果。所以从我的想法来看，<strong>Combiner只应该用于那种Reduce的输入key/value与输出key/value类型完全一致，且不影响最终结果的场景</strong>。比如累加，最大值等。 </li>
+<li>注意：Combiner的输出是Reducer的输入，Combiner绝不能改变最终的计算结果。<strong>Combiner只应该用于那种Reduce的输入key/value与输出key/value类型完全一致，且不影响最终结果的场景</strong>。比如累加，最大值等。 </li>
 </ul>
 </li>
 </ol>
@@ -454,34 +453,52 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySort01</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>, <span class="title">Text</span>&gt; </span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value,</span></span></span><br><span class="line"><span class="function"><span class="params">				Mapper&lt;LongWritable, Text, IntWritable, Text&gt;.Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			<span class="comment">// 在默认情况下, 输出结果 key 和 value 之间的分隔符是制表符"\t"</span></span><br><span class="line">			 String[] datas = value.toString().split(<span class="string">"\t"</span>);</span><br><span class="line">			 String word = datas[<span class="number">0</span>];</span><br><span class="line">			 <span class="keyword">int</span> count = Integer.parseInt(datas[<span class="number">1</span>]);</span><br><span class="line">			 context.write(<span class="keyword">new</span> IntWritable(count), <span class="keyword">new</span> Text(word));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> shixuanji</span></span><br><span class="line"><span class="comment">	 * 将 map 输入的结果反转, 输出最终结果</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">IntWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line">		 <span class="comment">/* </span></span><br><span class="line"><span class="comment">		 * map 词频 有可能一样</span></span><br><span class="line"><span class="comment">		 * 如果倒序排的时候, map 的时候发的时候 加上-,  reduce 发的时候, 再加上-, 转成 IntWritable</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(IntWritable key, Iterable&lt;Text&gt; values,</span></span></span><br><span class="line"><span class="function"><span class="params">				Reducer&lt;IntWritable, Text, Text, IntWritable&gt;.Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			 <span class="keyword">for</span>(Text v : values) &#123;</span><br><span class="line">				 <span class="comment">// key: 词频次数, 写的时候反过来写, 因为最后输出还是按照左边词, 右边次数</span></span><br><span class="line">				 context.write(v, key);</span><br><span class="line">			 &#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="需求2"><a href="#需求2" class="headerlink" title="需求2"></a>需求2</h5><p> 得出手机号题的结果后， 按照总流量进行倒序排序</p>
 <p>这个需求， 我们如果使用自定义类来做的话， 也要实现自定义方法</p>
-<p>并且我们<strong>自定义的类必须放在 key 的位置</strong>， 需要自己<strong>实现<code>WritableComparable</code>接口</strong>。</p>
+<p>并且我们<strong>自定义的类必须放在 key 的位置</strong>， 需要自己<strong>实现<code>WritableComparable</code>接口</strong>， 并且重写 <code>compareTo()</code>方法</p>
 <p><strong>代码：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><strong>增强需求： 按照总流量排序， 总流量相同时， 按照手机号码排序</strong></p>
-<h5 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h5><p>排序的时候， 尽量比较在 reduce 端进行排序， 如果要在 reduce 端进行排序， list / map， </p>
+<blockquote>
+<p> 作业： <strong>增强需求： 按照总流量排序， 总流量相同时， 按照手机号码排序</strong></p>
+</blockquote>
+<h5 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h5><p>排序的时候， 尽量不要在 reduce 端进行排序</p>
 <h2 id="3-全局计数器"><a href="#3-全局计数器" class="headerlink" title="3. 全局计数器"></a>3. 全局计数器</h2><h3 id="1-程序运行过程中，-框架自带的计数器"><a href="#1-程序运行过程中，-框架自带的计数器" class="headerlink" title="1. 程序运行过程中， 框架自带的计数器"></a>1. 程序运行过程中， 框架自带的计数器</h3><p><strong>File System Counters</strong>  ： 文件系统计数器， 文件读写的计数器</p>
-<p><img src="/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607151347876.png" alt="image-20180607151347876"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-024616.png" alt="image-20180607151347876"></p>
 <p><strong>Map-Reduce Framework</strong>  :  mapreduce 框架计数器</p>
-<p><img src="/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607151711728.png" alt="image-20180607151711728"></p>
-<p><img src="/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607151925077.png" alt="image-20180607151925077"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-024644.png" alt="image-20180607151711728"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-024648.png" alt="image-20180607151925077"></p>
 <p><strong>Shuffle 阶段的错误信息</strong></p>
-<p><img src="/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607152036484.png" alt="image-20180607152036484"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-024652.png" alt="image-20180607152036484"></p>
 <p><strong>文件输入输出的字节</strong></p>
-<p><img src="/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607152051923.png" alt="image-20180607152051923"></p>
-<h3 id="2-自定义的计数器"><a href="#2-自定义的计数器" class="headerlink" title="2. 自定义的计数器"></a>2. 自定义的计数器</h3><h5 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h5><ul>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-024655.png" alt="image-20180607152051923"></p>
+<h3 id="2-自定义的计数器"><a href="#2-自定义的计数器" class="headerlink" title="2. 自定义的计数器"></a>2. 自定义的计数器</h3><h5 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h5><p>用来统计运行过程中的进度和状态， 类似于 job 运行的一个报告、日志</p>
+<p>在生成中我们会使用全局计数器（自定义）记录一些不规则或者自己想要记录的数据</p>
+<p><strong>使用方式</strong></p>
+<ol>
+<li><p>定义枚举</p>
+</li>
+<li><p>map 端调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(数据不规则) &#123;</span><br><span class="line">	context.getCounter(MyCounter.bufuize..).increment(<span class="number">1L</span>)</span><br><span class="line">&#125;</span><br><span class="line">控制台中， 可以检测这个数据的数据情况而改进业务逻辑</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
 <li>全局变量的时候会使用</li>
 </ul>
 <p>运用全局技术器统计一下数据的 <strong>总的记录条数</strong> 和 <strong>总的字段数</strong></p>
 <p>注意： 如果没有 reducetask 的时候， 一定要加：</p>
 <p><code>job.setNumReduceTasks(0);</code></p>
 <p>最终</p>
-<p><img src="/Users/shixuanji/Documents/Code/Self/blog/airpoet.github.io/source/_posts/Hadoop/Study/MapReduce-2.assets/image-20180607160109108.png" alt="image-20180607160109108"></p>
 <p>最核心的是 key 的设计</p>
 <p>可能会用到多个 MapReduce</p>
 <p>先学生成绩增强版</p>
 <p>再做流量排序： 增强</p>
 <pre><code>- 先按照总流量进行排序， 再按照手机号排序，倒序
-</code></pre>
+</code></pre><h2 id="4-今日练习"><a href="#4-今日练习" class="headerlink" title="4. 今日练习"></a>4. 今日练习</h2><p>1.手机号相关</p>
+<blockquote>
+<p>1363157985066    13726230503    00-FD-07-A4-72-B8:CMCC    120.196.100.82    i02.c.aliimg.com        24    27    2481    24681    200<br>上行流量：上传的<br>下行流量：下载的流量<br>1、 统计每一个用户（手机号）所耗费的总上行流量，总下行流量，总流量=总上行流量+总下行流量<br>        相同手机号流量的和<br>        map端需要做的事情：<br>            获取一行的内容进行拆分   清洗自己需要的字段<br>            发送给reduce：<br>                key：手机号<br>                value：上行流量+下行流量  自己封装一个对象  自己定义一个类<br>        reduce端：<br>            对相同手机号的流量求和</p>
+<p>2、 将流量汇总统计结果按照手机归属地不同省份输出到文件中<br>        手机号：13920498698   假定前3位手机号归属地</p>
+</blockquote>
+<h2 id="5-遇到-bug"><a href="#5-遇到-bug" class="headerlink" title="5. 遇到 bug"></a>5. 遇到 bug</h2><h3 id="1-reduce-输出路径必须是新创建的。不能已经存在"><a href="#1-reduce-输出路径必须是新创建的。不能已经存在" class="headerlink" title="1. reduce 输出路径必须是新创建的。不能已经存在"></a>1. reduce 输出路径必须是新创建的。不能已经存在</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread <span class="string">"main"</span> org.apache.hadoop.mapred.FileAlreadyExistsException: Output directory hdfs:<span class="comment">//cs1:9000/flowout01 already exists</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-在初始化-job-的时候，-没有把-conf-传进来，-导致后面一直找不到文件，-因为不知道到哪里去找"><a href="#2-在初始化-job-的时候，-没有把-conf-传进来，-导致后面一直找不到文件，-因为不知道到哪里去找" class="headerlink" title="2. 在初始化 job 的时候， 没有把 conf 传进来， 导致后面一直找不到文件， 因为不知道到哪里去找"></a>2. 在初始化 job 的时候， 没有把 conf 传进来， 导致后面一直找不到文件， 因为不知道到哪里去找</h3><h3 id="3-Text导包倒错"><a href="#3-Text导包倒错" class="headerlink" title="3.Text导包倒错"></a>3.Text导包倒错</h3><p>应该是这个 <code>import org.apache.hadoop.io.Text;</code></p>
+
       
     </div>
     
@@ -550,6 +567,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/08/Hadoop/Study/MapReduce笔记-3/" rel="prev" title="MapReduce笔记-3">
+                MapReduce笔记-3 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -640,7 +661,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -732,7 +753,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Combiner-组件"><span class="nav-number">1.</span> <span class="nav-text">1.  Combiner 组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-产生缘由："><span class="nav-number">1.1.</span> <span class="nav-text">1. 产生缘由：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-自定义-Combiner-组件："><span class="nav-number">1.2.</span> <span class="nav-text">2.自定义 Combiner 组件：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-排序"><span class="nav-number">2.</span> <span class="nav-text">2. 排序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#需求1："><span class="nav-number">2.0.0.1.</span> <span class="nav-text">需求1：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#需求2"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">需求2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注意："><span class="nav-number">2.0.0.3.</span> <span class="nav-text">注意：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-全局计数器"><span class="nav-number">3.</span> <span class="nav-text">3. 全局计数器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-程序运行过程中，-框架自带的计数器"><span class="nav-number">3.1.</span> <span class="nav-text">1. 程序运行过程中， 框架自带的计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-自定义的计数器"><span class="nav-number">3.2.</span> <span class="nav-text">2. 自定义的计数器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#应用场景"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">应用场景</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Combiner-组件"><span class="nav-number">1.</span> <span class="nav-text">1.  Combiner 组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-产生缘由："><span class="nav-number">1.1.</span> <span class="nav-text">1. 产生缘由：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-自定义-Combiner-组件："><span class="nav-number">1.2.</span> <span class="nav-text">2.自定义 Combiner 组件：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-排序"><span class="nav-number">2.</span> <span class="nav-text">2. 排序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#需求1："><span class="nav-number">2.0.0.1.</span> <span class="nav-text">需求1：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#需求2"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">需求2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注意："><span class="nav-number">2.0.0.3.</span> <span class="nav-text">注意：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-全局计数器"><span class="nav-number">3.</span> <span class="nav-text">3. 全局计数器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-程序运行过程中，-框架自带的计数器"><span class="nav-number">3.1.</span> <span class="nav-text">1. 程序运行过程中， 框架自带的计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-自定义的计数器"><span class="nav-number">3.2.</span> <span class="nav-text">2. 自定义的计数器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#应用场景"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">应用场景</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-今日练习"><span class="nav-number">4.</span> <span class="nav-text">4. 今日练习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-遇到-bug"><span class="nav-number">5.</span> <span class="nav-text">5. 遇到 bug</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-reduce-输出路径必须是新创建的。不能已经存在"><span class="nav-number">5.1.</span> <span class="nav-text">1. reduce 输出路径必须是新创建的。不能已经存在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-在初始化-job-的时候，-没有把-conf-传进来，-导致后面一直找不到文件，-因为不知道到哪里去找"><span class="nav-number">5.2.</span> <span class="nav-text">2. 在初始化 job 的时候， 没有把 conf 传进来， 导致后面一直找不到文件， 因为不知道到哪里去找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Text导包倒错"><span class="nav-number">5.3.</span> <span class="nav-text">3.Text导包倒错</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -916,8 +937,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://airpoet.github.io/2018/06/07/Hadoop/Study/MapReduce-2/';
-          this.page.identifier = '2018/06/07/Hadoop/Study/MapReduce-2/';
+          this.page.url = 'https://airpoet.github.io/2018/06/07/Hadoop/Study/MapReduce笔记-2/';
+          this.page.identifier = '2018/06/07/Hadoop/Study/MapReduce笔记-2/';
           this.page.title = 'MapReduce笔记-2 Combiner、排序、全局计数器';
         };
         var d = document, s = d.createElement('script');

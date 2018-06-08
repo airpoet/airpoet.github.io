@@ -86,14 +86,14 @@
 <meta name="description" content="参考链接: hdfs 笔记  mapreduce 笔记 1、MapReduce 入门1.1、MapReduce概念hadoop 的四大组件：  HDFS：分布式存储系统 MapReduce：分布式计算系统 YARN：hadoop 的资源调度系统 Common：以上三大组件的底层支撑组件，主要提供基础工具包和 RPC 框架等  MapReduce 是一个分布式运算程序的编程框架，是用户开发“基于 H">
 <meta name="keywords" content="原创,技术,Hadoop,MapReduce">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MapReduce笔记-1">
+<meta property="og:title" content="MapReduce笔记-1  WordCount, MapReduce运行机制">
 <meta property="og:url" content="https://airpoet.github.io/2018/06/06/Hadoop/Study/MapReduce笔记-1/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="参考链接: hdfs 笔记  mapreduce 笔记 1、MapReduce 入门1.1、MapReduce概念hadoop 的四大组件：  HDFS：分布式存储系统 MapReduce：分布式计算系统 YARN：hadoop 的资源调度系统 Common：以上三大组件的底层支撑组件，主要提供基础工具包和 RPC 框架等  MapReduce 是一个分布式运算程序的编程框架，是用户开发“基于 H">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-08T11:48:07.919Z">
+<meta property="og:updated_time" content="2018-06-08T11:58:53.510Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MapReduce笔记-1">
+<meta name="twitter:title" content="MapReduce笔记-1  WordCount, MapReduce运行机制">
 <meta name="twitter:description" content="参考链接: hdfs 笔记  mapreduce 笔记 1、MapReduce 入门1.1、MapReduce概念hadoop 的四大组件：  HDFS：分布式存储系统 MapReduce：分布式计算系统 YARN：hadoop 的资源调度系统 Common：以上三大组件的底层支撑组件，主要提供基础工具包和 RPC 框架等  MapReduce 是一个分布式运算程序的编程框架，是用户开发“基于 H">
 
 
@@ -130,7 +130,7 @@
 
 
 
-  <title>MapReduce笔记-1 | A.P的文艺杂谈</title>
+  <title>MapReduce笔记-1  WordCount, MapReduce运行机制 | A.P的文艺杂谈</title>
   
 
 
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MapReduce笔记-1</h1>
+          <h1 class="post-title" itemprop="name headline">MapReduce笔记-1  WordCount, MapReduce运行机制</h1>
         
 
         <div class="post-meta">
@@ -600,8 +600,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/07/Hadoop/Study/MapReduce笔记-2/" rel="prev" title="MapReduce笔记-2 Combiner、排序、全局计数器">
-                MapReduce笔记-2 Combiner、排序、全局计数器 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/07/Hadoop/Study/MapReduce笔记-2/" rel="prev" title="MapReduce笔记-2 三大组件-Partitioner分区,sort排序,Combiner局部分区">
+                MapReduce笔记-2 三大组件-Partitioner分区,sort排序,Combiner局部分区 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -971,7 +971,7 @@
         var disqus_config = function () {
           this.page.url = 'https://airpoet.github.io/2018/06/06/Hadoop/Study/MapReduce笔记-1/';
           this.page.identifier = '2018/06/06/Hadoop/Study/MapReduce笔记-1/';
-          this.page.title = 'MapReduce笔记-1';
+          this.page.title = 'MapReduce笔记-1  WordCount, MapReduce运行机制';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

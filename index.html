@@ -482,7 +482,7 @@ A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/07/Hadoop/Study/MapReduce笔记-2/" itemprop="url">MapReduce笔记-2 Combiner、排序、全局计数器</a></h1>
+                <a class="post-title-link" href="/2018/06/07/Hadoop/Study/MapReduce笔记-2/" itemprop="url">MapReduce笔记-2 三大组件-Partitioner分区,sort排序,Combiner局部分区</a></h1>
         
 
         <div class="post-meta">
@@ -578,12 +578,8 @@ A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B
       
         
           
-          1.  Combiner 组件1. 产生缘由：map 的并行度和切片相关， 跟数据有关， 数据越大 maptask 的并行度越高
-所有的计算任务全部在 reduce 上
-如果 map 可以和 reduce 分担一部分压力， reduce 性能肯定会提高
-Combiner 组件的作用：
-
-减少 red
+          1.  Combiner 组件1. 产生缘由：Combiner 是 MapReduce 程序中 Mapper 和 Reducer 之外的一种组件，它的作用是在 maptask 之后给 maptask 的结果进行局部汇总，以减轻 reducetask 的计算负载，减少网络传输
+Combiner 组件的
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -657,7 +653,7 @@ Combiner 组件的作用：
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/06/Hadoop/Study/MapReduce笔记-1/" itemprop="url">MapReduce笔记-1</a></h1>
+                <a class="post-title-link" href="/2018/06/06/Hadoop/Study/MapReduce笔记-1/" itemprop="url">MapReduce笔记-1  WordCount, MapReduce运行机制</a></h1>
         
 
         <div class="post-meta">

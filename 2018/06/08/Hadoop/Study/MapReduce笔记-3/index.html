@@ -98,16 +98,21 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-015838.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-020429.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-020829.jpg?rr">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061014.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061154.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061312.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-030741.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033821.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-060515.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-032738.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-034602.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-031625.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033416.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033458.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-034007.png">
-<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-035524.png">
-<meta property="og:updated_time" content="2018-06-08T03:59:29.629Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-060255.jpg?fgh=re">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061523.png">
+<meta property="og:updated_time" content="2018-06-08T06:15:28.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-3">
 <meta name="twitter:description" content="1.多 Job 串联1.概念当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联 2. 涉及到昨天的微博共同关注题目 A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,O">
@@ -500,6 +505,10 @@
 <p>分组： 科目</p>
 </blockquote>
 <p>这样， 相同科目&amp;分数会到一组， 此时就不能使用默认的， 此时就只能自定义分组规则</p>
+<p><br></p>
+<h5 id="分组的结论：-？？"><a href="#分组的结论：-？？" class="headerlink" title="分组的结论： ？？"></a>分组的结论： ？？</h5><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061014.png" alt="image-20180608141013590"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061154.png" alt="image-20180608141153954"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061312.png" alt="image-20180608141312277"></p>
 <h4 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h4><p>MapReduce 中：</p>
 <p><strong>Map 端</strong></p>
 <ul>
@@ -516,6 +525,7 @@
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-030741.png" alt="image-20180608110741068"></p>
 <p>// 这里实现 <code>WritableComparable</code></p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033821.png" alt="image-20180608113821115"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-060515.png" alt="image-20180608140514714"></p>
 <hr>
 <p> MyGroup（自定义分组类） </p>
 <p>自定义接口需要<strong>继承</strong> <code>WritableComparator</code>类，重写下面方法</p>
@@ -540,8 +550,12 @@
 <ul>
 <li>可以先按课程排序</li>
 <li>再按分数排序</li>
+<li>但是要的是这种结果<ul>
+<li><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-060255.jpg?fgh=re" alt=""></li>
 </ul>
-<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-035524.png" alt="image-20180608115524434"></p>
+</li>
+</ul>
+<h2 id="3-Reduce-中的2个坑"><a href="#3-Reduce-中的2个坑" class="headerlink" title="3. Reduce 中的2个坑"></a>3. Reduce 中的2个坑</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061523.png" alt="image-20180608141523577"></p>
 
       
     </div>
@@ -793,7 +807,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多-Job-串联"><span class="nav-number">1.</span> <span class="nav-text">1.多 Job 串联</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-涉及到昨天的微博共同关注题目"><span class="nav-number">1.2.</span> <span class="nav-text">2. 涉及到昨天的微博共同关注题目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分组组件"><span class="nav-number">2.</span> <span class="nav-text">2. 分组组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分析："><span class="nav-number">2.0.1.</span> <span class="nav-text">分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码："><span class="nav-number">2.0.2.</span> <span class="nav-text">代码：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">遇到问题</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多-Job-串联"><span class="nav-number">1.</span> <span class="nav-text">1.多 Job 串联</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-涉及到昨天的微博共同关注题目"><span class="nav-number">1.2.</span> <span class="nav-text">2. 涉及到昨天的微博共同关注题目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分组组件"><span class="nav-number">2.</span> <span class="nav-text">2. 分组组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分组的结论：-？？"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">分组的结论： ？？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析："><span class="nav-number">2.0.1.</span> <span class="nav-text">分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码："><span class="nav-number">2.0.2.</span> <span class="nav-text">代码：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">遇到问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Reduce-中的2个坑"><span class="nav-number">3.</span> <span class="nav-text">3. Reduce 中的2个坑</span></a></li></ol></div>
             
 
           </div>

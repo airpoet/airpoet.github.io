@@ -117,7 +117,15 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070047.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070316.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070719.png">
-<meta property="og:updated_time" content="2018-06-08T07:44:32.112Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-075049.png">
+<meta property="og:image" content="https://airpoet.github.io/var/folders/6l/blvdbwd53hqglz0f09n3sd5c0000gn/T/abnerworks.Typora/image-20180608160128707.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-080613.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-080844.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081128.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081321.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081451.jpg?ff=ytt">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-082315.png">
+<meta property="og:updated_time" content="2018-06-08T08:27:24.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-3">
 <meta name="twitter:description" content="1.多 Job 串联1.概念当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联 2. 涉及到昨天的微博共同关注题目 A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,O">
@@ -581,7 +589,7 @@
 </ul>
 <p><strong>–&gt;代码</strong></p>
 <ul>
-<li>重写 setup， 拿到 文件的 filename， 图暂缺</li>
+<li>重写 <code>setup</code>， 在 Map 开始之前， 拿到文件的 filename， 图暂缺</li>
 </ul>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-064240.png" alt="image-20180608144239477"></p>
 <ul>
@@ -616,6 +624,38 @@
 <hr>
 <h5 id="补充：Mapper-中的源码分析"><a href="#补充：Mapper-中的源码分析" class="headerlink" title="补充：Mapper 中的源码分析"></a>补充：Mapper 中的源码分析</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// 在 maptask 执行之前调用一次， 一个 maptask 只会调用一次。setup 中通常会帮 map 中初始化一些变量和资源， 比如数据库的连接等。</span></span><br><span class="line">    <span class="comment">// 主要目的：减少资源的初始化次数而提升程序的性能</span></span><br><span class="line">    setup(context);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 获取文件是否还有下一行， 一行只调用一次</span></span><br><span class="line">      <span class="keyword">while</span> (context.nextKeyValue()) &#123;</span><br><span class="line">        map(context.getCurrentKey(), context.getCurrentValue(), context);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       <span class="comment">// maptask 任务执行完成之后会调用一次，一个 maptask 只会调用一次</span></span><br><span class="line">       <span class="comment">// 帮 map 处理一些善后工作， 比如：资源的关闭</span></span><br><span class="line">      cleanup(context);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <hr>
+<h2 id="5-Map-端的-Join"><a href="#5-Map-端的-Join" class="headerlink" title="5. Map 端的 Join"></a>5. Map 端的 Join</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-075049.png" alt="image-20180608155048562"></p>
+<p>为了提升 Map 端 Join 性能， 我们的策略是， <strong>将小表的数据加载到每个运行的 MapTask 的内存中</strong>。</p>
+<p>如果小表被加载到了内存中， 我们<strong>每次在 Map 端只需要读取大表，当读取到大表的每一行数据，可以直接和内存中的小表进行关联。</strong></p>
+<p>这个时候，<strong>只需要 Map 就可以完成 Join 操作了</strong>。</p>
+<p><br></p>
+<h3 id="1-如何将小表加入到内存中？"><a href="#1-如何将小表加入到内存中？" class="headerlink" title="1. 如何将小表加入到内存中？"></a>1. 如何将小表加入到内存中？</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将指定路径文件加载到缓存中</span></span><br><span class="line">job.addCacheFile(<span class="keyword">new</span> URI(<span class="string">"/xxx"</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="2-Map-端怎样读取缓存中的数据"><a href="#2-Map-端怎样读取缓存中的数据" class="headerlink" title="2. Map 端怎样读取缓存中的数据"></a>2. Map 端怎样读取缓存中的数据</h3><p>想要在 Java 中使用缓存中的数据，缓存中的数据必须封装到 Java 的容器中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取缓存文件</span></span><br><span class="line">context.getLocalCacheFiles()[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="3-代码"><a href="#3-代码" class="headerlink" title="3. 代码"></a>3. 代码</h3><p><strong>setup</strong>：从缓存读取一文件（多对一的一）到 HashMap</p>
+<p><img src="/var/folders/6l/blvdbwd53hqglz0f09n3sd5c0000gn/T/abnerworks.Typora/image-20180608160128707.png" alt="image-20180608160128707"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-080613.png" alt="image-20180608160613685"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-080844.png" alt="image-20180608160843766"></p>
+<p><strong>Mapper</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081128.png" alt="image-20180608161128128"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081321.png" alt="image-20180608161321395"></p>
+<p><strong>main 方法中注意点</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081451.jpg?ff=ytt" alt="ddg"></p>
+<p><strong>注意点：这种方式只能通过 Jar 包上传的方式，直接用 Eclipse 会找不到缓存</strong> </p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-082315.png" alt="image-20180608162315252"></p>
+<h2 id="6-对比"><a href="#6-对比" class="headerlink" title="6. 对比"></a>6. 对比</h2><p><strong>MapJoin 的方式： 大 &amp; 小表</strong></p>
+<p>因为有一个表需要加载到内存中，注定加载到内存中的表不能过大（hive 中默认是256M）</p>
+<p><strong>大表 &amp; 大表 如何设计</strong></p>
+<ul>
+<li>ReduceJoin ： 解决数据倾斜的问题，合理设计分区。 —很难做到</li>
+<li>将其中一个<strong>大表进行切分</strong>，切分成小表， <strong>最终执行 大表 &amp; 小表</strong></li>
+</ul>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li><p>并行度高，不存在数据倾斜的问题，运行效率高</p>
+</li>
+<li><p><strong>优先选择MapJoin</strong></p>
+</li>
+</ul>
 
       
     </div>
@@ -867,7 +907,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多-Job-串联"><span class="nav-number">1.</span> <span class="nav-text">1.多 Job 串联</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-涉及到昨天的微博共同关注题目"><span class="nav-number">1.2.</span> <span class="nav-text">2. 涉及到昨天的微博共同关注题目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分组组件"><span class="nav-number">2.</span> <span class="nav-text">2. 分组组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分组的结论：-？？"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">分组的结论： ？？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析："><span class="nav-number">2.0.1.</span> <span class="nav-text">分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码："><span class="nav-number">2.0.2.</span> <span class="nav-text">代码：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">遇到问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Reduce-中的2个坑"><span class="nav-number">3.</span> <span class="nav-text">3. Reduce 中的2个坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#坑1"><span class="nav-number">3.1.</span> <span class="nav-text">坑1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#坑2"><span class="nav-number">3.2.</span> <span class="nav-text">坑2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Reduce-端的-Join"><span class="nav-number">4.</span> <span class="nav-text">4. Reduce 端的 Join</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-端"><span class="nav-number">4.0.1.</span> <span class="nav-text">Map 端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reduce-端"><span class="nav-number">4.0.2.</span> <span class="nav-text">Reduce 端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺陷"><span class="nav-number">4.1.</span> <span class="nav-text">缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#补充：Mapper-中的源码分析"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">补充：Mapper 中的源码分析</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多-Job-串联"><span class="nav-number">1.</span> <span class="nav-text">1.多 Job 串联</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-涉及到昨天的微博共同关注题目"><span class="nav-number">1.2.</span> <span class="nav-text">2. 涉及到昨天的微博共同关注题目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分组组件"><span class="nav-number">2.</span> <span class="nav-text">2. 分组组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分组的结论：-？？"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">分组的结论： ？？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析："><span class="nav-number">2.0.1.</span> <span class="nav-text">分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码："><span class="nav-number">2.0.2.</span> <span class="nav-text">代码：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">遇到问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Reduce-中的2个坑"><span class="nav-number">3.</span> <span class="nav-text">3. Reduce 中的2个坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#坑1"><span class="nav-number">3.1.</span> <span class="nav-text">坑1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#坑2"><span class="nav-number">3.2.</span> <span class="nav-text">坑2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Reduce-端的-Join"><span class="nav-number">4.</span> <span class="nav-text">4. Reduce 端的 Join</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-端"><span class="nav-number">4.0.1.</span> <span class="nav-text">Map 端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reduce-端"><span class="nav-number">4.0.2.</span> <span class="nav-text">Reduce 端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺陷"><span class="nav-number">4.1.</span> <span class="nav-text">缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#补充：Mapper-中的源码分析"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">补充：Mapper 中的源码分析</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Map-端的-Join"><span class="nav-number">5.</span> <span class="nav-text">5. Map 端的 Join</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-如何将小表加入到内存中？"><span class="nav-number">5.1.</span> <span class="nav-text">1. 如何将小表加入到内存中？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Map-端怎样读取缓存中的数据"><span class="nav-number">5.2.</span> <span class="nav-text">2. Map 端怎样读取缓存中的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-代码"><span class="nav-number">5.3.</span> <span class="nav-text">3. 代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-对比"><span class="nav-number">6.</span> <span class="nav-text">6. 对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">6.0.1.</span> <span class="nav-text">优点</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -111,8 +111,13 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033458.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-034007.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-060255.jpg?fgh=re">
-<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061523.png">
-<meta property="og:updated_time" content="2018-06-08T06:15:28.548Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061946.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-064240.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-065349.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070047.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070316.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070719.png">
+<meta property="og:updated_time" content="2018-06-08T07:44:32.112Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-3">
 <meta name="twitter:description" content="1.多 Job 串联1.概念当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联 2. 涉及到昨天的微博共同关注题目 A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,O">
@@ -555,7 +560,62 @@
 </ul>
 </li>
 </ul>
-<h2 id="3-Reduce-中的2个坑"><a href="#3-Reduce-中的2个坑" class="headerlink" title="3. Reduce 中的2个坑"></a>3. Reduce 中的2个坑</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061523.png" alt="image-20180608141523577"></p>
+<h2 id="3-Reduce-中的2个坑"><a href="#3-Reduce-中的2个坑" class="headerlink" title="3. Reduce 中的2个坑"></a>3. Reduce 中的2个坑</h2><h3 id="坑1"><a href="#坑1" class="headerlink" title="坑1"></a>坑1</h3><p><strong>Iterable\<text>只能循环遍历一次</text></strong></p>
+<p>迭代器每次循环遍历完成， 指针都会移动到最后一个</p>
+<p>系统类型，没事</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061946.png" alt="image-20180608141946102"></p>
+<p>自定义类型 ？ </p>
+<h3 id="坑2"><a href="#坑2" class="headerlink" title="坑2"></a>坑2</h3><p><strong>迭代器中所有对象公用同一个地址</strong></p>
+<hr>
+<h2 id="4-Reduce-端的-Join"><a href="#4-Reduce-端的-Join" class="headerlink" title="4. Reduce 端的 Join"></a>4. Reduce 端的 Join</h2><p>思路： </p>
+<p><strong>核心： 关联条件</strong></p>
+<ul>
+<li>想要在 reduce 端完成 join， 要在 reduce 端可以同时接收到两个表中的数据</li>
+<li>要保证在 Map 端进行读文件的时候， 读到2个表的数据， 并且需要对2个表的数据进行区分</li>
+<li>将2个表放在同一个目录下</li>
+</ul>
+<h4 id="Map-端"><a href="#Map-端" class="headerlink" title="Map 端"></a>Map 端</h4><ul>
+<li>读取两个表中的数据， 进行切分、发送</li>
+<li>key ： 公共字段–关联字段–<code>pid</code></li>
+<li>value： 剩下的字段， 需要标记， 标记数据的来源</li>
+</ul>
+<p><strong>–&gt;代码</strong></p>
+<ul>
+<li>重写 setup， 拿到 文件的 filename， 图暂缺</li>
+</ul>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-064240.png" alt="image-20180608144239477"></p>
+<ul>
+<li>根据 filename 设置 k， v， 打标签</li>
+</ul>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-065349.png" alt="image-20180608145349367"></p>
+<h4 id="Reduce-端"><a href="#Reduce-端" class="headerlink" title="Reduce 端"></a>Reduce 端</h4><ul>
+<li>接收过来， 判断是来自于哪个表的数据， 进行拼接</li>
+</ul>
+<p><strong>–&gt;代码</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070047.png" alt="image-20180608150046953"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070316.png" alt="image-20180608150315294"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070719.png" alt="image-20180608150719001"></p>
+<h3 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h3><p><strong>1. ReduceTask 的并行度问题：</strong></p>
+<ul>
+<li>建议0.95*datanode 的个数</li>
+<li>并行度不高， 性能不高</li>
+</ul>
+<p><strong>2. 容器性能</strong></p>
+<ul>
+<li>list 等， 不提倡， reduce 接收的数据， 可能会很大</li>
+</ul>
+<p><strong>3. ReduceTask 容易产生数据倾斜</strong></p>
+<ul>
+<li>假设我们设置多个 ReduceTask， 根据分区规则， 默认 hash</li>
+<li>以 key关联条件分，  ReduceTask数据倾斜， 每个 ReduceTask 分工不均， 非常影响性能，没有合理的利用集群资源</li>
+<li>在真实的生产中一定要尽量的避免数据倾斜</li>
+<li>最好的做法：将分区设计的足够完美，难度比较大</li>
+<li>因此，ReduceTask 一般不会完成 John工作</li>
+<li><strong>放在 Map 端完成就不会有这个问题了</strong></li>
+</ul>
+<hr>
+<h5 id="补充：Mapper-中的源码分析"><a href="#补充：Mapper-中的源码分析" class="headerlink" title="补充：Mapper 中的源码分析"></a>补充：Mapper 中的源码分析</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// 在 maptask 执行之前调用一次， 一个 maptask 只会调用一次。setup 中通常会帮 map 中初始化一些变量和资源， 比如数据库的连接等。</span></span><br><span class="line">    <span class="comment">// 主要目的：减少资源的初始化次数而提升程序的性能</span></span><br><span class="line">    setup(context);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 获取文件是否还有下一行， 一行只调用一次</span></span><br><span class="line">      <span class="keyword">while</span> (context.nextKeyValue()) &#123;</span><br><span class="line">        map(context.getCurrentKey(), context.getCurrentValue(), context);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       <span class="comment">// maptask 任务执行完成之后会调用一次，一个 maptask 只会调用一次</span></span><br><span class="line">       <span class="comment">// 帮 map 处理一些善后工作， 比如：资源的关闭</span></span><br><span class="line">      cleanup(context);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<hr>
 
       
     </div>
@@ -807,7 +867,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多-Job-串联"><span class="nav-number">1.</span> <span class="nav-text">1.多 Job 串联</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-涉及到昨天的微博共同关注题目"><span class="nav-number">1.2.</span> <span class="nav-text">2. 涉及到昨天的微博共同关注题目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分组组件"><span class="nav-number">2.</span> <span class="nav-text">2. 分组组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分组的结论：-？？"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">分组的结论： ？？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析："><span class="nav-number">2.0.1.</span> <span class="nav-text">分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码："><span class="nav-number">2.0.2.</span> <span class="nav-text">代码：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">遇到问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Reduce-中的2个坑"><span class="nav-number">3.</span> <span class="nav-text">3. Reduce 中的2个坑</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多-Job-串联"><span class="nav-number">1.</span> <span class="nav-text">1.多 Job 串联</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-涉及到昨天的微博共同关注题目"><span class="nav-number">1.2.</span> <span class="nav-text">2. 涉及到昨天的微博共同关注题目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分组组件"><span class="nav-number">2.</span> <span class="nav-text">2. 分组组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分组的结论：-？？"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">分组的结论： ？？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析："><span class="nav-number">2.0.1.</span> <span class="nav-text">分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码："><span class="nav-number">2.0.2.</span> <span class="nav-text">代码：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">遇到问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Reduce-中的2个坑"><span class="nav-number">3.</span> <span class="nav-text">3. Reduce 中的2个坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#坑1"><span class="nav-number">3.1.</span> <span class="nav-text">坑1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#坑2"><span class="nav-number">3.2.</span> <span class="nav-text">坑2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Reduce-端的-Join"><span class="nav-number">4.</span> <span class="nav-text">4. Reduce 端的 Join</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-端"><span class="nav-number">4.0.1.</span> <span class="nav-text">Map 端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reduce-端"><span class="nav-number">4.0.2.</span> <span class="nav-text">Reduce 端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺陷"><span class="nav-number">4.1.</span> <span class="nav-text">缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#补充：Mapper-中的源码分析"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">补充：Mapper 中的源码分析</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

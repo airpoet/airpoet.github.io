@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Markdown高阶语法]]></title>
+    <url>%2F2018%2F06%2F10%2FTools%2FMarkdown%2FMarkdown%E9%AB%98%E9%98%B6%E8%AF%AD%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[时序图的写法 流程图的写法 类图的写法 st=>start: Start|past:>http://www.google.com[blank] e=>end: End:>http://www.google.com op1=>operation: My Operation|past op2=>operation: Stuff|current sub1=>subroutine: My Subroutine|invalid cond=>condition: Yes or No?|approved:>http://www.google.com c2=>condition: Good idea|rejected io=>inputoutput: catch something...|request st->op1(right)->cond cond(yes, right)->c2 cond(no)->sub1(left)->op1 c2(yes)->io->e c2(no)->op2->e{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12} var code = document.getElementById("flowchart-0-code").value; var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value)); var diagram = flowchart.parse(code); diagram.drawSVG("flowchart-0", options);Alice->Bob: Hello Bob, how are you? Note right of Bob: Bob thinks Bob-->Alice: I am good thanks!{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12} var code = document.getElementById("sequence-0-code").value; var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value)); var diagram = Diagram.parse(code); diagram.drawSVG("sequence-0", options);]]></content>
+      <categories>
+        <category>工具</category>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>原创</tag>
+        <tag>工具</tag>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[About Sublime Text3]]></title>
     <url>%2F2018%2F06%2F09%2FTools%2FSublime%2F%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98%2F</url>
-    <content type="text"><![CDATA[主题详情参见这个网站 详细操作见此站 fdffdf a 发发发 st=>start: Start|past:>http://www.google.com[blank] e=>end: End:>http://www.google.com op1=>operation: My Operation|past op2=>operation: Stuff|current sub1=>subroutine: My Subroutine|invalid cond=>condition: Yes or No?|approved:>http://www.google.com c2=>condition: Good idea|rejected io=>inputoutput: catch something...|request st->op1(right)->cond cond(yes, right)->c2 cond(no)->sub1(left)->op1 c2(yes)->io->e c2(no)->op2->e{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12} var code = document.getElementById("flowchart-0-code").value; var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value)); var diagram = flowchart.parse(code); diagram.drawSVG("flowchart-0", options);Alice->Bob: Hello Bob, how are you? Note right of Bob: Bob thinks Bob-->Alice: I am good thanks!{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12} var code = document.getElementById("sequence-0-code").value; var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value)); var diagram = Diagram.parse(code); diagram.drawSVG("sequence-0", options);]]></content>
+    <content type="text"><![CDATA[主题详情参见这个网站 详细操作见此站]]></content>
       <categories>
         <category>工具</category>
         <category>Sublime</category>

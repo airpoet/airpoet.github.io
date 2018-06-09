@@ -93,11 +93,14 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-124220.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-141519.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-09-023415.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-142820.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-09-023436.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-09-023454.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-150724.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-144555.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-145439.jpg">
-<meta property="og:updated_time" content="2018-06-02T09:13:45.493Z">
+<meta property="og:updated_time" content="2018-06-09T02:40:38.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux学习笔记-2">
 <meta name="twitter:description" content="1. VI文本编辑器学会使用vi编辑器是学习Linux系统的必备技术之一，因为一般的Linux服务器是没有GUI界面的，Linux运维及开发人员基本上都是通过命令行的方式进行文本编辑或程序编写的。vi编辑器是Linux内置的文本编辑器，几乎所有的类unix系统中都内置了vi编辑器，而其它编辑器则不一定，另外很多软件会调用vi编辑进行内容编写，例如crontab定时任务。较之于其它编辑器或GUI编辑">
@@ -707,20 +710,49 @@
 </table>
 <p><strong>启动关闭指定网卡&amp; 常用操作：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ifconfig eth0 up   <span class="comment">#启动网卡</span></span><br><span class="line">ifconfig eth0 down <span class="comment">#关闭网卡	</span></span><br><span class="line">ifconfig   <span class="comment">#处于激活状态的网络接口</span></span><br><span class="line">ifconfig -a  <span class="comment">#所有配置的网络接口，不论其是否激活</span></span><br><span class="line">ifconfig eth0  <span class="comment">#显示eth0的网卡信息</span></span><br></pre></td></tr></table></figure>
-<h3 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h3><h4 id="1-三种通信模式"><a href="#1-三种通信模式" class="headerlink" title="1. 三种通信模式"></a>1. 三种通信模式</h4><p><strong>Vmware中的虚拟机和宿主机进行通信有三种网络方式</strong>，它们分别是：</p>
-<p><strong>Bridged</strong> <strong>（桥接模式）</strong></p>
-<p><strong>NAT</strong> <strong>（网络地址转换模式）</strong></p>
-<p><strong>Host-Only</strong> <strong>（仅主机模式）</strong></p>
+<h3 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h3><h4 id="1-三种通信模式"><a href="#1-三种通信模式" class="headerlink" title="1. 三种通信模式"></a>1. 三种通信模式</h4><p><strong>Vmware中的虚拟机和宿主机进行通信有三种网络方式</strong></p>
+<p><strong>一、Brigde――桥接：默认使用VMnet0</strong> </p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-09-023415.png" alt="image-20180609103414766"></p>
 <ol>
-<li><p><strong>Bridged</strong> <strong>（桥接模式）</strong></p>
-<p>桥接模式就是将主机网卡与虚拟机虚拟的网卡利用虚拟网桥进行通信。在桥接的作用下，类似于把物理主机虚拟为一个交换机，所有桥接设置的虚拟机连接到这个交换机的一个接口上，物理主机也同样插在这个交换机当中，所以所有桥接下的网卡与网卡都是交换模式的，相互可以访问而不干扰。在桥接模式下，虚拟机ip地址需要与主机在同一个网段，如果需要联网，则网关与DNS需要与主机网卡一致</p>
+<li><p><strong>原理:</strong></p>
+<p>Bridge  桥”就是一个主机，这个机器拥有两块网卡，分别处于两个局域网中，同时在”桥”上，运行着程序，让局域网A中的所有数据包原封不动的流入B，反之亦然。这样，局域网A和B就无缝的在链路层连接起来了，在桥接时，VMWare网卡和物理网卡应该处于同一IP网段  当然要保证两个局域网没有冲突的IP. </p>
+<p>VMWare 的桥也是同样的道理，只不过，本来作为硬件的一块网卡，现在由VMWare软件虚拟了！当采用桥接时，VMWare会虚拟一块网卡和真正的物理网卡就行桥接，这样，发到物理网卡的所有数据包就到了VMWare虚拟机，而由VMWare发出的数据包也会通过桥从物理网卡的那端发出。 </p>
+<p>所以，如果物理网卡可以上网，那么桥接的软网卡也没有问题了，这就是桥接上网的原理了。 </p>
+<p> 　　    </p>
 </li>
-<li><p><strong>Host-Only</strong> <strong>（仅主机模式）宿主</strong></p>
-<p>在Host-Only模式下，虚拟网络是一个全封闭的网络，它唯一能够访问的就是主机。其实Host-Only网络和NAT网络很相似，不同的地方就是 Host-Only网络没有NAT服务，所以虚拟网络不能连接到Internet。主机和虚拟机之间的通信是通过VMware Network Adepter VMnet1虚拟网卡来实现的。</p>
+<li><p><strong>联网方式：</strong></p>
+<p>这一种联网方式最简单，在局域网内，你的主机是怎么联网的，你在虚拟机里就怎么连网。把虚拟机看成局域网内的另一台电脑就行了！ </p>
+<p>提示：主机网卡处在一个可以访问Internet的局域网中，虚拟机才能通过Bridge访问Internet。 </p>
 </li>
-<li><p><strong>NAT</strong>   <strong>模式</strong></p>
-<p>使用NAT模式，就是让虚拟系统借助NAT(网络地址转换)功能，通过宿主机器所在的网络来访问公网。也就是说，使用NAT模式可以实现在虚拟系统里访问互联网。NAT模式下的虚拟系统的TCP/IP配置信息是由VMnet8(NAT)虚拟网络的DHCP服务器提供的，无法进行手工修改，因此虚拟系统也就无法和本局域网中的其他真实主机进行通讯。采用NAT模式最大的优势是虚拟系统接入互联网非常简单，你不需要进行任何其他的配置，只需要宿主机器能访问互联网即可。</p>
+</ol>
+<p><strong>二、NAT――网络地址转换  ：默认使用VMnet8</strong> </p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-142820.png" alt=""></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-09-023436.png" alt="image-20180609103435882"></p>
+<ol>
+<li><p><strong>原理：</strong> </p>
+<p>NAT 是  Network  address  translate的简称。NAT技术应用在internet网关和路由器上，比如192.168.0.123这个地址要访问internet，它的数据包就要通过一个网关或者路由器，而网关或者路由器拥有一个能访问internet的ip地址，这样的网关和路由器就要在收发数据包时，对数据包的IP协议层数据进行更改（即  NAT），以使私有网段的主机能够顺利访问internet。此技术解决了IP地址稀缺的问题。同样的私有IP可以网关NAT  上网。    </p>
+<p>VMWare的NAT上网也是同样的道理，它在主机和虚拟机之间用软件伪造出一块网卡，这块网卡和虚拟机的ip处于一个地址段。同时，在这块网卡和主机的网络接口之间进行NAT。虚拟机发出的每一块数据包都会经过虚拟网卡，然后NAT，然后由主机的接口发出。 </p>
+<p>虚拟网卡和虚拟机处于一个地址段，虚拟机和主机不同一个地址段，主机相当于虚拟机的网关，所以虚拟机能ping到主机的IP，但是主机ping不到虚拟机的IP。 
+　　　　 </p>
+</li>
+<li><p><strong>联网方式：</strong> </p>
+<p>方法1、动态IP地址。 </p>
+<p>主机是静态IP或动态IP，都无所谓，将虚拟机设置成使用DHCP方式上网,Windows下选择“自动获取IP“，linux下开启DHCP服务即可。（这种方法最简单，不用过多的设置，但要在VMware中进行“编辑→虚拟网络设置”，将NAT和DHCP都开启了。一般NAT默认开启，DHCP默认关闭）<br>　　<br>方法2、静态IP地址。 </p>
+<p>如果不想使用DHCP，也可以手动设置：　 </p>
+<p>IP设置与vmnet1同网段,网关设置成vmnet8的网关（在“虚拟网络设置”里的Net选项卡里能找到Gateway）通常是xxx.xxx.xxx.2。<br>子网掩码设置与VMnet8相同（设置好IP地址后，子网掩码自动生成）<br>DNS设置与主机相同。 </p>
+<p>例如：主机IP是10.70.54.31,设置虚拟机IP为10.70.54.22。Netmask,Gateway,DNS都与主机相同即可实现  虚拟机  —主机  虚拟机<---->互联网  通信。    </----></p>
+<p>提示：使用NAT技术，主机能上网，虚拟机就可以访问Internet，但是主机不能访问虚拟机。 </p>
+</li>
+</ol>
+<p><strong>三、Host-Only――私有网络共享主机：默认使用VMnet1</strong> </p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-09-023454.png" alt="image-20180609103453578"></p>
+<ol>
+<li><p><strong>联网方法：</strong> </p>
+<p>方法1、动态IP地址。<br>像上面那样开启DHCP后，虚拟机直接自动获取IP地址和DNS。就可以和主机相连了。当然，还要进行一些局域网共享的操作，这里不再赘述。 </p>
+<p>方法2、静态IP地址。    </p>
+<p>也可以手动设置，将虚拟机IP设置与VMnet1同网段,网关设置成VMnet1的网关相同,其余设置与VMnet1相同,DNS设置与主机相同。 </p>
+<p>例如：VMnet1  IP:172.16.249.1        Gateway  :172.16.249.2<br>　　<br>那么虚拟机  IP:172.16.249.100        Gateway:  172.16.249.2<br>　　<br>这样、      虚拟机<--->主机              可以通信<br>但是、        虚拟机<--->互联网      无法通信 </---></---></p>
+<p>提示：Host-only技术只用于主机和虚拟机互访，于访问internet无关。</p>
 </li>
 </ol>
 <h4 id="2-NAT网络模式的配置"><a href="#2-NAT网络模式的配置" class="headerlink" title="2. NAT网络模式的配置"></a><strong>2. NAT网络模式的配置</strong></h4><p><a href="https://airpoet.github.io/2018/05/25/Linux/Linux学习笔记-3/">见Linux学习笔记3, 第8条: Linux虚拟主机集群测试环境基本搭建</a></p>
@@ -752,7 +784,7 @@
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-150724.png" alt=""></p>
 <ol>
 <li><p><strong>基础必备技能</strong> </p>
-<p>| 查看防火墙状态         | service iptables status    |<br>| ———————- | ————————– |<br>| 开启防火墙             | service iptables start     |<br>| 关闭防火墙             | service iptables stop      |<br>| <strong>关闭防火墙开机自启</strong> | <strong>chkconfig iptables off</strong> |<br>| 设置防火墙开机自启     | chkconfig iptables on      |</p>
+<p>| 查看防火墙状态         | service iptables status       |<br>| ———————- | —————————– |<br>| 开启防火墙             | service iptables start        |<br>| 关闭防火墙             | service iptables stop         |<br>| <strong>关闭防火墙开机自启</strong> | <strong>chkconfig iptables off</strong>    |<br>| 设置防火墙开机自启     | chkconfig iptables on         |<br>| 查看防火墙开机启动状态 | <strong>chkconfig iptables –list</strong> |</p>
 </li>
 <li><p>扩展知识 </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、列出iptables规则</span></span><br><span class="line">iptables -L -n</span><br><span class="line"><span class="comment"># 列出iptables规则并显示规则编号</span></span><br><span class="line">iptables -L -n --line-numbers</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、列出iptables nat表规则（默认是filter表）</span></span><br><span class="line">iptables -L -n -t nat</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3、清除默认规则（注意默认是filter表，如果对nat表操作要加-t nat）</span></span><br><span class="line"><span class="comment">#清除所有规则</span></span><br><span class="line">iptables -F</span><br><span class="line"></span><br><span class="line"><span class="comment">#重启iptables发现规则依然存在，因为没有保存</span></span><br><span class="line">service iptables restart</span><br><span class="line"></span><br><span class="line"><span class="comment">#保存配置</span></span><br><span class="line">service iptables save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4、禁止SSH登陆（如果服务器在机房，一定要小心）</span></span><br><span class="line">iptables -A INPUT -p tcp --dport 22 -j DROP</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5、删除规则</span></span><br><span class="line">iptables -D INPUT -p tcp --dport 22 -j DROP</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 6、加入一条INPUT规则开放80端口	</span></span><br><span class="line">iptables -I INPUT -p tcp --dport 80 -j ACCEPT</span><br></pre></td></tr></table></figure>

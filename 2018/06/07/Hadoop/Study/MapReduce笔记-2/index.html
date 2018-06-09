@@ -92,7 +92,7 @@
 <meta property="og:description" content="1.  Combiner 组件1. 产生缘由：Combiner 是 MapReduce 程序中 Mapper 和 Reducer 之外的一种组件，它的作用是在 maptask 之后给 maptask 的结果进行局部汇总，以减轻 reducetask 的计算负载，减少网络传输 Combiner 组件的作用：  减少 reduce 端的数据量 减少 shuffle 过程的数据量 在 map 端做了一次">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-121042.png">
-<meta property="og:updated_time" content="2018-06-08T14:06:23.761Z">
+<meta property="og:updated_time" content="2018-06-09T02:08:32.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-2 三大组件-Partitioner分区,sort排序,Combiner局部分区">
 <meta name="twitter:description" content="1.  Combiner 组件1. 产生缘由：Combiner 是 MapReduce 程序中 Mapper 和 Reducer 之外的一种组件，它的作用是在 maptask 之后给 maptask 的结果进行局部汇总，以减轻 reducetask 的计算负载，减少网络传输 Combiner 组件的作用：  减少 reduce 端的数据量 减少 shuffle 过程的数据量 在 map 端做了一次">
@@ -468,11 +468,13 @@
 <p><strong>思路</strong>：MapReduce 中会将 map 输出的 kv 对，按照相同 key 分组，然后分发给不同的 reducetask</p>
 <h5 id="MapReduce-默认的分发规则为："><a href="#MapReduce-默认的分发规则为：" class="headerlink" title="MapReduce 默认的分发规则为："></a><strong>MapReduce 默认的分发规则为</strong>：</h5><p><strong>根据 <code>key</code> 的 <code>hashcode%reducetask</code> 数来分发</strong>，所以：<strong>如果要按照我们自 己的需求进行分组，则需要改写数据分发（分区）组件 Partitioner</strong></p>
 <p><br></p>
-<h5 id="Partitioner-实现过程"><a href="#Partitioner-实现过程" class="headerlink" title="Partitioner 实现过程"></a><strong>Partitioner 实现过程</strong></h5><ul>
-<li>自定义一个 CustomPartitioner <strong>继承抽象类：Partitioner</strong></li>
-<li><strong>重写 <code>public abstract int getPartition(...)</code> 方法，注意：返回的是分区数值</strong></li>
-<li>然后在 <strong>job 对象中</strong>，<strong>设置自定义 partitioner</strong>： <code>job.setPartitionerClass(ProvincePartitioner.class)</code></li>
-</ul>
+<h5 id="Partitioner-实现过程"><a href="#Partitioner-实现过程" class="headerlink" title="Partitioner 实现过程"></a><strong>Partitioner 实现过程</strong></h5><ol>
+<li>先分析一下具体的业务逻辑，确定大概有多少个分区</li>
+<li>首先书写一个类，它要<strong>继承 <code>org.apache.hadoop.mapreduce.Partitioner</code>这个类</strong></li>
+<li><strong>重写<code>public int getPartition</code>这个方法，根据具体逻辑，读数据库或者配置返回相同的数字</strong></li>
+<li><strong>在<code>main</code>方法中设置<code>Partioner</code>的类，<code>job.setPartitionerClass(DataPartitioner.class)</code>;</strong></li>
+<li><strong>设置<code>Reducer</code>的数量，<code>job.setNumReduceTasks(6)</code>;</strong></li>
+</ol>
 <h4 id="典型的-Partitioner-代码实现"><a href="#典型的-Partitioner-代码实现" class="headerlink" title="典型的 Partitioner 代码实现"></a>典型的 Partitioner 代码实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Partitioner;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProvincePartitioner</span> <span class="keyword">extends</span> <span class="title">Partitioner</span>&lt;<span class="title">Text</span>, <span class="title">FlowBean</span>&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> HashMap&lt;String, Integer&gt; provincMap = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		provincMap.put(<span class="string">"138"</span>, <span class="number">0</span>);</span><br><span class="line">		provincMap.put(<span class="string">"139"</span>, <span class="number">1</span>);</span><br><span class="line">		provincMap.put(<span class="string">"136"</span>, <span class="number">2</span>);</span><br><span class="line">		provincMap.put(<span class="string">"137"</span>, <span class="number">3</span>);</span><br><span class="line">		provincMap.put(<span class="string">"135"</span>, <span class="number">4</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPartition</span><span class="params">(Text key, FlowBean value, <span class="keyword">int</span> numPartitions)</span> </span>&#123;</span><br><span class="line">		Integer code = provincMap.get(key.toString().substring(<span class="number">0</span>, <span class="number">3</span>));</span><br><span class="line">		<span class="keyword">if</span> (code != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> code;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="5、全局计数器"><a href="#5、全局计数器" class="headerlink" title="5、全局计数器"></a>5、全局计数器</h2><h3 id="1-框架内置计数器："><a href="#1-框架内置计数器：" class="headerlink" title="1.  框架内置计数器："></a>1.  框架内置计数器：</h3><ul>
@@ -490,7 +492,7 @@
 </ul>
 <h3 id="2-自定义的计数器"><a href="#2-自定义的计数器" class="headerlink" title="2. 自定义的计数器"></a>2. 自定义的计数器</h3><h5 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h5><ul>
 <li>用来统计运行过程中的进度和状态， 类似于 job 运行的一个报告、日志</li>
-<li>在生产中我们会使用全局计数器（自定义）记录一些不规则或者自己想要记录的数据</li>
+<li>要将数据处理过程中遇到的不合规数据行进行全局计数，类似这 种需求可以借助 MapReduce 框架中提供的全局计数器来实现</li>
 <li><strong>计数器的值可以在mapper或reducer中增加</strong></li>
 </ul>
 <p><strong>使用方式</strong></p>

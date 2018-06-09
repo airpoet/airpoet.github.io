@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[▍《开始》 -James Wright]]></title>
+    <url>%2F2018%2F06%2F10%2FPoetry%2F%E5%BC%80%E5%A7%8B%2F</url>
+    <content type="text"><![CDATA[▍开始 月亮落下一两片羽毛在田野上。 黑暗中的麦子聆听着。 快静下来。 快。 就在那儿，月亮的孩子们正试着 挥动翅膀。 在两棵树之间，身材修长的女子抬起面庞， 美丽的剪影。接着，她步入空中，接着， 她完全消失在空中。 我独自站在一棵接骨木旁，不敢呼吸， 也不敢动。 我聆听着。 麦子向后靠着自己的黑暗， 而我靠着我的。 作者 / [美国] 詹姆斯·赖特 翻译 / 张文武 BeginningThe moon drops one or two feathers into the fields. The dark wheat listens. Be still. Now. There they are, the moon’s young, trying Their wings. Between trees, a slender woman lifts up the lovely shadow Of her face, and now she steps into the air, now she is gone Wholly, into the air. I stand alone by an elder tree, I do not dare breathe Or move. I listen. The wheat leans back toward its own darkness, And I lean toward mine. James Wright]]></content>
+      <categories>
+        <category>文艺</category>
+        <category>诗歌</category>
+      </categories>
+      <tags>
+        <tag>诗歌</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Markdown高阶语法]]></title>
     <url>%2F2018%2F06%2F10%2FTools%2FMarkdown%2FMarkdown%E9%AB%98%E9%98%B6%E8%AF%AD%E6%B3%95%2F</url>
     <content type="text"><![CDATA[时序图的写法 流程图的写法 类图的写法 st=>start: Start|past:>http://www.google.com[blank] e=>end: End:>http://www.google.com op1=>operation: My Operation|past op2=>operation: Stuff|current sub1=>subroutine: My Subroutine|invalid cond=>condition: Yes or No?|approved:>http://www.google.com c2=>condition: Good idea|rejected io=>inputoutput: catch something...|request st->op1(right)->cond cond(yes, right)->c2 cond(no)->sub1(left)->op1 c2(yes)->io->e c2(no)->op2->e{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12} var code = document.getElementById("flowchart-0-code").value; var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value)); var diagram = flowchart.parse(code); diagram.drawSVG("flowchart-0", options);Alice->Bob: Hello Bob, how are you? Note right of Bob: Bob thinks Bob-->Alice: I am good thanks!{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12} var code = document.getElementById("sequence-0-code").value; var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value)); var diagram = Diagram.parse(code); diagram.drawSVG("sequence-0", options);]]></content>

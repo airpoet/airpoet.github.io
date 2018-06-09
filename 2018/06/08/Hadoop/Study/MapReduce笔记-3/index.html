@@ -138,7 +138,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-090449.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-090748.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-091115.png">
-<meta property="og:updated_time" content="2018-06-08T14:44:35.735Z">
+<meta property="og:updated_time" content="2018-06-09T03:29:08.711Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-3">
 <meta name="twitter:description" content="1.多 Job 串联1.概念当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联 2. 涉及到昨天的微博求共同粉丝题目 A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,">
@@ -459,7 +459,7 @@
 <h3 id="2-涉及到昨天的微博求共同粉丝题目"><a href="#2-涉及到昨天的微博求共同粉丝题目" class="headerlink" title="2. 涉及到昨天的微博求共同粉丝题目"></a>2. 涉及到昨天的微博求共同粉丝题目</h3><blockquote>
 <p>A:B,C,D,F,E,O<br>B:A,C,E,K<br>C:F,A,D,I<br>D:A,E,F,L<br>E:B,C,D,M,L<br>F:A,B,C,D,E,O,M<br>G:A,C,D,E,F<br>H:A,C,D,E,O<br>I:A,O<br>J:B,O<br>K:A,C,D<br>L:D,E,F<br>M:E,F,G<br>O:A,H,I,J,K</p>
 <p>以上是数据：<br>A:B,C,D,F,E,O<br>表示：A用户 关注B,C,D,E,F,O</p>
-<p>求所有两两用户之间的共同好友</p>
+<p>求所有两两用户之间的共同关注对象</p>
 </blockquote>
 <ol>
 <li><p><strong>第一个 MapReduce 程序</strong></p>
@@ -764,6 +764,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/06/09/Hadoop/Study/MapReduce笔记-练习/" rel="prev" title="MapReduce笔记-练习">
+                MapReduce笔记-练习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -853,7 +857,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -864,7 +868,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -875,7 +879,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

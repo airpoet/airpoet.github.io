@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="1.  Combiner 组件1. 产生缘由：Combiner 是 MapReduce 程序中 Mapper 和 Reducer 之外的一种组件，它的作用是在 maptask 之后给 maptask 的结果进行局部汇总，以减轻 reducetask 的计算负载，减少网络传输 Combiner 组件的作用：  减少 reduce 端的数据量 减少 shuffle 过程的数据量 在 map 端做了一次">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-09T11:35:37.326Z">
+<meta property="og:updated_time" content="2018-06-09T11:54:15.219Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-2 三大组件-Partitioner分区,sort排序,Combiner局部分区">
 <meta name="twitter:description" content="1.  Combiner 组件1. 产生缘由：Combiner 是 MapReduce 程序中 Mapper 和 Reducer 之外的一种组件，它的作用是在 maptask 之后给 maptask 的结果进行局部汇总，以减轻 reducetask 的计算负载，减少网络传输 Combiner 组件的作用：  减少 reduce 端的数据量 减少 shuffle 过程的数据量 在 map 端做了一次">
@@ -464,11 +464,19 @@
 <hr>
 <h2 id="4、MapReduce-中的数据分发组件-Partitioner（分区）"><a href="#4、MapReduce-中的数据分发组件-Partitioner（分区）" class="headerlink" title="4、MapReduce 中的数据分发组件 Partitioner（分区）"></a>4、MapReduce 中的数据分发组件 <code>Partitioner（分区）</code></h2><p><strong>需求：</strong> 根据归属地<strong>输出</strong>流量统计数据<strong>结果到不同文件</strong>，以便于在查询统计结果时可以定位到 省级范围进行</p>
 <p><strong>思路</strong>：MapReduce 中会将 map 输出的 kv 对，按照相同 key 分组，然后分发给不同的 reducetask</p>
+<p><strong>执行时机</strong>: <strong>在Map输出 kv 对之后, 所携带的 k,v 参数，跟 Map 输出相同</strong></p>
+<p><br></p>
 <h4 id="MapReduce-默认的分发规则为："><a href="#MapReduce-默认的分发规则为：" class="headerlink" title="MapReduce 默认的分发规则为："></a><strong>MapReduce 默认的分发规则为</strong>：</h4><p><strong>根据 <code>key</code> 的 <code>hashcode%reducetask</code> 数来分发</strong>，所以：<strong>如果要按照我们自 己的需求进行分组，则需要改写数据分发（分区）组件 Partitioner</strong></p>
 <p><br></p>
-<h4 id="Partition重点总结："><a href="#Partition重点总结：" class="headerlink" title="Partition重点总结："></a>Partition重点总结：</h4><p><strong>Partition 的 key value, 就是Mapper输出的key value</strong></p>
+<h4 id="Partition重点总结："><a href="#Partition重点总结：" class="headerlink" title="Partition重点总结："></a>Partition重点总结：</h4><ul>
+<li><p><strong>Partition 的 key value, 就是Mapper输出的key value</strong></p>
 <p><code>public abstract int getPartition(KEY key, VALUE value, int numPartitions);</code></p>
 <p><strong>输入是Map的结果对&lt;key, value&gt;和Reducer的数目，输出则是分配的Reducer（整数编号）</strong>。<strong>就是指定Mappr输出的键值对到哪一个reducer上去</strong>。系统缺省的Partitioner是HashPartitioner，它以key的Hash值对Reducer的数目取模，得到对应的Reducer。<strong>这样保证如果有相同的key值，肯定被分配到同一个reducre上。如果有N个reducer，编号就为0,1,2,3……(N-1)</strong>。</p>
+</li>
+<li><p>MapReduce 中会将 map 输出的 kv 对，按照相同 key 分组，然后分发给不同的 reducetask 默认的分发规则为:根据 key 的 hashcode%reducetask 数来分发，所以:如果要按照我们自 己的需求进行分组，则需要改写数据分发(分组)组件 Partitioner, 自定义一个 CustomPartitioner 继承抽象类:Partitioner</p>
+</li>
+<li><strong>因此， Partitioner 的执行时机， 是在Map输出 kv 对之后</strong></li>
+</ul>
 <h5 id="Partitioner-实现过程"><a href="#Partitioner-实现过程" class="headerlink" title="Partitioner 实现过程"></a><strong>Partitioner 实现过程</strong></h5><ol>
 <li>先分析一下具体的业务逻辑，确定大概有多少个分区</li>
 <li>首先书写一个类，它要<strong>继承 <code>org.apache.hadoop.mapreduce.Partitioner</code>这个抽象类</strong></li>

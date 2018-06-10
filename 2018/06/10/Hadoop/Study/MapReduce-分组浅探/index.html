@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="前言最近学分组的时候，一直弄不明白，总感觉一头雾水，通过近3个小时的断点调试和log输出。 大概了解了一些表象，先记录。 案例是这个  求出每门课程参考学生成绩最高平均分的学生的信息： 课程，姓名和平均分，详细见MapReduce笔记-练习第二题第3小题 数据格式是这样的：  第一个是课程名称，总共四个课程，computer，math，english，algorithm， 第二个是学生姓名，后面是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-10T09:17:03.500Z">
+<meta property="og:updated_time" content="2018-06-10T09:39:19.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce-分组浅探">
 <meta name="twitter:description" content="前言最近学分组的时候，一直弄不明白，总感觉一头雾水，通过近3个小时的断点调试和log输出。 大概了解了一些表象，先记录。 案例是这个  求出每门课程参考学生成绩最高平均分的学生的信息： 课程，姓名和平均分，详细见MapReduce笔记-练习第二题第3小题 数据格式是这样的：  第一个是课程名称，总共四个课程，computer，math，english，algorithm， 第二个是学生姓名，后面是">
@@ -423,8 +423,7 @@
 </blockquote>
 <p><br></p>
 <p><br></p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p><strong>执行流程结论</strong></p>
-<ul>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><h4 id="执行流程结论"><a href="#执行流程结论" class="headerlink" title="执行流程结论"></a><strong>执行流程结论</strong></h4><ul>
 <li>map每读一行就 write 到 context 一次，按照指定的<code>key</code>进行分发</li>
 <li><p>map 把所有的数据都读完了之后，大概执行到<code>67%</code>的时候，开始进入 <code>CustomBean</code>，执行<code>CustomBean</code>的<code>compareTo()</code>方法，会按照自己写的规则一条一条数据比较</p>
 </li>
@@ -433,11 +432,23 @@
 <li>到了reduce阶段，直接进入了<strong>MyGroup</strong>中自定义的<strong>compare</strong>方法。</li>
 <li>MyGroup的<code>compare()</code>方法，如果返回<strong>非0</strong>， 就会进入 reduce 方法<strong>写出到context</strong></li>
 </ul>
-<p> <strong>MyGroup进入Reduce的条件是</strong>，</p>
-<ul>
+<h4 id="MyGroup进入Reduce的条件是"><a href="#MyGroup进入Reduce的条件是" class="headerlink" title="MyGroup进入Reduce的条件是"></a><strong>MyGroup进入Reduce的条件是</strong></h4><ul>
 <li>MyReduce中，如果compare的结果不等于0，也就是比较的2者不相同， 此时就进入Reduce， 写出到上下文</li>
 <li>如果相同，会一直往下读，直到读到不同的， 此时写出读到上下文。</li>
 <li>因为MyGroup会在Reduce阶段执行，而<code>CustomBean</code>中的<code>compareTo()</code>是在map阶段执行，所以需要在<code>CustomBean</code>中就把组排好序，此时<strong>分组功能</strong>才能正常运作</li>
+</ul>
+<h4 id="指定分组类MyGroup和不指定的区别"><a href="#指定分组类MyGroup和不指定的区别" class="headerlink" title="指定分组类MyGroup和不指定的区别"></a>指定分组类MyGroup和不指定的区别</h4><p><em>指定与不指定是指：在Driver类中，是否加上<code>job.setGroupingComparatorClass(MyGrouper.class);</code>这一句。</em></p>
+<ul>
+<li><strong>指定分组类</strong>：<ul>
+<li>会按照分组类中，自定义的<code>compare()</code>方法比较，相同的为一组，分完一组就进入一次reduce方法</li>
+</ul>
+</li>
+<li><strong>不指定分组类：（目前存疑）</strong><ul>
+<li>是否是按照key进行分组</li>
+<li>如果是自定义类为key，是否是按照此key中值相同的分为一组</li>
+<li>如果是hadoop内置类，是否是按照此类的值分组（Text-String的值，IntWritable-int值等..）</li>
+</ul>
+</li>
 </ul>
 <p><br></p>
 <p><br></p>
@@ -701,7 +712,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">2.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log信息"><span class="nav-number">3.</span> <span class="nav-text">Log信息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CustomBean中没有进行分组-组内排序的log"><span class="nav-number">3.0.1.</span> <span class="nav-text">CustomBean中没有进行分组, 组内排序的log</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CustomBean中做了分组-amp-组内排序-的"><span class="nav-number">3.0.2.</span> <span class="nav-text">CustomBean中做了分组&amp;组内排序 的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它疑点"><span class="nav-number">4.</span> <span class="nav-text">其它疑点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">2.</span> <span class="nav-text">结论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#执行流程结论"><span class="nav-number">2.1.</span> <span class="nav-text">执行流程结论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyGroup进入Reduce的条件是"><span class="nav-number">2.2.</span> <span class="nav-text">MyGroup进入Reduce的条件是</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定分组类MyGroup和不指定的区别"><span class="nav-number">2.3.</span> <span class="nav-text">指定分组类MyGroup和不指定的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log信息"><span class="nav-number">3.</span> <span class="nav-text">Log信息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CustomBean中没有进行分组-组内排序的log"><span class="nav-number">3.0.1.</span> <span class="nav-text">CustomBean中没有进行分组, 组内排序的log</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CustomBean中做了分组-amp-组内排序-的"><span class="nav-number">3.0.2.</span> <span class="nav-text">CustomBean中做了分组&amp;组内排序 的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它疑点"><span class="nav-number">4.</span> <span class="nav-text">其它疑点</span></a></li></ol></div>
             
 
           </div>

@@ -114,18 +114,18 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-034007.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-060255.jpg?fgh=re">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-061946.png">
-<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-064240.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-10-133808.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-065349.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070047.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070316.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-070719.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-10-140348.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-075049.png">
 <meta property="og:image" content="https://airpoet.github.io/var/folders/6l/blvdbwd53hqglz0f09n3sd5c0000gn/T/abnerworks.Typora/image-20180608160128707.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-080613.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-080844.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081128.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081321.png">
-<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081451.jpg?ff=ytt">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-082315.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-083614.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-083842.png">
@@ -138,7 +138,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-090449.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-090748.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-091115.png">
-<meta property="og:updated_time" content="2018-06-10T01:51:30.432Z">
+<meta property="og:updated_time" content="2018-06-10T16:32:33.775Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-3">
 <meta name="twitter:description" content="1.多 Job 串联1.概念当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联 2. 涉及到昨天的微博求共同粉丝题目 A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,">
@@ -605,7 +605,7 @@
 <ul>
 <li>重写 <code>setup</code>， 在 Map 开始之前， 拿到文件的 filename， 图暂缺</li>
 </ul>
-<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-064240.png" alt="image-20180608144239477"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-10-133808.png" alt="image-20180610213808693"></p>
 <ul>
 <li>根据 filename 设置 k， v， 打标签</li>
 </ul>
@@ -637,6 +637,8 @@
 </ul>
 <hr>
 <h5 id="补充：Mapper-中的源码分析"><a href="#补充：Mapper-中的源码分析" class="headerlink" title="补充：Mapper 中的源码分析"></a>补充：Mapper 中的源码分析</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// 在 maptask 执行之前调用一次， 一个 maptask 只会调用一次。setup 中通常会帮 map 中初始化一些变量和资源， 比如数据库的连接等。</span></span><br><span class="line">    <span class="comment">// 主要目的：减少资源的初始化次数而提升程序的性能</span></span><br><span class="line">    setup(context);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 获取文件是否还有下一行， 一行只调用一次</span></span><br><span class="line">      <span class="keyword">while</span> (context.nextKeyValue()) &#123;</span><br><span class="line">        map(context.getCurrentKey(), context.getCurrentValue(), context);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       <span class="comment">// maptask 任务执行完成之后会调用一次，一个 maptask 只会调用一次</span></span><br><span class="line">       <span class="comment">// 帮 map 处理一些善后工作， 比如：资源的关闭</span></span><br><span class="line">      cleanup(context);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>MR中的任务继承体系</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-10-140348.png" alt="image-20180610220348353"></p>
 <hr>
 <h2 id="5-Map-端的-Join"><a href="#5-Map-端的-Join" class="headerlink" title="5. Map 端的 Join"></a>5. Map 端的 Join</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-075049.png" alt="image-20180608155048562"></p>
 <p>为了提升 Map 端 Join 性能， 我们的策略是， <strong>将小表的数据加载到每个运行的 MapTask 的内存中</strong>。</p>
@@ -654,9 +656,11 @@
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081128.png" alt="image-20180608161128128"></p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081321.png" alt="image-20180608161321395"></p>
 <p><strong>main 方法中注意点</strong></p>
-<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-081451.jpg?ff=ytt" alt="ddg"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指定文件加入缓存</span></span><br><span class="line">job.addCacheFile(<span class="keyword">new</span> URI(<span class="string">"/xxx"</span>)); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果没有ReduceTask， 要设置为0</span></span><br><span class="line">job.setNumReduceTasks(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
 <p><strong>注意点：这种方式只能通过 Jar 包上传的方式，直接用 Eclipse 会找不到缓存</strong> </p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-082315.png" alt="image-20180608162315252"></p>
+<p><a href="../../../../../../../../IDEs/Eclipse/MapReduceJar/src/com/rox/mapreduce/mr3/_03_join2表的数据关联/MapJoinDemo.java">MapJoinDemo.java</a></p>
+<p>/Users/shixuanji/Documents/IDEs/Eclipse/MapReduceJar/src/com/rox/mapreduce/mr3/_03/MapJoinDemo.java</p>
 <hr>
 <h2 id="6-对比"><a href="#6-对比" class="headerlink" title="6. 对比"></a>6. 对比</h2><p><strong>MapJoin 的方式： 大 &amp; 小表</strong></p>
 <p>因为有一个表需要加载到内存中，注定加载到内存中的表不能过大（hive 中默认是256M）</p>

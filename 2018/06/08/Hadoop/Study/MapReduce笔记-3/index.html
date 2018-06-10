@@ -138,7 +138,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-090449.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-090748.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-091115.png">
-<meta property="og:updated_time" content="2018-06-09T07:09:04.617Z">
+<meta property="og:updated_time" content="2018-06-10T01:51:30.432Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-3">
 <meta name="twitter:description" content="1.多 Job 串联1.概念当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联 2. 涉及到昨天的微博求共同粉丝题目 A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,">
@@ -545,13 +545,16 @@
 <li>如果按照自定义的分组来： <pre><code>- 相同课程为一组， 并且这一组数据按照分数排好了序（倒序）
 </code></pre></li>
 </ul>
+<p><strong>总结：</strong> </p>
+<p>1、利用“班级和平均分”作为 key，可以将 map 阶段读取到的所有学生成绩数据按照班级 和成绩排倒序，发送到 reduce</p>
+<p>2、在 reduce 端利用 GroupingComparator 将班级相同的 kv 聚合成组，然后取第一个即是最 大值</p>
 <h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><p> ScoreBean</p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-030741.png" alt="image-20180608110741068"></p>
 <p>// 这里实现 <code>WritableComparable</code></p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-033821.png" alt="image-20180608113821115"></p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-060515.png" alt="image-20180608140514714"></p>
 <hr>
-<p> MyGroup（自定义分组类） </p>
+<p> ==MyGroup==（自定义分组类） </p>
 <p>自定义接口需要<strong>继承</strong> <code>WritableComparator</code>类，重写下面方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(WritableComparable a, WritableComparable b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a.compareTo(b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-08-032738.png" alt="image-20180608112738092"></p>

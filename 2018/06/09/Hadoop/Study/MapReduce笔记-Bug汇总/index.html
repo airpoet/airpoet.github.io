@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="1、reduce 输出路径必须是新创建的。不能已经存在1Exception in thread &quot;main&quot; org.apache.hadoop.mapred.FileAlreadyExistsException: Output directory hdfs://cs1:9000/flowout01 already exists 2、在初始化 job 的时候， 没有传 conf ， 导致后面一直找">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-10T07:30:06.201Z">
+<meta property="og:updated_time" content="2018-06-10T09:08:15.942Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-Bug汇总">
 <meta name="twitter:description" content="1、reduce 输出路径必须是新创建的。不能已经存在1Exception in thread &quot;main&quot; org.apache.hadoop.mapred.FileAlreadyExistsException: Output directory hdfs://cs1:9000/flowout01 already exists 2、在初始化 job 的时候， 没有传 conf ， 导致后面一直找">
@@ -422,63 +422,9 @@
 <ul>
 <li>相同课程的按照分数降序排序</li>
 <li>课程名按照自然（升序）排序</li>
+<li><strong>换言之，就是CustomBean 对象要输出的数据是 <code>组名升序排序，组内按成绩降序排序</code></strong></li>
+<li>具体分析参阅</li>
 </ul>
-<p>经过断点调试， 发现，会先调用<strong>排序</strong>再调用<strong>分组（MyGroup）</strong></p>
-<ul>
-<li><p>首先map，map到了67%的时候， 进入自定义Bean类的<code>compareTo()</code>方法</p>
-</li>
-<li><p>此时，在<code>compareTo()</code>方法中，就已经按课程名分组，每组内按照分数排好序了，但仍旧是分散的，组并没有聚集在一起（这里待验证，可以尝试去掉调用<code>MyGrouper</code>试试效果）</p>
-</li>
-<li><p><code>compareTo()</code>执行完了之后， map就算是执行完了， 进到<code>MyGrouper</code>的<code>return</code>方法， 此时reduce 执行了69%， 之后应该是 执行一次分组完成—–reduce就write一次</p>
-</li>
-<li><p>貌似是 reduce， write 一次， 后面就执行一个完全的分组</p>
-</li>
-<li><p>问题： </p>
-<ul>
-<li>map执行完了之后， 就直接到了MyGrouper中， 并且reduce已经执行了67%了</li>
-<li>之后才初始化了Reduce类？</li>
-<li>然后这时Grouper 才开始 return 结果</li>
-<li>发现数学是， 先比较完了2个，82.333  和  82.0 就进入reduce赋值，输出</li>
-<li>接下来比较82和74， 又比较74&amp;72， 又比较72&amp;62，又比较62&amp;56</li>
-<li>然后又是 algorithm 56  和 computer  83</li>
-<li>然后 computer 83 &amp; computer 83.2， 此时又进入了reduce，输出了83.2的</li>
-<li>接着又比较完剩下的 计算机的， 直到出现了一个 english, 直到出现了2个 english， 因为之前每科就已经按照成绩从大到小排好序了，<strong>此时出现了第一个最大的， Reduce就直接去写了， 并且之后就没有再去写</strong></li>
-<li><strong>不明白为什么</strong></li>
-</ul>
-</li>
-<li><p>在Mapper执行到 67% 的时候， 就开始执行 自定义Bean 中 <strong>重写的</strong> 的<code>compareTo()</code>方法，此方法就分组排序，<strong>组内分数降序， 组名升序</strong>， MyGrouper 拿到的数据， 应该是类似于这样的, </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">algorithm	huangjiaju	82.28571428571429</span><br><span class="line">algorithm	liuhualiung	82.0</span><br><span class="line">algorithm	huangbo	75.0</span><br><span class="line">==================</span><br><span class="line">computer	huangjiaju	83.2</span><br><span class="line">computer	hungxiaoming	80</span><br><span class="line">computer	lirunxin	73</span><br><span class="line">==================</span><br><span class="line">english	huanglei	83.0</span><br><span class="line">english	chenlei	 75.0</span><br><span class="line">english	xiaoming	65.0</span><br><span class="line">==================</span><br><span class="line">math	huangxiaoming	88.0</span><br><span class="line">math	huangjiaju	76.0</span><br><span class="line">math	huangbo	45.0</span><br><span class="line">==================</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>map做的事情：</strong> </p>
-<ul>
-<li><p>每读一行， <code>map</code>的<code>context</code>就<code>wirte</code>一次</p>
-</li>
-<li><p>context ，write完，<code>map</code>执行了67%，此时开始进入CustomBean的<code>compareTo()</code>方法，此方法中做了如下事情</p>
-<ul>
-<li>把每一条读进来的信息，先按照CourseName做比较，按照字典顺序，升序排序</li>
-<li>中间遇到相同的CourseName的， 再按照分数进行降序排序</li>
-</ul>
-</li>
-<li><p>CustomBean中的<code>compareTo()</code>方法执行完了之后， map端就执行完了100%</p>
-</li>
-<li><p>map执行完后的数据</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">algorithm	huangjiaju	<span class="number">82.28571428571429</span></span><br><span class="line">algorithm	liuhualiung	<span class="number">82.0</span></span><br><span class="line">algorithm	huangbo	<span class="number">75.0</span></span><br><span class="line">==================</span><br><span class="line">computer	huangjiaju	<span class="number">83.2</span></span><br><span class="line">computer	hungxiaoming	<span class="number">80</span></span><br><span class="line">computer	lirunxin	<span class="number">73</span></span><br><span class="line">==================</span><br><span class="line">english	huanglei	<span class="number">83.0</span></span><br><span class="line">english	chenlei	 <span class="number">75.0</span></span><br><span class="line">english	xiaoming	<span class="number">65.0</span></span><br><span class="line">==================</span><br><span class="line">math	huangxiaoming	<span class="number">88.0</span></span><br><span class="line">math	huangjiaju	<span class="number">76.0</span></span><br><span class="line">math	huangbo	<span class="number">45.0</span></span><br><span class="line">==================</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>reduce做的事情：</strong> </p>
-<ul>
-<li><p>[ ] 紧接着进入了自定义分组 MyGroup， 此时拿到了分数降序拍好的， algorithm 的前2条数据，  此时就直接进入reduce中， 写入上下文了（进入到reduce的时候，reduce已经显示执行了 69%了，这里是一个疑点）</p>
-</li>
-<li><p>[ ] 然后又比较了剩下algorithm的所有数据，但是没有其它处理。 数据持续输出， 直到拿到了两个 computer的数据，把第一条最大的 写进了上下文</p>
-</li>
-<li><p>[ ] 余下的一次类推，都是只要拿到了每个类的 第1，2条数据，就进入reduce中，把第1条数据写进上下文，直到reduce执行完成</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">algorithm	huangjiaju	82.28571428571429</span><br><span class="line">==================</span><br><span class="line">computer	huangjiaju	83.2</span><br><span class="line">==================</span><br><span class="line">english	huanglei	83.0</span><br><span class="line">==================</span><br><span class="line">math	huangxiaoming	83.0</span><br><span class="line">==================</span><br></pre></td></tr></table></figure>
-<p>computer</p>
-<p>englisth</p>
-<p>math</p>
 
       
     </div>
@@ -642,7 +588,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="原创,技术,Hadoop,MapReduce," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="A.P的文艺杂谈" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言最近学分组的时候，一直弄不明白，总感觉一头雾水，通过近3个小时的断电点调试和log输出。 大概了解了一些表象，先记录。 案例是这个  求出每门课程参考学生成绩最高平均分的学生的信息： 课程，姓名和平均分，详细见MapReduce笔记-练习第二题第3小题 数据格式是这样的：  第一个是课程名称，总共四个课程，computer，math，english，algorithm， 第二个是学生姓名，后面">
+<meta name="keywords" content="原创,技术,Hadoop,MapReduce">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MapReduce-分组浅探">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/10/Hadoop/Study/MapReduce-分组浅探/index.html">
+<meta property="og:site_name" content="A.P的文艺杂谈">
+<meta property="og:description" content="前言最近学分组的时候，一直弄不明白，总感觉一头雾水，通过近3个小时的断电点调试和log输出。 大概了解了一些表象，先记录。 案例是这个  求出每门课程参考学生成绩最高平均分的学生的信息： 课程，姓名和平均分，详细见MapReduce笔记-练习第二题第3小题 数据格式是这样的：  第一个是课程名称，总共四个课程，computer，math，english，algorithm， 第二个是学生姓名，后面">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-10T09:08:23.145Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MapReduce-分组浅探">
+<meta name="twitter:description" content="前言最近学分组的时候，一直弄不明白，总感觉一头雾水，通过近3个小时的断电点调试和log输出。 大概了解了一些表象，先记录。 案例是这个  求出每门课程参考学生成绩最高平均分的学生的信息： 课程，姓名和平均分，详细见MapReduce笔记-练习第二题第3小题 数据格式是这样的：  第一个是课程名称，总共四个课程，computer，math，english，algorithm， 第二个是学生姓名，后面">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'airpoet'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/10/Hadoop/Study/MapReduce-分组浅探/"/>
+
+
+
+
+
+  <title>MapReduce-分组浅探 | A.P的文艺杂谈</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A.P的文艺杂谈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/10/Hadoop/Study/MapReduce-分组浅探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MapReduce-分组浅探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-10T16:49:24+08:00">
+                2018-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/10/Hadoop/Study/MapReduce-分组浅探/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/10/Hadoop/Study/MapReduce-分组浅探/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近学分组的时候，一直弄不明白，总感觉一头雾水，通过近3个小时的断电点调试和log输出。 大概了解了一些表象，先记录。</p>
+<p>案例是这个</p>
+<blockquote>
+<p>求出每门课程参考学生成绩最高平均分的学生的信息：</p>
+<p>课程，姓名和平均分，详细见<a href="https://airpoet.github.io/2018/06/09/Hadoop/Study/MapReduce%E7%AC%94%E8%AE%B0-%E7%BB%83%E4%B9%A0/"><sup>MapReduce笔记-练习第二题第3小题</sup></a></p>
+<p>数据格式是这样的：</p>
+<blockquote>
+<p>第一个是课程名称，总共四个课程，computer，math，english，algorithm，</p>
+<p>第二个是学生姓名，后面是每次考试的分数</p>
+<p><em>math,huangxiaoming,85,75,85,99,66,88,75,91</em></p>
+<p><em>english,huanglei,85,75,85,99,66,88,75,91</em></p>
+<p>… </p>
+</blockquote>
+</blockquote>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p><strong>执行流程结论</strong></p>
+<ul>
+<li>map每读一行就 write 到 context 一次，按照指定的<code>key</code>进行分发</li>
+<li><p>map 把所有的数据都读完了之后，大概执行到<code>67%</code>的时候，开始进入 <code>CustomBean</code>，执行<code>CustomBean</code>的<code>compareTo()</code>方法，会按照自己写的规则一条一条数据比较</p>
+</li>
+<li><p>上述都比较完毕之后，map阶段就结束了，此时来到了 reduce阶段，但是是到了<code>67%</code>了</p>
+</li>
+<li>到了reduce阶段，直接进入了<strong>MyGroup</strong>中自定义的<strong>compare</strong>方法。</li>
+<li>MyGroup的<code>compare()</code>方法，如果返回<strong>非0</strong>， 就会进入 reduce 方法<strong>写出到context</strong></li>
+</ul>
+<p> <strong>MyGroup进入Reduce的条件是</strong>，</p>
+<ul>
+<li>MyReduce中，如果compare的结果不等于0，也就是比较的2者不相同， 此时就进入Reduce， 写出到上下文</li>
+<li>如果相同，会一直往下读，直到读到不同的， 此时写出读到上下文。</li>
+<li>因为MyGroup会在Reduce阶段执行，而<code>CustomBean</code>中的<code>compareTo()</code>是在map阶段执行，所以需要在<code>CustomBean</code>中就把组排好序，此时<strong>分组功能</strong>才能正常运作</li>
+</ul>
+<h3 id="Log信息"><a href="#Log信息" class="headerlink" title="Log信息"></a>Log信息</h3><h5 id="CustomBean中没有进行分组-组内排序的"><a href="#CustomBean中没有进行分组-组内排序的" class="headerlink" title="CustomBean中没有进行分组, 组内排序的"></a><code>CustomBean</code>中没有进行<code>分组</code>, <code>组内排序</code>的</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line">computer---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---algorithm</span><br><span class="line">algorithm---MyGroup中比较---algorithm</span><br><span class="line">algorithm---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---algorithm</span><br><span class="line">algorithm---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---algorithm</span><br><span class="line">algorithm---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---algorithm</span><br><span class="line">algorithm---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---algorithm</span><br><span class="line">algorithm---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---english</span><br><span class="line"></span><br><span class="line"><span class="comment">// ======================reduce中执行==========================</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">==================第<span class="number">1</span>次进入reduce</span><br><span class="line">computer	huangjiaju	<span class="number">83.2</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">computer	liutao	<span class="number">83.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">2</span>次进入reduce</span><br><span class="line">math	huangxiaoming	<span class="number">83.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">3</span>次进入reduce</span><br><span class="line">english	huanglei	<span class="number">83.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">4</span>次进入reduce</span><br><span class="line">math	huangjiaju	<span class="number">82.28571428571429</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">5</span>次进入reduce</span><br><span class="line">algorithm	huangjiaju	<span class="number">82.28571428571429</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">algorithm	liutao	<span class="number">82.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">6</span>次进入reduce</span><br><span class="line">computer	huanglei	<span class="number">74.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">7</span>次进入reduce</span><br><span class="line">english	liuyifei	<span class="number">74.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">8</span>次进入reduce</span><br><span class="line">algorithm	huanglei	<span class="number">74.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">9</span>次进入reduce</span><br><span class="line">math	huanglei	<span class="number">74.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">10</span>次进入reduce</span><br><span class="line">algorithm	huangzitao	<span class="number">72.75</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">11</span>次进入reduce</span><br><span class="line">math	liujialing	<span class="number">72.75</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">12</span>次进入reduce</span><br><span class="line">computer	huangzitao	<span class="number">72.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">13</span>次进入reduce</span><br><span class="line">english	huangxiaoming	<span class="number">72.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">14</span>次进入reduce</span><br><span class="line">math	wangbaoqiang	<span class="number">72.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">15</span>次进入reduce</span><br><span class="line">computer	huangxiaoming	<span class="number">72.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">16</span>次进入reduce</span><br><span class="line">math	xuzheng	<span class="number">69.28571428571429</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">17</span>次进入reduce</span><br><span class="line">english	zhaobenshan	<span class="number">69.28571428571429</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">18</span>次进入reduce</span><br><span class="line">computer	huangbo	<span class="number">65.25</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">computer	xuzheng	<span class="number">65.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">19</span>次进入reduce</span><br><span class="line">english	zhouqi	<span class="number">64.18181818181819</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">20</span>次进入reduce</span><br><span class="line">computer	liujialing	<span class="number">64.11111111111111</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">21</span>次进入reduce</span><br><span class="line">algorithm	liuyifei	<span class="number">62.142857142857146</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">22</span>次进入reduce</span><br><span class="line">english	liujialing	<span class="number">62.142857142857146</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">23</span>次进入reduce</span><br><span class="line">computer	liuyifei	<span class="number">62.142857142857146</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">24</span>次进入reduce</span><br><span class="line">english	liuyifei	<span class="number">59.57142857142857</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">english	huangdatou	<span class="number">56.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">25</span>次进入reduce</span><br><span class="line">math	liutao	<span class="number">56.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">26</span>次进入reduce</span><br><span class="line">algorithm	huangdatou	<span class="number">56.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">27</span>次进入reduce</span><br><span class="line">computer	huangdatou	<span class="number">56.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">==================第<span class="number">28</span>次进入reduce</span><br><span class="line">english	huangbo	<span class="number">55.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br></pre></td></tr></table></figure>
+<h5 id="CustomBean中做了分组-amp-组内排序-的"><a href="#CustomBean中做了分组-amp-组内排序-的" class="headerlink" title="CustomBean中做了分组&amp;组内排序 的"></a><code>CustomBean</code>中做了<code>分组&amp;组内排序</code> 的</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// **Bean中相同的组进行分数降序， 组进行字典排序，此时MyGroup中执行的**</span></span><br><span class="line"></span><br><span class="line">algorithm---MyGroup中比较---algorithm</span><br><span class="line">algorithm---MyGroup中比较---algorithm</span><br><span class="line">algorithm---MyGroup中比较---algorithm</span><br><span class="line">algorithm---MyGroup中比较---algorithm</span><br><span class="line">algorithm---MyGroup中比较---algorithm</span><br><span class="line">algorithm---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---computer</span><br><span class="line">computer---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---english</span><br><span class="line">english---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---math</span><br><span class="line">math---MyGroup中比较---math</span><br><span class="line"></span><br><span class="line"><span class="comment">// ======================reduce中执行==========================</span></span><br><span class="line"></span><br><span class="line">==================第<span class="number">1</span>次进入reduce</span><br><span class="line">algorithm	huangjiaju	<span class="number">82.28571428571429</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">algorithm	liutao	<span class="number">82.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">algorithm	huanglei	<span class="number">74.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">algorithm	huangzitao	<span class="number">72.75</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">algorithm	liuyifei	<span class="number">62.142857142857146</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">algorithm	huangdatou	<span class="number">56.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">===================离开reduce</span><br><span class="line">==================第<span class="number">2</span>次进入reduce</span><br><span class="line">computer	huangjiaju	<span class="number">83.2</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">computer	liutao	<span class="number">83.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">computer	huanglei	<span class="number">74.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">computer	huangzitao	<span class="number">72.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">computer	huangxiaoming	<span class="number">72.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">computer	huangbo	<span class="number">65.25</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">computer	xuzheng	<span class="number">65.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">computer	liujialing	<span class="number">64.11111111111111</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">computer	liuyifei	<span class="number">62.142857142857146</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">computer	huangdatou	<span class="number">56.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">===================离开reduce</span><br><span class="line">==================第<span class="number">3</span>次进入reduce</span><br><span class="line">english	huanglei	<span class="number">83.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">english	liuyifei	<span class="number">74.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">english	huangxiaoming	<span class="number">72.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">english	zhaobenshan	<span class="number">69.28571428571429</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">english	zhouqi	<span class="number">64.18181818181819</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">english	liujialing	<span class="number">62.142857142857146</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">english	liuyifei	<span class="number">59.57142857142857</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">english	huangdatou	<span class="number">56.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">english	huangbo	<span class="number">55.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">===================离开reduce</span><br><span class="line">==================第<span class="number">4</span>次进入reduce</span><br><span class="line">math	huangxiaoming	<span class="number">83.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">math	huangjiaju	<span class="number">82.28571428571429</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">math	huanglei	<span class="number">74.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">math	liujialing	<span class="number">72.75</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">math	wangbaoqiang	<span class="number">72.42857142857143</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">math	xuzheng	<span class="number">69.28571428571429</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">math	liutao	<span class="number">56.0</span></span><br><span class="line">---------in <span class="keyword">for</span> write------</span><br><span class="line">===================离开reduce</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//  如果只取一个每次values的第一个的话 </span></span><br><span class="line"></span><br><span class="line">algorithm	huangjiaju	<span class="number">82.28571428571429</span></span><br><span class="line">==================第<span class="number">1</span>次进入reduce</span><br><span class="line">computer	huangjiaju	<span class="number">83.2</span></span><br><span class="line">==================第<span class="number">2</span>次进入reduce</span><br><span class="line">english	huanglei	<span class="number">83.0</span></span><br><span class="line">==================第<span class="number">3</span>次进入reduce</span><br><span class="line">math	huangxiaoming	<span class="number">83.0</span></span><br><span class="line">==================第<span class="number">4</span>次进入reduce</span><br></pre></td></tr></table></figure>
+<h3 id="其它疑点"><a href="#其它疑点" class="headerlink" title="其它疑点"></a>其它疑点</h3><ul>
+<li>通过log可以看出来， MyGroup是在读到了不同的数据，才会进入到 reduce 类中写出；</li>
+<li>但是 通过 <strong>断点调试</strong>时， 现象是，第一次读到了2个相同的，就去reduce去写出了；</li>
+<li>后面再读的就不做写出操作，直到下一次读到2个相同的，再在reduce中写出。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+            <a href="/tags/MapReduce/" rel="tag"># MapReduce</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/10/Poetry/开始/" rel="next" title="▍开始">
+                <i class="fa fa-chevron-left"></i> ▍开始
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/images/avatar.jpg"
+                alt="airpoet" />
+            
+              <p class="site-author-name" itemprop="name">airpoet</p>
+              <p class="site-description motion-element" itemprop="description">没有边界就没有自由.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/3b9b97fe7e04" target="_blank" title="我的简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>我的简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:airpoet@qq.com" target="_blank" title="Mile2Me">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mile2Me</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/8ee264c6557d" title="女神凉姨" target="_blank">女神凉姨</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">2.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log信息"><span class="nav-number">3.</span> <span class="nav-text">Log信息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CustomBean中没有进行分组-组内排序的"><span class="nav-number">3.0.1.</span> <span class="nav-text">CustomBean中没有进行分组, 组内排序的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CustomBean中做了分组-amp-组内排序-的"><span class="nav-number">3.0.2.</span> <span class="nav-text">CustomBean中做了分组&amp;组内排序 的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它疑点"><span class="nav-number">4.</span> <span class="nav-text">其它疑点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">airpoet</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/06/10/Hadoop/Study/MapReduce-分组浅探/';
+          this.page.identifier = '2018/06/10/Hadoop/Study/MapReduce-分组浅探/';
+          this.page.title = 'MapReduce-分组浅探';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

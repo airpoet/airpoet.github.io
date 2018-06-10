@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="前言最近学分组的时候，一直弄不明白，总感觉一头雾水，通过近3个小时的断点调试和log输出。 大概了解了一些表象，先记录。 案例是这个  求出每门课程参考学生成绩最高平均分的学生的信息： 课程，姓名和平均分，详细见MapReduce笔记-练习第二题第3小题 数据格式是这样的：  第一个是课程名称，总共四个课程，computer，math，english，algorithm， 第二个是学生姓名，后面是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-10T09:39:19.077Z">
+<meta property="og:updated_time" content="2018-06-10T12:57:04.205Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce-分组浅探">
 <meta name="twitter:description" content="前言最近学分组的时候，一直弄不明白，总感觉一头雾水，通过近3个小时的断点调试和log输出。 大概了解了一些表象，先记录。 案例是这个  求出每门课程参考学生成绩最高平均分的学生的信息： 课程，姓名和平均分，详细见MapReduce笔记-练习第二题第3小题 数据格式是这样的：  第一个是课程名称，总共四个课程，computer，math，english，algorithm， 第二个是学生姓名，后面是">
@@ -423,7 +423,13 @@
 </blockquote>
 <p><br></p>
 <p><br></p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><h4 id="执行流程结论"><a href="#执行流程结论" class="headerlink" title="执行流程结论"></a><strong>执行流程结论</strong></h4><ul>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><div id="sequence-0"></div>
+
+
+
+
+
+<h4 id="执行流程结论"><a href="#执行流程结论" class="headerlink" title="执行流程结论"></a><strong>执行流程结论</strong></h4><ul>
 <li>map每读一行就 write 到 context 一次，按照指定的<code>key</code>进行分发</li>
 <li><p>map 把所有的数据都读完了之后，大概执行到<code>67%</code>的时候，开始进入 <code>CustomBean</code>，执行<code>CustomBean</code>的<code>compareTo()</code>方法，会按照自己写的规则一条一条数据比较</p>
 </li>
@@ -447,6 +453,7 @@
 <li>是否是按照key进行分组</li>
 <li>如果是自定义类为key，是否是按照此key中值相同的分为一组</li>
 <li>如果是hadoop内置类，是否是按照此类的值分组（Text-String的值，IntWritable-int值等..）</li>
+<li><strong>依然是走得以上这套分组逻辑，一组的数据读完才进入到Reduce阶段做归并</strong></li>
 </ul>
 </li>
 </ul>
@@ -461,6 +468,14 @@
 <li>但是 通过 <strong>断点调试</strong>时， 现象是，第一次读到了2个相同的，就去reduce去写出了；</li>
 <li>后面再读的就不做写出操作，直到下一次读到2个相同的，再在reduce中写出。</li>
 </ul>
+<p><script src="https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js"></script><script src="https://cdn.bootcss.com/snap.svg/0.5.1/snap.svg-min.js"></script><script src="https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js"></script><script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdn.bootcss.com/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">title: 执行流程时序图 
+Mapper(map)->ScoreBean: k:ScoreBean(courseName,avgScore)
+Mapper(map)->ScoreBean: v:Text(stuName)
+Mapper(ScoreBean)->Reducer(MyGroup): course按字典升序
+Mapper(ScoreBean)->Reducer(MyGroup): course内成绩降序
+Reducer(MyGroup)->Reducer(reduce): 根据自定义的分组规则按组输出
+Reducer(MyGroup)->Reducer(reduce): 一组只调用reduce一次
+Reducer(reduce)-->Reducer(reduce):</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script></p>
 
       
     </div>
@@ -530,6 +545,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/10/Tools/Hexo/关于hexo的时序图插件-hexo-filter-sequence-的巨坑/" rel="prev" title="关于hexo的时序图插件 hexo-filter-sequence 的巨坑">
+                关于hexo的时序图插件 hexo-filter-sequence 的巨坑 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -620,7 +639,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -631,7 +650,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -642,7 +661,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

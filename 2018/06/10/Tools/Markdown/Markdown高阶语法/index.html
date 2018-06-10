@@ -83,22 +83,22 @@
 
 
 
-<meta name="description" content="时序图的写法     流程图的写法   类图的写法  st=&amp;gt;start: Start|past:&amp;gt;http://www.google.com[blank] e=&amp;gt;end: End:&amp;gt;http://www.google.com op1=&amp;gt;operation: My Operation|past op2=&amp;gt;operation: Stuff|current sub1=&amp;gt;subroutine: My S">
+<meta name="description" content="时序图的写法               流程图的写法   类图的写法  st=&amp;gt;start: Start|past:&amp;gt;http://www.google.com[blank] e=&amp;gt;end: End:&amp;gt;http://www.google.com op1=&amp;gt;operation: My Operation|past op2=&amp;gt;operation: Stuff|current sub1=&amp;gt;subrou">
 <meta name="keywords" content="原创,工具,Markdown">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Markdown高阶语法">
 <meta property="og:url" content="https://airpoet.github.io/2018/06/10/Tools/Markdown/Markdown高阶语法/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="时序图的写法     流程图的写法   类图的写法  st=&amp;gt;start: Start|past:&amp;gt;http://www.google.com[blank] e=&amp;gt;end: End:&amp;gt;http://www.google.com op1=&amp;gt;operation: My Operation|past op2=&amp;gt;operation: Stuff|current sub1=&amp;gt;subroutine: My S">
+<meta property="og:description" content="时序图的写法               流程图的写法   类图的写法  st=&amp;gt;start: Start|past:&amp;gt;http://www.google.com[blank] e=&amp;gt;end: End:&amp;gt;http://www.google.com op1=&amp;gt;operation: My Operation|past op2=&amp;gt;operation: Stuff|current sub1=&amp;gt;subrou">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-09-165900.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-09-165930.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-09-165948.png">
 <meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLl2jz4qiA4Wjud98pKi12WC0">
-<meta property="og:updated_time" content="2018-06-09T17:47:27.571Z">
+<meta property="og:updated_time" content="2018-06-10T11:53:00.270Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown高阶语法">
-<meta name="twitter:description" content="时序图的写法     流程图的写法   类图的写法  st=&amp;gt;start: Start|past:&amp;gt;http://www.google.com[blank] e=&amp;gt;end: End:&amp;gt;http://www.google.com op1=&amp;gt;operation: My Operation|past op2=&amp;gt;operation: Stuff|current sub1=&amp;gt;subroutine: My S">
+<meta name="twitter:description" content="时序图的写法               流程图的写法   类图的写法  st=&amp;gt;start: Start|past:&amp;gt;http://www.google.com[blank] e=&amp;gt;end: End:&amp;gt;http://www.google.com op1=&amp;gt;operation: My Operation|past op2=&amp;gt;operation: Stuff|current sub1=&amp;gt;subrou">
 <meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-09-165900.png">
 
 
@@ -417,6 +417,16 @@
 
 
 
+
+
+<div id="sequence-1"></div>
+
+
+
+
+
+
+
 <h3 id="流程图的写法"><a href="#流程图的写法" class="headerlink" title="流程图的写法"></a>流程图的写法</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-09-165930.png" alt="image-20180610005930019"></p>
 <div id="flowchart-0" class="flow-chart"></div>
 
@@ -436,12 +446,17 @@ st->op1(right)->cond
 cond(yes, right)->c2
 cond(no)->sub1(left)->op1
 c2(yes)->io->e
-c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">mapper->Bob: Hello Bob, how are you?
+c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><script src="https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js"></script><script src="https://cdn.bootcss.com/snap.svg/0.5.1/snap.svg-min.js"></script><script src="https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js"></script><script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdn.bootcss.com/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">mapper->Bob: Hello Bob, how are you?
 Note right of Bob: Bob thinks
 Bob-->reducer: I am good thanks!ad u?
 reducer->out: I'm fine too
 out->me: ok, you win
-me-->Bob: nono, not</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script></p>
+me-->Bob: nono, not</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><textarea id="sequence-1-code" style="display: none">Mapper(map)->ScoreBean: k:ScoreBean(courseName,avgScore)
+Mapper(map)->ScoreBean: v:Text(stuName)
+Mapper(ScoreBean)->Reducer(MyGroup): course按字典升序
+Mapper(ScoreBean)->Reducer(MyGroup): course内成绩降序
+Reducer(MyGroup)->Reducer(reduce): 根据自定义的分组规则按组输出
+Reducer(MyGroup)->Reducer(reduce): 一组只调用reduce一次</textarea><textarea id="sequence-1-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-1-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-1", options);</script></p>
 
       
     </div>
@@ -603,7 +618,7 @@ me-->Bob: nono, not</textarea><textarea id="sequence-0-options" style="display: 
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -614,7 +629,7 @@ me-->Bob: nono, not</textarea><textarea id="sequence-0-options" style="display: 
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -625,7 +640,7 @@ me-->Bob: nono, not</textarea><textarea id="sequence-0-options" style="display: 
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

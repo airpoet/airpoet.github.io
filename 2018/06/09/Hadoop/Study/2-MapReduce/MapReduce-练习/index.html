@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="原创,技术,Hadoop,MapReduce," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="A.P的文艺杂谈" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="求微博共同粉丝题目涉及知识点： 多 Job 串联 1234567891011121314A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,OJ:B,OK:A,C,DL:D,E,FM:E,F,GO:A,H,I,J,K  以上是数据：A:B,C,D,F,E,O表示：A用">
+<meta name="keywords" content="原创,技术,Hadoop,MapReduce">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MapReduce笔记-练习">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/09/Hadoop/Study/2-MapReduce/MapReduce-练习/index.html">
+<meta property="og:site_name" content="A.P的文艺杂谈">
+<meta property="og:description" content="求微博共同粉丝题目涉及知识点： 多 Job 串联 1234567891011121314A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,OJ:B,OK:A,C,DL:D,E,FM:E,F,GO:A,H,I,J,K  以上是数据：A:B,C,D,F,E,O表示：A用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3EpytDptDBp2jsIStDvt98pKi1IW80">
+<meta property="og:updated_time" content="2018-06-11T00:03:08.004Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MapReduce笔记-练习">
+<meta name="twitter:description" content="求微博共同粉丝题目涉及知识点： 多 Job 串联 1234567891011121314A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,OJ:B,OK:A,C,DL:D,E,FM:E,F,GO:A,H,I,J,K  以上是数据：A:B,C,D,F,E,O表示：A用">
+<meta name="twitter:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3EpytDptDBp2jsIStDvt98pKi1IW80">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'airpoet'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/09/Hadoop/Study/2-MapReduce/MapReduce-练习/"/>
+
+
+
+
+
+  <title>MapReduce笔记-练习 | A.P的文艺杂谈</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A.P的文艺杂谈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/09/Hadoop/Study/2-MapReduce/MapReduce-练习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MapReduce笔记-练习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-09T11:11:16+08:00">
+                2018-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/MapReduce/" itemprop="url" rel="index">
+                    <span itemprop="name">MapReduce</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/MapReduce/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/09/Hadoop/Study/2-MapReduce/MapReduce-练习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/09/Hadoop/Study/2-MapReduce/MapReduce-练习/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="求微博共同粉丝"><a href="#求微博共同粉丝" class="headerlink" title="求微博共同粉丝"></a>求微博共同粉丝</h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><strong>涉及知识点： 多 Job 串联</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">A:B,C,D,F,E,O</span><br><span class="line">B:A,C,E,K</span><br><span class="line">C:F,A,D,I</span><br><span class="line">D:A,E,F,L</span><br><span class="line">E:B,C,D,M,L</span><br><span class="line">F:A,B,C,D,E,O,M</span><br><span class="line">G:A,C,D,E,F</span><br><span class="line">H:A,C,D,E,O</span><br><span class="line">I:A,O</span><br><span class="line">J:B,O</span><br><span class="line">K:A,C,D</span><br><span class="line">L:D,E,F</span><br><span class="line">M:E,F,G</span><br><span class="line">O:A,H,I,J,K</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以上是数据：<br>A:B,C,D,F,E,O<br>表示：A用户 关注B,C,D,E,F,O</p>
+<blockquote>
+<p>求所有两两用户之间的共同关注对象</p>
+</blockquote>
+</blockquote>
+<h3 id="答案："><a href="#答案：" class="headerlink" title="答案："></a>答案：</h3><p><img src="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3EpytDptDBp2jsIStDvt98pKi1IW80"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.rox.mapreduce.mr3._01_多Job串联;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.jobcontrol.JobControl;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonFansDemo</span> </span>&#123;</span><br><span class="line">	<span class="meta">@SuppressWarnings</span>(<span class="string">"deprecation"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">// Job 逻辑</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 指定 HDFS 相关的参数</span></span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		conf.set(<span class="string">"fs.defaultFS"</span>, <span class="string">"hdfs://cs1:9000"</span>);</span><br><span class="line">		System.setProperty(<span class="string">"HADOOP_USER_NAME"</span>, <span class="string">"ap"</span>);</span><br><span class="line">		<span class="comment">//</span></span><br><span class="line">		<span class="comment">// 新建一个 job1</span></span><br><span class="line">		Job job1 = Job.getInstance(conf);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 设置 Jar 包所在路径</span></span><br><span class="line">		job1.setJarByClass(CommonFansDemo.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 指定 mapper 类和 reducer 类</span></span><br><span class="line">		job1.setMapperClass(MyMapper_Step1.class);</span><br><span class="line">		job1.setReducerClass(MyReducer_Step1.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 指定 maptask 的输出类型</span></span><br><span class="line">		job1.setMapOutputKeyClass(Text.class);</span><br><span class="line">		job1.setMapOutputValueClass(Text.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 指定最终的输出类型(reduce存在时,就是指 ReduceTask 的输出类型)</span></span><br><span class="line">		job1.setOutputKeyClass(Text.class);</span><br><span class="line">		job1.setOutputValueClass(Text.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 指定该 MapReduce 程序数据的输入输出路径</span></span><br><span class="line">		FileInputFormat.setInputPaths(job1, <span class="keyword">new</span> Path(<span class="string">"/in/commonfriend"</span>));</span><br><span class="line">		FileOutputFormat.setOutputPath(job1, <span class="keyword">new</span> Path(<span class="string">"/out/job1"</span>));</span><br><span class="line">		<span class="comment">//</span></span><br><span class="line">		<span class="comment">// 新建一个 job2</span></span><br><span class="line">		Job job2 = Job.getInstance(conf);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 设置 Jar 包所在路径</span></span><br><span class="line">		job2.setJarByClass(CommonFansDemo.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 指定 mapper 类和 reducer 类</span></span><br><span class="line">		job2.setMapperClass(MyMapper_Step2.class);</span><br><span class="line">		job2.setReducerClass(MyReducer_Step2.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 指定 maptask 的输出类型</span></span><br><span class="line">		job2.setMapOutputKeyClass(Text.class);</span><br><span class="line">		job2.setMapOutputValueClass(Text.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 指定最终的输出类型(reduce存在时,就是指 ReduceTask 的输出类型)</span></span><br><span class="line">		job2.setOutputKeyClass(Text.class);</span><br><span class="line">		job2.setOutputValueClass(Text.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 指定该 MapReduce 程序数据的输入输出路径</span></span><br><span class="line">		FileInputFormat.setInputPaths(job2, <span class="keyword">new</span> Path(<span class="string">"/out/job1"</span>));</span><br><span class="line">		FileOutputFormat.setOutputPath(job2, <span class="keyword">new</span> Path(<span class="string">"/out/job2"</span>));</span><br><span class="line"></span><br><span class="line">		<span class="comment">//</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 将多个 job 当做一个组中的 job 提交, 参数名是组名</span></span><br><span class="line"><span class="comment">		 * 注意: JobControl 是实现了 Runnable 接口的 </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		JobControl jControl = <span class="keyword">new</span> JobControl(<span class="string">"common_friend"</span>);</span><br><span class="line">		<span class="comment">// 将原生的 job携带配置 转换为可控的 job</span></span><br><span class="line">		ControlledJob aJob = <span class="keyword">new</span> ControlledJob(job1.getConfiguration());</span><br><span class="line">		ControlledJob bJob = <span class="keyword">new</span> ControlledJob(job2.getConfiguration());</span><br><span class="line">		<span class="comment">// 添加依赖关系</span></span><br><span class="line">		bJob.addDependingJob(aJob);</span><br><span class="line">		<span class="comment">// 添加 job 到组中</span></span><br><span class="line">		jControl.addJob(aJob);</span><br><span class="line">		jControl.addJob(bJob);</span><br><span class="line">		<span class="comment">// 启动一个线程</span></span><br><span class="line">		Thread jobThread = <span class="keyword">new</span> Thread(jControl);</span><br><span class="line">		jobThread.start();</span><br><span class="line">		<span class="keyword">while</span> (!jControl.allFinished()) &#123;</span><br><span class="line">			Thread.sleep(<span class="number">500</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		jobThread.stop();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper_Step1</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		String[] user_attentions;</span><br><span class="line">		String[] attentions;</span><br><span class="line">		Text k = <span class="keyword">new</span> Text();</span><br><span class="line">		Text v = <span class="keyword">new</span> Text();</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value,</span></span></span><br><span class="line"><span class="function"><span class="params">				Mapper&lt;LongWritable, Text, Text, Text&gt;.Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">			user_attentions = value.toString().split(<span class="string">":"</span>);</span><br><span class="line">			attentions = user_attentions[<span class="number">1</span>].trim().split(<span class="string">","</span>);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">for</span> (String att : attentions) &#123;</span><br><span class="line">				k.set(att);</span><br><span class="line">				v.set(user_attentions[<span class="number">0</span>].trim());</span><br><span class="line">				context.write(k, v);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> shixuanji</span></span><br><span class="line"><span class="comment">	 * 将两两粉丝(普通用户)拼接起来, 格式a-f:c =&gt; a,b 都共同关注了 c</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 *  A	F,I,O,K,G,D,C,H,B</span></span><br><span class="line"><span class="comment">		B	E,J,F,A</span></span><br><span class="line"><span class="comment">		C	B,E,K,A,H,G,F</span></span><br><span class="line"><span class="comment">		D	H,C,G,F,E,A,K,L</span></span><br><span class="line"><span class="comment">		E	A,B,L,G,M,F,D,H</span></span><br><span class="line"><span class="comment">		F	C,M,L,A,D,G</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper_Step2</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		String[] attenion_users;</span><br><span class="line">		String[] users;</span><br><span class="line">		Text k = <span class="keyword">new</span> Text();</span><br><span class="line">		Text v = <span class="keyword">new</span> Text();</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value,</span></span></span><br><span class="line"><span class="function"><span class="params">				Mapper&lt;LongWritable, Text, Text, Text&gt;.Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			attenion_users = value.toString().split(<span class="string">"\t"</span>);</span><br><span class="line">			users = attenion_users[<span class="number">1</span>].trim().split(<span class="string">","</span>);</span><br><span class="line">			<span class="keyword">for</span> (String u1 : users) &#123;</span><br><span class="line">				<span class="keyword">for</span> (String u2 : users) &#123;</span><br><span class="line">					<span class="keyword">if</span> (u1.compareTo(u2) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">						String users = u1 + <span class="string">"-"</span> + u2;</span><br><span class="line">						k.set(users);</span><br><span class="line">						v.set(attenion_users[<span class="number">0</span>].trim());</span><br><span class="line">						context.write(k, v);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> shixuanji</span></span><br><span class="line"><span class="comment">	 *	需要统计的是, 某人拥有的全部粉丝</span></span><br><span class="line"><span class="comment">	 *  key: 传过来的 key</span></span><br><span class="line"><span class="comment">	 *  value:  用,分割 </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyReducer_Step1</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		Text k = <span class="keyword">new</span> Text();</span><br><span class="line">		Text v = <span class="keyword">new</span> Text();</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;Text&gt; values,</span></span></span><br><span class="line"><span class="function"><span class="params">				Reducer&lt;Text, Text, Text, Text&gt;.Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 注意: 这里 sb 不能写在外面,会不断的拼接</span></span><br><span class="line">			StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">			<span class="keyword">for</span> (Text v : values) &#123;</span><br><span class="line">				sb.append(v.toString()).append(<span class="string">","</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			k.set(key);</span><br><span class="line">			v.set(sb.substring(<span class="number">0</span>, sb.length() - <span class="number">1</span>));</span><br><span class="line">			context.write(k, v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> shixuanji</span></span><br><span class="line"><span class="comment">	 * 拿到的数据: a-b c</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyReducer_Step2</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		Text k = <span class="keyword">new</span> Text();</span><br><span class="line">		Text v = <span class="keyword">new</span> Text();</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;Text&gt; values,</span></span></span><br><span class="line"><span class="function"><span class="params">				Reducer&lt;Text, Text, Text, Text&gt;.Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">			<span class="keyword">for</span> (Text attention : values) &#123;</span><br><span class="line">				sb.append(attention.toString()).append(<span class="string">","</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			k.set(key);</span><br><span class="line">			v.set(sb.substring(<span class="number">0</span>, sb.length() - <span class="number">1</span>));</span><br><span class="line">			context.write(k, v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// job1的输出</span></span><br><span class="line">A	F,I,O,K,G,D,C,H,B</span><br><span class="line">B	E,J,F,A</span><br><span class="line">C	B,E,K,A,H,G,F</span><br><span class="line">D	H,C,G,F,E,A,K,L</span><br><span class="line">E	A,B,L,G,M,F,D,H</span><br><span class="line">F	C,M,L,A,D,G</span><br><span class="line">G	M</span><br><span class="line">H	O</span><br><span class="line">I	O,C</span><br><span class="line">J	O</span><br><span class="line">K	O,B</span><br><span class="line">L	D,E</span><br><span class="line">M	E,F</span><br><span class="line">O	A,H,I,J,F</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// job2的输出</span></span><br><span class="line">A-B	E,C</span><br><span class="line">A-C	D,F</span><br><span class="line">A-D	F,E</span><br><span class="line">A-E	C,D,B</span><br><span class="line">A-F	O,B,E,D,C</span><br><span class="line">A-G	E,F,D,C</span><br><span class="line">A-H	O,E,D,C</span><br><span class="line">A-I	O</span><br><span class="line">A-J	B,O</span><br><span class="line">A-K	D,C</span><br><span class="line">A-L	D,F,E</span><br><span class="line">A-M	E,F</span><br><span class="line">B-C	A</span><br><span class="line">B-D	E,A</span><br><span class="line">B-E	C</span><br><span class="line">B-F	A,E,C</span><br><span class="line">B-G	C,A,E</span><br><span class="line">B-H	A,E,C</span><br><span class="line">B-I	A</span><br><span class="line">B-K	C,A</span><br><span class="line">B-L	E</span><br><span class="line">B-M	E</span><br><span class="line">B-O	A,K</span><br><span class="line">C-D	A,F</span><br><span class="line">C-E	D</span><br><span class="line">C-F	D,A</span><br><span class="line">C-G	F,A,D</span><br><span class="line">C-H	D,A</span><br><span class="line">C-I	A</span><br><span class="line">C-K	A,D</span><br><span class="line">C-L	F,D</span><br><span class="line">C-M	F</span><br><span class="line">C-O	I,A</span><br><span class="line">D-E	L</span><br><span class="line">D-F	E,A</span><br><span class="line">D-G	A,F,E</span><br><span class="line">D-H	E,A</span><br><span class="line">D-I	A</span><br><span class="line">D-K	A</span><br><span class="line">D-L	F,E</span><br><span class="line">D-M	F,E</span><br><span class="line">D-O	A</span><br><span class="line">E-F	C,B,M,D</span><br><span class="line">E-G	C,D</span><br><span class="line">E-H	C,D</span><br><span class="line">E-J	B</span><br><span class="line">E-K	D,C</span><br><span class="line">E-L	D</span><br><span class="line">F-G	A,D,C,E</span><br><span class="line">F-H	A,E,C,D,O</span><br><span class="line">F-I	O,A</span><br><span class="line">F-J	O,B</span><br><span class="line">F-K	C,A,D</span><br><span class="line">F-L	E,D</span><br><span class="line">F-M	E</span><br><span class="line">F-O	A</span><br><span class="line">G-H	A,C,D,E</span><br><span class="line">G-I	A</span><br><span class="line">G-K	C,A,D</span><br><span class="line">G-L	D,E,F</span><br><span class="line">G-M	F,E</span><br><span class="line">G-O	A</span><br><span class="line">H-I	O,A</span><br><span class="line">H-J	O</span><br><span class="line">H-K	A,D,C</span><br><span class="line">H-L	E,D</span><br><span class="line">H-M	E</span><br><span class="line">H-O	A</span><br><span class="line">I-J	O</span><br><span class="line">I-K	A</span><br><span class="line">I-O	A</span><br><span class="line">K-L	D</span><br><span class="line">K-O	A</span><br><span class="line">L-M	F,E</span><br></pre></td></tr></table></figure>
+<h2 id="求学生成绩"><a href="#求学生成绩" class="headerlink" title="求学生成绩"></a>求学生成绩</h2><h3 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">computer,huangxiaoming,<span class="number">85</span>,<span class="number">86</span>,<span class="number">41</span>,<span class="number">75</span>,<span class="number">93</span>,<span class="number">42</span>,<span class="number">85</span></span><br><span class="line">computer,xuzheng,<span class="number">54</span>,<span class="number">52</span>,<span class="number">86</span>,<span class="number">91</span>,<span class="number">42</span></span><br><span class="line">computer,huangbo,<span class="number">85</span>,<span class="number">42</span>,<span class="number">96</span>,<span class="number">38</span></span><br><span class="line">english,zhaobenshan,<span class="number">54</span>,<span class="number">52</span>,<span class="number">86</span>,<span class="number">91</span>,<span class="number">42</span>,<span class="number">85</span>,<span class="number">75</span></span><br><span class="line">english,liuyifei,<span class="number">85</span>,<span class="number">41</span>,<span class="number">75</span>,<span class="number">21</span>,<span class="number">85</span>,<span class="number">96</span>,<span class="number">14</span></span><br><span class="line">algorithm,liuyifei,<span class="number">75</span>,<span class="number">85</span>,<span class="number">62</span>,<span class="number">48</span>,<span class="number">54</span>,<span class="number">96</span>,<span class="number">15</span></span><br><span class="line">computer,huangjiaju,<span class="number">85</span>,<span class="number">75</span>,<span class="number">86</span>,<span class="number">85</span>,<span class="number">85</span></span><br><span class="line">english,liuyifei,<span class="number">76</span>,<span class="number">95</span>,<span class="number">86</span>,<span class="number">74</span>,<span class="number">68</span>,<span class="number">74</span>,<span class="number">48</span></span><br><span class="line">english,huangdatou,<span class="number">48</span>,<span class="number">58</span>,<span class="number">67</span>,<span class="number">86</span>,<span class="number">15</span>,<span class="number">33</span>,<span class="number">85</span></span><br><span class="line">algorithm,huanglei,<span class="number">76</span>,<span class="number">95</span>,<span class="number">86</span>,<span class="number">74</span>,<span class="number">68</span>,<span class="number">74</span>,<span class="number">48</span></span><br><span class="line">algorithm,huangjiaju,<span class="number">85</span>,<span class="number">75</span>,<span class="number">86</span>,<span class="number">85</span>,<span class="number">85</span>,<span class="number">74</span>,<span class="number">86</span></span><br><span class="line">computer,huangdatou,<span class="number">48</span>,<span class="number">58</span>,<span class="number">67</span>,<span class="number">86</span>,<span class="number">15</span>,<span class="number">33</span>,<span class="number">85</span></span><br><span class="line">english,zhouqi,<span class="number">85</span>,<span class="number">86</span>,<span class="number">41</span>,<span class="number">75</span>,<span class="number">93</span>,<span class="number">42</span>,<span class="number">85</span>,<span class="number">75</span>,<span class="number">55</span>,<span class="number">47</span>,<span class="number">22</span></span><br><span class="line">english,huangbo,<span class="number">85</span>,<span class="number">42</span>,<span class="number">96</span>,<span class="number">38</span>,<span class="number">55</span>,<span class="number">47</span>,<span class="number">22</span></span><br><span class="line">algorithm,liutao,<span class="number">85</span>,<span class="number">75</span>,<span class="number">85</span>,<span class="number">99</span>,<span class="number">66</span></span><br><span class="line">computer,huangzitao,<span class="number">85</span>,<span class="number">86</span>,<span class="number">41</span>,<span class="number">75</span>,<span class="number">93</span>,<span class="number">42</span>,<span class="number">85</span></span><br><span class="line">math,wangbaoqiang,<span class="number">85</span>,<span class="number">86</span>,<span class="number">41</span>,<span class="number">75</span>,<span class="number">93</span>,<span class="number">42</span>,<span class="number">85</span></span><br><span class="line">computer,liujialing,<span class="number">85</span>,<span class="number">41</span>,<span class="number">75</span>,<span class="number">21</span>,<span class="number">85</span>,<span class="number">96</span>,<span class="number">14</span>,<span class="number">74</span>,<span class="number">86</span></span><br><span class="line">computer,liuyifei,<span class="number">75</span>,<span class="number">85</span>,<span class="number">62</span>,<span class="number">48</span>,<span class="number">54</span>,<span class="number">96</span>,<span class="number">15</span></span><br><span class="line">computer,liutao,<span class="number">85</span>,<span class="number">75</span>,<span class="number">85</span>,<span class="number">99</span>,<span class="number">66</span>,<span class="number">88</span>,<span class="number">75</span>,<span class="number">91</span></span><br><span class="line">computer,huanglei,<span class="number">76</span>,<span class="number">95</span>,<span class="number">86</span>,<span class="number">74</span>,<span class="number">68</span>,<span class="number">74</span>,<span class="number">48</span></span><br><span class="line">english,liujialing,<span class="number">75</span>,<span class="number">85</span>,<span class="number">62</span>,<span class="number">48</span>,<span class="number">54</span>,<span class="number">96</span>,<span class="number">15</span></span><br><span class="line">math,huanglei,<span class="number">76</span>,<span class="number">95</span>,<span class="number">86</span>,<span class="number">74</span>,<span class="number">68</span>,<span class="number">74</span>,<span class="number">48</span></span><br><span class="line">math,huangjiaju,<span class="number">85</span>,<span class="number">75</span>,<span class="number">86</span>,<span class="number">85</span>,<span class="number">85</span>,<span class="number">74</span>,<span class="number">86</span></span><br><span class="line">math,liutao,<span class="number">48</span>,<span class="number">58</span>,<span class="number">67</span>,<span class="number">86</span>,<span class="number">15</span>,<span class="number">33</span>,<span class="number">85</span></span><br><span class="line">english,huanglei,<span class="number">85</span>,<span class="number">75</span>,<span class="number">85</span>,<span class="number">99</span>,<span class="number">66</span>,<span class="number">88</span>,<span class="number">75</span>,<span class="number">91</span></span><br><span class="line">math,xuzheng,<span class="number">54</span>,<span class="number">52</span>,<span class="number">86</span>,<span class="number">91</span>,<span class="number">42</span>,<span class="number">85</span>,<span class="number">75</span></span><br><span class="line">math,huangxiaoming,<span class="number">85</span>,<span class="number">75</span>,<span class="number">85</span>,<span class="number">99</span>,<span class="number">66</span>,<span class="number">88</span>,<span class="number">75</span>,<span class="number">91</span></span><br><span class="line">math,liujialing,<span class="number">85</span>,<span class="number">86</span>,<span class="number">41</span>,<span class="number">75</span>,<span class="number">93</span>,<span class="number">42</span>,<span class="number">85</span>,<span class="number">75</span></span><br><span class="line">english,huangxiaoming,<span class="number">85</span>,<span class="number">86</span>,<span class="number">41</span>,<span class="number">75</span>,<span class="number">93</span>,<span class="number">42</span>,<span class="number">85</span></span><br><span class="line">algorithm,huangdatou,<span class="number">48</span>,<span class="number">58</span>,<span class="number">67</span>,<span class="number">86</span>,<span class="number">15</span>,<span class="number">33</span>,<span class="number">85</span></span><br><span class="line">algorithm,huangzitao,<span class="number">85</span>,<span class="number">86</span>,<span class="number">41</span>,<span class="number">75</span>,<span class="number">93</span>,<span class="number">42</span>,<span class="number">85</span>,<span class="number">75</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>一、数据解释</p>
+<p>数据字段个数不固定：<br>第一个是课程名称，总共四个课程，computer，math，english，algorithm，<br>第二个是学生姓名，后面是每次考试的分数</p>
+<p>二、统计需求：<br>1、统计每门课程的参加考试人数和课程平均分</p>
+<p>2、统计每门课程参考学生的平均分，并且按课程存入不同的结果文件，要求一门课程一个结果文件</p>
+<p>3、求出每门课程参考学生成绩最高平均分的学生的信息：课程，姓名和平均分</p>
+</blockquote>
+<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><h4 id="第1小题"><a href="#第1小题" class="headerlink" title="第1小题"></a>第1小题</h4><p><strong>统计每门课程的参考人数和课程平均分</strong></p>
+<p><strong>涉及知识点: 去重， 自定义类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  ScoreBean </span></span><br><span class="line"><span class="keyword">package</span> com.rox.mapreduce.mr3._02_分组组件;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.DataInput;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutput;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.WritableComparable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Getter;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Setter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScoreBean</span> <span class="keyword">implements</span> <span class="title">WritableComparable</span>&lt;<span class="title">ScoreBean</span>&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String courseName;</span><br><span class="line">	<span class="keyword">private</span> String stuName; </span><br><span class="line">	<span class="keyword">private</span> Double score;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		out.writeUTF(courseName);</span><br><span class="line">		out.writeUTF(stuName);</span><br><span class="line">		out.writeDouble(score);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.courseName = in.readUTF();</span><br><span class="line">		<span class="keyword">this</span>.stuName = in.readUTF();</span><br><span class="line">		<span class="keyword">this</span>.score = in.readDouble();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 如果是相同课程, 按照分数降序排列的</span></span><br><span class="line"><span class="comment">	 * 如果是不同课程, 按照课程名称升序排列</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(ScoreBean o)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 测试一下只写按分数降序排序</span></span><br><span class="line"><span class="comment">//		return o.getScore().compareTo(this.getScore());</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">/*// 首先分组(只在相同的组内进行比较)</span></span><br><span class="line"><span class="comment">		int nameRes = this.getCourseName().compareTo(o.getCourseName());</span></span><br><span class="line"><span class="comment">		if (nameRes == 0) &#123;</span></span><br><span class="line"><span class="comment">			// 课程相同的时候才进行降序排序</span></span><br><span class="line"><span class="comment">			int scoreRes = </span></span><br><span class="line"><span class="comment">			return scoreRes;</span></span><br><span class="line"><span class="comment">		&#125;</span></span><br><span class="line"><span class="comment">		return nameRes;*/</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> stuName + <span class="string">"\t"</span> + score;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> courseName + <span class="string">"\t"</span> + stuName</span><br><span class="line">				+ <span class="string">"\t"</span> + score;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ScoreBean</span><span class="params">(String stuName, Double score)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.stuName = stuName;</span><br><span class="line">		<span class="keyword">this</span>.score = score;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  ScorePlusDemo1 </span></span><br><span class="line"><span class="keyword">package</span> com.rox.mapreduce.mr3._02_分组组件;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.FileSystem;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScorePlusDemo1</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException, InterruptedException </span>&#123;</span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		conf.set(<span class="string">"fs.defaultFS"</span>, <span class="string">"hdfs://cs1:9000"</span>);</span><br><span class="line">		System.setProperty(<span class="string">"HADOOP_USER_NAME"</span>, <span class="string">"ap"</span>);</span><br><span class="line">		</span><br><span class="line">		Job job = Job.getInstance(conf);</span><br><span class="line">		job.setJarByClass(ScorePlusDemo1.class);</span><br><span class="line">		</span><br><span class="line">		job.setMapperClass(MyMapper.class);</span><br><span class="line">		job.setReducerClass(MyReducer.class);</span><br><span class="line">		</span><br><span class="line">		job.setMapOutputKeyClass(Text.class);</span><br><span class="line">		job.setMapOutputValueClass(ScoreBean.class);</span><br><span class="line">		</span><br><span class="line">		job.setOutputKeyClass(Text.class);</span><br><span class="line">		job.setOutputValueClass(Text.class);</span><br><span class="line">		</span><br><span class="line">		String inP = <span class="string">"/in/newScoreIn"</span>;</span><br><span class="line">		String outP = <span class="string">"/out/ans1"</span>;</span><br><span class="line">		FileInputFormat.setInputPaths(job, <span class="keyword">new</span> Path(inP));</span><br><span class="line">		FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(outP));</span><br><span class="line">		</span><br><span class="line">        Path mypath = <span class="keyword">new</span> Path(outP);</span><br><span class="line">        FileSystem hdfs = mypath.getFileSystem(conf);</span><br><span class="line">        <span class="keyword">if</span> (hdfs.isDirectory(mypath)) &#123;</span><br><span class="line">            hdfs.delete(mypath, <span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		Boolean waitForComp = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">		System.exit(waitForComp?<span class="number">0</span>:<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">ScoreBean</span>&gt;  </span>&#123;</span><br><span class="line">		Text k = <span class="keyword">new</span> Text();</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value, Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			<span class="comment">// 1.截取</span></span><br><span class="line">			String[] datas = value.toString().trim().split(<span class="string">","</span>);</span><br><span class="line">			String courseName = datas[<span class="number">0</span>].trim();</span><br><span class="line">			String stuName = datas[<span class="number">1</span>].trim();</span><br><span class="line">			<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;datas.length; i++) &#123;</span><br><span class="line">				sum += Integer.parseInt(datas[i]);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">double</span> avgScore = sum/(datas.length-<span class="number">2</span>);</span><br><span class="line">			ScoreBean sb = <span class="keyword">new</span> ScoreBean(courseName, stuName, avgScore);</span><br><span class="line">			k.set(courseName);</span><br><span class="line">			context.write(k, sb);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">ScoreBean</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt; </span>&#123;</span><br><span class="line">		</span><br><span class="line">		Text v = <span class="keyword">new</span> Text();</span><br><span class="line">		</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;ScoreBean&gt; values,</span></span></span><br><span class="line"><span class="function"><span class="params">				Reducer&lt;Text, ScoreBean, Text, Text&gt;.Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			</span><br><span class="line">			Set&lt;String&gt; stuNames = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">			<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (ScoreBean sb : values) &#123;</span><br><span class="line">				stuNames.add(sb.getStuName());</span><br><span class="line">				count ++;</span><br><span class="line">				sum += sb.getScore();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">int</span> size = stuNames.size();</span><br><span class="line">			String val = size + <span class="string">"\t"</span> + (<span class="keyword">double</span>)sum/count;</span><br><span class="line">			v.set(val);</span><br><span class="line">			context.write(key, v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行结果 </span></span><br><span class="line">algorithm	<span class="number">6</span>	<span class="number">71.33333333333333</span></span><br><span class="line">computer	<span class="number">10</span>	<span class="number">69.6</span></span><br><span class="line">english	<span class="number">8</span>	<span class="number">66.0</span></span><br><span class="line">math	<span class="number">7</span>	<span class="number">72.57142857142857</span></span><br></pre></td></tr></table></figure>
+<h4 id="第2小题"><a href="#第2小题" class="headerlink" title="第2小题"></a>第2小题</h4><p><strong>统计每门课程参考学生的平均分，并且按课程存入不同的结果文件，要求一门课程一个结果文件</strong></p>
+<p><strong>涉及知识点： 分区, 字符串组合key， Partitioner</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.rox.mapreduce.mr3._02_分组组件;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.FileSystem;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.DoubleWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Partitioner;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> shixuanji</span></span><br><span class="line"><span class="comment"> * 注意: 此题因为数据中有2条 course 和 stuName相同的数据(english liuyifei), 所以必须再在reduce中继续去重一下, 再计算一下平均分</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 否则, 可以不用写reduce, 因为Mapper中已经把逻辑处理完了,可以直接输出</span></span><br><span class="line"><span class="comment">	 </span></span><br><span class="line"><span class="comment"> * 最终输出: </span></span><br><span class="line"><span class="comment"> * computer liuyifei 43</span></span><br><span class="line"><span class="comment"> * computer huanglei 63</span></span><br><span class="line"><span class="comment"> * math 	liutao   64</span></span><br><span class="line"><span class="comment"> * ...</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScorePlusDemo2</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 指定HDFS相关参数</span></span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		conf.set(<span class="string">"fs.defaultFS"</span>, <span class="string">"hdfs://cs1:9000"</span>);</span><br><span class="line">		System.setProperty(<span class="string">"HADOOP_USER_NAME"</span>, <span class="string">"ap"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//  创建/配置 Job</span></span><br><span class="line">		Job job = Job.getInstance(conf);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置Jar包类型</span></span><br><span class="line">		job.setJarByClass(ScorePlusDemo2.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置Map Reduce执行类</span></span><br><span class="line">		job.setMapperClass(MyMapper.class);</span><br><span class="line">		job.setReducerClass(MyReducer.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置Map输出类</span></span><br><span class="line">		job.setMapOutputKeyClass(Text.class);</span><br><span class="line">		job.setMapOutputValueClass(DoubleWritable.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// Reduce输出类</span></span><br><span class="line">		job.setOutputKeyClass(Text.class);</span><br><span class="line">		job.setOutputValueClass(DoubleWritable.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//  设置分区 </span></span><br><span class="line">		job.setPartitionerClass(MyPartition.class);</span><br><span class="line">		job.setNumReduceTasks(<span class="number">4</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置输入 输出路径</span></span><br><span class="line">		String inP = <span class="string">"/in/newScoreIn"</span>;</span><br><span class="line">		String outP = <span class="string">"/out/scorePlus2"</span>;</span><br><span class="line">		FileInputFormat.setInputPaths(job, <span class="keyword">new</span> Path(inP));</span><br><span class="line">		FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(outP));</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 设置如果存在路径就删除</span></span><br><span class="line">        Path mypath = <span class="keyword">new</span> Path(outP);</span><br><span class="line">        FileSystem hdfs = mypath.getFileSystem(conf);</span><br><span class="line">        <span class="keyword">if</span> (hdfs.isDirectory(mypath)) &#123;</span><br><span class="line">            hdfs.delete(mypath, <span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        <span class="comment">//  执行job</span></span><br><span class="line">        <span class="keyword">boolean</span> waitForCompletion = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">        System.exit(waitForCompletion?<span class="number">0</span>:-<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">===============================================================</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">DoubleWritable</span>&gt; </span>&#123;</span><br><span class="line">		<span class="comment">// 把 课程+学生 作为 key</span></span><br><span class="line"></span><br><span class="line">		Text k = <span class="keyword">new</span> Text();  <span class="comment">//只有输出String类型的, 才需要在这里设置Text</span></span><br><span class="line">		DoubleWritable v = <span class="keyword">new</span> DoubleWritable();</span><br><span class="line">		</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value, Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">			String[] datas = value.toString().trim().split(<span class="string">","</span>);</span><br><span class="line">			String kStr = datas[<span class="number">0</span>].trim() + <span class="string">"\t"</span> + datas[<span class="number">1</span>].trim();</span><br><span class="line">			<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; datas.length; i++) &#123;</span><br><span class="line">				sum += Integer.parseInt(datas[i]);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">double</span> avg = sum / (datas.length - <span class="number">2</span>);</span><br><span class="line">			k.set(kStr);</span><br><span class="line">			v.set(avg);</span><br><span class="line">			context.write(k, v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">===============================================================	</span><br><span class="line">    </span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> shixuanji</span></span><br><span class="line"><span class="comment">	 * 注意: 此题因为数据中有2条 course 和 stuName相同的数据, 所以必须再在reduce中</span></span><br><span class="line"><span class="comment">	 * 继续去重一下, 再计算一下平均分</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * 否则, 可以不用写reduce, 因为Mapper中已经把逻辑处理完了,可以直接输出</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">DoubleWritable</span>, <span class="title">Text</span>, <span class="title">DoubleWritable</span>&gt; </span>&#123;</span><br><span class="line">		</span><br><span class="line">		DoubleWritable v = <span class="keyword">new</span> DoubleWritable();</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;DoubleWritable&gt; values,</span></span></span><br><span class="line"><span class="function"><span class="params">				Reducer&lt;Text, DoubleWritable, Text, DoubleWritable&gt;.Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * 考虑到有 课程, 学生名相同, 后面的数据不同的情况, 这里再做一个平均求和</span></span><br><span class="line"><span class="comment">			 * 可以验证打印下</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">			Double sum = <span class="number">0.0</span>;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">for</span> (DoubleWritable avg : values) &#123;</span><br><span class="line">				<span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">					<span class="comment">// 有key完全相同的情况才会进到这里</span></span><br><span class="line">					System.out.println(<span class="string">"这是第"</span> +count +<span class="string">"次, 说明课程和姓名有相同的两条数据\n课程姓名是: "</span>+key.toString());</span><br><span class="line">				&#125;</span><br><span class="line">				sum += avg.get();</span><br><span class="line">				count ++;</span><br><span class="line">			&#125;</span><br><span class="line">			Double finAvg = sum/count;</span><br><span class="line">			v.set(finAvg);</span><br><span class="line">			context.write(key, v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">===============================================================</span><br><span class="line">===============================================================</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> shixuanji</span></span><br><span class="line"><span class="comment"> * 继承 Partitioner, 实现自定义分区</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPartition</span> <span class="keyword">extends</span> <span class="title">Partitioner</span>&lt;<span class="title">Text</span>, <span class="title">DoubleWritable</span>&gt; </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> HashMap&lt;String, Integer&gt; courseMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		courseMap.put(<span class="string">"algorithm"</span>, <span class="number">0</span>);</span><br><span class="line">		courseMap.put(<span class="string">"computer"</span>, <span class="number">1</span>);</span><br><span class="line">		courseMap.put(<span class="string">"english"</span>, <span class="number">2</span>);</span><br><span class="line">		courseMap.put(<span class="string">"math"</span>, <span class="number">3</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPartition</span><span class="params">(Text key, DoubleWritable value, <span class="keyword">int</span> numPartitions)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 取出Map输出的key中的前半部分--courseName</span></span><br><span class="line">		Integer code = courseMap.get(key.toString().trim().split(<span class="string">"\t"</span>)[<span class="number">0</span>]);</span><br><span class="line">		<span class="keyword">if</span> (code != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> code;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">===============================================================</span><br><span class="line"> ===============================================================</span><br><span class="line">    </span><br><span class="line"> 执行结果 </span><br><span class="line">algorithm	huangdatou	<span class="number">56.0</span></span><br><span class="line">algorithm	huangjiaju	<span class="number">82.0</span></span><br><span class="line">algorithm	huanglei	<span class="number">74.0</span></span><br><span class="line">algorithm	huangzitao	<span class="number">72.0</span></span><br><span class="line">algorithm	liutao	<span class="number">82.0</span></span><br><span class="line">algorithm	liuyifei	<span class="number">62.0</span></span><br><span class="line">----------</span><br><span class="line">computer	huangbo	<span class="number">65.0</span></span><br><span class="line">computer	huangdatou	<span class="number">56.0</span></span><br><span class="line">computer	huangjiaju	<span class="number">83.0</span></span><br><span class="line">computer	huanglei	<span class="number">74.0</span></span><br><span class="line">computer	huangxiaoming	<span class="number">72.0</span></span><br><span class="line">computer	huangzitao	<span class="number">72.0</span></span><br><span class="line">computer	liujialing	<span class="number">64.0</span></span><br><span class="line">computer	liutao	<span class="number">83.0</span></span><br><span class="line">computer	liuyifei	<span class="number">62.0</span></span><br><span class="line">computer	xuzheng	<span class="number">65.0</span></span><br><span class="line">---------</span><br><span class="line">english	huangbo	<span class="number">55.0</span></span><br><span class="line">english	huangdatou	<span class="number">56.0</span></span><br><span class="line">english	huanglei	<span class="number">83.0</span></span><br><span class="line">english	huangxiaoming	<span class="number">72.0</span></span><br><span class="line">english	liujialing	<span class="number">62.0</span></span><br><span class="line">english	liuyifei	<span class="number">66.5</span></span><br><span class="line">english	zhaobenshan	<span class="number">69.0</span></span><br><span class="line">english	zhouqi	<span class="number">64.0</span></span><br><span class="line">------------</span><br><span class="line">math	huangjiaju	<span class="number">82.0</span></span><br><span class="line">math	huanglei	<span class="number">74.0</span></span><br><span class="line">math	huangxiaoming	<span class="number">83.0</span></span><br><span class="line">math	liujialing	<span class="number">72.0</span></span><br><span class="line">math	liutao	<span class="number">56.0</span></span><br><span class="line">math	wangbaoqiang	<span class="number">72.0</span></span><br><span class="line">math	xuzheng	<span class="number">69.0</span></span><br></pre></td></tr></table></figure>
+<h4 id="第3小题"><a href="#第3小题" class="headerlink" title="第3小题"></a>第3小题</h4><p>求出 <strong><em>每门课程</em></strong><sup>①</sup>参与考试的学生成绩 <strong><em>最高平局分<sup>②</sup></em></strong>   的学生的信息：<u>课程，姓名和平均分</u></p>
+<p><br></p>
+<p><strong>解题思路：</strong> </p>
+<ul>
+<li>通过题意得出<strong>2个结论</strong><ul>
+<li><strong>课程要分组</strong></li>
+<li><strong>平均分要排序</strong></li>
+</ul>
+</li>
+<li>排序的话，交给<strong>key</strong>来做无疑是最好的，因为<strong>MapReduce</strong>会<strong>自动</strong>对<strong>key</strong>进行<strong>分组&amp;排序</strong></li>
+<li>因此可以把 <code>课程&amp;平均分</code> 作为一个<strong>联合key</strong></li>
+<li>为了操作方便，可以<strong>封装到一个对象</strong>中去： <strong>ScoreBean</strong></li>
+<li><strong>分组和排序</strong>需要在 <strong>ScoreBean</strong>重写的<strong><code>compareTo()</code>方法中完成</strong></li>
+<li>因为最后结果是求<strong>每门课程</strong>的<strong>最高平均分</strong>，因此需要对课程进行分组。</li>
+<li>此时原本的默认分组（以Bean对象整体分组）就不管用了，需要<strong>自定义分组</strong></li>
+<li>自定义分组要<strong>继承<code>WritableComparator</code></strong>，重写<code>compare()</code>方法，指定分组的规则。</li>
+<li><strong>ScoreBean</strong>先按照组别进行排序，到<strong>reduce</strong>中时，已经是按照组，排好的数据，<strong>MyGroup</strong> 会把相同的比较结果放到同一个组中，分发到<strong>reduce</strong>.</li>
+<li><strong>reduce</strong>中，只需要取出每组的第一个元素输出到上下文即可</li>
+</ul>
+<p><br></p>
+<p><strong>图示</strong></p>
+<div id="sequence-0"></div>
+
+<p><br></p>
+<p><strong>涉及知识点： mr中key的作用，自定义对象的用法，自定义分组，mr的执行流程</strong></p>
+<ul>
+<li>利用“班级和平均分”作为 key，可以将 map 阶段读取到的所有学生成绩数据按照班级 和成绩排倒序，发送到 reduce</li>
+<li>在 reduce 端利用 GroupingComparator 将班级相同的 kv 聚合成组，然后取第一个即是最 大值</li>
+</ul>
+<p><br></p>
+<h5 id="先贴个结论："><a href="#先贴个结论：" class="headerlink" title="先贴个结论："></a><strong>先贴个结论：</strong></h5><p><strong>执行流程结论</strong></p>
+<ul>
+<li>map每读一行就 write 到 context 一次，按照指定的<code>key</code>进行分发</li>
+<li><p>map 把所有的数据都读完了之后，大概执行到<code>67%</code>的时候，开始进入 <code>CustomBean</code>，执行<code>CustomBean</code>的<code>compareTo()</code>方法，会按照自己写的规则一条一条数据比较</p>
+</li>
+<li><p>上述都比较完毕之后，map阶段就结束了，此时来到了 reduce阶段，但是是到了<code>67%</code>了</p>
+</li>
+<li>到了reduce阶段，直接进入了<strong>MyGroup</strong>中自定义的<strong>compare</strong>方法。</li>
+<li>MyGroup的<code>compare()</code>方法，如果返回<strong>非0</strong>， 就会进入 reduce 方法<strong>写出到context</strong></li>
+</ul>
+<p><strong>MyGroup进入Reduce的条件是</strong></p>
+<ul>
+<li>MyReduce中，如果compare的结果不等于0，也就是比较的2者不相同， 此时就进入Reduce， 写出到上下文</li>
+<li>如果相同，会一直往下读，直到读到不同的， 此时写出读到上下文。</li>
+<li>因为MyGroup会在Reduce阶段执行，而<code>CustomBean</code>中的<code>compareTo()</code>是在map阶段执行，所以需要在<code>CustomBean</code>中就把组排好序，此时<strong>分组功能</strong>才能<strong>正常运作</strong></li>
+</ul>
+<p><strong>指定分组类MyGroup和不指定的区别</strong></p>
+<p><u>指定与不指定是指：在Driver类中，是否加上<code>job.setGroupingComparatorClass(MyGrouper.class);</code>这一句。</u></p>
+<ul>
+<li><strong>指定分组类</strong>：<ul>
+<li>会按照分组类中，自定义的<code>compare()</code>方法比较，相同的为一组，分完一组就进入一次reduce方法</li>
+</ul>
+</li>
+<li><strong>不指定分组类：（目前存疑）</strong><ul>
+<li>是否是按照key进行分组</li>
+<li>如果是自定义类为key，是否是按照此key中值相同的分为一组</li>
+<li>如果是hadoop内置类，是否是按照此类的值分组（Text-String的值，IntWritable-int值等..）</li>
+<li><strong>依然是走得以上这套分组逻辑，一组的数据读完才进入到Reduce阶段做归并</strong></li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ScoreBean2 </span></span><br><span class="line"><span class="keyword">package</span> com.rox.mapreduce.mr3._02_分组组件;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.DataInput;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutput;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.WritableComparable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Getter;</span><br><span class="line"><span class="keyword">import</span> lombok.Setter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScoreBean2</span> <span class="keyword">implements</span> <span class="title">WritableComparable</span>&lt;<span class="title">ScoreBean2</span>&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String courseName;</span><br><span class="line">	<span class="keyword">private</span> Double score;</span><br><span class="line">    </span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		out.writeUTF(courseName);</span><br><span class="line">		out.writeDouble(score);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.courseName = in.readUTF();</span><br><span class="line">		<span class="keyword">this</span>.score = in.readDouble();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 如果是相同课程, 按照分数降序排列的</span></span><br><span class="line"><span class="comment">	 * 如果是不同课程, 按照课程名称升序排列</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(ScoreBean2 o)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 测试一下只写按分数降序排序</span></span><br><span class="line"><span class="comment">//		return o.getScore().compareTo(this.getScore());</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 首先分组(只在相同的组内进行比较)</span></span><br><span class="line">		<span class="keyword">int</span> nameRes = <span class="keyword">this</span>.getCourseName().compareTo(o.getCourseName());</span><br><span class="line">		<span class="keyword">if</span> (nameRes == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="comment">// 课程相同的时候才进行降序排序</span></span><br><span class="line">			<span class="keyword">int</span> scoreRes = o.getScore().compareTo(<span class="keyword">this</span>.getScore());</span><br><span class="line">			<span class="keyword">return</span> scoreRes;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> nameRes;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 实际上ScoreBean中是包含所有的参数的, 这里的输出可以自己设置</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> courseName + <span class="string">"\t"</span> + score;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ScoreBean2</span><span class="params">(String courseName, Double score)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.courseName = courseName;</span><br><span class="line">		<span class="keyword">this</span>.score = score;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ScoreBean2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// ScorePlusDemo3 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.rox.mapreduce.mr3._02_分组组件;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.FileSystem;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.NullWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.WritableComparable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.WritableComparator;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScorePlusDemo3</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line"> main     </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		conf.set(<span class="string">"fs.defaultFS"</span>, <span class="string">"hdfs://cs1:9000"</span>);</span><br><span class="line">		System.setProperty(<span class="string">"HADOOP_USER_NAME"</span>, <span class="string">"ap"</span>);</span><br><span class="line"></span><br><span class="line">		Job job = Job.getInstance(conf);</span><br><span class="line">		job.setJarByClass(ScorePlusDemo3.class);</span><br><span class="line"></span><br><span class="line">		job.setMapperClass(MyMapper.class);</span><br><span class="line">		job.setReducerClass(MyReducer.class);</span><br><span class="line"></span><br><span class="line">		job.setMapOutputKeyClass(ScoreBean2.class);</span><br><span class="line">		job.setMapOutputValueClass(Text.class);</span><br><span class="line"></span><br><span class="line">		job.setGroupingComparatorClass(MyGrouper.class);</span><br><span class="line">		job.setOutputKeyClass(Text.class);</span><br><span class="line">		job.setOutputValueClass(NullWritable.class);</span><br><span class="line"></span><br><span class="line">		String outP = <span class="string">"/out/scorePlus3"</span>;</span><br><span class="line">		FileInputFormat.setInputPaths(job, <span class="keyword">new</span> Path(<span class="string">"/in/newScoreIn"</span>));</span><br><span class="line">		FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(outP));</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 如果输出目录存在,就先删除</span></span><br><span class="line">		Path myPath = <span class="keyword">new</span> Path(outP);</span><br><span class="line">		FileSystem fs = myPath.getFileSystem(conf);</span><br><span class="line">		<span class="keyword">if</span> (fs.isDirectory(myPath)) &#123;</span><br><span class="line">			fs.delete(myPath, <span class="keyword">true</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">boolean</span> waitForCompletion = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">		System.exit(waitForCompletion ? <span class="number">0</span> : -<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"> Mapper </span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> shixuanji</span></span><br><span class="line"><span class="comment">	 * 输出: key: course</span></span><br><span class="line"><span class="comment">	 *     value: score ...</span></span><br><span class="line"><span class="comment">	 * 思路:</span></span><br><span class="line"><span class="comment">	 * 1.不同课程要分开展示, 以 课程+分数 作为key, 在mapper中完成排序 </span></span><br><span class="line"><span class="comment">	 * 2.在reduce中按照 MyGrouper 完成分组</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper</span></span></span><br><span class="line"><span class="class">			<span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">ScoreBean2</span>, <span class="title">Text</span>&gt; </span>&#123;</span><br><span class="line">		<span class="keyword">private</span> String[] datas;</span><br><span class="line">		Text v = <span class="keyword">new</span> Text();</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value, Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			datas = value.toString().trim().split(<span class="string">","</span>);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; datas.length; i++) &#123;</span><br><span class="line">				sum += Integer.parseInt(datas[i]);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">double</span> avg = (<span class="keyword">double</span>) sum / (datas.length - <span class="number">2</span>);</span><br><span class="line">			ScoreBean2 sb = <span class="keyword">new</span> ScoreBean2(datas[<span class="number">0</span>].trim(), avg);</span><br><span class="line">			</span><br><span class="line">			v.set(datas[<span class="number">1</span>].trim());</span><br><span class="line">			context.write(sb, v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"> Redecer     </span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyReducer</span></span></span><br><span class="line"><span class="class">			<span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">ScoreBean2</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">NullWritable</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		Text k = <span class="keyword">new</span> Text();</span><br><span class="line">		<span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(ScoreBean2 key, Iterable&lt;Text&gt; values,</span></span></span><br><span class="line"><span class="function"><span class="params">				Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * 如果没有其它问题</span></span><br><span class="line"><span class="comment">			 * 此时是按照课程分好组了, 同一个课程的所有学生都过来了, 并且学生成绩是排好的,</span></span><br><span class="line"><span class="comment">			 * 如果此时求最大值, 只需要取出第一个即可 </span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			<span class="comment">// 进来一次只取第一个</span></span><br><span class="line">			Text name = values.iterator().next();</span><br><span class="line">			k.set(key.getCourseName() + <span class="string">"\t"</span> + name.toString() + <span class="string">"\t"</span></span><br><span class="line">					+ key.getScore());</span><br><span class="line">			context.write(k, NullWritable.get());</span><br><span class="line">			context.write(<span class="keyword">new</span> Text(<span class="string">"==================第"</span>+count+<span class="string">"次进入reduce"</span>), NullWritable.get());</span><br><span class="line">			</span><br><span class="line">			</span><br><span class="line">			<span class="comment">/*context.write(new Text("==================第"+count+"次进入reduce"), NullWritable.get());</span></span><br><span class="line"><span class="comment">			for (Text name : values) &#123;</span></span><br><span class="line"><span class="comment">				k.set(key.getCourseName() + "\t" + name.toString() + "\t"</span></span><br><span class="line"><span class="comment">						+ key.getScore());</span></span><br><span class="line"><span class="comment">				context.write(k, NullWritable.get());</span></span><br><span class="line"><span class="comment">				context.write(new Text("---------in for write------"), NullWritable.get());</span></span><br><span class="line"><span class="comment">			&#125;*/</span></span><br><span class="line">			count++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> MyGrouper </span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> shixuanji</span></span><br><span class="line"><span class="comment"> * 自定义分组  需要继承一个类WritableComparator</span></span><br><span class="line"><span class="comment"> * 重写compare方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyGrouper</span> <span class="keyword">extends</span> <span class="title">WritableComparator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// WritableComparator 此方法的默认无参构造是不会创建对象的, 需要自己重写</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MyGrouper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 中间省去的参数是 Configuration, 如果为空, 会创建一个新的</span></span><br><span class="line">		<span class="keyword">super</span>(ScoreBean2.class, <span class="keyword">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 此处比较的是2个  WritableComparable 对象, 需要强转一下具体的类对象</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@SuppressWarnings</span>(<span class="string">"rawtypes"</span>)</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(WritableComparable a, WritableComparable b)</span> </span>&#123;</span><br><span class="line">		ScoreBean2 aBean = (ScoreBean2) a;</span><br><span class="line">		ScoreBean2 bBean = (ScoreBean2) b;</span><br><span class="line">		<span class="comment">// 返回分组规则</span></span><br><span class="line">		System.out.println(aBean.getCourseName()+<span class="string">"---MyGroup中比较---"</span>+(bBean.getCourseName()));</span><br><span class="line">		<span class="keyword">return</span> aBean.getCourseName().compareTo(bBean.getCourseName());</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">================================================================================</span><br><span class="line"> 执行结果 </span><br><span class="line">================================================================================</span><br><span class="line"></span><br><span class="line">algorithm	huangjiaju	<span class="number">82.28571428571429</span></span><br><span class="line">==================第<span class="number">1</span>次进入reduce</span><br><span class="line">computer	huangjiaju	<span class="number">83.2</span></span><br><span class="line">==================第<span class="number">2</span>次进入reduce</span><br><span class="line">english	huanglei	<span class="number">83.0</span></span><br><span class="line">==================第<span class="number">3</span>次进入reduce</span><br><span class="line">math	huangxiaoming	<span class="number">83.0</span></span><br><span class="line">==================第<span class="number">4</span>次进入reduce</span><br></pre></td></tr></table></figure>
+<h2 id="MR实现两个表的数据关联Join"><a href="#MR实现两个表的数据关联Join" class="headerlink" title="MR实现两个表的数据关联Join"></a>MR实现两个表的数据关联<code>Join</code></h2><h3 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h3><blockquote>
+<p>订单数据表t_order：  flag=0<br>id    date    pid    amount<br>1001    20150710    P0001    2<br>1002    20150710    P0001    3<br>1003    20150710    P0002    3<br>Id:数据记录id<br>Date   日期<br>Pid     商品id<br>Amount    库存数量</p>
+<p>6.商品信息表t_product   flag=1<br>pid    name    category_id    price<br>P0001    小米5    C01    2000<br>P0002    锤子T1    C01    3500</p>
+<p>mr实现两个表的数据关联<br>id   pid    date    amount    name    category_id     price</p>
+</blockquote>
+<h3 id="答案1-Reducer-端-实现-Join"><a href="#答案1-Reducer-端-实现-Join" class="headerlink" title="答案1 : Reducer 端 实现 Join"></a>答案1 : Reducer 端 实现 <code>Join</code></h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><ul>
+<li><p>map端</p>
+<ul>
+<li><p>读取到当前路径下，所有文件的切片信息， 根据文件名判断是那张表</p>
+<ul>
+<li><p>在setup中，从文件切片中获取到文件名</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取读取到的切片相关信息,一个切片对应一个 maptask</span></span><br><span class="line">InputSplit inputSplit = context.getInputSplit();</span><br><span class="line"><span class="comment">// 转换为文件切片</span></span><br><span class="line">FileSplit fs = (FileSplit)inputSplit;</span><br><span class="line"><span class="comment">// 获取文件名</span></span><br><span class="line">filename = fs.getPath().getName();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这里总共会获得2个文件名（指定目录存了2个指定文件），一个文件名对应一个切片</p>
+</li>
+</ul>
+</li>
+<li><p>关联字段作为key， 其它的作为value，在value前面加上当前文件的名称标记</p>
+</li>
+</ul>
+</li>
+<li><p>reduce端</p>
+<ul>
+<li>通过标记区分两张表，把读取到的信息，分别存入2个list中</li>
+<li>遍历大的表，与小表进行拼接（小表的相同pid记录只会有一条）</li>
+<li>拼接完成后即可写出</li>
+</ul>
+</li>
+</ul>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.rox.mapreduce.mr3._03_join2表的数据关联;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.FileSystem;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.NullWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.InputSplit;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileSplit;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReduceJoinDemo</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">// 指定HDFS相关参数</span></span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		conf.set(<span class="string">"fs.defaultFS"</span>, <span class="string">"hdfs://cs1:9000"</span>);</span><br><span class="line">		System.setProperty(<span class="string">"HADOOP_USER_NAME"</span>, <span class="string">"ap"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//  创建/配置 Job</span></span><br><span class="line">		Job job = Job.getInstance(conf);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置Jar包类型</span></span><br><span class="line">		job.setJarByClass(ReduceJoinDemo.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置Map Reduce执行类</span></span><br><span class="line">		job.setMapperClass(MyMapper.class);</span><br><span class="line">		job.setReducerClass(MyReducer.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置Map输出类</span></span><br><span class="line">		job.setMapOutputKeyClass(Text.class);</span><br><span class="line">		job.setMapOutputValueClass(Text.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// Reduce输出类</span></span><br><span class="line">		job.setOutputKeyClass(Text.class);</span><br><span class="line">		job.setOutputValueClass(NullWritable.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置输入 输出路径</span></span><br><span class="line">		String inP = <span class="string">"/in/joindemo"</span>;</span><br><span class="line">		String outP = <span class="string">"/out/joinout1"</span>;</span><br><span class="line">		FileInputFormat.setInputPaths(job, <span class="keyword">new</span> Path(inP));</span><br><span class="line">		FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(outP));</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 设置如果存在路径就删除</span></span><br><span class="line">        Path mypath = <span class="keyword">new</span> Path(outP);</span><br><span class="line">        FileSystem hdfs = mypath.getFileSystem(conf);</span><br><span class="line">        <span class="keyword">if</span> (hdfs.isDirectory(mypath)) &#123;</span><br><span class="line">            hdfs.delete(mypath, <span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        <span class="comment">//  执行job</span></span><br><span class="line">        <span class="keyword">boolean</span> waitForCompletion = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">        System.exit(waitForCompletion?<span class="number">0</span>:-<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> shixuanji</span></span><br><span class="line"><span class="comment">	 * 思路: 读取2个表中的数据,进行标记发送</span></span><br><span class="line"><span class="comment">	 * key: 两表需要关联的字段</span></span><br><span class="line"><span class="comment">	 * value: 其它值, 需要标记， 标记数据的来源</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * **核心： 关联条件**</span></span><br><span class="line"><span class="comment">		- 想要在 reduce 端完成 join， 要在 reduce 端可以同时接收到两个表中的数据</span></span><br><span class="line"><span class="comment">		- 要保证在 Map 端进行读文件的时候， 读到2个表的数据， 并且需要对2个表的数据进行区分</span></span><br><span class="line"><span class="comment">		- 将2个表放在同一个目录下</span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		解决: </span></span><br><span class="line"><span class="comment">			mapper 开始执行时, 在setup方法中, 从上下文中取到文件名, 根据文件名打标记</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt; </span>&#123;</span><br><span class="line">		</span><br><span class="line">		String filename = <span class="string">""</span>;</span><br><span class="line">		Text k = <span class="keyword">new</span> Text();</span><br><span class="line">		Text v = <span class="keyword">new</span> Text();</span><br><span class="line">		</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">				Mapper&lt;LongWritable, Text, Text, Text&gt;.Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			<span class="comment">// 获取读取到的切片相关信息,一个切片对应一个 maptask</span></span><br><span class="line">			InputSplit inputSplit = context.getInputSplit();</span><br><span class="line">			<span class="comment">// 转换为文件切片</span></span><br><span class="line">			FileSplit fs = (FileSplit)inputSplit;</span><br><span class="line">			<span class="comment">// 获取文件名</span></span><br><span class="line">			filename = fs.getPath().getName();</span><br><span class="line">			System.out.println(<span class="string">"本次获取到的文件名为-----"</span>+filename);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value,</span></span></span><br><span class="line"><span class="function"><span class="params">				Mapper&lt;LongWritable, Text, Text, Text&gt;.Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			<span class="comment">// 解析出来每一行内容, 打标记, 发送</span></span><br><span class="line">			String[] infos = value.toString().split(<span class="string">"\t"</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (filename.equals(<span class="string">"order"</span>)) &#123;</span><br><span class="line">				k.set(infos[<span class="number">2</span>]);</span><br><span class="line">				<span class="comment">// 设置标记前缀为 OR</span></span><br><span class="line">				v.set(<span class="string">"OR"</span>+infos[<span class="number">0</span>]+<span class="string">"\t"</span>+infos[<span class="number">1</span>]+<span class="string">"\t"</span>+infos[<span class="number">3</span>]);</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				k.set(infos[<span class="number">0</span>]);</span><br><span class="line">				<span class="comment">// 设置标记前缀为 PR</span></span><br><span class="line">				v.set(<span class="string">"PR"</span>+infos[<span class="number">1</span>]+<span class="string">"\t"</span>+infos[<span class="number">2</span>]+<span class="string">"\t"</span>+infos[<span class="number">3</span>]);</span><br><span class="line">			&#125;</span><br><span class="line">			context.write(k, v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">NullWritable</span>&gt; </span>&#123;</span><br><span class="line">		</span><br><span class="line">		Text k = <span class="keyword">new</span> Text();</span><br><span class="line">		</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;Text&gt; values,</span></span></span><br><span class="line"><span class="function"><span class="params">				Reducer&lt;Text, Text, Text, NullWritable&gt;.Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * 首先明确 product 和 order 是 一对多的关系</span></span><br><span class="line"><span class="comment">			 * 根据前缀不同,取到2个不同的表存进2个容器中</span></span><br><span class="line"><span class="comment">			 * 遍历多的表, 与一进行拼接</span></span><br><span class="line"><span class="comment">			 * 最后写出到上下文</span></span><br><span class="line"><span class="comment">			 * 最终的输出格式 id   pid    date    amount    name    category_id     price</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			<span class="comment">// 因为每次遍历到不同的pid, 都会走进来一次, list也会有新的输出,所以必须定义在里面,每次进来都要初始化</span></span><br><span class="line">			List&lt;String&gt; productList =<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">			List&lt;String&gt; orderList =<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">for</span> (Text v : values) &#123;</span><br><span class="line">				String vStr = v.toString();</span><br><span class="line">				<span class="keyword">if</span> (vStr.startsWith(<span class="string">"OR"</span>)) &#123;</span><br><span class="line">					orderList.add(vStr.substring(<span class="number">2</span>));</span><br><span class="line">				&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">					productList.add(vStr.substring(<span class="number">2</span>));</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">// 此时2个list添加完了本次 相同的 key(pid) 的所有商品</span></span><br><span class="line">			<span class="comment">// 遍历多的进行拼接</span></span><br><span class="line">			<span class="keyword">for</span> (String or : orderList) &#123;</span><br><span class="line">				<span class="comment">// 相同的 pid的 product 只有一个, productList中的数量是1</span></span><br><span class="line">				<span class="comment">// 但是相同pid 的 订单 可能有多个</span></span><br><span class="line">				String res =  key.toString() + <span class="string">"\t"</span> + or + productList.get(<span class="number">0</span>);</span><br><span class="line">				k.set(res);</span><br><span class="line">				context.write(k, NullWritable.get());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="答案2-：-Mapper-端实现-Join"><a href="#答案2-：-Mapper-端实现-Join" class="headerlink" title="答案2 ： Mapper 端实现 Join"></a>答案2 ： Mapper 端实现 <code>Join</code></h3><h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><ul>
+<li>创建job的时候,把小表加入缓存 在map的setup中, </li>
+<li>读取缓存中的数据, 存入一个成员变量 map中<ul>
+<li>map方法中,只需要读一个表, 然后根据关联条件(关联key: pid)消除笛卡尔集,进行拼接</li>
+<li>map直接输出, 甚至都不需要reduce</li>
+</ul>
+</li>
+</ul>
+<h4 id="注意点"><a href="#注意点" class="headerlink" title="注意点:"></a>注意点:</h4><ul>
+<li>需要达成jar包运行, 直接用Eclipse会找不到缓存</li>
+<li>格式: hadoop jar包本地路径 jar包主方法全限定名 hadoop输入  hadoop输出？ </li>
+<li><p><strong>jar包如何执行，现在存疑</strong></p>
+<p>  ​    </p>
+</li>
+</ul>
+<h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.rox.mapreduce.mr3._03_join;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.FileSystem;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.NullWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MapJoinDemo</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">// 指定HDFS相关参数</span></span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		conf.set(<span class="string">"fs.defaultFS"</span>, <span class="string">"hdfs://cs1:9000"</span>);</span><br><span class="line">		System.setProperty(<span class="string">"HADOOP_USER_NAME"</span>, <span class="string">"ap"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//  创建/配置 Job</span></span><br><span class="line">		Job job = Job.getInstance(conf);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置Jar包类型</span></span><br><span class="line">		job.setJarByClass(ReduceJoinDemo.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置Map Reduce执行类</span></span><br><span class="line">		job.setMapperClass(MyMapper.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置Map输出类</span></span><br><span class="line">		job.setMapOutputKeyClass(Text.class);</span><br><span class="line">		job.setMapOutputValueClass(NullWritable.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">////////////// 设置reduce执行个数为0</span></span><br><span class="line">		job.setNumReduceTasks(<span class="number">0</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">////////////// 将小文件加载到缓存  </span></span><br><span class="line">		job.addCacheFile(<span class="keyword">new</span> URI(<span class="string">"/in/joindemo/product"</span>));</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 设置输入 输出路径</span></span><br><span class="line">		String inP = <span class="string">"/in/joindemo/order"</span>;</span><br><span class="line">		String outP = <span class="string">"/out/joinout2"</span>;</span><br><span class="line">		FileInputFormat.setInputPaths(job, <span class="keyword">new</span> Path(inP));</span><br><span class="line">		FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(outP));</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 设置如果存在路径就删除</span></span><br><span class="line">        Path mypath = <span class="keyword">new</span> Path(outP);</span><br><span class="line">        FileSystem hdfs = mypath.getFileSystem(conf);</span><br><span class="line">        <span class="keyword">if</span> (hdfs.isDirectory(mypath)) &#123;</span><br><span class="line">            hdfs.delete(mypath, <span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        <span class="comment">//  执行job</span></span><br><span class="line">        <span class="keyword">boolean</span> waitForCompletion = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">        System.exit(waitForCompletion?<span class="number">0</span>:-<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> shixuanji</span></span><br><span class="line"><span class="comment">	 * 思路: </span></span><br><span class="line"><span class="comment">	 * 创建job的时候,把小表加入缓存</span></span><br><span class="line"><span class="comment">	 * 在map的setup中, 读取缓存中的数据, 存入一个成员变量 map中</span></span><br><span class="line"><span class="comment">	 * map方法中,只需要读一个表, 然后根据关联条件(关联key: pid)消除笛卡尔集,进行拼接</span></span><br><span class="line"><span class="comment">	 * 直接输出, 甚至都不需要reduce</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * 注意点: </span></span><br><span class="line"><span class="comment">	 * 需要达成jar包运行, 直接用Eclipse会找不到缓存</span></span><br><span class="line"><span class="comment">	 * 格式: hadoop jar包本地路径 jar包主方法全限定名 hadoop输入  hadoop输出</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">NullWritable</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 创建装载小表的map, key存储 关联键, value存其它</span></span><br><span class="line">		Map&lt;String, String&gt; proMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">(Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">			<span class="comment">// 获取缓存中存储的小表 (一般是 一对多中的 一), 因为只存了1个,所以直接取第0个</span></span><br><span class="line">			Path path = context.getLocalCacheFiles()[<span class="number">0</span>];</span><br><span class="line">			String pString = path.toString();</span><br><span class="line">			<span class="comment">// 开启in流, BufferedReader 逐行读取文件</span></span><br><span class="line">			BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(pString));</span><br><span class="line">			String line = <span class="keyword">null</span>;</span><br><span class="line">			<span class="keyword">while</span> ((line = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">				<span class="comment">// 成功读取一行</span></span><br><span class="line">				String[] infos = line.split(<span class="string">"\t"</span>);</span><br><span class="line">				<span class="comment">// 存进proMap</span></span><br><span class="line">				proMap.put(infos[<span class="number">0</span>],</span><br><span class="line">						infos[<span class="number">1</span>] + <span class="string">"\t"</span> + infos[<span class="number">2</span>] + <span class="string">"\t"</span> + infos[<span class="number">3</span>]);</span><br><span class="line">			&#125;</span><br><span class="line">			br.close();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 直接从路径读取大文件</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		Text k = <span class="keyword">new</span> Text();</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value, Context context)</span></span></span><br><span class="line"><span class="function">				<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">			String[] infos = value.toString().split(<span class="string">"\t"</span>);</span><br><span class="line">			String pid = infos[<span class="number">2</span>];</span><br><span class="line">			<span class="comment">//进行关联   pid到map中匹配   如果包含  证明匹配上了</span></span><br><span class="line">			<span class="keyword">if</span> (proMap.containsKey(<span class="string">"pid"</span>)) &#123;</span><br><span class="line">				String res = value.toString() + <span class="string">"\t"</span> + proMap.get(pid);</span><br><span class="line">				k.set(res);</span><br><span class="line">				context.write(k, NullWritable.get());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><script src="https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js"></script><script src="https://cdn.bootcss.com/snap.svg/0.5.1/snap.svg-min.js"></script><script src="https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js"></script><script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdn.bootcss.com/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">title: 执行流程时序图 
+Mapper(map)->ScoreBean: k:ScoreBean(courseName,avgScore)
+Mapper(map)->ScoreBean: v:Text(stuName)
+Mapper(ScoreBean)->Reducer(MyGroup): course按字典升序
+Mapper(ScoreBean)->Reducer(MyGroup): course内成绩降序
+Reducer(MyGroup)->Reducer(reduce): 根据自定义的分组规则按组输出
+Reducer(MyGroup)->Reducer(reduce): 一组只调用reduce一次</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+            <a href="/tags/MapReduce/" rel="tag"># MapReduce</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/08/Hadoop/Study/2-MapReduce/MapReduce笔记-3/" rel="next" title="MapReduce笔记-3">
+                <i class="fa fa-chevron-left"></i> MapReduce笔记-3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/09/Hadoop/Study/2-MapReduce/MapReduce-Bug汇总/" rel="prev" title="MapReduce笔记-Bug汇总">
+                MapReduce笔记-Bug汇总 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/images/avatar.jpg"
+                alt="airpoet" />
+            
+              <p class="site-author-name" itemprop="name">airpoet</p>
+              <p class="site-description motion-element" itemprop="description">没有边界就没有自由.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/3b9b97fe7e04" target="_blank" title="我的简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>我的简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:airpoet@qq.com" target="_blank" title="Mile2Me">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mile2Me</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/8ee264c6557d" title="女神凉姨" target="_blank">女神凉姨</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#求微博共同粉丝"><span class="nav-number">1.</span> <span class="nav-text">求微博共同粉丝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#答案："><span class="nav-number">1.2.</span> <span class="nav-text">答案：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求学生成绩"><span class="nav-number">2.</span> <span class="nav-text">求学生成绩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目-1"><span class="nav-number">2.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#答案"><span class="nav-number">2.2.</span> <span class="nav-text">答案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第1小题"><span class="nav-number">2.2.1.</span> <span class="nav-text">第1小题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第2小题"><span class="nav-number">2.2.2.</span> <span class="nav-text">第2小题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第3小题"><span class="nav-number">2.2.3.</span> <span class="nav-text">第3小题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#先贴个结论："><span class="nav-number">2.2.3.1.</span> <span class="nav-text">先贴个结论：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MR实现两个表的数据关联Join"><span class="nav-number">3.</span> <span class="nav-text">MR实现两个表的数据关联Join</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目-2"><span class="nav-number">3.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#答案1-Reducer-端-实现-Join"><span class="nav-number">3.2.</span> <span class="nav-text">答案1 : Reducer 端 实现 Join</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">3.2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#答案2-：-Mapper-端实现-Join"><span class="nav-number">3.3.</span> <span class="nav-text">答案2 ： Mapper 端实现 Join</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意点"><span class="nav-number">3.3.2.</span> <span class="nav-text">注意点:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-2"><span class="nav-number">3.3.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">airpoet</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/06/09/Hadoop/Study/2-MapReduce/MapReduce-练习/';
+          this.page.identifier = '2018/06/09/Hadoop/Study/2-MapReduce/MapReduce-练习/';
+          this.page.title = 'MapReduce笔记-练习';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

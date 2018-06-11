@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[_数据分析系统——Hive]]></title>
+    <url>%2F2018%2F06%2F12%2FHadoop%2FStudy%2F3-Hive%2F%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9FHive%2F</url>
+    <content type="text"><![CDATA[Hive背景及应用场景Hive是什么？看一下MR的 wordcount 和 Hive 的 wordcount Hive典型应用场景 为什么使用Hive？ 有了Hive，还需要自己写MR程序吗？ Hive基本架构 Hive各模块组成 Hive部署架构-实验环境 Hive部署架构-生产环境 Hive部署架构-metastore服务 Hive使用方式CLI（Command Line Interface） CLI—hive外部资源 Hive Web UI Hive客户端程序 HQL查询语句数据模型 数据类型（不断增加中……） 自有的特殊类型 数据定义语句（DDL） 分隔符开发中这样写 Hive Partition与Bucket Hive数据格式 应用举例：日志清理 数据操作语句（DML） 数据加载与插入语句 几个实例 数据查询语句SELECT 两种分布式Join算法 HQL中两种特殊Join Order By与Sort By Distribute by与Cluster by Transform语法（Streaming） 用户自定义函数（UDF） UDAF http://svn.apache.org/repos/asf/hive/branches/branch0.13/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDAFAverage.java UDTF http://svn.apache.org/repos/asf/hive/branches/branch0.13/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDTFExplode.java 其它问题 Hive On HBase Hive总结及其类似开源系统Stinger Hive-MR vs Hive-Tez Shark Impala 性能比较]]></content>
+      <categories>
+        <category>Hadoop</category>
+        <category>Hive</category>
+      </categories>
+      <tags>
+        <tag>原创</tag>
+        <tag>技术</tag>
+        <tag>Hadoop</tag>
+        <tag>Hive</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[偶然发现的好歌]]></title>
     <url>%2F2018%2F06%2F11%2FSongs%2F%E5%81%B6%E7%84%B6%E5%8F%91%E7%8E%B0%E7%9A%84%E5%A5%BD%E6%AD%8C%2F</url>
     <content type="text"><![CDATA[Dealbreaker 专辑：Chesapeake 歌手：Rachael Yamagata 链接：http://music.163.com/#/m/song?id=18733198 You Won’t Let Me 专辑：Chesapeake 歌手：Rachael Yamagata 链接：http://music.163.com/#/song?id=18733192]]></content>
@@ -12,6 +27,21 @@
         <tag>原创</tag>
         <tag>文艺</tag>
         <tag>Songs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[_HDFS应用场景&原理&基本架构及使用方法]]></title>
+    <url>%2F2018%2F06%2F11%2FHadoop%2FStudy%2F1-HDFS%2FHDFS%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%26%E5%8E%9F%E7%90%86%26%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[HDFS基本架构和原理HDFS设计思想 HDFS架构 HDFS数据块（block） 注意： Hadoop2.x，block默认大小是128MB HDFS写流程 创建Distributed FileSystem类 询问 NameNode 要写的文件对否存在 不存在就写入到 FSDataOutputStream 流中 流写出去到一个 DataNode … HDFS读流程 客户端向 NameNode 询问 block 的位置 按照客户端按照拿到的位置，向不同的DataNode 请求数据 …… HDFS典型物理拓扑 HDFS副本放置策略 HDFS可靠性策略 HDFS不适合存储小文件 HDFS程序设计HDFS访问方式 HDFS Shell命令概览 HDFS Shell命令—文件操作命令 HDFS Shell命令—文件操作命令 HDFS Shell命令—管理命令 HDFS Shell命令—管理脚本 HDFS Shell命令—文件管理命令fsck 查看帮助 用法示例 HDFS Shell命令—数据均衡器balancer 一般设置10% —— 15% 就差不多了 HDFS Shell命令—设置目录份额 ※ HDFS Shell命令—增加/移除节点 ※ HDFS JavaAPI介绍 HDFS Java程序举例 HDFS 多语言API—借助thrift也是Apache的顶级项目 thrift执行流程 hadoopfs.thrift接口定义 PHP语言访问HDFS Python语言访问HDFS Hadoop 2.0新特性 HA(高可用)与Federation(联邦) 异构层级存储结构背景 原理 HDFS ACL背景：现有权限管理的局限性 基于POSIX ACL的实现 HDFS快照背景 基本使用方法 HDFS缓存背景 原理 实现情况 总结]]></content>
+      <categories>
+        <category>Hadoop</category>
+        <category>HDFS</category>
+      </categories>
+      <tags>
+        <tag>原创</tag>
+        <tag>技术</tag>
+        <tag>Hadoop</tag>
+        <tag>HDFS</tag>
       </tags>
   </entry>
   <entry>

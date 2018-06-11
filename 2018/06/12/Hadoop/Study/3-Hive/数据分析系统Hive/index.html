@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="原创,技术,Hadoop,Hive," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="A.P的文艺杂谈" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Hive背景及应用场景Hive是什么？看一下MR的 wordcount 和 Hive 的 wordcount    Hive典型应用场景  为什么使用Hive？  有了Hive，还需要自己写MR程序吗？   Hive基本架构 Hive各模块组成  Hive部署架构-实验环境  Hive部署架构-生产环境  Hive部署架构-metastore服务   Hive使用方式CLI（Command Lin">
+<meta name="keywords" content="原创,技术,Hadoop,Hive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="_数据分析系统——Hive">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/12/Hadoop/Study/3-Hive/数据分析系统Hive/index.html">
+<meta property="og:site_name" content="A.P的文艺杂谈">
+<meta property="og:description" content="Hive背景及应用场景Hive是什么？看一下MR的 wordcount 和 Hive 的 wordcount    Hive典型应用场景  为什么使用Hive？  有了Hive，还需要自己写MR程序吗？   Hive基本架构 Hive各模块组成  Hive部署架构-实验环境  Hive部署架构-生产环境  Hive部署架构-metastore服务   Hive使用方式CLI（Command Lin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173251.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173355.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173443.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173532.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173601.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173645.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173742.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173814.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173838.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173904.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173952.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174023.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174103.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174201.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174222.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174257.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174340.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174412.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174515.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174533.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174607.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174853.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174912.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174952.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175053.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175104.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175153.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175226.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175246.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175318.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175356.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175419.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175511.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175606.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231641.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231718.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231750.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231813.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231839.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231921.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231940.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232009.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232136.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232225.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232245.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232321.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232350.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232415.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232439.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232454.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232528.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232548.png">
+<meta property="og:updated_time" content="2018-06-11T23:26:01.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="_数据分析系统——Hive">
+<meta name="twitter:description" content="Hive背景及应用场景Hive是什么？看一下MR的 wordcount 和 Hive 的 wordcount    Hive典型应用场景  为什么使用Hive？  有了Hive，还需要自己写MR程序吗？   Hive基本架构 Hive各模块组成  Hive部署架构-实验环境  Hive部署架构-生产环境  Hive部署架构-metastore服务   Hive使用方式CLI（Command Lin">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173251.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'airpoet'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/12/Hadoop/Study/3-Hive/数据分析系统Hive/"/>
+
+
+
+
+
+  <title>_数据分析系统——Hive | A.P的文艺杂谈</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A.P的文艺杂谈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/12/Hadoop/Study/3-Hive/数据分析系统Hive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">_数据分析系统——Hive</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T00:42:14+08:00">
+                2018-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/12/Hadoop/Study/3-Hive/数据分析系统Hive/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/12/Hadoop/Study/3-Hive/数据分析系统Hive/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Hive背景及应用场景"><a href="#Hive背景及应用场景" class="headerlink" title="Hive背景及应用场景"></a>Hive背景及应用场景</h1><h2 id="Hive是什么？"><a href="#Hive是什么？" class="headerlink" title="Hive是什么？"></a>Hive是什么？</h2><p><strong>看一下MR的 wordcount 和 Hive 的 wordcount</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173251.png" alt="image-20180612013251049"></p>
+<p><br></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173355.png" alt="image-20180612013349514"></p>
+<h2 id="Hive典型应用场景"><a href="#Hive典型应用场景" class="headerlink" title="Hive典型应用场景"></a>Hive典型应用场景</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173443.png" alt="image-20180612013442768"></p>
+<p><br></p>
+<h2 id="为什么使用Hive？"><a href="#为什么使用Hive？" class="headerlink" title="为什么使用Hive？"></a>为什么使用Hive？</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173532.png" alt="image-20180612013531999"></p>
+<p><br></p>
+<h2 id="有了Hive，还需要自己写MR程序吗？"><a href="#有了Hive，还需要自己写MR程序吗？" class="headerlink" title="有了Hive，还需要自己写MR程序吗？"></a>有了Hive，还需要自己写MR程序吗？</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173601.png" alt="image-20180612013600542"></p>
+<p><br></p>
+<p><br></p>
+<h1 id="Hive基本架构"><a href="#Hive基本架构" class="headerlink" title="Hive基本架构"></a>Hive基本架构</h1><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173645.png" alt="image-20180612013645384"></p>
+<h2 id="Hive各模块组成"><a href="#Hive各模块组成" class="headerlink" title="Hive各模块组成"></a>Hive各模块组成</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173742.png" alt="image-20180612013742424"></p>
+<p><br></p>
+<h2 id="Hive部署架构-实验环境"><a href="#Hive部署架构-实验环境" class="headerlink" title="Hive部署架构-实验环境"></a>Hive部署架构-实验环境</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173814.png" alt="image-20180612013813506"></p>
+<p><br></p>
+<h2 id="Hive部署架构-生产环境"><a href="#Hive部署架构-生产环境" class="headerlink" title="Hive部署架构-生产环境"></a>Hive部署架构-生产环境</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173838.png" alt="image-20180612013837922"></p>
+<p><br></p>
+<h2 id="Hive部署架构-metastore服务"><a href="#Hive部署架构-metastore服务" class="headerlink" title="Hive部署架构-metastore服务"></a>Hive部署架构-metastore服务</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173904.png" alt="image-20180612013903730"></p>
+<p><br></p>
+<p><br></p>
+<h1 id="Hive使用方式"><a href="#Hive使用方式" class="headerlink" title="Hive使用方式"></a>Hive使用方式</h1><h2 id="CLI（Command-Line-Interface）"><a href="#CLI（Command-Line-Interface）" class="headerlink" title="CLI（Command Line Interface）"></a>CLI（Command Line Interface）</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-173952.png" alt="image-20180612013951537"></p>
+<p><br></p>
+<h2 id="CLI—hive外部资源"><a href="#CLI—hive外部资源" class="headerlink" title="CLI—hive外部资源"></a>CLI—hive外部资源</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174023.png" alt="image-20180612014022323"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174103.png" alt="image-20180612014102686"></p>
+<p><br></p>
+<h2 id="Hive-Web-UI"><a href="#Hive-Web-UI" class="headerlink" title="Hive Web UI"></a>Hive Web UI</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174201.png" alt="image-20180612014200724"></p>
+<p><br></p>
+<h2 id="Hive客户端程序"><a href="#Hive客户端程序" class="headerlink" title="Hive客户端程序"></a>Hive客户端程序</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174222.png" alt="image-20180612014221547"></p>
+<p><br></p>
+<p><br></p>
+<h1 id="HQL查询语句"><a href="#HQL查询语句" class="headerlink" title="HQL查询语句"></a>HQL查询语句</h1><h2 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174257.png" alt="image-20180612014257010"></p>
+<p><br></p>
+<h2 id="数据类型（不断增加中……）"><a href="#数据类型（不断增加中……）" class="headerlink" title="数据类型（不断增加中……）"></a>数据类型（不断增加中……）</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174340.png" alt="image-20180612014340830"></p>
+<p><br></p>
+<ul>
+<li><strong>自有的特殊类型</strong></li>
+</ul>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174412.png" alt="image-20180612014411860"></p>
+<p><br></p>
+<h2 id="数据定义语句（DDL）"><a href="#数据定义语句（DDL）" class="headerlink" title="数据定义语句（DDL）"></a>数据定义语句（DDL）</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174515.png" alt="image-20180612014514763"></p>
+<p><br></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174533.png" alt="image-20180612014533008"></p>
+<p><br></p>
+<p><strong>分隔符开发中这样写</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174607.png" alt="image-20180612014606665"></p>
+<p><br></p>
+<h2 id="Hive-Partition与Bucket"><a href="#Hive-Partition与Bucket" class="headerlink" title="Hive Partition与Bucket"></a>Hive Partition与Bucket</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174853.png" alt="image-20180612014852827"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174912.png" alt="image-20180612014912295"></p>
+<p><br></p>
+<p><br></p>
+<h2 id="Hive数据格式"><a href="#Hive数据格式" class="headerlink" title="Hive数据格式"></a>Hive数据格式</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-174952.png" alt="image-20180612014951697"></p>
+<h3 id="应用举例：日志清理"><a href="#应用举例：日志清理" class="headerlink" title="应用举例：日志清理"></a>应用举例：日志清理</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175053.png" alt="image-20180612015053452"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175104.png" alt="image-20180612015104125"></p>
+<p><br></p>
+<p><br></p>
+<h2 id="数据操作语句（DML）"><a href="#数据操作语句（DML）" class="headerlink" title="数据操作语句（DML）"></a>数据操作语句（DML）</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175153.png" alt="image-20180612015153237"></p>
+<h3 id="数据加载与插入语句"><a href="#数据加载与插入语句" class="headerlink" title="数据加载与插入语句"></a>数据加载与插入语句</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175226.png" alt="image-20180612015225942"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175246.png" alt="image-20180612015245860"></p>
+<h3 id="几个实例"><a href="#几个实例" class="headerlink" title="几个实例"></a>几个实例</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175318.png" alt="image-20180612015317619"></p>
+<h2 id="数据查询语句SELECT"><a href="#数据查询语句SELECT" class="headerlink" title="数据查询语句SELECT"></a>数据查询语句SELECT</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175356.png" alt="image-20180612015355128"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175419.png" alt="image-20180612015419432"></p>
+<p><br></p>
+<h2 id="两种分布式Join算法"><a href="#两种分布式Join算法" class="headerlink" title="两种分布式Join算法"></a>两种分布式Join算法</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175511.png" alt="image-20180612015511444"></p>
+<p><br></p>
+<h2 id="HQL中两种特殊Join"><a href="#HQL中两种特殊Join" class="headerlink" title="HQL中两种特殊Join"></a>HQL中两种特殊Join</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-175606.png" alt="image-20180612015606096"></p>
+<p><br></p>
+<h2 id="Order-By与Sort-By"><a href="#Order-By与Sort-By" class="headerlink" title="Order By与Sort By"></a>Order By与Sort By</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231641.png" alt="image-20180612071641233"></p>
+<p><br></p>
+<h2 id="Distribute-by与Cluster-by"><a href="#Distribute-by与Cluster-by" class="headerlink" title="Distribute by与Cluster by"></a>Distribute by与Cluster by</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231718.png" alt="image-20180612071718342"></p>
+<p><br></p>
+<h2 id="Transform语法（Streaming）"><a href="#Transform语法（Streaming）" class="headerlink" title="Transform语法（Streaming）"></a>Transform语法（Streaming）</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231750.png" alt="image-20180612071749235"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231813.png" alt="image-20180612071813456"></p>
+<p><br></p>
+<h2 id="用户自定义函数（UDF）"><a href="#用户自定义函数（UDF）" class="headerlink" title="用户自定义函数（UDF）"></a>用户自定义函数（UDF）</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231839.png" alt="image-20180612071839711"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231921.png" alt="image-20180612071920788"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-231940.png" alt="image-20180612071940199"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232009.png" alt="image-20180612072009048"></p>
+<p>UDAF</p>
+<ul>
+<li><a href="http://svn.apache.org/repos/asf/hive/branches/branch0.13/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDAFAverage.java" target="_blank" rel="noopener">http://svn.apache.org/repos/asf/hive/branches/branch0.13/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDAFAverage.java</a></li>
+</ul>
+<p>UDTF</p>
+<ul>
+<li><a href="http://svn.apache.org/repos/asf/hive/branches/branch0.13/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDTFExplode.java" target="_blank" rel="noopener">http://svn.apache.org/repos/asf/hive/branches/branch0.13/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDTFExplode.java</a></li>
+</ul>
+<p><br></p>
+<h2 id="其它问题"><a href="#其它问题" class="headerlink" title="其它问题"></a>其它问题</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232136.png" alt="image-20180612072136290"></p>
+<p><br></p>
+<h2 id="Hive-On-HBase"><a href="#Hive-On-HBase" class="headerlink" title="Hive On HBase"></a>Hive On HBase</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232225.png" alt="image-20180612072225509"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232245.png" alt="image-20180612072244391"></p>
+<h1 id="Hive总结及其类似开源系统"><a href="#Hive总结及其类似开源系统" class="headerlink" title="Hive总结及其类似开源系统"></a>Hive总结及其类似开源系统</h1><h2 id="Stinger"><a href="#Stinger" class="headerlink" title="Stinger"></a>Stinger</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232321.png" alt="image-20180612072320862"></p>
+<p><br></p>
+<h2 id="Hive-MR-vs-Hive-Tez"><a href="#Hive-MR-vs-Hive-Tez" class="headerlink" title="Hive-MR vs Hive-Tez"></a>Hive-MR vs Hive-Tez</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232350.png" alt="image-20180612072350053"></p>
+<p><br></p>
+<h2 id="Shark"><a href="#Shark" class="headerlink" title="Shark"></a>Shark</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232415.png" alt="image-20180612072415680"></p>
+<p><br></p>
+<h2 id="Impala"><a href="#Impala" class="headerlink" title="Impala"></a>Impala</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232439.png" alt="image-20180612072438860"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232454.png" alt="image-20180612072454317"></p>
+<p><br></p>
+<h2 id="性能比较"><a href="#性能比较" class="headerlink" title="性能比较"></a>性能比较</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232528.png" alt="image-20180612072528668"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-232548.png" alt="image-20180612072547727"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+            <a href="/tags/Hive/" rel="tag"># Hive</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/11/Songs/偶然发现的好歌/" rel="next" title="偶然发现的好歌">
+                <i class="fa fa-chevron-left"></i> 偶然发现的好歌
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/images/avatar.jpg"
+                alt="airpoet" />
+            
+              <p class="site-author-name" itemprop="name">airpoet</p>
+              <p class="site-description motion-element" itemprop="description">没有边界就没有自由.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/3b9b97fe7e04" target="_blank" title="我的简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>我的简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:airpoet@qq.com" target="_blank" title="Mile2Me">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mile2Me</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/8ee264c6557d" title="女神凉姨" target="_blank">女神凉姨</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive背景及应用场景"><span class="nav-number">1.</span> <span class="nav-text">Hive背景及应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive是什么？"><span class="nav-number">1.1.</span> <span class="nav-text">Hive是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive典型应用场景"><span class="nav-number">1.2.</span> <span class="nav-text">Hive典型应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用Hive？"><span class="nav-number">1.3.</span> <span class="nav-text">为什么使用Hive？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有了Hive，还需要自己写MR程序吗？"><span class="nav-number">1.4.</span> <span class="nav-text">有了Hive，还需要自己写MR程序吗？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive基本架构"><span class="nav-number">2.</span> <span class="nav-text">Hive基本架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive各模块组成"><span class="nav-number">2.1.</span> <span class="nav-text">Hive各模块组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive部署架构-实验环境"><span class="nav-number">2.2.</span> <span class="nav-text">Hive部署架构-实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive部署架构-生产环境"><span class="nav-number">2.3.</span> <span class="nav-text">Hive部署架构-生产环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive部署架构-metastore服务"><span class="nav-number">2.4.</span> <span class="nav-text">Hive部署架构-metastore服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive使用方式"><span class="nav-number">3.</span> <span class="nav-text">Hive使用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI（Command-Line-Interface）"><span class="nav-number">3.1.</span> <span class="nav-text">CLI（Command Line Interface）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI—hive外部资源"><span class="nav-number">3.2.</span> <span class="nav-text">CLI—hive外部资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-Web-UI"><span class="nav-number">3.3.</span> <span class="nav-text">Hive Web UI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive客户端程序"><span class="nav-number">3.4.</span> <span class="nav-text">Hive客户端程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HQL查询语句"><span class="nav-number">4.</span> <span class="nav-text">HQL查询语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据模型"><span class="nav-number">4.1.</span> <span class="nav-text">数据模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型（不断增加中……）"><span class="nav-number">4.2.</span> <span class="nav-text">数据类型（不断增加中……）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据定义语句（DDL）"><span class="nav-number">4.3.</span> <span class="nav-text">数据定义语句（DDL）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-Partition与Bucket"><span class="nav-number">4.4.</span> <span class="nav-text">Hive Partition与Bucket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive数据格式"><span class="nav-number">4.5.</span> <span class="nav-text">Hive数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用举例：日志清理"><span class="nav-number">4.5.1.</span> <span class="nav-text">应用举例：日志清理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据操作语句（DML）"><span class="nav-number">4.6.</span> <span class="nav-text">数据操作语句（DML）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据加载与插入语句"><span class="nav-number">4.6.1.</span> <span class="nav-text">数据加载与插入语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几个实例"><span class="nav-number">4.6.2.</span> <span class="nav-text">几个实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据查询语句SELECT"><span class="nav-number">4.7.</span> <span class="nav-text">数据查询语句SELECT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种分布式Join算法"><span class="nav-number">4.8.</span> <span class="nav-text">两种分布式Join算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HQL中两种特殊Join"><span class="nav-number">4.9.</span> <span class="nav-text">HQL中两种特殊Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Order-By与Sort-By"><span class="nav-number">4.10.</span> <span class="nav-text">Order By与Sort By</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distribute-by与Cluster-by"><span class="nav-number">4.11.</span> <span class="nav-text">Distribute by与Cluster by</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transform语法（Streaming）"><span class="nav-number">4.12.</span> <span class="nav-text">Transform语法（Streaming）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户自定义函数（UDF）"><span class="nav-number">4.13.</span> <span class="nav-text">用户自定义函数（UDF）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它问题"><span class="nav-number">4.14.</span> <span class="nav-text">其它问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-On-HBase"><span class="nav-number">4.15.</span> <span class="nav-text">Hive On HBase</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive总结及其类似开源系统"><span class="nav-number">5.</span> <span class="nav-text">Hive总结及其类似开源系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Stinger"><span class="nav-number">5.1.</span> <span class="nav-text">Stinger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-MR-vs-Hive-Tez"><span class="nav-number">5.2.</span> <span class="nav-text">Hive-MR vs Hive-Tez</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shark"><span class="nav-number">5.3.</span> <span class="nav-text">Shark</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Impala"><span class="nav-number">5.4.</span> <span class="nav-text">Impala</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能比较"><span class="nav-number">5.5.</span> <span class="nav-text">性能比较</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">airpoet</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/06/12/Hadoop/Study/3-Hive/数据分析系统Hive/';
+          this.page.identifier = '2018/06/12/Hadoop/Study/3-Hive/数据分析系统Hive/';
+          this.page.title = '_数据分析系统——Hive';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

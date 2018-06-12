@@ -92,7 +92,19 @@
 <meta property="og:description" content="Hive简介 Hive基本情况Hive 是建立在 Hadoop 上的数据仓库基础构架  由facebook开源，最初用于解决海量结构化的日志数据统 计问题; ETL(Extraction-Transformation-Loading)工具   构建在Hadoop之上的数据仓库; 数据计算使用MR，数据存储使用HDFS 数据库&amp;amp;数据仓库 的区别： 概念上 数据库：用于管理精细化数据，一般情况">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-034055.png">
-<meta property="og:updated_time" content="2018-06-12T04:02:45.141Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-061711.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-082659.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-061202.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-061321.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-061413.png">
+<meta property="og:image" content="https://airpoet.github.io/var/folders/6l/blvdbwd53hqglz0f09n3sd5c0000gn/T/abnerworks.Typora/image-20180612143606401.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-063122.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-063329.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-073036.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-073322.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-073952.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-081518.png">
+<meta property="og:updated_time" content="2018-06-12T08:27:03.415Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive学习——1">
 <meta name="twitter:description" content="Hive简介 Hive基本情况Hive 是建立在 Hadoop 上的数据仓库基础构架  由facebook开源，最初用于解决海量结构化的日志数据统 计问题; ETL(Extraction-Transformation-Loading)工具   构建在Hadoop之上的数据仓库; 数据计算使用MR，数据存储使用HDFS 数据库&amp;amp;数据仓库 的区别： 概念上 数据库：用于管理精细化数据，一般情况">
@@ -515,7 +527,114 @@
 </ul>
 </li>
 </ul>
-<h3 id="Hive与传统关系型数据库-RDBMS）对比"><a href="#Hive与传统关系型数据库-RDBMS）对比" class="headerlink" title="Hive与传统关系型数据库(RDBMS）对比"></a>Hive与传统关系型数据库(RDBMS）对比</h3><p>图待补充，pdf里</p>
+<h3 id="Hive与传统关系型数据库-RDBMS）对比"><a href="#Hive与传统关系型数据库-RDBMS）对比" class="headerlink" title="Hive与传统关系型数据库(RDBMS）对比"></a>Hive与传统关系型数据库(RDBMS）对比</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-061711.png" alt="image-20180612141711008"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-082659.png" alt="image-20180612162659151"><br></p>
+<h1 id="Hive的架构"><a href="#Hive的架构" class="headerlink" title="Hive的架构"></a>Hive的架构</h1><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-061202.png" alt="image-20180612141201853"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-061321.png" alt="image-20180612141321130"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-061413.png" alt="image-20180612141413285"></p>
+<p><strong>Hive各模块组成</strong></p>
+<ul>
+<li>用户接口<ul>
+<li>包括 <strong>CLI</strong>，<strong>JDBC/ODBC</strong>，WebUI</li>
+</ul>
+</li>
+<li>Thift服务<ul>
+<li>跨语言访问hive</li>
+</ul>
+</li>
+<li><p>元数据存储(metastore)</p>
+<pre><code>- 默认存储在自带的数据库**derby**中，线上使用时一般换为**MySQL**
+</code></pre></li>
+<li><p><strong>驱动器(Driver)</strong></p>
+<ul>
+<li>解释器、编译器、优化器、执行器 </li>
+</ul>
+</li>
+<li>Hadoop<ul>
+<li>用 <strong>MapReduce</strong> 进行计算，用 <strong>HDFS</strong> 进行存储</li>
+</ul>
+</li>
+</ul>
+<h1 id="Hive的数据组织格式"><a href="#Hive的数据组织格式" class="headerlink" title="Hive的数据组织格式"></a>Hive的数据组织格式</h1><ul>
+<li><p>库：database</p>
+</li>
+<li><p><strong>内部外部表:</strong></p>
+<ul>
+<li><strong>内部表</strong>（管理表）<ul>
+<li><strong>删除表</strong>的时候<strong>会删除数据和元数据</strong></li>
+</ul>
+</li>
+<li><strong>外部表</strong><ul>
+<li><strong>删除表</strong>的时候<strong>只会删除元数据</strong></li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+</li>
+</ul>
+<ul>
+<li><p><strong>分区分桶表</strong></p>
+<p><img src="/var/folders/6l/blvdbwd53hqglz0f09n3sd5c0000gn/T/abnerworks.Typora/image-20180612143606401.png" alt="image-20180612143606401"></p>
+<ul>
+<li><p><strong>分区表</strong></p>
+<ul>
+<li>人为划分的</li>
+<li>一般情况下生产中用日期作为分区字段</li>
+<li><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-063122.png" alt="image-20180612143121505"></li>
+</ul>
+</li>
+<li><p><strong>分桶表</strong></p>
+<ul>
+<li>类似于hadoop中的分区，怎么分是程序决定的，只能指定桶的个数</li>
+<li>根据hash算法将余数不同的输出到不同的文件中<ul>
+<li><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-063329.png" alt="image-20180612143329250"></li>
+</ul>
+</li>
+<li>作用：<ul>
+<li>提升join的性能</li>
+<li>提升数据样本的抽取效率</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>视图：</strong></p>
+<ul>
+<li>hive中的视图仅仅相当于一个sql语句的别名</li>
+<li><strong>在hive中仅仅存在逻辑视图，不存在物理视图</strong><ul>
+<li>物理视图：讲sql语句的执行结果存在视图中</li>
+<li>逻辑视图： <strong>仅仅是对查询结果的引用</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>数据存储：</strong></p>
+<ul>
+<li>原始数据中存在HDFS</li>
+<li>元数据存在mysql</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h1 id="Hive安装"><a href="#Hive安装" class="headerlink" title="Hive安装"></a>Hive安装</h1><ul>
+<li>原则：<ul>
+<li>不选择最新版本，也不选择过旧版本</li>
+</ul>
+</li>
+<li>目前较多使用<ul>
+<li>1.2.2</li>
+<li>2.3.2 / 2.3.3</li>
+</ul>
+</li>
+</ul>
+<p>mysql安装</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-073036.png" alt="image-20180612153035607"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-073322.png" alt="image-20180612153322072"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-073952.png" alt="image-20180612153952570"></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-081518.png" alt="image-20180612161518227"></p>
 
       
     </div>
@@ -585,6 +704,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/12/Hadoop/Study/2-MapReduce/MapReduce-简单总结/" rel="prev" title="MapReduce-简单总结">
+                MapReduce-简单总结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -675,7 +798,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -686,7 +809,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -697,7 +820,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -767,7 +890,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive简介"><span class="nav-number">1.</span> <span class="nav-text">Hive简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive基本情况"><span class="nav-number">1.0.1.</span> <span class="nav-text">Hive基本情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive优缺点："><span class="nav-number">1.0.2.</span> <span class="nav-text">Hive优缺点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive与传统关系型数据库-RDBMS）对比"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hive与传统关系型数据库(RDBMS）对比</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive简介"><span class="nav-number">1.</span> <span class="nav-text">Hive简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive基本情况"><span class="nav-number">1.0.1.</span> <span class="nav-text">Hive基本情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive优缺点："><span class="nav-number">1.0.2.</span> <span class="nav-text">Hive优缺点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive与传统关系型数据库-RDBMS）对比"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hive与传统关系型数据库(RDBMS）对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive的架构"><span class="nav-number">2.</span> <span class="nav-text">Hive的架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive的数据组织格式"><span class="nav-number">3.</span> <span class="nav-text">Hive的数据组织格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive安装"><span class="nav-number">4.</span> <span class="nav-text">Hive安装</span></a></li></ol></div>
             
 
           </div>

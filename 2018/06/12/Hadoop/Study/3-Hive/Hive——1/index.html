@@ -83,19 +83,19 @@
 
 
 
-<meta name="description" content="Hive简介 Hive 是建立在 Hadoop 上的数据仓库基础构架 由facebook开源，最初用于解决海量结构化的日志数据统 计问题; ETL(Extraction-Transformation-Loading)工具   构建在Hadoop之上的数据仓库; 数据计算使用MR，数据存储使用HDFS 数据库&amp;amp;数据仓库 的区别： 概念上 数据库：用于管理精细化数据，一般情况下用于存储结果数据">
+<meta name="description" content="Hive简介 Hive基本情况Hive 是建立在 Hadoop 上的数据仓库基础构架  由facebook开源，最初用于解决海量结构化的日志数据统 计问题; ETL(Extraction-Transformation-Loading)工具   构建在Hadoop之上的数据仓库; 数据计算使用MR，数据存储使用HDFS 数据库&amp;amp;数据仓库 的区别： 概念上 数据库：用于管理精细化数据，一般情况">
 <meta name="keywords" content="原创,技术,Hadoop,Hive">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hive学习——1">
 <meta property="og:url" content="https://airpoet.github.io/2018/06/12/Hadoop/Study/3-Hive/Hive——1/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="Hive简介 Hive 是建立在 Hadoop 上的数据仓库基础构架 由facebook开源，最初用于解决海量结构化的日志数据统 计问题; ETL(Extraction-Transformation-Loading)工具   构建在Hadoop之上的数据仓库; 数据计算使用MR，数据存储使用HDFS 数据库&amp;amp;数据仓库 的区别： 概念上 数据库：用于管理精细化数据，一般情况下用于存储结果数据">
+<meta property="og:description" content="Hive简介 Hive基本情况Hive 是建立在 Hadoop 上的数据仓库基础构架  由facebook开源，最初用于解决海量结构化的日志数据统 计问题; ETL(Extraction-Transformation-Loading)工具   构建在Hadoop之上的数据仓库; 数据计算使用MR，数据存储使用HDFS 数据库&amp;amp;数据仓库 的区别： 概念上 数据库：用于管理精细化数据，一般情况">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-034055.png">
-<meta property="og:updated_time" content="2018-06-12T03:53:16.984Z">
+<meta property="og:updated_time" content="2018-06-12T04:02:45.141Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive学习——1">
-<meta name="twitter:description" content="Hive简介 Hive 是建立在 Hadoop 上的数据仓库基础构架 由facebook开源，最初用于解决海量结构化的日志数据统 计问题; ETL(Extraction-Transformation-Loading)工具   构建在Hadoop之上的数据仓库; 数据计算使用MR，数据存储使用HDFS 数据库&amp;amp;数据仓库 的区别： 概念上 数据库：用于管理精细化数据，一般情况下用于存储结果数据">
+<meta name="twitter:description" content="Hive简介 Hive基本情况Hive 是建立在 Hadoop 上的数据仓库基础构架  由facebook开源，最初用于解决海量结构化的日志数据统 计问题; ETL(Extraction-Transformation-Loading)工具   构建在Hadoop之上的数据仓库; 数据计算使用MR，数据存储使用HDFS 数据库&amp;amp;数据仓库 的区别： 概念上 数据库：用于管理精细化数据，一般情况">
 <meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-034055.png">
 
 
@@ -410,7 +410,8 @@
 
       
         <h1 id="Hive简介"><a href="#Hive简介" class="headerlink" title="Hive简介"></a>Hive简介</h1><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-034055.png" alt="image-20180612114055129"></p>
-<h5 id="Hive-是建立在-Hadoop-上的数据仓库基础构架"><a href="#Hive-是建立在-Hadoop-上的数据仓库基础构架" class="headerlink" title="Hive 是建立在 Hadoop 上的数据仓库基础构架"></a><strong>Hive</strong> 是建立在 <strong>Hadoop</strong> 上的数据仓库基础构架</h5><ul>
+<h3 id="Hive基本情况"><a href="#Hive基本情况" class="headerlink" title="Hive基本情况"></a>Hive基本情况</h3><p><strong>Hive</strong> 是建立在 <strong>Hadoop</strong> 上的数据仓库基础构架</p>
+<ul>
 <li>由facebook开源，最初用于解决海量结构化的日志数据统 计问题;<ul>
 <li><strong>ETL</strong>(<strong>Extraction-Transformation-Loading</strong>)工具</li>
 </ul>
@@ -444,8 +445,8 @@
 </li>
 <li>可以将结构化的数据映射成一张数据库表<ul>
 <li>结构化数据映射成二维表</li>
-<li>将文本中每一行数据映射为数据库的每一条数据</li>
-<li>将文本中每一列数据映射为hive的表字段</li>
+<li><strong>将文本中每一行数据映射为数据库的每一条数据</strong></li>
+<li><strong>将文本中每一列数据映射为hive的表字段</strong></li>
 </ul>
 </li>
 <li>提供HQL 查询功能<ul>
@@ -473,6 +474,48 @@
 <li>通常用于进行离线数据处理(采用MapReduce) </li>
 <li><strong>可认为是一个HQL—-&gt;MR的语言翻译器</strong> </li>
 </ul>
+<h3 id="Hive优缺点："><a href="#Hive优缺点：" class="headerlink" title="Hive优缺点："></a>Hive优缺点：</h3><ul>
+<li><p>优点：</p>
+<ul>
+<li>简单，容易上手 <ul>
+<li>提供了类<strong>SQL</strong>查询语言<strong>HQL</strong> </li>
+</ul>
+</li>
+<li>为超大数据集设计的计算/扩展能力 <ul>
+<li><strong>MR</strong>作为计算引擎，<strong>HDFS</strong>作为存储系统 </li>
+</ul>
+</li>
+<li>统一的元数据管理(HCalalog) <ul>
+<li>可与<strong>Pig</strong>、<strong>Presto</strong>等共享 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong></p>
+<ul>
+<li><p><strong>不支持 删除 &amp; 修改</strong>  delete&amp;update，<strong>不支持事务</strong></p>
+<ul>
+<li>因为是基于HDFS</li>
+<li>hive做的最多的是查询</li>
+</ul>
+</li>
+<li><p>Hive的HQL表达的能力有限 </p>
+<ul>
+<li>迭代式算法无法表达 </li>
+<li>有些复杂运算用<strong>HQL</strong>不易表达 </li>
+</ul>
+</li>
+<li><p><strong>Hive效率较低，查询延时高</strong></p>
+<ul>
+<li><strong>Hive</strong>自动生成<strong>MapReduce</strong>作业，通常不够智能 </li>
+<li><strong>HQL</strong>调优困难，粒度较粗 </li>
+<li>可控性差 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Hive与传统关系型数据库-RDBMS）对比"><a href="#Hive与传统关系型数据库-RDBMS）对比" class="headerlink" title="Hive与传统关系型数据库(RDBMS）对比"></a>Hive与传统关系型数据库(RDBMS）对比</h3><p>图待补充，pdf里</p>
 
       
     </div>
@@ -724,7 +767,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive简介"><span class="nav-number">1.</span> <span class="nav-text">Hive简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Hive-是建立在-Hadoop-上的数据仓库基础构架"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">Hive 是建立在 Hadoop 上的数据仓库基础构架</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive简介"><span class="nav-number">1.</span> <span class="nav-text">Hive简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive基本情况"><span class="nav-number">1.0.1.</span> <span class="nav-text">Hive基本情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive优缺点："><span class="nav-number">1.0.2.</span> <span class="nav-text">Hive优缺点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive与传统关系型数据库-RDBMS）对比"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hive与传统关系型数据库(RDBMS）对比</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

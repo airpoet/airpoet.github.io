@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="原创,技术,Hadoop,MapReduce," />
+  <meta name="keywords" content="原创,技术,Hadoop,Hive," />
 
 
 
@@ -83,20 +83,22 @@
 
 
 
-<meta name="description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处： 1、输入数据接口：InputFormat   —&amp;gt;     FileInputFormat(文件类型数据读取的通用抽象类)  DBInputFormat （数据库数据读取的通用抽象类）   默认使用的实现类是： TextInputFormat     job.setInputFormatClass">
-<meta name="keywords" content="原创,技术,Hadoop,MapReduce">
+<meta name="description" content="1)  Hive 初探Hive 的数据存储 Hive的数据存储基于Hadoop HDFS Hive没有专门的数据存储格式 存储结构主要包括：数据库、文件、表、视图、索引 Hive默认可以直接加载文本文件（TextFile），还支持SequenceFile、RCFile  创建表时，指定Hive数据的列分隔符与行分隔符，Hive即可解析数据  Hive的系统架构  用户接口，包括 CLI，JDBC/">
+<meta name="keywords" content="原创,技术,Hadoop,Hive">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MapReduce-简单总结">
-<meta property="og:url" content="https://airpoet.github.io/2018/06/12/Hadoop/Study/2-MapReduce/MapReduce-简单总结/index.html">
+<meta property="og:title" content="Hive学习——2">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/13/Hadoop/Study/3-Hive/Hive学习——2/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处： 1、输入数据接口：InputFormat   —&amp;gt;     FileInputFormat(文件类型数据读取的通用抽象类)  DBInputFormat （数据库数据读取的通用抽象类）   默认使用的实现类是： TextInputFormat     job.setInputFormatClass">
+<meta property="og:description" content="1)  Hive 初探Hive 的数据存储 Hive的数据存储基于Hadoop HDFS Hive没有专门的数据存储格式 存储结构主要包括：数据库、文件、表、视图、索引 Hive默认可以直接加载文本文件（TextFile），还支持SequenceFile、RCFile  创建表时，指定Hive数据的列分隔符与行分隔符，Hive即可解析数据  Hive的系统架构  用户接口，包括 CLI，JDBC/">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-070505.png">
-<meta property="og:updated_time" content="2018-06-12T07:05:09.710Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-152054.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-140311.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-163316.jpg">
+<meta property="og:updated_time" content="2018-06-13T23:39:17.421Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MapReduce-简单总结">
-<meta name="twitter:description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处： 1、输入数据接口：InputFormat   —&amp;gt;     FileInputFormat(文件类型数据读取的通用抽象类)  DBInputFormat （数据库数据读取的通用抽象类）   默认使用的实现类是： TextInputFormat     job.setInputFormatClass">
-<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-070505.png">
+<meta name="twitter:title" content="Hive学习——2">
+<meta name="twitter:description" content="1)  Hive 初探Hive 的数据存储 Hive的数据存储基于Hadoop HDFS Hive没有专门的数据存储格式 存储结构主要包括：数据库、文件、表、视图、索引 Hive默认可以直接加载文本文件（TextFile），还支持SequenceFile、RCFile  创建表时，指定Hive数据的列分隔符与行分隔符，Hive即可解析数据  Hive的系统架构  用户接口，包括 CLI，JDBC/">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-152054.jpg">
 
 
 
@@ -126,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://airpoet.github.io/2018/06/12/Hadoop/Study/2-MapReduce/MapReduce-简单总结/"/>
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/13/Hadoop/Study/3-Hive/Hive学习——2/"/>
 
 
 
 
 
-  <title>MapReduce-简单总结 | A.P的文艺杂谈</title>
+  <title>Hive学习——2 | A.P的文艺杂谈</title>
   
 
 
@@ -293,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/12/Hadoop/Study/2-MapReduce/MapReduce-简单总结/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/13/Hadoop/Study/3-Hive/Hive学习——2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -310,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MapReduce-简单总结</h1>
+          <h1 class="post-title" itemprop="name headline">Hive学习——2</h1>
         
 
         <div class="post-meta">
@@ -322,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T15:03:29+08:00">
-                2018-06-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-13T22:04:40+08:00">
+                2018-06-13
               </time>
             
 
@@ -356,19 +358,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/MapReduce/" itemprop="url" rel="index">
-                    <span itemprop="name">MapReduce</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/MapReduce/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
+                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
                   </a>
                 </span>
 
@@ -385,9 +376,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/12/Hadoop/Study/2-MapReduce/MapReduce-简单总结/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/13/Hadoop/Study/3-Hive/Hive学习——2/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/12/Hadoop/Study/2-MapReduce/MapReduce-简单总结/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/13/Hadoop/Study/3-Hive/Hive学习——2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -420,20 +411,190 @@
       
 
       
-        <p>MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，<strong>除了以下几处</strong>：</p>
-<p>1、输入数据接口：InputFormat   —&gt;     FileInputFormat(文件类型数据读取的通用抽象类)  DBInputFormat （数据库数据读取的通用抽象类）<br>   默认使用的实现类是： TextInputFormat     job.setInputFormatClass(TextInputFormat.class)<br>   TextInputFormat的功能逻辑是：一次读一行文本，然后将该行的起始偏移量作为key，行内容作为value返回</p>
-<p>2、逻辑处理接口： Mapper<br>   完全需要用户自己去实现其中  map()   setup()   clean()   </p>
-<p>3、map输出的结果在shuffle阶段会被partition以及sort，此处有两个接口可自定义：<br>     Partitioner<br>        有默认实现 HashPartitioner，逻辑是  根据key和numReduces来返回一个分区号； key.hashCode()&amp;Integer.MAXVALUE % numReduces<br>    通常情况下，用默认的这个HashPartitioner就可以，如果业务上有特别的需求，可以自定义</p>
-<pre><code>Comparable
-   当我们用自定义的对象作为key来输出时，就必须要实现WritableComparable接口，override其中的compareTo()方法
-</code></pre><p>4、reduce端的数据分组比较接口 ： Groupingcomparator<br>    reduceTask拿到输入数据（一个partition的所有数据）后，首先需要对数据进行分组，其分组的默认原则是key相同，然后对每一组kv数据调用一次reduce()方法，并且将这一组kv中的第一个kv的key作为参数传给reduce的key，将这一组数据的value的迭代器传给reduce()的values参数</p>
-<pre><code>利用上述这个机制，我们可以实现一个高效的分组取最大值的逻辑：
-自定义一个bean对象用来封装我们的数据，然后改写其compareTo方法产生倒序排序的效果
-然后自定义一个Groupingcomparator，将bean对象的分组逻辑改成按照我们的业务分组id来分组（比如订单号）
-这样，我们要取的最大值就是reduce()方法中传进来key
-</code></pre><p>5、逻辑处理接口：Reducer<br>    完全需要用户自己去实现其中  reduce()   setup()   clean()   </p>
-<p>6、输出数据接口： OutputFormat  —&gt; 有一系列子类  FileOutputformat  DBoutputFormat  …..<br>    默认实现类是TextOutputFormat，功能逻辑是：  将每一个KV对向目标文本文件中输出为一行</p>
-<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-070505.png" alt="image-20180612150505148">    </p>
+        <h1 id="1-Hive-初探"><a href="#1-Hive-初探" class="headerlink" title="1)  Hive 初探"></a>1)  Hive 初探</h1><h3 id="Hive-的数据存储"><a href="#Hive-的数据存储" class="headerlink" title="Hive 的数据存储"></a>Hive 的数据存储</h3><ul>
+<li>Hive的数据存储基于Hadoop HDFS</li>
+<li>Hive没有专门的数据存储格式</li>
+<li>存储结构主要包括：数据库、文件、表、视图、索引</li>
+<li>Hive默认可以直接加载文本文件（TextFile），还支持SequenceFile、RCFile </li>
+<li>创建表时，指定Hive数据的列分隔符与行分隔符，Hive即可解析数据</li>
+</ul>
+<h3 id="Hive的系统架构"><a href="#Hive的系统架构" class="headerlink" title="Hive的系统架构"></a>Hive的系统架构</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-152054.jpg" alt=""></p>
+<ul>
+<li>用户接口，包括 CLI，JDBC/ODBC，WebUI</li>
+<li>元数据存储，通常是存储在关系数据库如 mysql, derby 中</li>
+<li>解释器、编译器、优化器、执行器</li>
+<li>Hadoop：用 HDFS 进行存储，利用 MapReduce 进行计算</li>
+</ul>
+<h3 id="Hive的系统架构-1"><a href="#Hive的系统架构-1" class="headerlink" title="Hive的系统架构"></a>Hive的系统架构</h3><ul>
+<li>用户接口主要有三个：CLI，JDBC/ODBC和 WebUI<ul>
+<li>CLI，即Shell命令行</li>
+<li>JDBC/ODBC 是 Hive 的Java，与使用传统数据库JDBC的方式类似</li>
+<li>WebGUI是通过浏览器访问 Hive</li>
+</ul>
+</li>
+<li>Hive 将元数据存储在数据库中(metastore)，目前只支持 mysql、derby。Hive 中的元数据包括表的名字，表的列和分区及其属性，表的属性（是否为外部表等），表的数据所在目录等</li>
+<li>解释器、编译器、优化器完成 HQL 查询语句从词法分析、语法分析、编译、优化以及查询计划（plan）的生成。生成的查询计划存储在 HDFS 中，并在随后由 MapReduce 调用执行</li>
+<li>Hive 的数据存储在 HDFS 中，大部分的查询由 MapReduce 完成（包含 <em> 的查询，比如 select </em> from table 不会生成 MapRedcue 任务</li>
+</ul>
+<h3 id="Hive的metastore"><a href="#Hive的metastore" class="headerlink" title="Hive的metastore"></a>Hive的metastore</h3><ul>
+<li>metastore是hive元数据的集中存放地。</li>
+<li>metastore默认使用内嵌的derby数据库作为存储引擎</li>
+<li>Derby引擎的缺点：一次只能打开一个会话</li>
+<li>使用Mysql作为外置存储引擎，多用户同时访问 </li>
+</ul>
+<h3 id="Hive-和-Hadoop-的调用关系"><a href="#Hive-和-Hadoop-的调用关系" class="headerlink" title="Hive 和 Hadoop 的调用关系"></a>Hive 和 Hadoop 的调用关系</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-140311.jpg" alt=""></p>
+<blockquote>
+<p>1、提交sql  交给驱动<br>2、驱动编译    解析相关的字段表信息<br>3、去metastore查询相关的信息    返回字段表信息<br>4、编译返回信息 发给驱动<br>5、驱动发送一个执行计划    交给执行引擎<br>6.1、DDLs <strong>对数据库表的操作的, 直接和metastore交互</strong>,<code>create table t1(name string);</code></p>
+<p>6.2、完成job返回数据信息、找<strong>namenode</strong>查数据<br>6.3、<strong>namenode</strong>交互<code>select count(1) from t1;</code><br>7、返回结果信息集</p>
+</blockquote>
+<h3 id="Hive-参数配置使用"><a href="#Hive-参数配置使用" class="headerlink" title="Hive 参数配置使用"></a>Hive 参数配置使用</h3><table>
+<thead>
+<tr>
+<th>命名空间</th>
+<th>使用权限</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hivevar</td>
+<td>可读写</td>
+<td>$   hive -d name=zhangsan;</td>
+</tr>
+<tr>
+<td>hiveconf</td>
+<td>可读写</td>
+<td>\$   hive –hiveconf hive.cli.print.current.db=true;   $   hive –hiveconf hive.cli.print.header=true;</td>
+</tr>
+<tr>
+<td>system</td>
+<td>可读写</td>
+<td>java定义的配置属性，如system:user.name</td>
+</tr>
+<tr>
+<td>env</td>
+<td>只读</td>
+<td>shell环境变量，如env:USER</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>hivevar </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用场景: 起别名</span></span><br><span class="line">hive -d name=zhangsan  <span class="comment">#传参</span></span><br><span class="line">&gt; create table t2(name string,<span class="variable">$&#123;name&#125;</span> string); <span class="comment">#取参数</span></span><br><span class="line">&gt; desc t2;</span><br><span class="line">---</span><br><span class="line">name                	string</span><br><span class="line">zhangsan            	string</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>hiveconf :</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  显示当前数据库名称</span></span><br><span class="line">[ap@cs2]~% hive --hiveconf hive.cli.print.current.db=<span class="literal">true</span>;</span><br><span class="line">hive (default)&gt; create database mydb;</span><br><span class="line">hive (default)&gt; use mydb;</span><br><span class="line">hive (mydb)&gt; </span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示表头(字段名)</span></span><br><span class="line">hive --hiveconf hive.cli.print.header=<span class="literal">true</span>;</span><br><span class="line">select * from t2;</span><br><span class="line">t2.name	t2.zhangsan</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Hive-的脚本执行"><a href="#Hive-的脚本执行" class="headerlink" title="Hive 的脚本执行"></a>Hive 的脚本执行</h3><ul>
+<li><strong>Hive -e “xx ”</strong><ul>
+<li>e 就是 edit, 在终端打印输出</li>
+</ul>
+</li>
+<li><strong>Hive -e “show tables” &gt;&gt; a.txt</strong><ul>
+<li>可以把执行结果重定向到文件中</li>
+</ul>
+</li>
+<li><strong>Hive -S -e “show tables” &gt;&gt; a.txt</strong><ul>
+<li>-S : silence 安静的执行</li>
+</ul>
+</li>
+<li><strong>hive -f file</strong> <ul>
+<li>hive -f hql ,  hql 是文件, 执行文件</li>
+<li>执行完了之后,  就离开 hive 命令行</li>
+</ul>
+</li>
+<li><strong>hive -i /home/ap/hive-init.sql</strong> <ul>
+<li>执行完了,还在控制台, 可以继续操作</li>
+</ul>
+</li>
+<li><strong>hive&gt;source file</strong><ul>
+<li>source + 文件名  : 直接执行当前目录文件</li>
+</ul>
+</li>
+</ul>
+<h3 id="hive与依赖环境的交互"><a href="#hive与依赖环境的交互" class="headerlink" title="hive与依赖环境的交互"></a>hive与依赖环境的交互</h3><ul>
+<li><strong>与linux交互命令 ！</strong><ul>
+<li><code>!ls</code></li>
+<li><code>!pwd</code></li>
+</ul>
+</li>
+<li>与hdfs交互命令<ul>
+<li><code>dfs -ls /</code></li>
+<li><code>dfs -mkdir /hive</code></li>
+<li><code>hive (default)&gt; dfs -rm -r /user/hive/warehouse/t5;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Hive-的-JDBC-模式"><a href="#Hive-的-JDBC-模式" class="headerlink" title="Hive 的 JDBC 模式"></a>Hive 的 JDBC 模式</h3><ul>
+<li>JAVA API交互执行方式 </li>
+<li>hive 远程服务 (端口号1000  0) 启动方式<ul>
+<li>#hive –service hiveserver2 </li>
+<li>org.apache.hive.jdbc.HiveDriver</li>
+</ul>
+</li>
+<li>在java代码中调用hive的JDBC建立连接</li>
+<li>可以用 beeline 连接</li>
+</ul>
+<h3 id="set命令使用"><a href="#set命令使用" class="headerlink" title="set命令使用"></a>set命令使用</h3><ul>
+<li>Hive 控制台set 命令<ul>
+<li>set;    set -v;  显示所有的环境变量</li>
+<li>set hive.cli.print.current.db=true;</li>
+<li>set hive.cli.print.header=true;  </li>
+<li>set hive.metastore.warehouse.dir=/hive;</li>
+</ul>
+</li>
+<li>hive参数初始化配置set命令:<ul>
+<li><strong>~/.hiverc</strong><ul>
+<li>创建此文件, 在此文件中配置初始化命令</li>
+</ul>
+</li>
+<li>补充：<br><strong>hive历史操作命令集</strong><br><strong>~/.hivehistory</strong></li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h1 id="2-Hive数据类型"><a href="#2-Hive数据类型" class="headerlink" title="2)  Hive数据类型"></a>2)  Hive数据类型</h1><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-163316.jpg" alt=""></p>
+<h3 id="复合数据类型"><a href="#复合数据类型" class="headerlink" title="复合数据类型"></a>复合数据类型</h3><blockquote>
+<p>创建学生表<br>hive&gt;CREATE TABLE student(<br>id INT,<br>name STRING,<br>favors ARRAY\<string>,<br>scores MAP&lt;STRING, FLOAT&gt;<br>);</string></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>默认分隔符</th>
+<th>描述</th>
+<th>语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\n</td>
+<td>分隔行</td>
+<td>LINES   TERMINATED BY ‘\t’</td>
+</tr>
+<tr>
+<td>^A</td>
+<td>分隔字段(列)，显示编码使用\001</td>
+<td>FIELDS   TERMINATED BY ‘\001’</td>
+</tr>
+<tr>
+<td>^B</td>
+<td>分隔复合类型中的元素，显示编码使用\002</td>
+<td>COLLECTION   ITEMS TERMINATED BY ‘\002’</td>
+</tr>
+<tr>
+<td>^C</td>
+<td>分隔map元素的key和value，显示编码使用\003</td>
+<td>MAP   KEYS TERMINATED BY ‘\003’</td>
+</tr>
+</tbody>
+</table>
+<h4 id="a-Struct-使用"><a href="#a-Struct-使用" class="headerlink" title="a.  Struct 使用"></a>a.  Struct 使用</h4><p><strong>Structs内部的数据可以通过DOT（.）来存取</strong>，例如，表中一列c的类型为STRUCT{a INT; b INT}，我们可以通过c.a来访问域a</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 1.创建表</span><br><span class="line">hive&gt; create table student_test(id INT, info struct&lt;name:STRING, age:INT&gt;)ROW FORMAT DELIMITED FIELDS TERMINATED BY ','COLLECTION ITEMS TERMINATED BY ':';</span><br><span class="line"></span><br><span class="line"># 2.加载表</span><br><span class="line">hive&gt; load data local inpath "student_test" into table student_test;</span><br><span class="line"></span><br><span class="line"># 3.顺便设置 显示表头,和当前数据库</span><br><span class="line">hive&gt; set hive.cli.print.header=true;</span><br><span class="line">hive&gt; set hive.cli.print.current.db=true;</span><br><span class="line"></span><br><span class="line"># 4. 展示所有的</span><br><span class="line">hive (default)&gt; select * from student_test;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">student_test.id	student_test.info</span><br><span class="line">1001	&#123;"name":"zhangsan","age":24&#125;</span><br><span class="line">1002	&#123;"name":"lisi","age":28&#125;</span><br><span class="line">1003	&#123;"name":"wangwu","age":25&#125;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line"></span><br><span class="line"># Struct -结构体-使用 . </span><br><span class="line">hive (default)&gt; select id,info.name,info.age from student_test;</span><br><span class="line">id	name	age</span><br><span class="line">1001	zhangsan	24</span><br><span class="line">1002	lisi	28</span><br><span class="line">1003	wangwu	25</span><br></pre></td></tr></table></figure>
+<h4 id="b-Array-使用"><a href="#b-Array-使用" class="headerlink" title="b. Array 使用"></a>b. Array 使用</h4><p><strong>Array中的数据为相同类型</strong>，例如，假如array A中元素[‘a’,’b’,’c’]，则A[1]的值为’b’</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 原始数据</span><br><span class="line">zhangsan,24:25:27:37</span><br><span class="line">lisi,28:39:23:43</span><br><span class="line">wangwu,25:23:02:54</span><br><span class="line"></span><br><span class="line"># 创建表</span><br><span class="line">hive (default)&gt; create table class_test(name string,student_id_list array&lt;int&gt;) row format delimited fields terminated by ',' collection items terminated by ':';</span><br><span class="line"></span><br><span class="line"># 加载表</span><br><span class="line">hive (default)&gt; load data local inpath "class_test" into table class_test;</span><br><span class="line"></span><br><span class="line"># 查看表</span><br><span class="line">hive (default)&gt; select * from class_test;</span><br><span class="line">OK</span><br><span class="line">class_test.name	class_test.student_id_list</span><br><span class="line">zhangsan	[24,25,27,37]</span><br><span class="line">lisi	[28,39,23,43]</span><br><span class="line">wangwu	[25,23,2,54]</span><br><span class="line"></span><br><span class="line"># 查看数据中某个元素</span><br><span class="line">hive (default)&gt; select name, student_id_list[0] from class_test where name='zhangsan';</span><br><span class="line">OK</span><br><span class="line">name	_c1</span><br><span class="line">zhangsan	24</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -481,7 +642,7 @@
           
             <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
           
-            <a href="/tags/MapReduce/" rel="tag"># MapReduce</a>
+            <a href="/tags/Hive/" rel="tag"># Hive</a>
           
         </div>
       
@@ -494,8 +655,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/12/Hadoop/Study/3-Hive/Hive——1/" rel="next" title="Hive学习——1">
-                <i class="fa fa-chevron-left"></i> Hive学习——1
+              <a href="/2018/06/12/Hadoop/Test/王石松hadoop测试/" rel="next" title="王石松-hadoop测试-1">
+                <i class="fa fa-chevron-left"></i> 王石松-hadoop测试-1
               </a>
             
           </div>
@@ -503,10 +664,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/12/Hadoop/Test/王石松hadoop测试/" rel="prev" title="王石松-hadoop测试-1">
-                王石松-hadoop测试-1 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -568,8 +725,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -670,6 +836,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hive-初探"><span class="nav-number">1.</span> <span class="nav-text">1)  Hive 初探</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的数据存储"><span class="nav-number">1.0.1.</span> <span class="nav-text">Hive 的数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构"><span class="nav-number">1.0.2.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构-1"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的metastore"><span class="nav-number">1.0.4.</span> <span class="nav-text">Hive的metastore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-和-Hadoop-的调用关系"><span class="nav-number">1.0.5.</span> <span class="nav-text">Hive 和 Hadoop 的调用关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-参数配置使用"><span class="nav-number">1.0.6.</span> <span class="nav-text">Hive 参数配置使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的脚本执行"><span class="nav-number">1.0.7.</span> <span class="nav-text">Hive 的脚本执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive与依赖环境的交互"><span class="nav-number">1.0.8.</span> <span class="nav-text">hive与依赖环境的交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的-JDBC-模式"><span class="nav-number">1.0.9.</span> <span class="nav-text">Hive 的 JDBC 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set命令使用"><span class="nav-number">1.0.10.</span> <span class="nav-text">set命令使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Hive数据类型"><span class="nav-number">2.</span> <span class="nav-text">2)  Hive数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型"><span class="nav-number">2.0.1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复合数据类型"><span class="nav-number">2.0.2.</span> <span class="nav-text">复合数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-Struct-使用"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">a.  Struct 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-Array-使用"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">b. Array 使用</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -848,9 +1030,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://airpoet.github.io/2018/06/12/Hadoop/Study/2-MapReduce/MapReduce-简单总结/';
-          this.page.identifier = '2018/06/12/Hadoop/Study/2-MapReduce/MapReduce-简单总结/';
-          this.page.title = 'MapReduce-简单总结';
+          this.page.url = 'https://airpoet.github.io/2018/06/13/Hadoop/Study/3-Hive/Hive学习——2/';
+          this.page.identifier = '2018/06/13/Hadoop/Study/3-Hive/Hive学习——2/';
+          this.page.title = 'Hive学习——2';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

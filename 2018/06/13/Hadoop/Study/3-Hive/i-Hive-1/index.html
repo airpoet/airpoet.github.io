@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-152054.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-140311.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-163316.jpg">
-<meta property="og:updated_time" content="2018-06-14T01:15:03.984Z">
+<meta property="og:updated_time" content="2018-06-14T04:02:04.518Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-Hive-1">
 <meta name="twitter:description" content="1)  Hive 初探Hive 的数据存储 Hive的数据存储基于Hadoop HDFS Hive没有专门的数据存储格式 存储结构主要包括：数据库、文件、表、视图、索引 Hive默认可以直接加载文本文件（TextFile），还支持SequenceFile、RCFile  创建表时，指定Hive数据的列分隔符与行分隔符，Hive即可解析数据  Hive的系统架构  用户接口，包括 CLI，JDBC/">
@@ -598,7 +598,7 @@
 <h4 id="c-Map-使用"><a href="#c-Map-使用" class="headerlink" title="c. Map 使用"></a>c. Map 使用</h4><p>访问指定域可以通过[“指定域名称”]进行，例如，一个Map M包含了一个group-&gt;gid的kv对，<strong>gid的值可以通过M[‘group’]来获取</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># 原始数据</span><br><span class="line">1001	job:80,team:60,person:70</span><br><span class="line">1002	job:60,team:80,person:80</span><br><span class="line">1003	job:90,team:70,person:100</span><br><span class="line"></span><br><span class="line"># 创建表</span><br><span class="line">hive (default)&gt; create table employee(id string,perf map&lt;string,int&gt;) row format delimited fields terminated by '\t' collection items terminated by ',' map keys terminated by ':';</span><br><span class="line"></span><br><span class="line"># 导入</span><br><span class="line">hive (default)&gt; load data local inpath "employee_data" into table employee;</span><br><span class="line"></span><br><span class="line"># 查看</span><br><span class="line">hive (default)&gt; select * from employee;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">employee.id	employee.perf</span><br><span class="line">1001	&#123;"job":80,"team":60,"person":70&#125;</span><br><span class="line">1002	&#123;"job":60,"team":80,"person":80&#125;</span><br><span class="line">1003	&#123;"job":90,"team":70,"person":100&#125;</span><br><span class="line">Time taken: 0.228 seconds, Fetched: 3 row(s)</span><br><span class="line"></span><br><span class="line"># 查看单个</span><br><span class="line">hive (default)&gt; select id,perf['job'],perf['team'],perf['person'] from employee;</span><br><span class="line">OK</span><br><span class="line">id	_c1	_c2	_c3</span><br><span class="line">1001	80	60	70</span><br><span class="line">1002	60	80	80</span><br><span class="line">1003	90	70	100</span><br><span class="line"></span><br><span class="line"># 显示别名</span><br><span class="line">hive (default)&gt; select id,perf['job'] as job,perf['team'] as team,perf['person'] as person from employee;</span><br><span class="line">OK</span><br><span class="line">id	job	team	person</span><br><span class="line">1001	80	60	70</span><br><span class="line">1002	60	80	80</span><br><span class="line">1003	90	70	100</span><br></pre></td></tr></table></figure>
 <p><br></p>
-<h2 id="3-数据定义"><a href="#3-数据定义" class="headerlink" title="3) 数据定义"></a>3) 数据定义</h2><h3 id="a-数据库定义"><a href="#a-数据库定义" class="headerlink" title="a). 数据库定义"></a>a). 数据库定义</h3><ul>
+<h1 id="3-数据定义"><a href="#3-数据定义" class="headerlink" title="3) 数据定义"></a>3) 数据定义</h1><h3 id="a-数据库定义"><a href="#a-数据库定义" class="headerlink" title="a)  数据库定义"></a>a)  数据库定义</h3><ul>
 <li><p>默认数据库”default”</p>
 </li>
 <li><p>使用某个数据库 <code>use &lt;数据库名&gt;</code></p>
@@ -629,7 +629,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="b-表定义"><a href="#b-表定义" class="headerlink" title="b). 表定义"></a>b). 表定义</h3><ul>
+<h3 id="b-表定义"><a href="#b-表定义" class="headerlink" title="b)  表定义"></a>b)  表定义</h3><ul>
 <li><p>创建表</p>
 <ul>
 <li><p>hive&gt;CREATE TABLE IF NOT EXISTS t1(…) </p>
@@ -660,9 +660,128 @@
 <li><strong><code>hive (default)&gt; desc formatted t1;</code>  # 格式化查看表的详细信息</strong></li>
 </ul>
 </li>
+<li><p>drop  table xxx;</p>
+<ul>
+<li>删除表</li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+<h3 id="c-列定义"><a href="#c-列定义" class="headerlink" title="c) 列定义"></a>c) 列定义</h3><ul>
+<li><p>修改列的名称、类型、位置、注释</p>
+<ul>
+<li><p><code>ALTER TABLE t3 CHANGE COLUMN old_name new_name String COMMENT &#39;...&#39; AFTER column2;</code></p>
+</li>
+<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 修改列名</span><br><span class="line">hive (default)&gt; alter table t1 change column name username string comment 'new name';</span><br><span class="line"># 查看表</span><br><span class="line">hive (default)&gt; desc t1;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">col_name	data_type	<span class="keyword">comment</span></span><br><span class="line">username            	<span class="keyword">string</span>              	<span class="keyword">new</span> <span class="keyword">name</span></span><br><span class="line">age                 	<span class="built_in">int</span></span><br><span class="line"><span class="comment">---</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>增加列</p>
+<ul>
+<li><p><code>hive&gt; ALTER TABLE t3 ADD COLUMNS(gender int);</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 查看表结构</span><br><span class="line">hive (default)&gt; desc t3;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">col_name	data_type	<span class="keyword">comment</span></span><br><span class="line"><span class="keyword">name</span>                	<span class="keyword">string</span></span><br><span class="line"><span class="comment">---</span></span><br><span class="line"># 添加列</span><br><span class="line">hive (<span class="keyword">default</span>)&gt; <span class="keyword">alter</span> <span class="keyword">table</span> t3 <span class="keyword">add</span> <span class="keyword">columns</span>(gender <span class="built_in">int</span>);</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">hive (default)&gt; desc t3;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">col_name	data_type	<span class="keyword">comment</span></span><br><span class="line"><span class="keyword">name</span>                	<span class="keyword">string</span></span><br><span class="line">gender              	<span class="built_in">int</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>删除列  replace </p>
+<ul>
+<li><strong>非常不建议使用</strong>, 会造成数据错乱, 一般采取重新创建一张表的方式.</li>
+</ul>
+</li>
+</ul>
+<h1 id="4-Hive的数据模型"><a href="#4-Hive的数据模型" class="headerlink" title="4) Hive的数据模型"></a>4) Hive的数据模型</h1><h3 id="a-管理表-又称为内部表-受控表"><a href="#a-管理表-又称为内部表-受控表" class="headerlink" title="a) 管理表 - 又称为内部表, 受控表"></a>a) 管理表 - 又称为内部表, 受控表</h3><h4 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a><strong>基本操作</strong></h4><ul>
+<li>创建数据文件inner_table.dat</li>
+<li>创建表<ul>
+<li>hive&gt;create table inner_table (key string);</li>
+</ul>
+</li>
+<li>加载数据<ul>
+<li>hive&gt;load data local inpath ‘/root/inner_table.dat’ into table inner_table;</li>
+</ul>
+</li>
+<li><p>查看数据</p>
+<ul>
+<li>select * from inner_table</li>
+<li>select count(*) from inner_table</li>
+</ul>
+</li>
+<li><p>删除表 drop table inner_table</p>
+</li>
+<li><strong>注意: </strong><ul>
+<li><strong>如果创建表的时候, 只指定了目录, 没有指定表名, 删除表的时候, 会把该目录下的所有表全部删掉</strong></li>
+<li><code>hive (mydb)&gt; create table t2(id int)location &#39;/home/t2&#39;;</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="内部表解释"><a href="#内部表解释" class="headerlink" title="内部表解释"></a><strong>内部表解释</strong></h4><ul>
+<li>管理表，也称作<strong>内部表</strong>,受控表<ul>
+<li>所有的 Table 数据（不包括 External Table）<strong>都保存在warehouse这个目录中。</strong></li>
+<li><strong>删除表时，元数据与数据都会被删除</strong></li>
+<li>创建过程和数据加载过程（这两个过程可以在同一个语句中完成），<strong>在加载数据的过程中，实际数据会被移动到数据仓库目录中</strong>；之后<strong>对数据对访问</strong>将会<strong>直接在数据仓库目录中</strong>完成。删除表时，表中的数据和元数据将会被同时删除</li>
+</ul>
+</li>
+</ul>
+<h4 id="内部表转为外部表"><a href="#内部表转为外部表" class="headerlink" title="内部表转为外部表"></a><strong>内部表转为外部表</strong></h4><ul>
+<li><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">hive (mydb)&gt; create table t1(id int);</span><br><span class="line"></span><br><span class="line"># manage_table 转换为 外部表 external_table </span><br><span class="line">## 注意: 修改为外部表时, 后面2个都要大写</span><br><span class="line">hive (mydb)&gt; alter table t1 set tblproperties('EXTERNAL'='TRUE');</span><br><span class="line">## 修改为内部表</span><br><span class="line">hive (mydb)&gt; alter table t1 set tblproperties('EXTERNAL'='FALSE');</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 查看t1详细信息</span><br><span class="line">desc formatted t1;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">Location:           	hdfs://cs1:9000/user/hive/warehouse/mydb.db/t1</span><br><span class="line">Table Type:         	EXTERNAL_TABLE</span><br><span class="line"><span class="comment">-- </span></span><br><span class="line"></span><br><span class="line"># 删除t1</span><br><span class="line">hive (mydb)&gt; drop table t1;</span><br><span class="line"># 此时再查看, 已经没了</span><br><span class="line">hive (mydb)&gt; show tables;</span><br><span class="line">OK</span><br><span class="line">tab_name</span><br><span class="line"></span><br><span class="line"># 但是查看hdfs 路径会发现还在, 因为此表现在已经是外部表, 删除不会删除数据</span><br><span class="line">dfs -ls /user/hive/warehouse/mydb.db/t1</span><br><span class="line"></span><br><span class="line"># 如果此时再创建一个新表 t1, 表结构一样, 则数据会自动加载</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="b-外部表"><a href="#b-外部表" class="headerlink" title="b) 外部表"></a>b) 外部表</h3><h4 id="基本操作-1"><a href="#基本操作-1" class="headerlink" title="基本操作"></a><strong>基本操作</strong></h4><ul>
+<li>创建数据文件external_table.dat</li>
+<li>创建表<ul>
+<li><code>hive&gt;create external table external_table1 (key string) ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\t&#39; location &#39;/home/external’;</code></li>
+</ul>
+</li>
+<li>在HDFS创建目录/home/external<ul>
+<li><code>#hadoop fs -put /home/external_table.dat /home/external</code></li>
+<li>在工作中, 一般都这样使用, 把数据上传到 hdfs 中</li>
+</ul>
+</li>
+<li>加载数据<ul>
+<li>LOAD DATA  ‘/home/external_table1.dat’ INTO TABLE external_table1;</li>
+</ul>
+</li>
+<li>查看数据<ul>
+<li>select * from external_table</li>
+<li>select count(*) from external_table</li>
+</ul>
+</li>
+<li>删除表 <ul>
+<li>drop table external_table</li>
+</ul>
+</li>
+</ul>
+<h4 id="外部表解释"><a href="#外部表解释" class="headerlink" title="外部表解释"></a><strong>外部表解释</strong></h4><ul>
+<li>包含External 的表叫外部表<ul>
+<li>删除外部表只删除metastore的元数据，不删除hdfs中的表数据</li>
+<li>外部表 只有一个过程，加载数据和创建表同时完成，并不会移动到数据仓库目录中，只是与外部数据建立一个链接。当删除一个 外部表 时，仅删除该链接</li>
+<li>指向已经在 HDFS 中存在的数据，可以创建 Partition</li>
+<li>它和 内部表 在元数据的组织上是相同的，而实际数据的存储则有较大的差异</li>
+</ul>
+</li>
+</ul>
+<h4 id="外部表语法"><a href="#外部表语法" class="headerlink" title="外部表语法"></a>外部表语法</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> page_view</span><br><span class="line">( viewTime <span class="built_in">INT</span>, </span><br><span class="line">  userid <span class="built_in">BIGINT</span>,</span><br><span class="line">  page_url <span class="keyword">STRING</span>, 	</span><br><span class="line"> referrer_url <span class="keyword">STRING</span>, 							</span><br><span class="line">  ip <span class="keyword">STRING</span> <span class="keyword">COMMENT</span> <span class="string">'IP Address of the User'</span>,</span><br><span class="line">  country <span class="keyword">STRING</span> <span class="keyword">COMMENT</span> <span class="string">'country of origination‘</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string">    COMMENT '</span>This <span class="keyword">is</span> the staging page <span class="keyword">view</span> <span class="keyword">table</span><span class="string">'</span></span><br><span class="line"><span class="string">    ROW FORMAT DELIMITED FIELDS TERMINATED BY '</span>\t<span class="string">' 	LINES 	TERMINATED BY '</span>\n<span class="string">'</span></span><br><span class="line"><span class="string">    STORED AS TEXTFILE</span></span><br><span class="line"><span class="string">    LOCATION '</span>hdfs://centos:<span class="number">9000</span>/<span class="keyword">user</span>/<span class="keyword">data</span>/staging/page_view<span class="string">';</span></span><br></pre></td></tr></table></figure>
+<h3 id="c-分区表"><a href="#c-分区表" class="headerlink" title="c) 分区表"></a>c) 分区表</h3><h4 id="基本概念和操作"><a href="#基本概念和操作" class="headerlink" title="基本概念和操作"></a>基本概念和操作</h4><ul>
+<li>分区可以理解为分类，通过分类把不同类型的数据放到不同的目录下。</li>
+<li>分类的标准就是分区字段，可以一个，也可以多个。</li>
+<li>分区表的意义在于优化查询。查询时尽量利用分区字段。如果不使用分区字段，就会全部扫描。</li>
+</ul>
+<blockquote>
+<p>创建分区表</p>
+<p>hive&gt;CREATE TABLE t3(…) PARTITIONED BY (province string);</p>
+<ul>
+<li>create table t2(name string,age int)partitioned by(class string);</li>
+</ul>
+<p>查看表的分区字段&amp;值</p>
+<p>hive&gt;SHOW <strong>PARTITIONS</strong> t3 [partition (province=’beijing’)];</p>
+<p>添加分区</p>
+<p>hive&gt;ALTER TABLE t3 ADD [IF NOT EXISTS] PARTITION(…) LOCATION ‘…’;</p>
+<ul>
+<li>alter table t2 add if not exists partition(class=’job1’);</li>
+</ul>
+<p>hive&gt;ALTER TABLE t3 DROP PARTITION(…);</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 创建分区表 &amp; 比较</span><br><span class="line">hive (mydb)&gt; create table t2(name string,age int)partitioned by(class string);</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">hive (mydb)&gt; desc t2;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">col_name	data_type	<span class="keyword">comment</span></span><br><span class="line"><span class="keyword">name</span>                	<span class="keyword">string</span></span><br><span class="line">age                 	<span class="built_in">int</span></span><br><span class="line"><span class="keyword">class</span>               	<span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"># <span class="keyword">Partition</span> Information</span><br><span class="line"># col_name            	data_type           	<span class="keyword">comment</span></span><br><span class="line"><span class="keyword">class</span>               	<span class="keyword">string</span></span><br><span class="line"><span class="comment">---</span></span><br><span class="line">hive (mydb)&gt; <span class="keyword">desc</span> t1;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">col_name	data_type	<span class="keyword">comment</span></span><br><span class="line"><span class="keyword">id</span>                  	<span class="built_in">int</span></span><br><span class="line"><span class="keyword">Time</span> taken: <span class="number">0.054</span> seconds, Fetched: <span class="number">1</span> <span class="keyword">row</span>(s)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -735,8 +854,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/14/Hadoop/Study/3-Hive/Hive学习-2/" rel="prev" title="Hive学习-2">
-                Hive学习-2 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/14/Hadoop/Study/3-Hive/Hive学习-2/" rel="prev" title="_Hive学习—1">
+                _Hive学习—1 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -920,7 +1039,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hive-初探"><span class="nav-number">1.</span> <span class="nav-text">1)  Hive 初探</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的数据存储"><span class="nav-number">1.0.1.</span> <span class="nav-text">Hive 的数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构"><span class="nav-number">1.0.2.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构-1"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的metastore"><span class="nav-number">1.0.4.</span> <span class="nav-text">Hive的metastore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-和-Hadoop-的调用关系"><span class="nav-number">1.0.5.</span> <span class="nav-text">Hive 和 Hadoop 的调用关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-参数配置使用"><span class="nav-number">1.0.6.</span> <span class="nav-text">Hive 参数配置使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的脚本执行"><span class="nav-number">1.0.7.</span> <span class="nav-text">Hive 的脚本执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive与依赖环境的交互"><span class="nav-number">1.0.8.</span> <span class="nav-text">hive与依赖环境的交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的-JDBC-模式"><span class="nav-number">1.0.9.</span> <span class="nav-text">Hive 的 JDBC 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set命令使用"><span class="nav-number">1.0.10.</span> <span class="nav-text">set命令使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Hive数据类型"><span class="nav-number">2.</span> <span class="nav-text">2)  Hive数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-基本数据类型"><span class="nav-number">2.0.1.</span> <span class="nav-text">a) 基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-复合数据类型"><span class="nav-number">2.0.2.</span> <span class="nav-text">b) 复合数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-Struct-使用"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">a.  Struct 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-Array-使用"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">b. Array 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-Map-使用"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">c. Map 使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据定义"><span class="nav-number">2.1.</span> <span class="nav-text">3) 数据定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-数据库定义"><span class="nav-number">2.1.1.</span> <span class="nav-text">a). 数据库定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-表定义"><span class="nav-number">2.1.2.</span> <span class="nav-text">b). 表定义</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hive-初探"><span class="nav-number">1.</span> <span class="nav-text">1)  Hive 初探</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的数据存储"><span class="nav-number">1.0.1.</span> <span class="nav-text">Hive 的数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构"><span class="nav-number">1.0.2.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构-1"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的metastore"><span class="nav-number">1.0.4.</span> <span class="nav-text">Hive的metastore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-和-Hadoop-的调用关系"><span class="nav-number">1.0.5.</span> <span class="nav-text">Hive 和 Hadoop 的调用关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-参数配置使用"><span class="nav-number">1.0.6.</span> <span class="nav-text">Hive 参数配置使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的脚本执行"><span class="nav-number">1.0.7.</span> <span class="nav-text">Hive 的脚本执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive与依赖环境的交互"><span class="nav-number">1.0.8.</span> <span class="nav-text">hive与依赖环境的交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的-JDBC-模式"><span class="nav-number">1.0.9.</span> <span class="nav-text">Hive 的 JDBC 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set命令使用"><span class="nav-number">1.0.10.</span> <span class="nav-text">set命令使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Hive数据类型"><span class="nav-number">2.</span> <span class="nav-text">2)  Hive数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-基本数据类型"><span class="nav-number">2.0.1.</span> <span class="nav-text">a) 基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-复合数据类型"><span class="nav-number">2.0.2.</span> <span class="nav-text">b) 复合数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-Struct-使用"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">a.  Struct 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-Array-使用"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">b. Array 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-Map-使用"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">c. Map 使用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-数据定义"><span class="nav-number">3.</span> <span class="nav-text">3) 数据定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-数据库定义"><span class="nav-number">3.0.1.</span> <span class="nav-text">a)  数据库定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-表定义"><span class="nav-number">3.0.2.</span> <span class="nav-text">b)  表定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-列定义"><span class="nav-number">3.0.3.</span> <span class="nav-text">c) 列定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Hive的数据模型"><span class="nav-number">4.</span> <span class="nav-text">4) Hive的数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-管理表-又称为内部表-受控表"><span class="nav-number">4.0.1.</span> <span class="nav-text">a) 管理表 - 又称为内部表, 受控表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本操作"><span class="nav-number">4.0.1.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部表解释"><span class="nav-number">4.0.1.2.</span> <span class="nav-text">内部表解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部表转为外部表"><span class="nav-number">4.0.1.3.</span> <span class="nav-text">内部表转为外部表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-外部表"><span class="nav-number">4.0.2.</span> <span class="nav-text">b) 外部表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本操作-1"><span class="nav-number">4.0.2.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表解释"><span class="nav-number">4.0.2.2.</span> <span class="nav-text">外部表解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表语法"><span class="nav-number">4.0.2.3.</span> <span class="nav-text">外部表语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-分区表"><span class="nav-number">4.0.3.</span> <span class="nav-text">c) 分区表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念和操作"><span class="nav-number">4.0.3.1.</span> <span class="nav-text">基本概念和操作</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

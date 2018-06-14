@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-152054.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-140311.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-163316.jpg">
-<meta property="og:updated_time" content="2018-06-14T04:02:04.518Z">
+<meta property="og:updated_time" content="2018-06-14T07:25:23.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-Hive-1">
 <meta name="twitter:description" content="1)  Hive 初探Hive 的数据存储 Hive的数据存储基于Hadoop HDFS Hive没有专门的数据存储格式 存储结构主要包括：数据库、文件、表、视图、索引 Hive默认可以直接加载文本文件（TextFile），还支持SequenceFile、RCFile  创建表时，指定Hive数据的列分隔符与行分隔符，Hive即可解析数据  Hive的系统架构  用户接口，包括 CLI，JDBC/">
@@ -300,7 +300,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+      <meta itemprop="image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -693,21 +693,20 @@
 <h1 id="4-Hive的数据模型"><a href="#4-Hive的数据模型" class="headerlink" title="4) Hive的数据模型"></a>4) Hive的数据模型</h1><h3 id="a-管理表-又称为内部表-受控表"><a href="#a-管理表-又称为内部表-受控表" class="headerlink" title="a) 管理表 - 又称为内部表, 受控表"></a>a) 管理表 - 又称为内部表, 受控表</h3><h4 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a><strong>基本操作</strong></h4><ul>
 <li>创建数据文件inner_table.dat</li>
 <li>创建表<ul>
-<li>hive&gt;create table inner_table (key string);</li>
+<li><code>hive&gt;create table inner_table (key string);</code></li>
 </ul>
 </li>
 <li>加载数据<ul>
-<li>hive&gt;load data local inpath ‘/root/inner_table.dat’ into table inner_table;</li>
+<li><code>hive&gt;load data local inpath &#39;/root/inner_table.dat&#39; into table inner_table;</code></li>
 </ul>
 </li>
-<li><p>查看数据</p>
-<ul>
-<li>select * from inner_table</li>
-<li>select count(*) from inner_table</li>
+<li>查看数据<ul>
+<li><code>select * from inner_table</code></li>
+<li><code>select count(*) from inner_table</code></li>
 </ul>
 </li>
-<li><p>删除表 drop table inner_table</p>
-</li>
+<li>删除表 <code>drop table inner_table</code></li>
+<li>清空表 <code>truncate table table_name;</code> </li>
 <li><strong>注意: </strong><ul>
 <li><strong>如果创建表的时候, 只指定了目录, 没有指定表名, 删除表的时候, 会把该目录下的所有表全部删掉</strong></li>
 <li><code>hive (mydb)&gt; create table t2(id int)location &#39;/home/t2&#39;;</code></li>
@@ -738,16 +737,16 @@
 </ul>
 </li>
 <li>加载数据<ul>
-<li>LOAD DATA  ‘/home/external_table1.dat’ INTO TABLE external_table1;</li>
+<li><code>LOAD DATA  &#39;/home/external_table1.dat&#39; INTO TABLE external_table1;</code></li>
 </ul>
 </li>
 <li>查看数据<ul>
-<li>select * from external_table</li>
-<li>select count(*) from external_table</li>
+<li><code>select * from external_table</code></li>
+<li><code>select count(*) from external_table</code></li>
 </ul>
 </li>
 <li>删除表 <ul>
-<li>drop table external_table</li>
+<li><code>drop table external_table</code></li>
 </ul>
 </li>
 </ul>
@@ -761,6 +760,16 @@
 </li>
 </ul>
 <h4 id="外部表语法"><a href="#外部表语法" class="headerlink" title="外部表语法"></a>外部表语法</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> page_view</span><br><span class="line">( viewTime <span class="built_in">INT</span>, </span><br><span class="line">  userid <span class="built_in">BIGINT</span>,</span><br><span class="line">  page_url <span class="keyword">STRING</span>, 	</span><br><span class="line"> referrer_url <span class="keyword">STRING</span>, 							</span><br><span class="line">  ip <span class="keyword">STRING</span> <span class="keyword">COMMENT</span> <span class="string">'IP Address of the User'</span>,</span><br><span class="line">  country <span class="keyword">STRING</span> <span class="keyword">COMMENT</span> <span class="string">'country of origination‘</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string">    COMMENT '</span>This <span class="keyword">is</span> the staging page <span class="keyword">view</span> <span class="keyword">table</span><span class="string">'</span></span><br><span class="line"><span class="string">    ROW FORMAT DELIMITED FIELDS TERMINATED BY '</span>\t<span class="string">' 	LINES 	TERMINATED BY '</span>\n<span class="string">'</span></span><br><span class="line"><span class="string">    STORED AS TEXTFILE</span></span><br><span class="line"><span class="string">    LOCATION '</span>hdfs://centos:<span class="number">9000</span>/<span class="keyword">user</span>/<span class="keyword">data</span>/staging/page_view<span class="string">';</span></span><br></pre></td></tr></table></figure>
+<h4 id="外部表注意点"><a href="#外部表注意点" class="headerlink" title="外部表注意点:"></a>外部表注意点:</h4><ul>
+<li><p>先创建外部表/内部表, 表名为<code>t3</code>, 再往<code>t3</code>传对应字段的数据, 就可以直接 select 数据了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">## 先创建表(内部/外部都一样), 再往表中上传数据, 数据可以直接加载</span><br><span class="line">hive (mydb)&gt; create external table t3(id int);</span><br><span class="line">hive (mydb)&gt; create table t3(id int);</span><br><span class="line"></span><br><span class="line"><span class="comment">--</span></span><br><span class="line">intdata: </span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line"><span class="comment">--</span></span><br><span class="line">[ap@cs2]~% hadoop fs -put intdata hdfs://cs1:9000/user/hive/warehouse/mydb.db/t3</span><br><span class="line"></span><br><span class="line">hive (mydb)&gt; select * from t3;</span><br><span class="line"></span><br><span class="line">t3.id</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><u>删除外部表之后, 原本数据不会删除</u>, 此时<strong>在相同的父路径</strong>创建与被删除表<strong>字段相同&amp;名称相同</strong>的<strong>内部/外部表</strong>, 数据<strong>也会直接加载</strong></p>
+</li>
+<li><p><strong>再看一个操作</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 在 mydb.db 库下创建一个外部表 t5, 指定路径为 '/external/t5'</span><br><span class="line"># 此时在 mydb.db 库的路径下是不存在 t5表的, 而是存在 '/external/t5' 中</span><br><span class="line"># 但是使用 'show tables' 是存在 t5 的</span><br><span class="line">hive (mydb)&gt; create external table t5(id int) location '/external/t5';</span><br><span class="line"># 往此目录传数据, 注意: 此时传过去, intdata 数据存在 t5目录下</span><br><span class="line">[ap@cs2]~% hadoop fs -put intdata /external/t5</span><br><span class="line">[ap@cs2]~% hadoop fs -put intdata /external/t5/i2</span><br><span class="line"># 继续传数据, 查询的时候, 就是传的全部数据'相当于所有的数据都在 t5表中'</span><br><span class="line">[ap@cs2]~% hadoop fs -put intdata /external/t5</span><br><span class="line"># 注意: 如果传到 t5 目录下, 没有指定数据文件名的话, 会默认采用数据的名称文件.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <h3 id="c-分区表"><a href="#c-分区表" class="headerlink" title="c) 分区表"></a>c) 分区表</h3><h4 id="基本概念和操作"><a href="#基本概念和操作" class="headerlink" title="基本概念和操作"></a>基本概念和操作</h4><ul>
 <li>分区可以理解为分类，通过分类把不同类型的数据放到不同的目录下。</li>
 <li>分类的标准就是分区字段，可以一个，也可以多个。</li>
@@ -933,7 +942,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/uploads/images/avatar.jpg"
+                src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg"
                 alt="airpoet" />
             
               <p class="site-author-name" itemprop="name">airpoet</p>
@@ -1039,7 +1048,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hive-初探"><span class="nav-number">1.</span> <span class="nav-text">1)  Hive 初探</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的数据存储"><span class="nav-number">1.0.1.</span> <span class="nav-text">Hive 的数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构"><span class="nav-number">1.0.2.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构-1"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的metastore"><span class="nav-number">1.0.4.</span> <span class="nav-text">Hive的metastore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-和-Hadoop-的调用关系"><span class="nav-number">1.0.5.</span> <span class="nav-text">Hive 和 Hadoop 的调用关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-参数配置使用"><span class="nav-number">1.0.6.</span> <span class="nav-text">Hive 参数配置使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的脚本执行"><span class="nav-number">1.0.7.</span> <span class="nav-text">Hive 的脚本执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive与依赖环境的交互"><span class="nav-number">1.0.8.</span> <span class="nav-text">hive与依赖环境的交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的-JDBC-模式"><span class="nav-number">1.0.9.</span> <span class="nav-text">Hive 的 JDBC 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set命令使用"><span class="nav-number">1.0.10.</span> <span class="nav-text">set命令使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Hive数据类型"><span class="nav-number">2.</span> <span class="nav-text">2)  Hive数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-基本数据类型"><span class="nav-number">2.0.1.</span> <span class="nav-text">a) 基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-复合数据类型"><span class="nav-number">2.0.2.</span> <span class="nav-text">b) 复合数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-Struct-使用"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">a.  Struct 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-Array-使用"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">b. Array 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-Map-使用"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">c. Map 使用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-数据定义"><span class="nav-number">3.</span> <span class="nav-text">3) 数据定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-数据库定义"><span class="nav-number">3.0.1.</span> <span class="nav-text">a)  数据库定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-表定义"><span class="nav-number">3.0.2.</span> <span class="nav-text">b)  表定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-列定义"><span class="nav-number">3.0.3.</span> <span class="nav-text">c) 列定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Hive的数据模型"><span class="nav-number">4.</span> <span class="nav-text">4) Hive的数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-管理表-又称为内部表-受控表"><span class="nav-number">4.0.1.</span> <span class="nav-text">a) 管理表 - 又称为内部表, 受控表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本操作"><span class="nav-number">4.0.1.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部表解释"><span class="nav-number">4.0.1.2.</span> <span class="nav-text">内部表解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部表转为外部表"><span class="nav-number">4.0.1.3.</span> <span class="nav-text">内部表转为外部表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-外部表"><span class="nav-number">4.0.2.</span> <span class="nav-text">b) 外部表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本操作-1"><span class="nav-number">4.0.2.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表解释"><span class="nav-number">4.0.2.2.</span> <span class="nav-text">外部表解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表语法"><span class="nav-number">4.0.2.3.</span> <span class="nav-text">外部表语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-分区表"><span class="nav-number">4.0.3.</span> <span class="nav-text">c) 分区表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念和操作"><span class="nav-number">4.0.3.1.</span> <span class="nav-text">基本概念和操作</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hive-初探"><span class="nav-number">1.</span> <span class="nav-text">1)  Hive 初探</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的数据存储"><span class="nav-number">1.0.1.</span> <span class="nav-text">Hive 的数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构"><span class="nav-number">1.0.2.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构-1"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的metastore"><span class="nav-number">1.0.4.</span> <span class="nav-text">Hive的metastore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-和-Hadoop-的调用关系"><span class="nav-number">1.0.5.</span> <span class="nav-text">Hive 和 Hadoop 的调用关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-参数配置使用"><span class="nav-number">1.0.6.</span> <span class="nav-text">Hive 参数配置使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的脚本执行"><span class="nav-number">1.0.7.</span> <span class="nav-text">Hive 的脚本执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive与依赖环境的交互"><span class="nav-number">1.0.8.</span> <span class="nav-text">hive与依赖环境的交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的-JDBC-模式"><span class="nav-number">1.0.9.</span> <span class="nav-text">Hive 的 JDBC 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set命令使用"><span class="nav-number">1.0.10.</span> <span class="nav-text">set命令使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Hive数据类型"><span class="nav-number">2.</span> <span class="nav-text">2)  Hive数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-基本数据类型"><span class="nav-number">2.0.1.</span> <span class="nav-text">a) 基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-复合数据类型"><span class="nav-number">2.0.2.</span> <span class="nav-text">b) 复合数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-Struct-使用"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">a.  Struct 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-Array-使用"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">b. Array 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-Map-使用"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">c. Map 使用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-数据定义"><span class="nav-number">3.</span> <span class="nav-text">3) 数据定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-数据库定义"><span class="nav-number">3.0.1.</span> <span class="nav-text">a)  数据库定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-表定义"><span class="nav-number">3.0.2.</span> <span class="nav-text">b)  表定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-列定义"><span class="nav-number">3.0.3.</span> <span class="nav-text">c) 列定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Hive的数据模型"><span class="nav-number">4.</span> <span class="nav-text">4) Hive的数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-管理表-又称为内部表-受控表"><span class="nav-number">4.0.1.</span> <span class="nav-text">a) 管理表 - 又称为内部表, 受控表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本操作"><span class="nav-number">4.0.1.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部表解释"><span class="nav-number">4.0.1.2.</span> <span class="nav-text">内部表解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部表转为外部表"><span class="nav-number">4.0.1.3.</span> <span class="nav-text">内部表转为外部表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-外部表"><span class="nav-number">4.0.2.</span> <span class="nav-text">b) 外部表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本操作-1"><span class="nav-number">4.0.2.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表解释"><span class="nav-number">4.0.2.2.</span> <span class="nav-text">外部表解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表语法"><span class="nav-number">4.0.2.3.</span> <span class="nav-text">外部表语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表注意点"><span class="nav-number">4.0.2.4.</span> <span class="nav-text">外部表注意点:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-分区表"><span class="nav-number">4.0.3.</span> <span class="nav-text">c) 分区表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念和操作"><span class="nav-number">4.0.3.1.</span> <span class="nav-text">基本概念和操作</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

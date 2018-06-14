@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-163316.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-113618.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-113550.png">
-<meta property="og:updated_time" content="2018-06-14T14:13:39.292Z">
+<meta property="og:updated_time" content="2018-06-14T15:00:42.949Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-Hive-1">
 <meta name="twitter:description" content="1)  Hive 初探Hive 的数据存储 Hive的数据存储基于Hadoop HDFS Hive没有专门的数据存储格式 存储结构主要包括：数据库、文件、表、视图、索引 Hive默认可以直接加载文本文件（TextFile），还支持SequenceFile、RCFile  创建表时，指定Hive数据的列分隔符与行分隔符，Hive即可解析数据  Hive的系统架构  用户接口，包括 CLI，JDBC/">
@@ -888,8 +888,10 @@
 <li><p>桶表是对数据进行哈希取值，然后放到不同文件中存储。</p>
 </li>
 <li><p>创建表 <strong>clustered by(xx)</strong></p>
-<pre><code>- `create table bucket_table(id string) clustered by(id) into 4 buckets;`
-</code></pre></li>
+<ul>
+<li>create table bucket_table(id string) clustered by(id) into 4 buckets;</li>
+</ul>
+</li>
 <li><p><strong>加载数据</strong></p>
 <ul>
 <li><code>set hive.enforce.bucketing = true;</code></li>
@@ -916,15 +918,30 @@
 </li>
 </ul>
 </li>
-</ul>
+<li><p><strong>修改桶的个数</strong></p>
 <ul>
-<li><p><strong>注意：</strong></p>
-<ul>
-<li>物理上，每个桶就是表(或分区）目录里的一个文件</li>
-<li>一个作业产生的桶(输出文件)和reduce任务个数相同</li>
+<li><code>alter table bucket_table clustered by (id) sorted by(id) into 10 buckets;</code><ul>
+<li>但是这样修改之后, 生成的是原来的 copy, 并且里面的数据也很奇怪, 不知道是按照什么来执行的? <strong>:TODO</strong></li>
 </ul>
 </li>
 </ul>
+</li>
+<li><p><strong>注意：</strong></p>
+<ul>
+<li><strong>物理上，每个桶就是表(或分区）目录里的一个文件</strong></li>
+<li>一个作业产生的<strong>桶(输出文件)和reduce任务个数相同</strong></li>
+</ul>
+</li>
+<li><p><strong>桶表工作中容易遇到的错误</strong></p>
+<ul>
+<li><p><strong>向桶表中插入其它表查出的数据的时候,  必须指定字段名</strong>, 否则会报字段不匹配.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FAILED: SemanticException [Error 10044]: Line 1:12 Cannot <span class="keyword">insert</span> <span class="keyword">into</span> target <span class="keyword">table</span> because <span class="keyword">column</span> <span class="built_in">number</span>/types <span class="keyword">are</span> different <span class="string">'bucket_table'</span>: <span class="keyword">Table</span> insclause<span class="number">-0</span> has <span class="number">1</span> <span class="keyword">columns</span>, but <span class="keyword">query</span> has <span class="number">2</span> columns.</span><br><span class="line"></span><br><span class="line"># 应该是这样</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> bucket_table <span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t6;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li></li>
+</ul>
+<p>t6是分桶表</p>
 
       
     </div>

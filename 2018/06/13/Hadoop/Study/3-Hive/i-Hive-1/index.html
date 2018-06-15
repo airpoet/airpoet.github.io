@@ -96,7 +96,8 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-163316.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-113618.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-113550.png">
-<meta property="og:updated_time" content="2018-06-14T15:34:38.311Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-15-070816.jpg">
+<meta property="og:updated_time" content="2018-06-15T07:44:45.833Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-Hive-1">
 <meta name="twitter:description" content="1)  Hive 初探Hive 的数据存储 Hive的数据存储基于Hadoop HDFS Hive没有专门的数据存储格式 存储结构主要包括：数据库、文件、表、视图、索引 Hive默认可以直接加载文本文件（TextFile），还支持SequenceFile、RCFile  创建表时，指定Hive数据的列分隔符与行分隔符，Hive即可解析数据  Hive的系统架构  用户接口，包括 CLI，JDBC/">
@@ -514,6 +515,7 @@
 </li>
 <li><strong>hive&gt;source file</strong><ul>
 <li>source + 文件名  : 直接执行当前目录文件</li>
+<li><code>source /home/ap/xx.sql;</code></li>
 </ul>
 </li>
 </ul>
@@ -523,7 +525,7 @@
 <li><code>!pwd</code></li>
 </ul>
 </li>
-<li>与hdfs交互命令<ul>
+<li><strong>与hdfs交互命令</strong><ul>
 <li><code>dfs -ls /</code></li>
 <li><code>dfs -mkdir /hive</code></li>
 <li><code>hive (default)&gt; dfs -rm -r /user/hive/warehouse/t5;</code></li>
@@ -648,6 +650,7 @@
 </li>
 <li><p><strong>hive&gt;CREATE TABLE t2 LIKE t1;</strong>   复制表</p>
 <ul>
+<li><strong>只会复制表结构</strong></li>
 <li><code>hive (default)&gt; create table t2 like t1;</code></li>
 <li><code>hive (mydb)&gt; create table t3 like default.employee;</code><ul>
 <li>复制其它库的表</li>
@@ -739,7 +742,7 @@
 <li><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">hive (mydb)&gt; create table t1(id int);</span><br><span class="line"></span><br><span class="line"># manage_table 转换为 外部表 external_table </span><br><span class="line">## 注意: 修改为外部表时, 后面2个都要大写</span><br><span class="line">hive (mydb)&gt; alter table t1 set tblproperties('EXTERNAL'='TRUE');</span><br><span class="line">## 修改为内部表</span><br><span class="line">hive (mydb)&gt; alter table t1 set tblproperties('EXTERNAL'='FALSE');</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 查看t1详细信息</span><br><span class="line">desc formatted t1;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">Location:           	hdfs://cs1:9000/user/hive/warehouse/mydb.db/t1</span><br><span class="line">Table Type:         	EXTERNAL_TABLE</span><br><span class="line"><span class="comment">-- </span></span><br><span class="line"></span><br><span class="line"># 删除t1</span><br><span class="line">hive (mydb)&gt; drop table t1;</span><br><span class="line"># 此时再查看, 已经没了</span><br><span class="line">hive (mydb)&gt; show tables;</span><br><span class="line">OK</span><br><span class="line">tab_name</span><br><span class="line"></span><br><span class="line"># 但是查看hdfs 路径会发现还在, 因为此表现在已经是外部表, 删除不会删除数据</span><br><span class="line">dfs -ls /user/hive/warehouse/mydb.db/t1</span><br><span class="line"></span><br><span class="line"># 如果此时再创建一个新表 t1, 表结构一样, 则数据会自动加载</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="b-外部表"><a href="#b-外部表" class="headerlink" title="b) 外部表"></a>b) 外部表</h3><h4 id="基本操作-1"><a href="#基本操作-1" class="headerlink" title="基本操作"></a><strong>基本操作</strong></h4><ul>
+<h3 id="b-※-外部表"><a href="#b-※-外部表" class="headerlink" title="b) ※ 外部表"></a>b) ※ 外部表</h3><h4 id="基本操作-1"><a href="#基本操作-1" class="headerlink" title="基本操作"></a><strong>基本操作</strong></h4><ul>
 <li>创建数据文件external_table.dat</li>
 <li>创建表<ul>
 <li><code>hive&gt;create external table external_table1 (key string) ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\t&#39; location &#39;/home/external’;</code></li>
@@ -784,7 +787,7 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 在 mydb.db 库下创建一个外部表 t5, 指定路径为 '/external/t5'</span><br><span class="line"># 此时在 mydb.db 库的路径下是不存在 t5表的, 而是存在 '/external/t5' 中</span><br><span class="line"># 但是使用 'show tables' 是存在 t5 的</span><br><span class="line">hive (mydb)&gt; create external table t5(id int) location '/external/t5';</span><br><span class="line"># 往此目录传数据, 注意: 此时传过去, intdata 数据存在 t5目录下</span><br><span class="line">[ap@cs2]~% hadoop fs -put intdata /external/t5</span><br><span class="line">[ap@cs2]~% hadoop fs -put intdata /external/t5/i2</span><br><span class="line"># 继续传数据, 查询的时候, 就是传的全部数据'相当于所有的数据都在 t5表中'</span><br><span class="line">[ap@cs2]~% hadoop fs -put intdata /external/t5</span><br><span class="line"># 注意: 如果传到 t5 目录下, 没有指定数据文件名的话, 会默认采用数据的名称文件.</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="c-分区表"><a href="#c-分区表" class="headerlink" title="c) 分区表"></a>c) 分区表</h3><h4 id="基本概念和操作"><a href="#基本概念和操作" class="headerlink" title="基本概念和操作"></a>基本概念和操作</h4><ul>
+<h3 id="c-※-分区表"><a href="#c-※-分区表" class="headerlink" title="c)  ※ 分区表"></a>c)  ※ 分区表</h3><h4 id="基本概念和操作"><a href="#基本概念和操作" class="headerlink" title="基本概念和操作"></a>基本概念和操作</h4><ul>
 <li>分区可以理解为分类，通过分类把不同类型的数据放到不同的目录下。</li>
 <li>分类的标准就是分区字段，可以一个，也可以多个。</li>
 <li>分区表的意义在于优化查询。查询时尽量利用分区字段。如果不使用分区字段，就会全部扫描。</li>
@@ -885,7 +888,7 @@
 </li>
 <li>工作中 用的最多的是 <strong>外部表 + 分区表</strong> </li>
 </ul>
-<h3 id="d-桶表"><a href="#d-桶表" class="headerlink" title="d) 桶表"></a>d) 桶表</h3><h4 id="桶表的基本操作"><a href="#桶表的基本操作" class="headerlink" title="桶表的基本操作"></a>桶表的基本操作</h4><ul>
+<h3 id="d-桶表-主要用于抽样查询"><a href="#d-桶表-主要用于抽样查询" class="headerlink" title="d) 桶表 - 主要用于抽样查询"></a>d) 桶表 - 主要用于抽样查询</h3><h4 id="桶表的基本操作"><a href="#桶表的基本操作" class="headerlink" title="桶表的基本操作"></a>桶表的基本操作</h4><ul>
 <li><p>桶表是对数据进行哈希取值，然后放到不同文件中存储。</p>
 </li>
 <li><p>创建桶表 <strong>clustered by(xx)</strong></p>
@@ -898,8 +901,9 @@
 <li><code>set hive.enforce.bucketing = true;</code></li>
 <li><strong>insert into</strong> 插入<ul>
 <li><code>insert into table bucket_table select id from t1;</code><ul>
-<li>桶表只能从其它表查询 加载, 不能直接导数据.</li>
-<li><strong>这里会走 MR</strong>, 不过貌似是可以调的?</li>
+<li><strong>桶表只能从其它表查询 加载, 不能直接导数据.</strong></li>
+<li>如果查询到的数据为空, 同样会生成指定个数的表</li>
+<li><strong>这里会走 MR</strong>, 不过貌似是可以调的? :TODO</li>
 <li><code>Stage-Stage-1: Map: 1  Reduce: 4   Cumulative CPU: 13.9 sec   HDFS Read: 17522 HDFS Write: 302 SUCCESS</code></li>
 </ul>
 </li>
@@ -947,7 +951,175 @@
 </ul>
 </li>
 </ul>
-<h4 id="桶表的抽样查询"><a href="#桶表的抽样查询" class="headerlink" title="桶表的抽样查询"></a>桶表的抽样查询</h4>
+<h4 id="※-桶表的抽样查询"><a href="#※-桶表的抽样查询" class="headerlink" title="※ 桶表的抽样查询"></a>※ 桶表的抽样查询</h4><ul>
+<li>桶表的抽样查询<ul>
+<li>select * from bucket_table tablesample<strong>(bucket 1 out of 4 on id);</strong></li>
+</ul>
+</li>
+<li>tablesample是抽样语句<ul>
+<li>语法解析：<strong>TABLESAMPLE(BUCKET x OUT OF y)</strong></li>
+<li><strong>y必须是table总bucket数的<u>倍数</u>或者<u>因子</u>。</strong></li>
+<li>hive根据y的大小，决定抽样的比例。</li>
+<li><strong>例如</strong>，table总共分了64份，当y=32时，抽取(64/32=)2个bucket的数据，当y=128时，抽取(64/128=)1/2个bucket的数据。x表示从哪个bucket开始抽取。</li>
+<li><strong>例如</strong>，table总bucket数为32，tablesample(bucket 3 out of 16)，表示总共抽取（32/16=）2个bucket的数据，分别为第3个bucket和第（3+16=）19个bucket的数据。</li>
+</ul>
+</li>
+</ul>
+<h1 id="5-Hive-视图的操作"><a href="#5-Hive-视图的操作" class="headerlink" title="5) Hive 视图的操作"></a>5) Hive 视图的操作</h1><ul>
+<li>使用视图可以<strong>降低查询的复杂度</strong></li>
+<li><strong>视图的创建</strong><ul>
+<li><strong>create view</strong> v1 <strong>AS</strong> <u>select  t1.name from t1</u>;</li>
+</ul>
+</li>
+<li><strong>视图的删除</strong><ul>
+<li><strong>drop view</strong> if exists v1;</li>
+</ul>
+</li>
+</ul>
+<h1 id="6-Hive-索引的操作"><a href="#6-Hive-索引的操作" class="headerlink" title="6) Hive 索引的操作"></a>6) Hive 索引的操作</h1><ul>
+<li><p><strong>创建索引</strong></p>
+<ul>
+<li><code>create index t1_index on table t1(id) as &#39;org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler&#39; with deferred rebuild in table t1_index_table;</code></li>
+<li><code>t1_index</code>: <strong>索引名称</strong></li>
+<li>as: 指定索引器</li>
+<li><code>t1_index_table</code>: <strong>要创建的索引表</strong></li>
+</ul>
+</li>
+<li><p><strong>显示索引</strong></p>
+<ul>
+<li>show formatted index on t1;</li>
+</ul>
+</li>
+<li><p><strong>重建索引</strong></p>
+<ul>
+<li><p><strong>alter index</strong> t1_index <strong>on</strong> t1 <strong>rebuild</strong>;</p>
+</li>
+<li><p>重建完索引之后, 查看 t1_index_table 这张表, 就存了t1表文件具体的位置, 最后一列<code>t1_index_table._offsets</code>是 <strong>索引的偏移量, 类似于指针,  偏移量是索引的精髓</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hive (mydb)&gt; select * from t1_index_table;</span><br><span class="line">OK</span><br><span class="line">t1_index_table.id	t1_index_table._bucketname	t1_index_table._offsets</span><br><span class="line">1	hdfs://cs1:9000/user/hive/warehouse/mydb.db/t1/intdata	[0]</span><br><span class="line">2	hdfs://cs1:9000/user/hive/warehouse/mydb.db/t1/intdata	[2]</span><br><span class="line">3	hdfs://cs1:9000/user/hive/warehouse/mydb.db/t1/intdata	[4]</span><br><span class="line">4	hdfs://cs1:9000/user/hive/warehouse/mydb.db/t1/intdata	[6]</span><br><span class="line">5	hdfs://cs1:9000/user/hive/warehouse/mydb.db/t1/intdata	[8]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>分区字段本质上其实就是索引</strong></p>
+</li>
+</ul>
+<h1 id="7-装载数据"><a href="#7-装载数据" class="headerlink" title="7) 装载数据"></a>7) 装载数据</h1><h3 id="普通装载数据"><a href="#普通装载数据" class="headerlink" title="普通装载数据:"></a><strong>普通装载数据:</strong></h3><ul>
+<li><strong>从本地</strong>  put</li>
+<li><p><strong>从 hive</strong> cp</p>
+</li>
+<li><p><strong>从文件中装载数据</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt;LOAD DATA [LOCAL] INPATH '...' [OVERWRITE] INTO TABLE t2 [PARTITION (province='beijing')];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>通过查询表装载数据</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 方式1</span><br><span class="line">hive&gt;INSERT OVERWRITE TABLE t2 PARTITION (province='beijing') SELECT * FROM xxx WHERE xxx;</span><br><span class="line"></span><br><span class="line"># 方式2</span><br><span class="line">hive&gt;FROM t4 </span><br><span class="line"> <span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> t3 <span class="keyword">PARTITION</span> (...) <span class="keyword">SELECT</span> ...WHERE... </span><br><span class="line"> <span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> t3 <span class="keyword">PARTITION</span> (...) <span class="keyword">SELECT</span> ...WHERE... </span><br><span class="line"> <span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> t3 <span class="keyword">PARTITION</span> (...) <span class="keyword">SELECT</span> ...WHERE...;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="动态装载数据"><a href="#动态装载数据" class="headerlink" title="动态装载数据"></a>动态装载数据</h3><ul>
+<li><p>不开启只支持</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hive&gt;INSERT OVERWRITE TABLE t3 PARTITION(province='bj', city='bj') </span><br><span class="line"><span class="keyword">SELECT</span> t.province, t.city <span class="keyword">FROM</span> temp t <span class="keyword">WHERE</span> t.province=<span class="string">'bj'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启动态分区支持</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive&gt;set hive.exec.dynamic.partition=true;</span><br><span class="line">hive&gt;set hive.exec.dynamic.partition.mode=nostrict;</span><br><span class="line">hive&gt;set hive.exec.max.dynamic.partitions.pernode=1000;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>把 t6 表的所有的字段 (包括分区字段) 加载进 t9 对应的分区</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive (mydb)&gt; insert overwrite table t9 partition(class) select id,class from t6;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>单语句建表并同时装载数据</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt;CREATE TABLE t4 AS SELECT ....</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="8-导出数据"><a href="#8-导出数据" class="headerlink" title="8) 导出数据"></a>8) 导出数据</h1><ul>
+<li><strong>在hdfs之间复制文件(夹)</strong><ul>
+<li><code>hadoop fs -cp source destination</code></li>
+<li><code>hive&gt; dfs -cp source destination</code></li>
+<li>案例: <code>hive&gt;  dfs -get  /user/hive/warehouse/mydb.db/t9  /root/t9;</code><ul>
+<li>从 hdfs 复制到本地</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用DIRECTORY<ul>
+<li><code>hive&gt;INSERT OVERWRITE 【LOCAL】 DIRECTORY &#39;...&#39; SELECT ...FROM...WHERE ...;</code></li>
+<li>案例:通过查询导出到 t9, 走的 MapReduce<ul>
+<li>导到到 hdfs:  <code>insert overwrite directory &quot;/home/t9&quot; select * from t9;</code></li>
+<li>导出到本地: <code>insert overwrite local directory &quot;/home/ap/t9&quot; select * from t9;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="9-读模式-amp-写模式"><a href="#9-读模式-amp-写模式" class="headerlink" title="9) 读模式&amp;写模式"></a>9) 读模式&amp;写模式</h1><ul>
+<li>RDBMS是写模式</li>
+<li>Hive是读模式</li>
+</ul>
+<h1 id="10-完整建表语句语法"><a href="#10-完整建表语句语法" class="headerlink" title="10) 完整建表语句语法"></a>10) 完整建表语句语法</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> [<span class="keyword">EXTERNAL</span>] <span class="keyword">TABLE</span> [<span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] [db_name.]table_name</span><br><span class="line">  [(col_name data_type [<span class="keyword">COMMENT</span> col_comment], ...)]</span><br><span class="line">    [<span class="keyword">COMMENT</span> table_comment]</span><br><span class="line">    [PARTITIONED <span class="keyword">BY</span> (col_name data_type [<span class="keyword">COMMENT</span> col_comment], ...)]</span><br><span class="line">    [CLUSTERED <span class="keyword">BY</span> (col_name, col_name, ...) </span><br><span class="line">    [SORTED <span class="keyword">BY</span> (col_name [<span class="keyword">ASC</span>|<span class="keyword">DESC</span>], ...)] <span class="keyword">INTO</span> num_buckets BUCKETS]</span><br><span class="line">    [SKEWED <span class="keyword">BY</span> (col_name, col_name, ...) <span class="keyword">ON</span> ([(col_value, col_value, ...), ...|col_value, col_value, ...]) </span><br><span class="line">    [<span class="keyword">STORED</span> <span class="keyword">AS</span> DIRECTORIES]   ]</span><br><span class="line">  [ [<span class="keyword">ROW</span> <span class="keyword">FORMAT</span> row_format] </span><br><span class="line">    [<span class="keyword">STORED</span> <span class="keyword">AS</span> file_format] | <span class="keyword">STORED</span> <span class="keyword">BY</span> <span class="string">'storage.handler.class.name'</span> [<span class="keyword">WITH</span> SERDEPROPERTIES (...)]   ]</span><br><span class="line">  [LOCATION hdfs_path]</span><br><span class="line">  [TBLPROPERTIES (property_name=property_value, ...)]     </span><br><span class="line">  [<span class="keyword">AS</span> select_statement]  (Note: <span class="keyword">not</span> supported <span class="keyword">when</span> creating <span class="keyword">external</span> tables.)</span><br></pre></td></tr></table></figure>
+<h1 id="11-文件格式"><a href="#11-文件格式" class="headerlink" title="11) 文件格式"></a>11) 文件格式</h1><ul>
+<li>TextFile</li>
+<li>SequenceFile</li>
+<li>RCFile</li>
+<li>ORC</li>
+</ul>
+<h3 id="a-默认存储格式就是-TextFile"><a href="#a-默认存储格式就是-TextFile" class="headerlink" title="a) 默认存储格式就是 TextFile"></a>a) 默认存储格式就是 TextFile</h3><ul>
+<li>存储空间消耗比较大，</li>
+<li>并且压缩的text 无法分割和合并</li>
+<li>查询的效率最低,可以直接存储，</li>
+<li>加载数据的速度最高</li>
+</ul>
+<h3 id="b-使用SequenceFile存储"><a href="#b-使用SequenceFile存储" class="headerlink" title="b) 使用SequenceFile存储"></a>b) 使用SequenceFile存储</h3><ul>
+<li>存储空间消耗大</li>
+<li>压缩的文件可以分割和合并 </li>
+<li>查询效率高</li>
+<li>需要通过text文件转化来加载</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; </span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test2(<span class="keyword">str</span> <span class="keyword">STRING</span>) <span class="keyword">STORED</span> <span class="keyword">AS</span> SEQUENCEFILE;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> hive.exec.compress.output=<span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> mapred.output.compress=<span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> mapred.output.compression.codec=com.hadoop.compression.lzo.LzoCodec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> io.seqfile.compression.type=<span class="keyword">BLOCK</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> io.compression.codecs=com.hadoop.compression.lzo.LzoCodec;</span><br><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> test2 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> test1;</span><br></pre></td></tr></table></figure>
+<p><strong>注意点: SequenceFile 类型的表, 不能直接导入数据文件,  只能通过从他表查询</strong></p>
+<ul>
+<li><p><code>insert overwrite table t2 select * from t1;</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 查看此 'SequenceFile' 表</span><br><span class="line">hive (db2)&gt; dfs -cat /user/hive/warehouse/db2.db/t2/000000_0 ;</span><br><span class="line">SEQ"org.apache.hadoop.io.BytesWritableorg.apache.hadoop.io.Text*org.apache.hadoop.io.compress.DefaultCodec���/*&lt;bb�m�?x�c453x�c464x�c475x�c486x�c497hive (db2)&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="c-使用RCFile存储"><a href="#c-使用RCFile存储" class="headerlink" title="c) 使用RCFile存储"></a>c) 使用RCFile存储</h3><p><strong>RCFILE是一种行列存储相结合的存储方式。首先，其将数据按行分块，保证同一个record在一个块上，避免读一个记录需要读取多个block。其次，块数据列式存储，有利于数据压缩和快速的列存取。</strong></p>
+<ul>
+<li>rcfile 存储空间最小</li>
+<li>查询的效率最高</li>
+<li>需要通过text文件转化来加载</li>
+<li>加载的速度最低</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; </span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test3(<span class="keyword">str</span> <span class="keyword">STRING</span>)  <span class="keyword">STORED</span> <span class="keyword">AS</span> RCFILE;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> hive.exec.compress.output=<span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> mapred.output.compress=<span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> mapred.output.compression.codec=com.hadoop.compression.lzo.LzoCodec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> io.compression.codecs=com.hadoop.compression.lzo.LzoCodec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> test3 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> test1;</span><br></pre></td></tr></table></figure>
+<p><strong>注意点:  RCFile 也只能从其它表导入数据</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hive (db2)&gt; dfs -cat /user/hive/warehouse/db2.db/t3/000000_0;</span><br><span class="line">RCF*org.apache.hadoop.io.compress.DefaultCodechive.io.rcfile.column.number1</span><br></pre></td></tr></table></figure>
+<h3 id="d-使用ORC存储-最好的一种格式"><a href="#d-使用ORC存储-最好的一种格式" class="headerlink" title="d) 使用ORC存储(最好的一种格式)"></a>d) 使用ORC存储(最好的一种格式)</h3><p><strong>是一种针对 RCFile 优化的格式</strong></p>
+<p>主要特点: <strong>压缩, 索引, 单文件输出</strong></p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-15-070816.jpg" alt=""></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; </span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t1_orc(<span class="keyword">id</span> <span class="built_in">int</span>, <span class="keyword">name</span> <span class="keyword">string</span>) <span class="keyword">row</span> <span class="keyword">format</span> <span class="keyword">delimited</span> <span class="keyword">fields</span> <span class="keyword">terminated</span> <span class="keyword">by</span> <span class="string">'\t'</span> <span class="keyword">stored</span> <span class="keyword">as</span> orc </span><br><span class="line"></span><br><span class="line">tblproperties(<span class="string">"orc.compress"</span>=<span class="string">"ZLIB"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ... [<span class="keyword">PARTITION</span> partition_spec] <span class="keyword">SET</span> FILEFORMAT ORC;</span><br><span class="line"></span><br><span class="line"># 也可以改为其它的, 修改的语法就是这样</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t1 <span class="keyword">set</span> fileformat textfile;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> hive.default.fileformat=Orc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> overwrite <span class="keyword">table</span> t1_orc <span class="keyword">select</span> * <span class="keyword">from</span> t1;</span><br></pre></td></tr></table></figure>
+<p><strong>注意点:  </strong></p>
+<ul>
+<li><strong>ORC 也只能从其它表导入数据</strong></li>
+<li><strong>占用空间大, 一个 block 有256M, 之前2种都是128M</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hive (db2)&gt; dfs -cat /user/hive/warehouse/db2.db/t4/000000_0;</span><br><span class="line">ORC</span><br><span class="line">P+</span><br><span class="line">P	�6�b�``���ь@�H�</span><br><span class="line">                       1q01-</span><br><span class="line">P</span><br><span class="line">PK</span><br><span class="line"># ("</span><br><span class="line">       id0P:</span><br><span class="line">P@�;��"</span><br><span class="line">       (0��ORChive</span><br></pre></td></tr></table></figure>
+<h3 id="12-序列化-amp-反序列化-Hive-SerDe"><a href="#12-序列化-amp-反序列化-Hive-SerDe" class="headerlink" title="12) 序列化 &amp; 反序列化 (Hive SerDe)"></a>12) 序列化 &amp; 反序列化 (Hive SerDe)</h3><ul>
+<li><strong>What is a SerDe?</strong><ul>
+<li>SerDe 是 “Serializer and Deserializer.”的缩写</li>
+<li>Hive 使用 SerDe和FileFormat进行行内容的读写.</li>
+</ul>
+</li>
+<li><strong>Hive序列化流程</strong><ul>
+<li><strong>从 HDFS 上读入文件 (反序列化)</strong><ul>
+<li>HDFS文件 –&gt; InputFileFormat –&gt; &lt;key, value&gt; –&gt; Deserializer –&gt; 行对象</li>
+</ul>
+</li>
+<li><strong>写出到 HDFS (序列化)</strong><ul>
+<li>行对象 –&gt; Serializer –&gt; &lt;key, value&gt; –&gt; OutputFileFormat –&gt; HDFS文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注意: <strong>数据全部存在在value中，key内容无意义</strong></li>
+</ul>
+<p>[] </p>
+
       
     </div>
     
@@ -1009,8 +1181,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/12/Hadoop/Test/王石松hadoop测试/" rel="next" title="王石松-hadoop测试-1">
-                <i class="fa fa-chevron-left"></i> 王石松-hadoop测试-1
+              <a href="/2018/06/12/Hadoop/Study/2-MapReduce/MapReduce-简单总结/" rel="next" title="MapReduce-简单总结">
+                <i class="fa fa-chevron-left"></i> MapReduce-简单总结
               </a>
             
           </div>
@@ -1112,7 +1284,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1123,7 +1295,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1134,7 +1306,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1204,7 +1376,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hive-初探"><span class="nav-number">1.</span> <span class="nav-text">1)  Hive 初探</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的数据存储"><span class="nav-number">1.0.1.</span> <span class="nav-text">Hive 的数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构"><span class="nav-number">1.0.2.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构-1"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的metastore"><span class="nav-number">1.0.4.</span> <span class="nav-text">Hive的metastore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-和-Hadoop-的调用关系"><span class="nav-number">1.0.5.</span> <span class="nav-text">Hive 和 Hadoop 的调用关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-参数配置使用"><span class="nav-number">1.0.6.</span> <span class="nav-text">Hive 参数配置使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的脚本执行"><span class="nav-number">1.0.7.</span> <span class="nav-text">Hive 的脚本执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive与依赖环境的交互"><span class="nav-number">1.0.8.</span> <span class="nav-text">hive与依赖环境的交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的-JDBC-模式"><span class="nav-number">1.0.9.</span> <span class="nav-text">Hive 的 JDBC 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SET命令使用"><span class="nav-number">1.0.10.</span> <span class="nav-text">SET命令使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Hive数据类型"><span class="nav-number">2.</span> <span class="nav-text">2)  Hive数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-基本数据类型"><span class="nav-number">2.0.1.</span> <span class="nav-text">a) 基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-复合数据类型"><span class="nav-number">2.0.2.</span> <span class="nav-text">b) 复合数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-Struct-使用"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">a.  Struct 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-Array-使用"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">b. Array 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-Map-使用"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">c. Map 使用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-数据定义"><span class="nav-number">3.</span> <span class="nav-text">3) 数据定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-数据库定义"><span class="nav-number">3.0.1.</span> <span class="nav-text">a)  数据库定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-表定义"><span class="nav-number">3.0.2.</span> <span class="nav-text">b)  表定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-列定义"><span class="nav-number">3.0.3.</span> <span class="nav-text">c) 列定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Hive的数据模型"><span class="nav-number">4.</span> <span class="nav-text">4) Hive的数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-管理表-又称为内部表-受控表"><span class="nav-number">4.0.1.</span> <span class="nav-text">a) 管理表 - 又称为内部表, 受控表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本操作"><span class="nav-number">4.0.1.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部表解释"><span class="nav-number">4.0.1.2.</span> <span class="nav-text">内部表解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部表转为外部表-外部表转为内部表"><span class="nav-number">4.0.1.3.</span> <span class="nav-text">内部表转为外部表,  外部表转为内部表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-外部表"><span class="nav-number">4.0.2.</span> <span class="nav-text">b) 外部表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本操作-1"><span class="nav-number">4.0.2.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表解释"><span class="nav-number">4.0.2.2.</span> <span class="nav-text">外部表解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表语法"><span class="nav-number">4.0.2.3.</span> <span class="nav-text">外部表语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表注意点"><span class="nav-number">4.0.2.4.</span> <span class="nav-text">外部表注意点:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-分区表"><span class="nav-number">4.0.3.</span> <span class="nav-text">c) 分区表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念和操作"><span class="nav-number">4.0.3.1.</span> <span class="nav-text">基本概念和操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建分区表完整语法"><span class="nav-number">4.0.3.2.</span> <span class="nav-text">创建分区表完整语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分区表注意点-错误点"><span class="nav-number">4.0.3.3.</span> <span class="nav-text">分区表注意点(错误点)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复合分区"><span class="nav-number">4.0.3.4.</span> <span class="nav-text">复合分区</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基本操作-2"><span class="nav-number">4.0.3.4.1.</span> <span class="nav-text">基本操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-桶表"><span class="nav-number">4.0.4.</span> <span class="nav-text">d) 桶表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#桶表的基本操作"><span class="nav-number">4.0.4.1.</span> <span class="nav-text">桶表的基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#桶表的抽样查询"><span class="nav-number">4.0.4.2.</span> <span class="nav-text">桶表的抽样查询</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hive-初探"><span class="nav-number">1.</span> <span class="nav-text">1)  Hive 初探</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的数据存储"><span class="nav-number">1.0.1.</span> <span class="nav-text">Hive 的数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构"><span class="nav-number">1.0.2.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的系统架构-1"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hive的系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的metastore"><span class="nav-number">1.0.4.</span> <span class="nav-text">Hive的metastore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-和-Hadoop-的调用关系"><span class="nav-number">1.0.5.</span> <span class="nav-text">Hive 和 Hadoop 的调用关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-参数配置使用"><span class="nav-number">1.0.6.</span> <span class="nav-text">Hive 参数配置使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的脚本执行"><span class="nav-number">1.0.7.</span> <span class="nav-text">Hive 的脚本执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive与依赖环境的交互"><span class="nav-number">1.0.8.</span> <span class="nav-text">hive与依赖环境的交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-的-JDBC-模式"><span class="nav-number">1.0.9.</span> <span class="nav-text">Hive 的 JDBC 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SET命令使用"><span class="nav-number">1.0.10.</span> <span class="nav-text">SET命令使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Hive数据类型"><span class="nav-number">2.</span> <span class="nav-text">2)  Hive数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-基本数据类型"><span class="nav-number">2.0.1.</span> <span class="nav-text">a) 基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-复合数据类型"><span class="nav-number">2.0.2.</span> <span class="nav-text">b) 复合数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-Struct-使用"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">a.  Struct 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-Array-使用"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">b. Array 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-Map-使用"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">c. Map 使用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-数据定义"><span class="nav-number">3.</span> <span class="nav-text">3) 数据定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-数据库定义"><span class="nav-number">3.0.1.</span> <span class="nav-text">a)  数据库定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-表定义"><span class="nav-number">3.0.2.</span> <span class="nav-text">b)  表定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-列定义"><span class="nav-number">3.0.3.</span> <span class="nav-text">c) 列定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Hive的数据模型"><span class="nav-number">4.</span> <span class="nav-text">4) Hive的数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-管理表-又称为内部表-受控表"><span class="nav-number">4.0.1.</span> <span class="nav-text">a) 管理表 - 又称为内部表, 受控表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本操作"><span class="nav-number">4.0.1.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部表解释"><span class="nav-number">4.0.1.2.</span> <span class="nav-text">内部表解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部表转为外部表-外部表转为内部表"><span class="nav-number">4.0.1.3.</span> <span class="nav-text">内部表转为外部表,  外部表转为内部表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-※-外部表"><span class="nav-number">4.0.2.</span> <span class="nav-text">b) ※ 外部表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本操作-1"><span class="nav-number">4.0.2.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表解释"><span class="nav-number">4.0.2.2.</span> <span class="nav-text">外部表解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表语法"><span class="nav-number">4.0.2.3.</span> <span class="nav-text">外部表语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部表注意点"><span class="nav-number">4.0.2.4.</span> <span class="nav-text">外部表注意点:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-※-分区表"><span class="nav-number">4.0.3.</span> <span class="nav-text">c)  ※ 分区表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念和操作"><span class="nav-number">4.0.3.1.</span> <span class="nav-text">基本概念和操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建分区表完整语法"><span class="nav-number">4.0.3.2.</span> <span class="nav-text">创建分区表完整语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分区表注意点-错误点"><span class="nav-number">4.0.3.3.</span> <span class="nav-text">分区表注意点(错误点)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复合分区"><span class="nav-number">4.0.3.4.</span> <span class="nav-text">复合分区</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基本操作-2"><span class="nav-number">4.0.3.4.1.</span> <span class="nav-text">基本操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-桶表-主要用于抽样查询"><span class="nav-number">4.0.4.</span> <span class="nav-text">d) 桶表 - 主要用于抽样查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#桶表的基本操作"><span class="nav-number">4.0.4.1.</span> <span class="nav-text">桶表的基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#※-桶表的抽样查询"><span class="nav-number">4.0.4.2.</span> <span class="nav-text">※ 桶表的抽样查询</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Hive-视图的操作"><span class="nav-number">5.</span> <span class="nav-text">5) Hive 视图的操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Hive-索引的操作"><span class="nav-number">6.</span> <span class="nav-text">6) Hive 索引的操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-装载数据"><span class="nav-number">7.</span> <span class="nav-text">7) 装载数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通装载数据"><span class="nav-number">7.0.1.</span> <span class="nav-text">普通装载数据:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态装载数据"><span class="nav-number">7.0.2.</span> <span class="nav-text">动态装载数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-导出数据"><span class="nav-number">8.</span> <span class="nav-text">8) 导出数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-读模式-amp-写模式"><span class="nav-number">9.</span> <span class="nav-text">9) 读模式&amp;写模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-完整建表语句语法"><span class="nav-number">10.</span> <span class="nav-text">10) 完整建表语句语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-文件格式"><span class="nav-number">11.</span> <span class="nav-text">11) 文件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-默认存储格式就是-TextFile"><span class="nav-number">11.0.1.</span> <span class="nav-text">a) 默认存储格式就是 TextFile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-使用SequenceFile存储"><span class="nav-number">11.0.2.</span> <span class="nav-text">b) 使用SequenceFile存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-使用RCFile存储"><span class="nav-number">11.0.3.</span> <span class="nav-text">c) 使用RCFile存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-使用ORC存储-最好的一种格式"><span class="nav-number">11.0.4.</span> <span class="nav-text">d) 使用ORC存储(最好的一种格式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-序列化-amp-反序列化-Hive-SerDe"><span class="nav-number">11.0.5.</span> <span class="nav-text">12) 序列化 &amp; 反序列化 (Hive SerDe)</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

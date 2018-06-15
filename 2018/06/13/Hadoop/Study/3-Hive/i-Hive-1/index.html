@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-113618.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-113550.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-15-070816.jpg">
-<meta property="og:updated_time" content="2018-06-15T15:29:50.401Z">
+<meta property="og:updated_time" content="2018-06-15T16:38:40.138Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-Hive-1">
 <meta name="twitter:description" content="1)  Hive 初探Hive 的数据存储 Hive的数据存储基于Hadoop HDFS Hive没有专门的数据存储格式 存储结构主要包括：数据库、文件、表、视图、索引 Hive默认可以直接加载文本文件（TextFile），还支持SequenceFile、RCFile  创建表时，指定Hive数据的列分隔符与行分隔符，Hive即可解析数据  Hive的系统架构  用户接口，包括 CLI，JDBC/">
@@ -515,7 +515,7 @@
 </li>
 <li><strong>hive&gt;source file</strong><ul>
 <li>source + 文件名  : 直接执行当前目录文件</li>
-<li><code>source /home/ap/xx.sql;</code></li>
+<li>source /home/ap/xx.sql;</li>
 </ul>
 </li>
 </ul>
@@ -535,8 +535,8 @@
 <h3 id="Hive-的-JDBC-模式"><a href="#Hive-的-JDBC-模式" class="headerlink" title="Hive 的 JDBC 模式"></a>Hive 的 JDBC 模式</h3><ul>
 <li>JAVA API交互执行方式 </li>
 <li>hive 远程服务 (端口号1000  0) 启动方式<ul>
-<li>#hive –service hiveserver2 </li>
-<li>org.apache.hive.jdbc.HiveDriver</li>
+<li><code>hive --service hiveserver2</code></li>
+<li><code>org.apache.hive.jdbc.HiveDriver</code></li>
 </ul>
 </li>
 <li>在java代码中调用hive的JDBC建立连接</li>
@@ -545,9 +545,9 @@
 <h3 id="SET命令使用"><a href="#SET命令使用" class="headerlink" title="SET命令使用"></a>SET命令使用</h3><ul>
 <li>Hive 控制台set 命令<ul>
 <li>set;    set -v;  显示所有的环境变量</li>
-<li>set hive.cli.print.current.db=true;</li>
-<li>set hive.cli.print.header=true;  </li>
-<li>set hive.metastore.warehouse.dir=/hive;</li>
+<li><code>set hive.cli.print.current.db=true;</code></li>
+<li><code>set hive.cli.print.header=true;</code> </li>
+<li><code>set hive.metastore.warehouse.dir=/hive;</code></li>
 </ul>
 </li>
 <li><strong>hive参数初始化配置set命令:</strong><ul>
@@ -562,8 +562,9 @@
 <p><br></p>
 <h1 id="2-Hive数据类型"><a href="#2-Hive数据类型" class="headerlink" title="2)  Hive数据类型"></a>2)  Hive数据类型</h1><h3 id="a-基本数据类型"><a href="#a-基本数据类型" class="headerlink" title="a) 基本数据类型"></a>a) 基本数据类型</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-13-163316.jpg" alt=""></p>
 <h3 id="b-复合数据类型"><a href="#b-复合数据类型" class="headerlink" title="b) 复合数据类型"></a>b) 复合数据类型</h3><blockquote>
-<p>创建学生表<br>hive&gt;CREATE TABLE student(<br>id INT,<br>name STRING,<br>favors ARRAY\<string>,<br>scores MAP&lt;STRING, FLOAT&gt;<br>);</string></p>
+<p>创建学生表</p>
 </blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> student(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">INT</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="keyword">STRING</span>,</span><br><span class="line">    favors <span class="built_in">ARRAY</span>\&lt;<span class="keyword">STRING</span>&gt;,</span><br><span class="line">    scores <span class="keyword">MAP</span>&lt;<span class="keyword">STRING</span>, <span class="built_in">FLOAT</span>&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
@@ -595,9 +596,9 @@
 </tr>
 </tbody>
 </table>
-<h4 id="a-Struct-使用"><a href="#a-Struct-使用" class="headerlink" title="a.  Struct 使用"></a>a.  Struct 使用</h4><p><strong>Structs内部的数据可以通过DOT（.）来存取</strong>，例如，表中一列c的类型为STRUCT{a INT; b INT}，我们可以通过c.a来访问域a</p>
+<h4 id="a-Struct-使用"><a href="#a-Struct-使用" class="headerlink" title="a.  Struct 使用"></a>a.  Struct 使用</h4><p><strong>Structs内部的数据可以通过DOT（.）来存取</strong>，例如，表中一列c的类型为<code>STRUCT{a INT; b INT}</code>，我们可以通过c.a来访问域a</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"># 数据</span><br><span class="line">1001,zhangsan:24</span><br><span class="line">1002,lisi:28</span><br><span class="line">1003,wangwu:25</span><br><span class="line"></span><br><span class="line"># 1.创建表</span><br><span class="line">hive&gt; create table student_test(id INT, info struct&lt;name:STRING, age:INT&gt;)ROW FORMAT DELIMITED FIELDS TERMINATED BY ','COLLECTION ITEMS TERMINATED BY ':';</span><br><span class="line"></span><br><span class="line"># 2.加载表</span><br><span class="line">hive&gt; load data local inpath "student_test" into table student_test;</span><br><span class="line"></span><br><span class="line"># 3.顺便设置 显示表头,和当前数据库</span><br><span class="line">hive&gt; set hive.cli.print.header=true;</span><br><span class="line">hive&gt; set hive.cli.print.current.db=true;</span><br><span class="line"></span><br><span class="line"># 4. 展示所有的</span><br><span class="line">hive (default)&gt; select * from student_test;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">student_test.id	student_test.info</span><br><span class="line">1001	&#123;"name":"zhangsan","age":24&#125;</span><br><span class="line">1002	&#123;"name":"lisi","age":28&#125;</span><br><span class="line">1003	&#123;"name":"wangwu","age":25&#125;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line"></span><br><span class="line"># Struct -结构体-使用 . </span><br><span class="line">hive (default)&gt; select id,info.name,info.age from student_test;</span><br><span class="line">id	name	age</span><br><span class="line">1001	zhangsan	24</span><br><span class="line">1002	lisi	28</span><br><span class="line">1003	wangwu	25</span><br></pre></td></tr></table></figure>
-<h4 id="b-Array-使用"><a href="#b-Array-使用" class="headerlink" title="b. Array 使用"></a>b. Array 使用</h4><p><strong>Array中的数据为相同类型</strong>，例如，假如array A中元素[‘a’,’b’,’c’]，则A[1]的值为’b’</p>
+<h4 id="b-Array-使用"><a href="#b-Array-使用" class="headerlink" title="b. Array 使用"></a>b. Array 使用</h4><p><strong>Array中的数据为相同类型</strong>，例如，假如array A中元素<code>[&#39;a&#39;,&#39;b&#39;,&#39;c’]</code>，则A[1]的值为’b’</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 原始数据</span><br><span class="line">zhangsan,24:25:27:37</span><br><span class="line">lisi,28:39:23:43</span><br><span class="line">wangwu,25:23:02:54</span><br><span class="line"></span><br><span class="line"># 创建表</span><br><span class="line">hive (default)&gt; create table class_test(name string,student_id_list array&lt;int&gt;) row format delimited fields terminated by ',' collection items terminated by ':';</span><br><span class="line"></span><br><span class="line"># 加载表</span><br><span class="line">hive (default)&gt; load data local inpath "class_test" into table class_test;</span><br><span class="line"></span><br><span class="line"># 查看表</span><br><span class="line">hive (default)&gt; select * from class_test;</span><br><span class="line">OK</span><br><span class="line">class_test.name	class_test.student_id_list</span><br><span class="line">zhangsan	[24,25,27,37]</span><br><span class="line">lisi	[28,39,23,43]</span><br><span class="line">wangwu	[25,23,2,54]</span><br><span class="line"></span><br><span class="line"># 查看数据中某个元素</span><br><span class="line">hive (default)&gt; select name, student_id_list[0] from class_test where name='zhangsan';</span><br><span class="line">OK</span><br><span class="line">name	_c1</span><br><span class="line">zhangsan	24</span><br></pre></td></tr></table></figure>
 <h4 id="c-Map-使用"><a href="#c-Map-使用" class="headerlink" title="c. Map 使用"></a>c. Map 使用</h4><p>访问指定域可以通过[“指定域名称”]进行，例如，一个Map M包含了一个group-&gt;gid的kv对，<strong>gid的值可以通过M[‘group’]来获取</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># 原始数据</span><br><span class="line">1001	job:80,team:60,person:70</span><br><span class="line">1002	job:60,team:80,person:80</span><br><span class="line">1003	job:90,team:70,person:100</span><br><span class="line"></span><br><span class="line"># 创建表</span><br><span class="line">hive (default)&gt; create table employee(id string,perf map&lt;string,int&gt;) row format delimited fields terminated by '\t' collection items terminated by ',' map keys terminated by ':';</span><br><span class="line"></span><br><span class="line"># 导入</span><br><span class="line">hive (default)&gt; load data local inpath "employee_data" into table employee;</span><br><span class="line"></span><br><span class="line"># 查看</span><br><span class="line">hive (default)&gt; select * from employee;</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">employee.id	employee.perf</span><br><span class="line">1001	&#123;"job":80,"team":60,"person":70&#125;</span><br><span class="line">1002	&#123;"job":60,"team":80,"person":80&#125;</span><br><span class="line">1003	&#123;"job":90,"team":70,"person":100&#125;</span><br><span class="line">Time taken: 0.228 seconds, Fetched: 3 row(s)</span><br><span class="line"></span><br><span class="line"># 查看单个</span><br><span class="line">hive (default)&gt; select id,perf['job'],perf['team'],perf['person'] from employee;</span><br><span class="line">OK</span><br><span class="line">id	_c1	_c2	_c3</span><br><span class="line">1001	80	60	70</span><br><span class="line">1002	60	80	80</span><br><span class="line">1003	90	70	100</span><br><span class="line"></span><br><span class="line"># 显示别名</span><br><span class="line">hive (default)&gt; select id,perf['job'] as job,perf['team'] as team,perf['person'] as person from employee;</span><br><span class="line">OK</span><br><span class="line">id	job	team	person</span><br><span class="line">1001	80	60	70</span><br><span class="line">1002	60	80	80</span><br><span class="line">1003	90	70	100</span><br></pre></td></tr></table></figure>
@@ -608,26 +609,18 @@
 <li><p>使用某个数据库 <code>use &lt;数据库名&gt;</code></p>
 </li>
 <li><p>创建一个新库</p>
-<ul>
-<li><p>CREATE DATABASE  </p>
-<p>[IF NOT EXISTS] mydb<br>[LOCATION] ‘/…….’<br>[COMMENT] ‘….’;</p>
-</li>
-<li><p>hive&gt;SHOW DATABASES;</p>
-<p>hive&gt;DESCRIBE DATABASE [extended] mydb;</p>
-<p>hive&gt;DROP DATABASE [IF EXISTS] mydb [CASCADE];</p>
-</li>
-</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span>  </span><br><span class="line">[<span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] mydb  </span><br><span class="line">[LOCATION] <span class="string">'/.......'</span>  </span><br><span class="line">[<span class="keyword">COMMENT</span>] <span class="string">'....’;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">hive&gt;SHOW DATABASES;</span></span><br><span class="line"><span class="string">hive&gt;DESCRIBE DATABASE [extended] mydb;</span></span><br><span class="line"><span class="string">hive&gt;DROP DATABASE [IF EXISTS] mydb [CASCADE];</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>创建</p>
 <ul>
-<li>create database db1;</li>
+<li><code>create database db1;</code></li>
 </ul>
 </li>
 <li><p>删除</p>
 <ul>
-<li>drop database if exists db1;</li>
-<li>级联<ul>
-<li>drop database if exists db1 cascade;</li>
+<li><code>drop database if exists db1;</code></li>
+<li><strong>级联删除</strong><ul>
+<li><code>drop database if exists db1 cascade;</code></li>
 </ul>
 </li>
 </ul>
@@ -794,35 +787,35 @@
 </ul>
 <blockquote>
 <p><strong>创建分区表, 指定分区字段</strong></p>
-<p>hive&gt;CREATE TABLE t3(…) PARTITIONED BY (province string);</p>
+<p><code>hive&gt;CREATE TABLE t3(...) PARTITIONED BY (province string);</code></p>
 <ul>
 <li>创建表的时候, 指定分区字段 key<code>province</code></li>
 </ul>
 <p><strong>为分区字段添加一个值</strong></p>
-<p>hive&gt;ALTER TABLE t3 ADD [IF NOT EXISTS] PARTITION(…) LOCATION ‘…’;</p>
+<p><code>hive&gt;ALTER TABLE t3 ADD [IF NOT EXISTS] PARTITION(...) LOCATION &#39;...’;</code></p>
 <ul>
-<li>alter table t3 add if not exists partition(province=‘hubei‘’’);</li>
-<li>alter table t3 add if not exists partition(province=“jiangsu‘’’);</li>
+<li><code>alter table t3 add if not exists partition(province=‘hubei‘’’);</code></li>
+<li><code>alter table t3 add if not exists partition(province=“jiangsu‘’’);</code></li>
 <li>可为此分区字段添加多个值,  为 province 添加 hubei, hunan….</li>
 </ul>
 <p><strong>查看表的分区字段&amp;值</strong></p>
-<p>hive&gt;SHOW <strong>PARTITIONS</strong> t3 [partition (province=’beijing’)];</p>
+<p><code>hive&gt;SHOW PARTITIONS t3 [partition (province=&#39;beijing&#39;)];</code></p>
 <p><strong>删除分区</strong></p>
-<p>hive&gt;ALTER TABLE t3 DROP PARTITION(province=‘beijing’.);  </p>
+<p><code>hive&gt;ALTER TABLE t3 DROP PARTITION(province=‘beijing’.);</code></p>
 <ul>
 <li>这里是删除北京的分区 (如果是内部表, 会连数据一起删除)</li>
 </ul>
 <p><strong>设置表不能被删除/查询</strong>  ——– 这里报语法错误, :TODO</p>
 <ul>
-<li>防止分区被删除:alter table student_p partition (part=’aa’) enable no_drop;</li>
-<li>防止分区被查询:alter table student_p partition (part=’aa’) enable offline; </li>
+<li>防止分区被删除:<code>alter table student_p partition (part=&#39;aa&#39;) enable no_drop;</code></li>
+<li>防止分区被查询:<code>alter table student_p partition (part=&#39;aa&#39;) enable offline;</code></li>
 <li>enable 和 disable 是反向操作</li>
 </ul>
 <p><strong>其它一些相关命令</strong></p>
 <p>SHOW TABLES; # 查看所有的表</p>
 <p>SHOW TABLES ‘<em>TMP</em>‘; #支持模糊查询</p>
-<p>SHOW PARTITIONS TMP_TABLE; #查看表有哪些分区</p>
-<p>DESCRIBE TMP_TABLE; #查看表结构</p>
+<p><code>SHOW PARTITIONS TMP_TABLE;</code> #查看表有哪些分区</p>
+<p>DESC TMP_TABLE; #查看表结构</p>
 </blockquote>
 <h4 id="创建分区表完整语法"><a href="#创建分区表完整语法" class="headerlink" title="创建分区表完整语法"></a>创建分区表完整语法</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tmp_table #表名</span><br><span class="line">(</span><br><span class="line">title   <span class="keyword">string</span>, # 字段名称 字段类型</span><br><span class="line">minimum_bid     <span class="keyword">double</span>,</span><br><span class="line">quantity        <span class="built_in">bigint</span>,</span><br><span class="line">have_invoice    <span class="built_in">bigint</span></span><br><span class="line">)<span class="keyword">COMMENT</span> <span class="string">'注释：XXX'</span> #表注释</span><br><span class="line"> PARTITIONED <span class="keyword">BY</span>(pt <span class="keyword">STRING</span>) #分区表字段（如果你文件非常之大的话，采用分区表可以快过滤出按分区字段划分的数据）</span><br><span class="line"> <span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> </span><br><span class="line">   <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\001'</span>   # 字段是用什么分割开的</span><br><span class="line">STORED AS SEQUENCEFILE; #用哪种方式存储数据，SEQUENCEFILE是hadoop自带的文件压缩格式</span><br></pre></td></tr></table></figure>
 <h4 id="分区表注意点-错误点"><a href="#分区表注意点-错误点" class="headerlink" title="分区表注意点(错误点)"></a>分区表注意点(错误点)</h4><ul>
@@ -893,7 +886,7 @@
 </li>
 <li><p>创建桶表 <strong>clustered by(xx)</strong></p>
 <ul>
-<li>create table bucket_table(id string) clustered by(id) into 4 buckets;</li>
+<li><code>create table bucket_table(id string) clustered by(id) into 4 buckets;</code></li>
 </ul>
 </li>
 <li><p><strong>加载数据</strong></p>
@@ -987,7 +980,7 @@
 </li>
 <li><p><strong>显示索引</strong></p>
 <ul>
-<li>show formatted index on t1;</li>
+<li><code>show formatted index on t1;</code></li>
 </ul>
 </li>
 <li><p><strong>重建索引</strong></p>
@@ -1107,11 +1100,11 @@
 </li>
 <li><strong>Hive序列化流程</strong><ul>
 <li><strong>从 HDFS 上读入文件 (反序列化)</strong><ul>
-<li>HDFS文件 –&gt; InputFileFormat –&gt; &lt;key, value&gt; –&gt; Deserializer –&gt; 行对象</li>
+<li><code>HDFS文件 --&gt; InputFileFormat --&gt; &lt;key, value&gt; --&gt; Deserializer --&gt; 行对象</code></li>
 </ul>
 </li>
 <li><strong>写出到 HDFS (序列化)</strong><ul>
-<li>行对象 –&gt; Serializer –&gt; &lt;key, value&gt; –&gt; OutputFileFormat –&gt; HDFS文件</li>
+<li><code>行对象 --&gt; Serializer --&gt; &lt;key, value&gt; --&gt; OutputFileFormat --&gt; HDFS文件</code></li>
 </ul>
 </li>
 <li>注意: <strong>数据全部存在在value中，key内容无意义</strong></li>
@@ -1206,13 +1199,13 @@
 </li>
 </ul>
 <h1 id="15-Hive-性能调优"><a href="#15-Hive-性能调优" class="headerlink" title="15) Hive 性能调优"></a>15) Hive 性能调优</h1><h3 id="a-什么时候可以避免执行MapReduce？"><a href="#a-什么时候可以避免执行MapReduce？" class="headerlink" title="a) 什么时候可以避免执行MapReduce？"></a>a) 什么时候可以避免执行MapReduce？</h3><ul>
-<li><p>select *  or  select field1,field2  </p>
+<li><p><code>select *  or  select field1,field2</code></p>
 </li>
-<li><p>limite 10</p>
+<li><p><code>limite 10</code></p>
 </li>
 <li><p>where语句中只有分区字段</p>
 </li>
-<li><p>使用本地set hive.exec.mode.local.auto=true;</p>
+<li><p>使用本地<code>set hive.exec.mode.local.auto=true;</code></p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> t3;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">name</span>,age <span class="keyword">from</span> t3;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">name</span>,age <span class="keyword">from</span> t3 <span class="keyword">limit</span> <span class="number">2</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">name</span>,age <span class="keyword">from</span> t3 <span class="keyword">where</span> age=<span class="number">25</span>;</span><br><span class="line"># 当 where 是本地字段(列中的字段), 是不走 MR的</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>group by语句：</p>
@@ -1234,7 +1227,7 @@
 <ul>
 <li><p><strong>显示详细扩展查询计划信息</strong></p>
 </li>
-<li><p><strong>EXPLAIN EXTENDED SELECT COUNT(1) FROM T1;</strong></p>
+<li><p><strong><code>EXPLAIN EXTENDED SELECT COUNT(1) FROM T1;</code></strong></p>
 </li>
 <li><p>为啥我的 explain extended 只有固定的几行?</p>
 <ul>
@@ -1248,11 +1241,11 @@
 <h3 id="c-性能调优"><a href="#c-性能调优" class="headerlink" title="c) 性能调优"></a>c) 性能调优</h3><h4 id="①-本地mr"><a href="#①-本地mr" class="headerlink" title="① 本地mr"></a>① 本地mr</h4><ul>
 <li><p><strong>本地模式设置方式：</strong></p>
 <ul>
-<li>set mapred.job.tracker=local; <ul>
+<li><code>set mapred.job.tracker=local;</code><ul>
 <li>似乎不起作用? :TODO</li>
 </ul>
 </li>
-<li><strong>set hive.exec.mode.local.auto=true;</strong><ul>
+<li><strong><code>set hive.exec.mode.local.auto=true;</code></strong><ul>
 <li><strong>设置这里才会转成 local  hadoop</strong></li>
 <li>按照这里设定的规则<code>hive.exec.mode.local.auto.input.files.max</code></li>
 </ul>
@@ -1262,12 +1255,12 @@
 </li>
 <li><p><strong>下面两个参数是local mr中常用的控制参数:</strong></p>
 <ul>
-<li><p>hive.exec.mode.local.auto.inputbytes.max默认134217728</p>
+<li><p><code>hive.exec.mode.local.auto.inputbytes.max</code>默认134217728</p>
 <ul>
 <li><strong>设置local mr的最大输入数据量</strong>,当输入数据量小于这个值的时候会采用local  mr的方式</li>
 </ul>
 </li>
-<li><p><strong>hive.exec.mode.local.auto.input.files.max默认是4</strong></p>
+<li><p><strong><code>hive.exec.mode.local.auto.input.files.max</code>默认是4</strong></p>
 <ul>
 <li><p>设置local mr的最大输入文件个数,当输入文件个数小于这个值的时候会采用local mr的方式</p>
 </li>
@@ -1300,7 +1293,7 @@
 <li><strong>strict可以禁止三种类型的查询：</strong><ul>
 <li>强制分区表的where条件过滤</li>
 <li>Order by语句必须使用limit<ul>
-<li>hive (mydb)&gt; select id from t9 where class=’job110’ order by id limit 3;</li>
+<li><code>hive (mydb)&gt; select id from t9 where class=&#39;job110&#39; order by id limit 3;</code></li>
 </ul>
 </li>
 <li>限制笛卡尔积查询</li>
@@ -1310,9 +1303,9 @@
 <h4 id="④-调整mapper和reducer的数量"><a href="#④-调整mapper和reducer的数量" class="headerlink" title="④ 调整mapper和reducer的数量"></a>④ 调整mapper和reducer的数量</h4><ul>
 <li>调整mapper和reducer的数量<ul>
 <li>太多map导致启动产生过多开销</li>
-<li>marpred.min.split.size</li>
+<li><code>marpred.min.split.size</code></li>
 <li>按照输入数据量大小确定reducer数目,<ul>
-<li>set mapred.reduce.tasks=  默认3</li>
+<li><code>set mapred.reduce.tasks=  默认3</code></li>
 <li>dfs -count  /分区目录/* </li>
 <li>hive.exec.reducers.max设置阻止资源过度消耗</li>
 </ul>
@@ -1321,7 +1314,7 @@
 </li>
 <li>JVM重用<ul>
 <li>小文件多或task多的业务场景</li>
-<li>set mapred.job.reuse.jvm.num.task=10</li>
+<li><code>set mapred.job.reuse.jvm.num.task=10</code></li>
 <li>会一直占用task槽</li>
 </ul>
 </li>

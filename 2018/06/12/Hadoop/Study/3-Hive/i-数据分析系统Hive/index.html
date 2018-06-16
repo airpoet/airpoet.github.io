@@ -157,7 +157,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -379,7 +379,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-14T09:19:27+08:00">
+                2018-06-14
+              </time>
             
           </span>
 
@@ -736,7 +748,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -817,7 +829,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive背景及应用场景"><span class="nav-number">1.</span> <span class="nav-text">Hive背景及应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive是什么？"><span class="nav-number">1.1.</span> <span class="nav-text">Hive是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive典型应用场景"><span class="nav-number">1.2.</span> <span class="nav-text">Hive典型应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用Hive？"><span class="nav-number">1.3.</span> <span class="nav-text">为什么使用Hive？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有了Hive，还需要自己写MR程序吗？"><span class="nav-number">1.4.</span> <span class="nav-text">有了Hive，还需要自己写MR程序吗？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive基本架构"><span class="nav-number">2.</span> <span class="nav-text">Hive基本架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive各模块组成"><span class="nav-number">2.1.</span> <span class="nav-text">Hive各模块组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive部署架构-实验环境"><span class="nav-number">2.2.</span> <span class="nav-text">Hive部署架构-实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive部署架构-生产环境"><span class="nav-number">2.3.</span> <span class="nav-text">Hive部署架构-生产环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive部署架构-metastore服务"><span class="nav-number">2.4.</span> <span class="nav-text">Hive部署架构-metastore服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive使用方式"><span class="nav-number">3.</span> <span class="nav-text">Hive使用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI（Command-Line-Interface）"><span class="nav-number">3.1.</span> <span class="nav-text">CLI（Command Line Interface）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI—hive外部资源"><span class="nav-number">3.2.</span> <span class="nav-text">CLI—hive外部资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-Web-UI"><span class="nav-number">3.3.</span> <span class="nav-text">Hive Web UI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive客户端程序"><span class="nav-number">3.4.</span> <span class="nav-text">Hive客户端程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HQL查询语句"><span class="nav-number">4.</span> <span class="nav-text">HQL查询语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据模型"><span class="nav-number">4.1.</span> <span class="nav-text">数据模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型（不断增加中……）"><span class="nav-number">4.2.</span> <span class="nav-text">数据类型（不断增加中……）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据定义语句（DDL）"><span class="nav-number">4.3.</span> <span class="nav-text">数据定义语句（DDL）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-Partition与Bucket"><span class="nav-number">4.4.</span> <span class="nav-text">Hive Partition与Bucket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive数据格式"><span class="nav-number">4.5.</span> <span class="nav-text">Hive数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用举例：日志清理"><span class="nav-number">4.5.1.</span> <span class="nav-text">应用举例：日志清理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据操作语句（DML）"><span class="nav-number">4.6.</span> <span class="nav-text">数据操作语句（DML）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据加载与插入语句"><span class="nav-number">4.6.1.</span> <span class="nav-text">数据加载与插入语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几个实例"><span class="nav-number">4.6.2.</span> <span class="nav-text">几个实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据查询语句SELECT"><span class="nav-number">4.7.</span> <span class="nav-text">数据查询语句SELECT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种分布式Join算法"><span class="nav-number">4.8.</span> <span class="nav-text">两种分布式Join算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HQL中两种特殊Join"><span class="nav-number">4.9.</span> <span class="nav-text">HQL中两种特殊Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Order-By与Sort-By"><span class="nav-number">4.10.</span> <span class="nav-text">Order By与Sort By</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distribute-by与Cluster-by"><span class="nav-number">4.11.</span> <span class="nav-text">Distribute by与Cluster by</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transform语法（Streaming）"><span class="nav-number">4.12.</span> <span class="nav-text">Transform语法（Streaming）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户自定义函数（UDF）"><span class="nav-number">4.13.</span> <span class="nav-text">用户自定义函数（UDF）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它问题"><span class="nav-number">4.14.</span> <span class="nav-text">其它问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-On-HBase"><span class="nav-number">4.15.</span> <span class="nav-text">Hive On HBase</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive总结及其类似开源系统"><span class="nav-number">5.</span> <span class="nav-text">Hive总结及其类似开源系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Stinger"><span class="nav-number">5.1.</span> <span class="nav-text">Stinger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-MR-vs-Hive-Tez"><span class="nav-number">5.2.</span> <span class="nav-text">Hive-MR vs Hive-Tez</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shark"><span class="nav-number">5.3.</span> <span class="nav-text">Shark</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Impala"><span class="nav-number">5.4.</span> <span class="nav-text">Impala</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能比较"><span class="nav-number">5.5.</span> <span class="nav-text">性能比较</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive背景及应用场景"><span class="nav-text">Hive背景及应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive是什么？"><span class="nav-text">Hive是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive典型应用场景"><span class="nav-text">Hive典型应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用Hive？"><span class="nav-text">为什么使用Hive？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有了Hive，还需要自己写MR程序吗？"><span class="nav-text">有了Hive，还需要自己写MR程序吗？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive基本架构"><span class="nav-text">Hive基本架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive各模块组成"><span class="nav-text">Hive各模块组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive部署架构-实验环境"><span class="nav-text">Hive部署架构-实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive部署架构-生产环境"><span class="nav-text">Hive部署架构-生产环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive部署架构-metastore服务"><span class="nav-text">Hive部署架构-metastore服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive使用方式"><span class="nav-text">Hive使用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI（Command-Line-Interface）"><span class="nav-text">CLI（Command Line Interface）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI—hive外部资源"><span class="nav-text">CLI—hive外部资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-Web-UI"><span class="nav-text">Hive Web UI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive客户端程序"><span class="nav-text">Hive客户端程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HQL查询语句"><span class="nav-text">HQL查询语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据模型"><span class="nav-text">数据模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型（不断增加中……）"><span class="nav-text">数据类型（不断增加中……）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据定义语句（DDL）"><span class="nav-text">数据定义语句（DDL）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-Partition与Bucket"><span class="nav-text">Hive Partition与Bucket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive数据格式"><span class="nav-text">Hive数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用举例：日志清理"><span class="nav-text">应用举例：日志清理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据操作语句（DML）"><span class="nav-text">数据操作语句（DML）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据加载与插入语句"><span class="nav-text">数据加载与插入语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几个实例"><span class="nav-text">几个实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据查询语句SELECT"><span class="nav-text">数据查询语句SELECT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种分布式Join算法"><span class="nav-text">两种分布式Join算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HQL中两种特殊Join"><span class="nav-text">HQL中两种特殊Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Order-By与Sort-By"><span class="nav-text">Order By与Sort By</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distribute-by与Cluster-by"><span class="nav-text">Distribute by与Cluster by</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transform语法（Streaming）"><span class="nav-text">Transform语法（Streaming）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户自定义函数（UDF）"><span class="nav-text">用户自定义函数（UDF）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它问题"><span class="nav-text">其它问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-On-HBase"><span class="nav-text">Hive On HBase</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive总结及其类似开源系统"><span class="nav-text">Hive总结及其类似开源系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Stinger"><span class="nav-text">Stinger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive-MR-vs-Hive-Tez"><span class="nav-text">Hive-MR vs Hive-Tez</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shark"><span class="nav-text">Shark</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Impala"><span class="nav-text">Impala</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能比较"><span class="nav-text">性能比较</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -890,9 +902,17 @@
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
         
+          <span id="scrollpercent"><span>0</span>%</span>
+        
       </div>
     
 
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
     
 
   </div>
@@ -1369,10 +1389,38 @@
 
   
   
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
 
   
 
   
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
 
   
 

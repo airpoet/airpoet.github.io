@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-082801.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-082010.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-013414.png">
-<meta property="og:updated_time" content="2018-06-13T13:33:22.708Z">
+<meta property="og:updated_time" content="2018-06-16T03:24:58.953Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-3">
 <meta name="twitter:description" content="1.多 Job 串联1.概念当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联 2. 涉及到昨天的微博求共同粉丝题目 A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,">
@@ -124,7 +124,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -346,7 +346,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-16T11:24:58+08:00">
+                2018-06-16
+              </time>
             
           </span>
 
@@ -376,17 +388,6 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Hadoop/MapReduce/" itemprop="url" rel="index">
                     <span itemprop="name">MapReduce</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/MapReduce/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
                   </a>
                 </span>
 
@@ -991,7 +992,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1072,7 +1073,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多-Job-串联"><span class="nav-number">1.</span> <span class="nav-text">1.多 Job 串联</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-涉及到昨天的微博求共同粉丝题目"><span class="nav-number">1.2.</span> <span class="nav-text">2. 涉及到昨天的微博求共同粉丝题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">1.2.1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">1.2.2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多-Job-串联部分代码"><span class="nav-number">1.2.3.</span> <span class="nav-text">多 Job 串联部分代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分组组件"><span class="nav-number">2.</span> <span class="nav-text">2. 分组组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#具体参考："><span class="nav-number">2.0.1.</span> <span class="nav-text">具体参考：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Reduce-中的2个坑"><span class="nav-number">3.</span> <span class="nav-text">3. Reduce 中的2个坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#坑1"><span class="nav-number">3.1.</span> <span class="nav-text">坑1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#坑2"><span class="nav-number">3.2.</span> <span class="nav-text">坑2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Reduce-端的-Join"><span class="nav-number">4.</span> <span class="nav-text">4. Reduce 端的 Join</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-端"><span class="nav-number">4.0.1.</span> <span class="nav-text">Map 端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reduce-端"><span class="nav-number">4.0.2.</span> <span class="nav-text">Reduce 端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-1"><span class="nav-number">4.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺陷"><span class="nav-number">4.1.</span> <span class="nav-text">缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#补充：Mapper-中的源码分析"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">补充：Mapper 中的源码分析</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Map-端的-Join"><span class="nav-number">5.</span> <span class="nav-text">5. Map 端的 Join</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-如何将小表加入到内存中？"><span class="nav-number">5.1.</span> <span class="nav-text">1. 如何将小表加入到内存中？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Map-端怎样读取缓存中的数据"><span class="nav-number">5.2.</span> <span class="nav-text">2. Map 端怎样读取缓存中的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-代码"><span class="nav-number">5.3.</span> <span class="nav-text">3. 代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-对比"><span class="nav-number">6.</span> <span class="nav-text">6. 对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">6.0.1.</span> <span class="nav-text">优点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arrow-forward-7-排序算法-（待整理：TODO）"><span class="nav-number">7.</span> <span class="nav-text">:arrow_forward: 7. 排序算法 （待整理：TODO）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-快速排序"><span class="nav-number">7.1.</span> <span class="nav-text">1. 快速排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-归并排序"><span class="nav-number">7.2.</span> <span class="nav-text">2. 归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-归并排序前传：-合并多个数组"><span class="nav-number">7.2.1.</span> <span class="nav-text">1. 归并排序前传： 合并多个数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-归并排序-之-一个大数据集"><span class="nav-number">7.2.2.</span> <span class="nav-text">2. 归并排序 之 一个大数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#—归———"><span class="nav-number">7.2.2.1.</span> <span class="nav-text">—归———-</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#—-并———"><span class="nav-number">7.2.2.2.</span> <span class="nav-text">—-并———</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-※-Shuffle-过程-※"><span class="nav-number">8.</span> <span class="nav-text">8.  ※ Shuffle 过程 ※</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10、自定义输入-InputFormat"><span class="nav-number">9.</span> <span class="nav-text">10、自定义输入 InputFormat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-2"><span class="nav-number">9.0.1.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11、自定义输出-OutputFormat"><span class="nav-number">10.</span> <span class="nav-text">11、自定义输出  OutputFormat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-3"><span class="nav-number">10.0.1.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12、Yarn"><span class="nav-number">11.</span> <span class="nav-text">12、Yarn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Yarn图示简介"><span class="nav-number">11.1.</span> <span class="nav-text">1、Yarn图示简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在Hadoop1-x时，-只有两个主要组件：hdfs（文件存储），-MapReduce（计算）"><span class="nav-number">11.1.1.</span> <span class="nav-text">在Hadoop1.x时， 只有两个主要组件：hdfs（文件存储）， MapReduce（计算）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hadoop2-x：-分理出Yarn，专门负责集群的资源管理和调度"><span class="nav-number">11.1.2.</span> <span class="nav-text">Hadoop2.x： 分理出Yarn，专门负责集群的资源管理和调度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Yarn的进程："><span class="nav-number">11.1.2.1.</span> <span class="nav-text">Yarn的进程：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、Yarn运行过程"><span class="nav-number">11.2.</span> <span class="nav-text">2、Yarn运行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、Job的提交过程-待整理"><span class="nav-number">11.3.</span> <span class="nav-text">3、Job的提交过程(待整理)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多-Job-串联"><span class="nav-text">1.多 Job 串联</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概念"><span class="nav-text">1.概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-涉及到昨天的微博求共同粉丝题目"><span class="nav-text">2. 涉及到昨天的微博求共同粉丝题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多-Job-串联部分代码"><span class="nav-text">多 Job 串联部分代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分组组件"><span class="nav-text">2. 分组组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#具体参考："><span class="nav-text">具体参考：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Reduce-中的2个坑"><span class="nav-text">3. Reduce 中的2个坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#坑1"><span class="nav-text">坑1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#坑2"><span class="nav-text">坑2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Reduce-端的-Join"><span class="nav-text">4. Reduce 端的 Join</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-端"><span class="nav-text">Map 端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reduce-端"><span class="nav-text">Reduce 端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-1"><span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺陷"><span class="nav-text">缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#补充：Mapper-中的源码分析"><span class="nav-text">补充：Mapper 中的源码分析</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Map-端的-Join"><span class="nav-text">5. Map 端的 Join</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-如何将小表加入到内存中？"><span class="nav-text">1. 如何将小表加入到内存中？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Map-端怎样读取缓存中的数据"><span class="nav-text">2. Map 端怎样读取缓存中的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-代码"><span class="nav-text">3. 代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-对比"><span class="nav-text">6. 对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-text">优点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arrow-forward-7-排序算法-（待整理：TODO）"><span class="nav-text">:arrow_forward: 7. 排序算法 （待整理：TODO）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-快速排序"><span class="nav-text">1. 快速排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-归并排序"><span class="nav-text">2. 归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-归并排序前传：-合并多个数组"><span class="nav-text">1. 归并排序前传： 合并多个数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-归并排序-之-一个大数据集"><span class="nav-text">2. 归并排序 之 一个大数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#—归———"><span class="nav-text">—归———-</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#—-并———"><span class="nav-text">—-并———</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-※-Shuffle-过程-※"><span class="nav-text">8.  ※ Shuffle 过程 ※</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10、自定义输入-InputFormat"><span class="nav-text">10、自定义输入 InputFormat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-2"><span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11、自定义输出-OutputFormat"><span class="nav-text">11、自定义输出  OutputFormat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-3"><span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12、Yarn"><span class="nav-text">12、Yarn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Yarn图示简介"><span class="nav-text">1、Yarn图示简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在Hadoop1-x时，-只有两个主要组件：hdfs（文件存储），-MapReduce（计算）"><span class="nav-text">在Hadoop1.x时， 只有两个主要组件：hdfs（文件存储）， MapReduce（计算）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hadoop2-x：-分理出Yarn，专门负责集群的资源管理和调度"><span class="nav-text">Hadoop2.x： 分理出Yarn，专门负责集群的资源管理和调度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Yarn的进程："><span class="nav-text">Yarn的进程：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、Yarn运行过程"><span class="nav-text">2、Yarn运行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、Job的提交过程-待整理"><span class="nav-text">3、Job的提交过程(待整理)</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1145,9 +1146,17 @@
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
         
+          <span id="scrollpercent"><span>0</span>%</span>
+        
       </div>
     
 
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
     
 
   </div>
@@ -1624,10 +1633,38 @@
 
   
   
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
 
   
 
   
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
 
   
 

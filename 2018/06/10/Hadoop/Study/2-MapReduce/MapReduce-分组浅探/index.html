@@ -104,7 +104,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -326,7 +326,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-11T19:46:23+08:00">
+                2018-06-11
+              </time>
             
           </span>
 
@@ -650,7 +662,7 @@ Reducer(reduce)-->Reducer(reduce):</textarea><textarea id="sequence-0-options" s
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -731,7 +743,7 @@ Reducer(reduce)-->Reducer(reduce):</textarea><textarea id="sequence-0-options" s
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">2.</span> <span class="nav-text">结论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#执行流程结论"><span class="nav-number">2.1.</span> <span class="nav-text">执行流程结论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyGroup进入Reduce的条件是"><span class="nav-number">2.2.</span> <span class="nav-text">MyGroup进入Reduce的条件是</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定分组类MyGroup和不指定的区别"><span class="nav-number">2.3.</span> <span class="nav-text">指定分组类MyGroup和不指定的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log信息"><span class="nav-number">3.</span> <span class="nav-text">Log信息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CustomBean中没有进行分组-组内排序的log"><span class="nav-number">3.0.1.</span> <span class="nav-text">CustomBean中没有进行分组, 组内排序的log</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CustomBean中做了分组-amp-组内排序-的"><span class="nav-number">3.0.2.</span> <span class="nav-text">CustomBean中做了分组&amp;组内排序 的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它疑点"><span class="nav-number">4.</span> <span class="nav-text">其它疑点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-text">结论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#执行流程结论"><span class="nav-text">执行流程结论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyGroup进入Reduce的条件是"><span class="nav-text">MyGroup进入Reduce的条件是</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定分组类MyGroup和不指定的区别"><span class="nav-text">指定分组类MyGroup和不指定的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log信息"><span class="nav-text">Log信息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CustomBean中没有进行分组-组内排序的log"><span class="nav-text">CustomBean中没有进行分组, 组内排序的log</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CustomBean中做了分组-amp-组内排序-的"><span class="nav-text">CustomBean中做了分组&amp;组内排序 的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它疑点"><span class="nav-text">其它疑点</span></a></li></ol></div>
             
 
           </div>
@@ -804,9 +816,17 @@ Reducer(reduce)-->Reducer(reduce):</textarea><textarea id="sequence-0-options" s
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
         
+          <span id="scrollpercent"><span>0</span>%</span>
+        
       </div>
     
 
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
     
 
   </div>
@@ -1283,10 +1303,38 @@ Reducer(reduce)-->Reducer(reduce):</textarea><textarea id="sequence-0-options" s
 
   
   
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
 
   
 
   
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
 
   
 

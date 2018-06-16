@@ -146,7 +146,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -368,7 +368,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-12T00:27:43+08:00">
+                2018-06-12
+              </time>
             
           </span>
 
@@ -691,7 +703,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -772,7 +784,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS基本架构和原理"><span class="nav-number">1.</span> <span class="nav-text">HDFS基本架构和原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS设计思想"><span class="nav-number">1.1.</span> <span class="nav-text">HDFS设计思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS架构"><span class="nav-number">1.2.</span> <span class="nav-text">HDFS架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS数据块（block）"><span class="nav-number">1.3.</span> <span class="nav-text">HDFS数据块（block）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS写流程"><span class="nav-number">1.4.</span> <span class="nav-text">HDFS写流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS读流程"><span class="nav-number">1.5.</span> <span class="nav-text">HDFS读流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS典型物理拓扑"><span class="nav-number">1.6.</span> <span class="nav-text">HDFS典型物理拓扑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS副本放置策略"><span class="nav-number">1.7.</span> <span class="nav-text">HDFS副本放置策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS可靠性策略"><span class="nav-number">1.8.</span> <span class="nav-text">HDFS可靠性策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS不适合存储小文件"><span class="nav-number">1.9.</span> <span class="nav-text">HDFS不适合存储小文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS程序设计"><span class="nav-number">2.</span> <span class="nav-text">HDFS程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS访问方式"><span class="nav-number">2.1.</span> <span class="nav-text">HDFS访问方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS-Shell命令"><span class="nav-number">2.2.</span> <span class="nav-text">HDFS Shell命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概览"><span class="nav-number">2.2.1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—文件操作命令"><span class="nav-number">2.2.2.</span> <span class="nav-text">HDFS Shell命令—文件操作命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—文件操作命令-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">HDFS Shell命令—文件操作命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—管理命令"><span class="nav-number">2.2.4.</span> <span class="nav-text">HDFS Shell命令—管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—管理脚本"><span class="nav-number">2.2.5.</span> <span class="nav-text">HDFS Shell命令—管理脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—文件管理命令fsck"><span class="nav-number">2.2.6.</span> <span class="nav-text">HDFS Shell命令—文件管理命令fsck</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—数据均衡器balancer"><span class="nav-number">2.2.7.</span> <span class="nav-text">HDFS Shell命令—数据均衡器balancer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—设置目录份额"><span class="nav-number">2.2.8.</span> <span class="nav-text">HDFS Shell命令—设置目录份额</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#※-HDFS-Shell命令—增加-移除节点-※"><span class="nav-number">2.2.9.</span> <span class="nav-text">※ HDFS Shell命令—增加/移除节点 ※</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS-Java"><span class="nav-number">2.3.</span> <span class="nav-text">HDFS Java</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API介绍"><span class="nav-number">2.3.1.</span> <span class="nav-text">API介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Java程序举例"><span class="nav-number">2.3.2.</span> <span class="nav-text">HDFS Java程序举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS-多语言API—借助thrift"><span class="nav-number">2.4.</span> <span class="nav-text">HDFS 多语言API—借助thrift</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#thrift执行流程"><span class="nav-number">2.4.1.</span> <span class="nav-text">thrift执行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hadoopfs-thrift接口定义"><span class="nav-number">2.4.2.</span> <span class="nav-text">hadoopfs.thrift接口定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP语言访问HDFS"><span class="nav-number">2.4.3.</span> <span class="nav-text">PHP语言访问HDFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python语言访问HDFS"><span class="nav-number">2.4.4.</span> <span class="nav-text">Python语言访问HDFS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop-2-0新特性"><span class="nav-number">3.</span> <span class="nav-text">Hadoop 2.0新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HA-高可用-与Federation-联邦"><span class="nav-number">3.1.</span> <span class="nav-text">HA(高可用)与Federation(联邦)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异构层级存储结构"><span class="nav-number">3.2.</span> <span class="nav-text">异构层级存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">3.2.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">3.2.2.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS-ACL"><span class="nav-number">3.3.</span> <span class="nav-text">HDFS ACL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景：现有权限管理的局限性"><span class="nav-number">3.3.1.</span> <span class="nav-text">背景：现有权限管理的局限性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于POSIX-ACL的实现"><span class="nav-number">3.3.2.</span> <span class="nav-text">基于POSIX ACL的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS快照"><span class="nav-number">3.4.</span> <span class="nav-text">HDFS快照</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-1"><span class="nav-number">3.4.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本使用方法"><span class="nav-number">3.4.2.</span> <span class="nav-text">基本使用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS缓存"><span class="nav-number">3.5.</span> <span class="nav-text">HDFS缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-2"><span class="nav-number">3.5.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理-1"><span class="nav-number">3.5.2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现情况"><span class="nav-number">3.5.3.</span> <span class="nav-text">实现情况</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS基本架构和原理"><span class="nav-text">HDFS基本架构和原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS设计思想"><span class="nav-text">HDFS设计思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS架构"><span class="nav-text">HDFS架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS数据块（block）"><span class="nav-text">HDFS数据块（block）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS写流程"><span class="nav-text">HDFS写流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS读流程"><span class="nav-text">HDFS读流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS典型物理拓扑"><span class="nav-text">HDFS典型物理拓扑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS副本放置策略"><span class="nav-text">HDFS副本放置策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS可靠性策略"><span class="nav-text">HDFS可靠性策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS不适合存储小文件"><span class="nav-text">HDFS不适合存储小文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS程序设计"><span class="nav-text">HDFS程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS访问方式"><span class="nav-text">HDFS访问方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS-Shell命令"><span class="nav-text">HDFS Shell命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概览"><span class="nav-text">概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—文件操作命令"><span class="nav-text">HDFS Shell命令—文件操作命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—文件操作命令-1"><span class="nav-text">HDFS Shell命令—文件操作命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—管理命令"><span class="nav-text">HDFS Shell命令—管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—管理脚本"><span class="nav-text">HDFS Shell命令—管理脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—文件管理命令fsck"><span class="nav-text">HDFS Shell命令—文件管理命令fsck</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—数据均衡器balancer"><span class="nav-text">HDFS Shell命令—数据均衡器balancer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Shell命令—设置目录份额"><span class="nav-text">HDFS Shell命令—设置目录份额</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#※-HDFS-Shell命令—增加-移除节点-※"><span class="nav-text">※ HDFS Shell命令—增加/移除节点 ※</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS-Java"><span class="nav-text">HDFS Java</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API介绍"><span class="nav-text">API介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-Java程序举例"><span class="nav-text">HDFS Java程序举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS-多语言API—借助thrift"><span class="nav-text">HDFS 多语言API—借助thrift</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#thrift执行流程"><span class="nav-text">thrift执行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hadoopfs-thrift接口定义"><span class="nav-text">hadoopfs.thrift接口定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP语言访问HDFS"><span class="nav-text">PHP语言访问HDFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python语言访问HDFS"><span class="nav-text">Python语言访问HDFS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop-2-0新特性"><span class="nav-text">Hadoop 2.0新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HA-高可用-与Federation-联邦"><span class="nav-text">HA(高可用)与Federation(联邦)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异构层级存储结构"><span class="nav-text">异构层级存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS-ACL"><span class="nav-text">HDFS ACL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景：现有权限管理的局限性"><span class="nav-text">背景：现有权限管理的局限性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于POSIX-ACL的实现"><span class="nav-text">基于POSIX ACL的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS快照"><span class="nav-text">HDFS快照</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-1"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本使用方法"><span class="nav-text">基本使用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS缓存"><span class="nav-text">HDFS缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-2"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理-1"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现情况"><span class="nav-text">实现情况</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -845,9 +857,17 @@
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
         
+          <span id="scrollpercent"><span>0</span>%</span>
+        
       </div>
     
 
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
     
 
   </div>
@@ -1324,10 +1344,38 @@
 
   
   
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
 
   
 
   
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
 
   
 

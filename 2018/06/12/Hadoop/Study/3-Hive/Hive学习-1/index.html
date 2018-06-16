@@ -110,7 +110,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -332,7 +332,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-15T18:40:47+08:00">
+                2018-06-15
+              </time>
             
           </span>
 
@@ -1172,7 +1184,7 @@ parquet：压缩格式
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1253,7 +1265,7 @@ parquet：压缩格式
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive简介"><span class="nav-number">1.</span> <span class="nav-text">Hive简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive基本情况"><span class="nav-number">1.0.1.</span> <span class="nav-text">Hive基本情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive优缺点："><span class="nav-number">1.0.2.</span> <span class="nav-text">Hive优缺点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive与传统关系型数据库-RDBMS）对比"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hive与传统关系型数据库(RDBMS）对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive的架构"><span class="nav-number">2.</span> <span class="nav-text">Hive的架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive的数据组织格式"><span class="nav-number">3.</span> <span class="nav-text">Hive的数据组织格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive安装"><span class="nav-number">4.</span> <span class="nav-text">Hive安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySql安装"><span class="nav-number">4.1.</span> <span class="nav-text">MySql安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RPM-安装MySQl："><span class="nav-number">4.1.1.</span> <span class="nav-text">RPM 安装MySQl：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySql的其它错误"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">MySql的其它错误</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Yum安装-Mysql"><span class="nav-number">4.1.2.</span> <span class="nav-text">Yum安装 Mysql</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step2-安装Hive"><span class="nav-number">4.2.</span> <span class="nav-text">step2-安装Hive</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#登录beeline-bee"><span class="nav-number">4.2.0.1.</span> <span class="nav-text">登录beeline  :bee:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#登录-hive"><span class="nav-number">4.2.0.2.</span> <span class="nav-text">登录 hive</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PS-Linux环境变量失效"><span class="nav-number">4.2.0.3.</span> <span class="nav-text">PS: Linux环境变量失效</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive-–-DDL"><span class="nav-number">5.</span> <span class="nav-text">Hive – DDL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#库的操作"><span class="nav-number">5.0.1.</span> <span class="nav-text">库的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表的操作"><span class="nav-number">5.0.2.</span> <span class="nav-text">表的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建表"><span class="nav-number">5.0.2.1.</span> <span class="nav-text">创建表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#建表语法"><span class="nav-number">5.0.2.1.1.</span> <span class="nav-text">建表语法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#建表代码"><span class="nav-number">5.0.2.1.2.</span> <span class="nav-text">建表代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看表"><span class="nav-number">5.0.2.2.</span> <span class="nav-text">查看表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改表"><span class="nav-number">5.0.2.3.</span> <span class="nav-text">修改表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除表"><span class="nav-number">5.0.2.4.</span> <span class="nav-text">删除表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#清空表"><span class="nav-number">5.0.2.5.</span> <span class="nav-text">清空表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他辅助命令"><span class="nav-number">5.0.2.6.</span> <span class="nav-text">其他辅助命令</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive-–-DML"><span class="nav-number">6.</span> <span class="nav-text">Hive – DML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#装载数据"><span class="nav-number">6.0.1.</span> <span class="nav-text">装载数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入数据"><span class="nav-number">6.0.2.</span> <span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导出数据（了解）"><span class="nav-number">6.0.3.</span> <span class="nav-text">导出数据（了解）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询数据"><span class="nav-number">6.0.4.</span> <span class="nav-text">查询数据</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive简介"><span class="nav-text">Hive简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive基本情况"><span class="nav-text">Hive基本情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive优缺点："><span class="nav-text">Hive优缺点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive与传统关系型数据库-RDBMS）对比"><span class="nav-text">Hive与传统关系型数据库(RDBMS）对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive的架构"><span class="nav-text">Hive的架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive的数据组织格式"><span class="nav-text">Hive的数据组织格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive安装"><span class="nav-text">Hive安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySql安装"><span class="nav-text">MySql安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RPM-安装MySQl："><span class="nav-text">RPM 安装MySQl：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySql的其它错误"><span class="nav-text">MySql的其它错误</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Yum安装-Mysql"><span class="nav-text">Yum安装 Mysql</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step2-安装Hive"><span class="nav-text">step2-安装Hive</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#登录beeline-bee"><span class="nav-text">登录beeline  :bee:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#登录-hive"><span class="nav-text">登录 hive</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PS-Linux环境变量失效"><span class="nav-text">PS: Linux环境变量失效</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive-–-DDL"><span class="nav-text">Hive – DDL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#库的操作"><span class="nav-text">库的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表的操作"><span class="nav-text">表的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建表"><span class="nav-text">创建表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#建表语法"><span class="nav-text">建表语法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#建表代码"><span class="nav-text">建表代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看表"><span class="nav-text">查看表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改表"><span class="nav-text">修改表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除表"><span class="nav-text">删除表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#清空表"><span class="nav-text">清空表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他辅助命令"><span class="nav-text">其他辅助命令</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive-–-DML"><span class="nav-text">Hive – DML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#装载数据"><span class="nav-text">装载数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入数据"><span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导出数据（了解）"><span class="nav-text">导出数据（了解）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询数据"><span class="nav-text">查询数据</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1326,9 +1338,17 @@ parquet：压缩格式
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
         
+          <span id="scrollpercent"><span>0</span>%</span>
+        
       </div>
     
 
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
     
 
   </div>
@@ -1805,10 +1825,38 @@ parquet：压缩格式
 
   
   
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
 
   
 
   
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
 
   
 

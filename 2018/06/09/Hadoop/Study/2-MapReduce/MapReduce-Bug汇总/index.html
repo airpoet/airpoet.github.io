@@ -104,7 +104,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -326,7 +326,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-11T19:46:16+08:00">
+                2018-06-11
+              </time>
             
           </span>
 
@@ -599,7 +611,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -680,7 +692,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、reduce-输出路径必须是新创建的。不能已经存在"><span class="nav-number">1.</span> <span class="nav-text">1、reduce 输出路径必须是新创建的。不能已经存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、在初始化-job-的时候，-没有传-conf-，-导致后面一直找不到文件，-因为不知道到哪里去找"><span class="nav-number">2.</span> <span class="nav-text">2、在初始化 job 的时候， 没有传 conf ， 导致后面一直找不到文件， 因为不知道到哪里去找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Text导包倒错-导的时候要注意"><span class="nav-number">3.</span> <span class="nav-text">3、Text导包倒错, 导的时候要注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、进行字符串拼接的时候，把-StringBuilder-写到了-reduce-方法外，-这样导致-sb-会越来越多，当然，也可以每次拼接完了清空"><span class="nav-number">4.</span> <span class="nav-text">4、进行字符串拼接的时候，把 StringBuilder 写到了 reduce 方法外， 这样导致 sb 会越来越多，当然，也可以每次拼接完了清空</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、mapreduce执行错误Mapper-错误"><span class="nav-number">5.</span> <span class="nav-text">4、mapreduce执行错误Mapper.\错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、排序过程中，自定义了排序类，bean类的-compareTo-方法，只写了按照分数大小排序。"><span class="nav-number">6.</span> <span class="nav-text">5、排序过程中，自定义了排序类，bean类的 compareTo()方法，只写了按照分数大小排序。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、reduce-输出路径必须是新创建的。不能已经存在"><span class="nav-text">1、reduce 输出路径必须是新创建的。不能已经存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、在初始化-job-的时候，-没有传-conf-，-导致后面一直找不到文件，-因为不知道到哪里去找"><span class="nav-text">2、在初始化 job 的时候， 没有传 conf ， 导致后面一直找不到文件， 因为不知道到哪里去找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Text导包倒错-导的时候要注意"><span class="nav-text">3、Text导包倒错, 导的时候要注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、进行字符串拼接的时候，把-StringBuilder-写到了-reduce-方法外，-这样导致-sb-会越来越多，当然，也可以每次拼接完了清空"><span class="nav-text">4、进行字符串拼接的时候，把 StringBuilder 写到了 reduce 方法外， 这样导致 sb 会越来越多，当然，也可以每次拼接完了清空</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、mapreduce执行错误Mapper-错误"><span class="nav-text">4、mapreduce执行错误Mapper.\错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、排序过程中，自定义了排序类，bean类的-compareTo-方法，只写了按照分数大小排序。"><span class="nav-text">5、排序过程中，自定义了排序类，bean类的 compareTo()方法，只写了按照分数大小排序。</span></a></li></ol></div>
             
 
           </div>
@@ -753,9 +765,17 @@
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
         
+          <span id="scrollpercent"><span>0</span>%</span>
+        
       </div>
     
 
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
     
 
   </div>
@@ -1232,10 +1252,38 @@
 
   
   
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
 
   
 
   
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
 
   
 

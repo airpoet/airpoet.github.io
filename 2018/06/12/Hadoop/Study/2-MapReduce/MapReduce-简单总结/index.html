@@ -92,7 +92,7 @@
 <meta property="og:description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处： 1、输入数据接口：InputFormat   —&amp;gt;     FileInputFormat(文件类型数据读取的通用抽象类)  DBInputFormat （数据库数据读取的通用抽象类）   默认使用的实现类是： TextInputFormat     job.setInputFormatClass">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-070505.png">
-<meta property="og:updated_time" content="2018-06-12T07:05:09.710Z">
+<meta property="og:updated_time" content="2018-06-16T03:24:49.603Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce-简单总结">
 <meta name="twitter:description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处： 1、输入数据接口：InputFormat   —&amp;gt;     FileInputFormat(文件类型数据读取的通用抽象类)  DBInputFormat （数据库数据读取的通用抽象类）   默认使用的实现类是： TextInputFormat     job.setInputFormatClass">
@@ -106,7 +106,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -328,7 +328,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-16T11:24:49+08:00">
+                2018-06-16
+              </time>
             
           </span>
 
@@ -358,17 +370,6 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Hadoop/MapReduce/" itemprop="url" rel="index">
                     <span itemprop="name">MapReduce</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/MapReduce/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
                   </a>
                 </span>
 
@@ -599,7 +600,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -737,9 +738,17 @@
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
         
+          <span id="scrollpercent"><span>0</span>%</span>
+        
       </div>
     
 
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
     
 
   </div>
@@ -1216,10 +1225,38 @@
 
   
   
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
 
   
 
   
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
 
   
 

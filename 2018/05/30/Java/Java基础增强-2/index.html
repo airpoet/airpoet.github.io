@@ -108,7 +108,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -330,7 +330,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-05-31T10:05:38+08:00">
+                2018-05-31
+              </time>
             
           </span>
 
@@ -722,7 +734,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -803,7 +815,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多线程基本知识"><span class="nav-number">1.</span> <span class="nav-text">1. 多线程基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-多线程运行的原理"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 多线程运行的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-实现线程的两种方式"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 实现线程的两种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-线程的状态图解"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 线程的状态图解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-几个重要的方法的区别："><span class="nav-number">1.4.</span> <span class="nav-text">1.4 几个重要的方法的区别：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-Join的用法"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 Join的用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Java同步关键词解释"><span class="nav-number">2.</span> <span class="nav-text">2.  Java同步关键词解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-synchronized"><span class="nav-number">2.1.</span> <span class="nav-text">2.1.  synchronized</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Lock"><span class="nav-number">2.2.</span> <span class="nav-text">2.2  Lock</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-lock-和-synchronized-的区别"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. lock 和 synchronized 的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Lock-接口中方法的使用"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. Lock 接口中方法的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Lock-与-synchronized-的选择"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Lock 与 synchronized 的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-读写锁"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 读写锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ReadWriteLock-类"><span class="nav-number">2.4.1.</span> <span class="nav-text">ReadWriteLock 类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ReentrantReadWriteLock-类"><span class="nav-number">2.4.2.</span> <span class="nav-text">ReentrantReadWriteLock 类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-死锁"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-Volatile-特殊域变量"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 Volatile 特殊域变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Java多线程中常见的面试题"><span class="nav-number">3.</span> <span class="nav-text">3.  Java多线程中常见的面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-sleep-wait-join-yield-四个方法的区别"><span class="nav-number">3.0.1.</span> <span class="nav-text">1. sleep(),wait(),join(),yield()四个方法的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Thread-和-Runnable-的区别"><span class="nav-number">3.0.2.</span> <span class="nav-text">2. Thread 和 Runnable 的区别</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多线程基本知识"><span class="nav-text">1. 多线程基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-多线程运行的原理"><span class="nav-text">1.1 多线程运行的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-实现线程的两种方式"><span class="nav-text">1.2 实现线程的两种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-线程的状态图解"><span class="nav-text">1.3 线程的状态图解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-几个重要的方法的区别："><span class="nav-text">1.4 几个重要的方法的区别：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-Join的用法"><span class="nav-text">1.5 Join的用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Java同步关键词解释"><span class="nav-text">2.  Java同步关键词解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-synchronized"><span class="nav-text">2.1.  synchronized</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Lock"><span class="nav-text">2.2  Lock</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-lock-和-synchronized-的区别"><span class="nav-text">1. lock 和 synchronized 的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Lock-接口中方法的使用"><span class="nav-text">2. Lock 接口中方法的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Lock-与-synchronized-的选择"><span class="nav-text">2.3 Lock 与 synchronized 的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-读写锁"><span class="nav-text">2.4 读写锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ReadWriteLock-类"><span class="nav-text">ReadWriteLock 类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ReentrantReadWriteLock-类"><span class="nav-text">ReentrantReadWriteLock 类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-死锁"><span class="nav-text">2.5 死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-Volatile-特殊域变量"><span class="nav-text">2.6 Volatile 特殊域变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Java多线程中常见的面试题"><span class="nav-text">3.  Java多线程中常见的面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-sleep-wait-join-yield-四个方法的区别"><span class="nav-text">1. sleep(),wait(),join(),yield()四个方法的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Thread-和-Runnable-的区别"><span class="nav-text">2. Thread 和 Runnable 的区别</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -876,9 +888,17 @@
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
         
+          <span id="scrollpercent"><span>0</span>%</span>
+        
       </div>
     
 
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
     
 
   </div>
@@ -1355,10 +1375,38 @@
 
   
   
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
 
   
 
   
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
 
   
 

@@ -98,7 +98,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-113550.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-15-070816.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-16-071623.jpg">
-<meta property="og:updated_time" content="2018-06-16T11:04:06.870Z">
+<meta property="og:updated_time" content="2018-06-16T11:40:09.366Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-Hive-1">
 <meta name="twitter:description" content="1.  Hive 初探1.1 Hive 的数据存储 Hive的数据存储基于Hadoop HDFS Hive没有专门的数据存储格式 存储结构主要包括：数据库、文件、表、视图、索引 Hive默认可以直接加载文本文件（TextFile），还支持SequenceFile、RCFile  创建表时，指定Hive数据的列分隔符与行分隔符，Hive即可解析数据  1.2 Hive的系统架构  用户接口，包括 C">
@@ -344,7 +344,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-16T19:04:06+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-16T19:40:09+08:00">
                 2018-06-16
               </time>
             
@@ -546,14 +546,33 @@
 </li>
 </ul>
 <h3 id="1-9-Hive-的-JDBC-模式"><a href="#1-9-Hive-的-JDBC-模式" class="headerlink" title="1.9 Hive 的 JDBC 模式"></a>1.9 Hive 的 JDBC 模式</h3><ul>
-<li>JAVA API交互执行方式 </li>
-<li>hive 远程服务 (端口号1000  0) 启动方式<ul>
+<li><p>JAVA API交互执行方式 </p>
+</li>
+<li><p>hive 远程服务 (端口号1000  0) 启动方式</p>
+<ul>
 <li><code>hive --service hiveserver2</code></li>
 <li><code>org.apache.hive.jdbc.HiveDriver</code></li>
 </ul>
 </li>
-<li>在java代码中调用hive的JDBC建立连接</li>
-<li>可以用 beeline 连接</li>
+<li><p>在java代码中调用hive的JDBC建立连接</p>
+</li>
+<li><p><strong>用 beeline 连接</strong></p>
+<ul>
+<li><p><strong>方式1: 直接登录</strong></p>
+<p><code>beeline -u jdbc:hive2://cs2:10000 -n ap</code></p>
+</li>
+<li><p><strong>方式2: 输入用户名密码登录</strong></p>
+<p><code>!connect jdbc:hive2://cs2:10000</code></p>
+</li>
+</ul>
+</li>
+<li><p><strong>beeline注意点:</strong> </p>
+<ul>
+<li>使用 beeline 连接时, 貌似无法与 Linux 目录交互</li>
+<li>当前目录在<code>/home/ap/apps/apache-hive-2.3.2-bin/bin/</code>下</li>
+<li><strong>要传文件的话, 要使用全路径</strong></li>
+</ul>
+</li>
 </ul>
 <h3 id="1-10-SET命令使用"><a href="#1-10-SET命令使用" class="headerlink" title="1.10 SET命令使用"></a>1.10 SET命令使用</h3><ul>
 <li>Hive 控制台set 命令<ul>

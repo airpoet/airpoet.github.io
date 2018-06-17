@@ -83,20 +83,18 @@
 
 
 
-<meta name="description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处： 1、输入数据接口：InputFormat   —&amp;gt;     FileInputFormat(文件类型数据读取的通用抽象类)  DBInputFormat （数据库数据读取的通用抽象类）   默认使用的实现类是： TextInputFormat     job.setInputFormatClass">
+<meta name="description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处：  输入数据接口：InputFormat FileInputFormat  (文件类型数据读取的通用抽象类)   DBInputFormat （数据库数据读取的通用抽象类） 默认使用的实现类是： TextInputFormat     job.setInputFormatClass(TextInputFo">
 <meta name="keywords" content="原创,技术,Hadoop,MapReduce">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MapReduce-简单总结">
 <meta property="og:url" content="https://airpoet.github.io/2018/06/12/Hadoop/Study/2-MapReduce/MapReduce-简单总结/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处： 1、输入数据接口：InputFormat   —&amp;gt;     FileInputFormat(文件类型数据读取的通用抽象类)  DBInputFormat （数据库数据读取的通用抽象类）   默认使用的实现类是： TextInputFormat     job.setInputFormatClass">
+<meta property="og:description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处：  输入数据接口：InputFormat FileInputFormat  (文件类型数据读取的通用抽象类)   DBInputFormat （数据库数据读取的通用抽象类） 默认使用的实现类是： TextInputFormat     job.setInputFormatClass(TextInputFo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-070505.png">
-<meta property="og:updated_time" content="2018-06-16T03:24:49.603Z">
+<meta property="og:updated_time" content="2018-06-17T09:27:08.821Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce-简单总结">
-<meta name="twitter:description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处： 1、输入数据接口：InputFormat   —&amp;gt;     FileInputFormat(文件类型数据读取的通用抽象类)  DBInputFormat （数据库数据读取的通用抽象类）   默认使用的实现类是： TextInputFormat     job.setInputFormatClass">
-<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-070505.png">
+<meta name="twitter:description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处：  输入数据接口：InputFormat FileInputFormat  (文件类型数据读取的通用抽象类)   DBInputFormat （数据库数据读取的通用抽象类） 默认使用的实现类是： TextInputFormat     job.setInputFormatClass(TextInputFo">
 
 
 
@@ -338,8 +336,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-16T11:24:49+08:00">
-                2018-06-16
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-17T17:27:08+08:00">
+                2018-06-17
               </time>
             
           </span>
@@ -422,19 +420,63 @@
 
       
         <p>MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，<strong>除了以下几处</strong>：</p>
-<p>1、输入数据接口：InputFormat   —&gt;     FileInputFormat(文件类型数据读取的通用抽象类)  DBInputFormat （数据库数据读取的通用抽象类）<br>   默认使用的实现类是： TextInputFormat     job.setInputFormatClass(TextInputFormat.class)<br>   TextInputFormat的功能逻辑是：一次读一行文本，然后将该行的起始偏移量作为key，行内容作为value返回</p>
-<p>2、逻辑处理接口： Mapper<br>   完全需要用户自己去实现其中  map()   setup()   clean()   </p>
-<p>3、map输出的结果在shuffle阶段会被partition以及sort，此处有两个接口可自定义：<br>     Partitioner<br>        有默认实现 HashPartitioner，逻辑是  根据key和numReduces来返回一个分区号； key.hashCode()&amp;Integer.MAXVALUE % numReduces<br>    通常情况下，用默认的这个HashPartitioner就可以，如果业务上有特别的需求，可以自定义</p>
-<pre><code>Comparable
-   当我们用自定义的对象作为key来输出时，就必须要实现WritableComparable接口，override其中的compareTo()方法
-</code></pre><p>4、reduce端的数据分组比较接口 ： Groupingcomparator<br>    reduceTask拿到输入数据（一个partition的所有数据）后，首先需要对数据进行分组，其分组的默认原则是key相同，然后对每一组kv数据调用一次reduce()方法，并且将这一组kv中的第一个kv的key作为参数传给reduce的key，将这一组数据的value的迭代器传给reduce()的values参数</p>
-<pre><code>利用上述这个机制，我们可以实现一个高效的分组取最大值的逻辑：
-自定义一个bean对象用来封装我们的数据，然后改写其compareTo方法产生倒序排序的效果
-然后自定义一个Groupingcomparator，将bean对象的分组逻辑改成按照我们的业务分组id来分组（比如订单号）
-这样，我们要取的最大值就是reduce()方法中传进来key
-</code></pre><p>5、逻辑处理接口：Reducer<br>    完全需要用户自己去实现其中  reduce()   setup()   clean()   </p>
-<p>6、输出数据接口： OutputFormat  —&gt; 有一系列子类  FileOutputformat  DBoutputFormat  …..<br>    默认实现类是TextOutputFormat，功能逻辑是：  将每一个KV对向目标文本文件中输出为一行</p>
-<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-12-070505.png" alt="image-20180612150505148">    </p>
+<ul>
+<li><h4 id="输入数据接口：InputFormat"><a href="#输入数据接口：InputFormat" class="headerlink" title="输入数据接口：InputFormat"></a><strong>输入数据接口：InputFormat</strong></h4><ul>
+<li>FileInputFormat  (文件类型数据读取的通用抽象类)  </li>
+<li>DBInputFormat （数据库数据读取的通用抽象类）</li>
+<li><strong>默认使用的实现类是： TextInputFormat</strong>    <ul>
+<li>job.setInputFormatClass(TextInputFormat.class)</li>
+<li>TextInputFormat的功能逻辑是：一次读一行文本，然后将该行的起始偏移量作为key，行内容作为value返回</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="逻辑处理接口：-Mapper"><a href="#逻辑处理接口：-Mapper" class="headerlink" title="逻辑处理接口： Mapper"></a><strong>逻辑处理接口： Mapper</strong></h4><ul>
+<li>完全需要用户自己去实现其中  <code>map()   setup()   clean()</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h4 id="map输出的结果在shuffle阶段会被partition以及sort，此处有两个接口可自定义："><a href="#map输出的结果在shuffle阶段会被partition以及sort，此处有两个接口可自定义：" class="headerlink" title="map输出的结果在shuffle阶段会被partition以及sort，此处有两个接口可自定义："></a><strong>map输出的结果在shuffle阶段会被partition以及sort</strong>，此处有两个接口可自定义：</h4><ul>
+<li><strong>Partitioner</strong><ul>
+<li>有默认实现 <code>HashPartitioner</code>，逻辑是根据<strong>key</strong>和<strong>numReduces</strong>来返回一个分区号:<code>key.hashCode()&amp;Integer.MAXVALUE % numReduces</code></li>
+<li>通常情况下，用默认的这个HashPartitioner就可以，如果业务上有特别的需求，可以自定义</li>
+<li>继承 <code>Partitioner</code>, 重写<code>getPartition</code>方法, 具体见<a href="https://airpoet.github.io/2018/06/07/Hadoop/Study/2-MapReduce/MapReduce%E7%AC%94%E8%AE%B0-2/#%E5%85%B8%E5%9E%8B%E7%9A%84-Partitioner-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0">这里</a></li>
+</ul>
+</li>
+<li><strong>Comparable</strong><ul>
+<li>当我们用自定义的对象作为key来输出时，就必须要实现<code>WritableComparable</code>接口，<strong>override</strong>其中的<code>compareTo()</code>方法, 具体见<a href="https://airpoet.github.io/2018/06/07/Hadoop/Study/2-MapReduce/MapReduce%E7%AC%94%E8%AE%B0-2/#%E5%85%B8%E5%9E%8B%E7%9A%84-Partitioner-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0">这里</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h4 id="reduce端的数据分组比较接口-：-Groupingcomparator"><a href="#reduce端的数据分组比较接口-：-Groupingcomparator" class="headerlink" title="reduce端的数据分组比较接口 ： Groupingcomparator"></a><strong>reduce端的数据分组比较接口 ： Groupingcomparator</strong></h4><ul>
+<li>reduceTask拿到输入数据（一个partition的所有数据）后，首先需要对数据进行分组，其分组的默认原则是key相同，然后对每一组kv数据调用一次reduce()方法，并且将这一组kv中的第一个kv的key作为参数传给reduce的key，将这一组数据的value的迭代器传给reduce()的values参数</li>
+<li>利用上述这个机制，我们可以<strong>实现一个高效的分组取最大值的逻辑：</strong><ul>
+<li>自定义一个bean对象用来封装我们的数据，然后改写其compareTo方法产生倒序排序的效果</li>
+<li>然后自定义一个Groupingcomparator，将bean对象的分组逻辑改成按照我们的业务分组id来分组（比如订单号）</li>
+<li>这样，我们要取的最大值就是reduce()方法中传进来key</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><h4 id="逻辑处理接口：Reducer"><a href="#逻辑处理接口：Reducer" class="headerlink" title="逻辑处理接口：Reducer"></a><strong>逻辑处理接口：Reducer</strong></h4><ul>
+<li>完全需要用户自己去实现其中  <code>reduce()   setup()   clean()</code></li>
+</ul>
+</li>
+<li><h4 id="输出数据接口：-OutputFormat"><a href="#输出数据接口：-OutputFormat" class="headerlink" title="输出数据接口： OutputFormat"></a><strong>输出数据接口： OutputFormat</strong></h4><ul>
+<li>有一系列子类  FileOutputformat  DBoutputFormat  …..</li>
+<li>默认实现类是TextOutputFormat</li>
+<li>功能逻辑是：  <strong>将每一个KV对向目标文本文件中输出为一行</strong></li>
+</ul>
+<p>​    </p>
+</li>
+</ul>
 
       
     </div>
@@ -569,8 +611,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -671,6 +722,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#输入数据接口：InputFormat"><span class="nav-text">输入数据接口：InputFormat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑处理接口：-Mapper"><span class="nav-text">逻辑处理接口： Mapper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map输出的结果在shuffle阶段会被partition以及sort，此处有两个接口可自定义："><span class="nav-text">map输出的结果在shuffle阶段会被partition以及sort，此处有两个接口可自定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reduce端的数据分组比较接口-：-Groupingcomparator"><span class="nav-text">reduce端的数据分组比较接口 ： Groupingcomparator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑处理接口：Reducer"><span class="nav-text">逻辑处理接口：Reducer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出数据接口：-OutputFormat"><span class="nav-text">输出数据接口： OutputFormat</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

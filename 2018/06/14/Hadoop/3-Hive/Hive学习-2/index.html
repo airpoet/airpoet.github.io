@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="原创,技术,Hadoop,Hive," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="A.P的文艺杂谈" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="hive数据类型1) 原子数据类型 TinyInt：1byte有符号整数 SmallInt：2byte有符号整数 Int：4byte有符号整数 BigInt：8byte有符号整数 Float：单精度浮点数 Double：双精度浮点数 Boolean：布尔类型 String：字符串 TimeStamp：整数  2) 复杂数据类型 Array\&amp;lt;Type&amp;gt;  由一系列相同数据类型的元素组成 这些">
+<meta name="keywords" content="原创,技术,Hadoop,Hive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive学习—2">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/14/Hadoop/3-Hive/Hive学习-2/index.html">
+<meta property="og:site_name" content="A.P的文艺杂谈">
+<meta property="og:description" content="hive数据类型1) 原子数据类型 TinyInt：1byte有符号整数 SmallInt：2byte有符号整数 Int：4byte有符号整数 BigInt：8byte有符号整数 Float：单精度浮点数 Double：双精度浮点数 Boolean：布尔类型 String：字符串 TimeStamp：整数  2) 复杂数据类型 Array\&amp;lt;Type&amp;gt;  由一系列相同数据类型的元素组成 这些">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-14T15:21:20.295Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hive学习—2">
+<meta name="twitter:description" content="hive数据类型1) 原子数据类型 TinyInt：1byte有符号整数 SmallInt：2byte有符号整数 Int：4byte有符号整数 BigInt：8byte有符号整数 Float：单精度浮点数 Double：双精度浮点数 Boolean：布尔类型 String：字符串 TimeStamp：整数  2) 复杂数据类型 Array\&amp;lt;Type&amp;gt;  由一系列相同数据类型的元素组成 这些">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'airpoet'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/14/Hadoop/3-Hive/Hive学习-2/"/>
+
+
+
+
+
+  <title>Hive学习—2 | A.P的文艺杂谈</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A.P的文艺杂谈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/14/Hadoop/3-Hive/Hive学习-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hive学习—2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-14T09:04:30+08:00">
+                2018-06-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-14T23:21:20+08:00">
+                2018-06-14
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/14/Hadoop/3-Hive/Hive学习-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/14/Hadoop/3-Hive/Hive学习-2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="hive数据类型"><a href="#hive数据类型" class="headerlink" title="hive数据类型"></a>hive数据类型</h1><h3 id="1-原子数据类型"><a href="#1-原子数据类型" class="headerlink" title="1) 原子数据类型"></a>1) 原子数据类型</h3><ul>
+<li>TinyInt：1byte有符号整数</li>
+<li>SmallInt：2byte有符号整数</li>
+<li>Int：4byte有符号整数</li>
+<li>BigInt：8byte有符号整数</li>
+<li>Float：单精度浮点数</li>
+<li>Double：双精度浮点数</li>
+<li>Boolean：布尔类型</li>
+<li>String：字符串</li>
+<li>TimeStamp：整数</li>
+</ul>
+<h3 id="2-复杂数据类型"><a href="#2-复杂数据类型" class="headerlink" title="2) 复杂数据类型"></a>2) 复杂数据类型</h3><ul>
+<li><p>Array\&lt;Type></p>
+<ul>
+<li>由一系列相同数据类型的元素组成</li>
+<li>这些元素可以通过 下标 来访问</li>
+<li>查询时如果查到返回响应值，没查到则返回null<br>建表：<br>create table person(name string,work_locations array\&lt;string>)<br>row format delimited fields terminated by ‘\t’<br>collection items terminated by ‘,’;<br>导入数据：<br>load data local inpath ‘/home/sigeon/person.txt’ into table person;<br>查询<br>Select work_locations[0] from person;</li>
+</ul>
+</li>
+<li><p>Map&lt;KType, VType&gt;</p>
+<ul>
+<li>包含 key-value 键值对</li>
+<li>可以通过 key 来访问元素<br>建表语句：<br>create table score(name string, scores map)<br>row format delimited fields terminated by ‘\t’<br>collection items terminated by ‘,’<br>map keys terminated by ‘:’;<br>导入数据：<br>load data local inpath ‘/home/sigeon/score.txt’ into table score;<br>查询语句：<br>Select scores[‘Chinese’] from score;</li>
+</ul>
+</li>
+<li><p>Struct&lt;Param1:Type1, Param1:Type1, … &gt;</p>
+<ul>
+<li>可以包含不同数据类型的元素<br>类似于c语言中的结构体</li>
+<li>这些元素可以通过 点语法 的方式来得到<br>建表语句：<br>create table course(id int,course struct&lt;name:string, score:int&gt;)<br>row format delimited fields terminated by ‘\t’<br>collection items terminated by ‘,’;<br>导入数据：<br>load data local inpath ‘/ home/sigoen/course.txt’ into table course;<br>查询语句：<br>Select c.course.score from course c;</li>
+</ul>
+</li>
+<li><p>几个分隔符</p>
+</li>
+</ul>
+<p>  指定分隔符要按从外向内的顺序，字段 -&gt; 集合元素 -&gt;map k-v</p>
+<ul>
+<li>ROW FORMAT：指定分隔符的关键字 </li>
+<li>DELIMITED FIELDS TERMINATED BY：字段分隔符 </li>
+<li>COLLECTION ITEMS TERMINATED BY：集合元素分隔符（Array 中的各元素、Struct 中的各元素、 Map 中的 key-value 对之间） </li>
+<li>MAP KEYS TERMINATED BY：Map 中 key 与 value 的分隔符 </li>
+<li>LINES TERMINATED BY：行之间的分隔符</li>
+</ul>
+<h1 id="hive视图"><a href="#hive视图" class="headerlink" title="hive视图"></a>hive视图</h1><ul>
+<li><p>和关系型数据库一样，Hive也提供了视图的功能</p>
+</li>
+<li><p>Hive 的视图和关系型数据库的视图有很大的区别： </p>
+<ul>
+<li>1、只有逻辑视图，没有物化视图； </li>
+<li>2、视图只能查询，不能增删改 (Load|Insert/Update/Delete) 数据； </li>
+<li>3、视图在创建时候，只是保存了一份元数据 (存在TBLS中)，当查询视图的时候，才开始执行视图对应的那些子查询<br>视图元数据只存储了hql语句，而不是执行结果</li>
+</ul>
+</li>
+<li><p>视图操作</p>
+<ul>
+<li><p>创建视图</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> my_view <span class="keyword">as</span> &lt;<span class="keyword">select</span> * <span class="keyword">from</span> mytable&gt; [<span class="keyword">limit</span> <span class="number">500</span>];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看视图</p>
+<ul>
+<li>show tables;   // 显示所有表和视图</li>
+<li>show views;    //显示所有视图</li>
+<li>desc [formatted] view_name;   // 查看某个具体视图的(详细)信息<br>视图类型：VIRTUAL_VIEW</li>
+</ul>
+</li>
+<li><p>删除视图</p>
+<ul>
+<li>drop view [if exists] view_name</li>
+</ul>
+</li>
+<li><p>使用视图 </p>
+<ul>
+<li>select count(distinct uid) from my_view;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="hive函数"><a href="#hive函数" class="headerlink" title="hive函数"></a>hive函数</h1><ul>
+<li><p>函数分类</p>
+<ul>
+<li>UDF（自定义函数 User-Defined Function）作用于单个数据行，产生一个数据行作为输出。（数学函数，字 符串函数） </li>
+<li>UDAF（用户定义聚集函数 User-Defined Aggregation Funcation）：接收多个输入数据行，并产 生一个输出数据行。（count，max） </li>
+<li>UDTF（表格生成函数 User-Defined Table Function）：接收一行输入，输出多行（explode）</li>
+</ul>
+</li>
+<li><p>内置函数</p>
+<ul>
+<li><p>查看函数命令</p>
+<ul>
+<li>查看内置函数： show functions; </li>
+<li>显示函数的详细信息： desc function [extended] fun_name;<br>extended：显示扩展信息</li>
+</ul>
+</li>
+<li><p>分类</p>
+<ul>
+<li><p>关系运算</p>
+<ul>
+<li>分类<br>\1. 等值比较: =<br>\2. 等值比较:&lt;=&gt;<br>\3. 不等值比较: &lt;&gt;和!=<br>\4. 小于比较: &lt;<br>\5. 小于等于比较: &lt;=<br>\6. 大于比较: &gt;<br>\7. 大于等于比较: &gt;=<br>\8. 区间比较<br>\9. 空值判断: IS NULL<br>\10. 非空判断: IS NOT NULL<br>\10. LIKE 比较: LIKE<br>\11. JAVA 的 LIKE 操作: RLIKE<br>\12. REGEXP 操作: REGEXP</li>
+</ul>
+</li>
+<li><p>数学运算</p>
+<ul>
+<li>分类<br>\1. 加法操作: +<br>\2. 减法操作: –<br>\3. 乘法操作: *<br>\4. 除法操作: /<br>\5. 取余操作: %<br>\6. 位与操作: &amp;<br>\7. 位或操作: |<br>\8. 位异或操作: ^<br>9．位取反操作: ~</li>
+</ul>
+</li>
+<li><p>逻辑运算</p>
+<ul>
+<li>分类<br>\1. 逻辑与操作: AND 、&amp;&amp;<br>\2. 逻辑或操作: OR 、||<br>\3. 逻辑非操作: NOT、!</li>
+</ul>
+</li>
+<li><p>复合类型构造函数 </p>
+<ul>
+<li>分类<ol>
+<li>array 结构</li>
+<li>map 结构<br>\3. struct 结构<br>\4. named_struct 结构<br>\5. create_union </li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>复合类型操作符</p>
+<ul>
+<li>\1. 获取 array 中的元素 </li>
+<li>\2. 获取 map 中的元素 </li>
+<li>\3. 获取 struct 中的元素</li>
+</ul>
+</li>
+<li><p>集合操作函数 </p>
+<ul>
+<li><p>\1. map 类型大小：size </p>
+</li>
+<li><p>\2. array 类型大小：size </p>
+</li>
+<li><p>\3. 判断元素数组是否包含元素：array_contains </p>
+</li>
+<li><p>\4. 获取 map 中所有 value 集合 </p>
+</li>
+<li><p>\5. 获取 map 中所有 key 集合 </p>
+</li>
+<li><p>\6. 数组排序</p>
+</li>
+<li><p>\7. 获取素组或map集合的单个元素（k-v对）：<strong>explode()</strong></p>
+<p><strong>当同时查询炸裂字段和普通字段时，需要使用横向虚拟视图：lateral view</strong></p>
+<ul>
+<li>如：select name,addr.city from usr_addr lateral view(address) addr as city;<br>这里一般需要给 查询结果 和 结果字段 起别名，不然没办法获得每个字段，如果只是查询所有的话就不需要了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>类型转换函数</p>
+<ul>
+<li>\1. 二进制转换：binary </li>
+<li>\2. 基础类型之间强制转换：cast </li>
+</ul>
+</li>
+<li><p>数值计算函数</p>
+<ul>
+<li>\1. 取整函数: round </li>
+<li>\2. 指定精度取整函数: round </li>
+<li>\3. 向下取整函数: floor </li>
+<li>\4. 向上取整函数: ceil </li>
+<li>\5. 向上取整函数: ceiling </li>
+<li>\6. 取随机数函数: rand </li>
+<li>\7. 自然指数函数: exp </li>
+<li>\8. 以 10 为底对数函数: log10 </li>
+<li>\9. 以 2 为底对数函数: log2 </li>
+<li>\10. 对数函数: log </li>
+<li>\11. 幂运算函数: pow </li>
+<li>\12. 幂运算函数: power </li>
+<li>\13. 开平方函数: sqrt </li>
+<li>\14. 二进制函数: bin </li>
+<li>\15. 十六进制函数: hex </li>
+<li>\16. 反转十六进制函数: unhex </li>
+<li>\17. 进制转换函数: conv </li>
+<li>\18. 绝对值函数: abs </li>
+<li>\19. 正取余函数: pmod </li>
+<li>\20. 正弦函数: sin </li>
+<li>\21. 反正弦函数: asin </li>
+<li>\22. 余弦函数: cos </li>
+<li>\23. 反余弦函数: acos </li>
+<li>\24. positive 函数: positive </li>
+<li>\25. negative 函数: negative </li>
+</ul>
+</li>
+<li><p>字符串函数</p>
+<ul>
+<li>\1. 字符 ascii 码函数：ascii </li>
+<li>\2. base64 字符串 </li>
+<li>\3. 字符串连接函数：concat </li>
+<li>\4. 带分隔符字符串连接函数：concat_ws </li>
+<li>\5. 数组转换成字符串的函数：concat_ws </li>
+<li>\6. 小数位格式化成字符串函数：format_number </li>
+<li>\7. 字符串截取函数：substr, substring<br>序号从1开始，可以传负数，代表从右开始</li>
+<li>\9. 字符串查找函数：instr<br>找到返回一个正整数，未找到返回0</li>
+<li>\10. 字符串长度函数：length </li>
+<li>\11. 字符串查找函数：locate </li>
+<li>\12. 字符串格式化函数：printf </li>
+<li>\13. 字符串转换成 map 函数：str_to_map </li>
+<li>\14. base64 解码函数：unbase64(string str) </li>
+<li>\15. 字符串转大写函数：upper,ucase </li>
+<li>\16. 字符串转小写函数：lower,lcase </li>
+<li>\17. 去空格函数：trim </li>
+<li>\18. 左边去空格函数：ltrim </li>
+<li>\19. 右边去空格函数：rtrim </li>
+<li>\20. 正则表达式替换函数：regexp_replace </li>
+<li>\21. 正则表达式解析函数：regexp_extract </li>
+<li>\22. URL 解析函数：parse_url </li>
+<li>\23. json 解析函数：get_json_object </li>
+<li>\24. 空格字符串函数：space </li>
+<li>\25. 重复字符串函数：repeat </li>
+<li>\26. 左补足函数：lpad</li>
+<li>\27. 右补足函数：rpad </li>
+<li>\28. 分割字符串函数: split </li>
+<li>\29. 集合查找函数: find_in_set </li>
+<li>\30. 分词函数：sentences </li>
+<li>\31. 分词后统计一起出现频次最高的 TOP-K </li>
+<li>\32. 分词后统计与指定单词一起出现频次最高的 TOP-K </li>
+</ul>
+</li>
+<li><p>日期函数</p>
+<ul>
+<li>\1. UNIX 时间戳转日期函数: from_unixtime </li>
+<li>\2. 获取当前 UNIX 时间戳函数: unix_timestamp </li>
+<li>\3. 日期转 UNIX 时间戳函数: unix_timestamp </li>
+<li>\4. 指定格式日期转 UNIX 时间戳函数: unix_timestamp </li>
+<li>\5. 日期时间转日期函数: to_date </li>
+<li>\6. 日期转年函数: year </li>
+<li>\7. 日期转月函数: month </li>
+<li>\8. 日期转天函数: day </li>
+<li>\9. 日期转小时函数: hour </li>
+<li>\10. 日期转分钟函数: minute </li>
+<li>\11. 日期转秒函数: second </li>
+<li>\12. 日期转周函数: weekofyear </li>
+<li>\13. 日期比较函数: datediff </li>
+<li>\14. 日期增加函数: date_add </li>
+<li>\15. 日期减少函数: date_sub </li>
+</ul>
+</li>
+<li><p>条件函数</p>
+<ul>
+<li>\1. If 函数: if( 条件 ，true返回参数，false返回参数 ) </li>
+<li>\2. 当param1不为null返回param1，否则返回param2：nvl(param1, param2)</li>
+<li>\2. 非空查找函数: coalesce</li>
+<li>\3. 条件判断函数：case</li>
+</ul>
+</li>
+<li><p>混合函数 </p>
+<ul>
+<li>分类<br>\1. 调用 Java 函数：java_method<br>\2. 调用 Java 函数：reflect<br>\3. 字符串的 hash 值：hash</li>
+</ul>
+</li>
+<li><p>XPath 解析 XML 函数 </p>
+<ul>
+<li>分类<br>\1. xpath<br>\2. xpath_string<br>\3. xpath_boolean<br>\4. xpath_short, xpath_int, xpath_long<br>\5. xpath_float, xpath_double, xpath_number </li>
+</ul>
+</li>
+<li><p>汇总统计函数（UDAF）</p>
+<ul>
+<li>\1. 个数统计函数: count </li>
+<li>\2. 总和统计函数: sum </li>
+<li>\3. 平均值统计函数: avg </li>
+<li>\4. 最小值统计函数: min </li>
+<li>\5. 最大值统计函数: max</li>
+<li>\6. 非空集合总体变量函数: var_pop </li>
+<li>\7. 非空集合样本变量函数: var_samp </li>
+<li>\8. 总体标准偏离函数: stddev_pop </li>
+<li>\9. 样本标准偏离函数: stddev_samp </li>
+<li>10．中位数函数: percentile </li>
+<li>\11. 中位数函数: percentile </li>
+<li>\12. 近似中位数函数: percentile_approx </li>
+<li>\13. 近似中位数函数: percentile_approx </li>
+<li>\14. 直方图: histogram_numeric </li>
+<li>\15. 集合去重数：collect_set </li>
+<li>\16. 集合不去重函数：collect_list </li>
+</ul>
+</li>
+<li><p>表格生成函数 Table-Generating Functions (UDTF) </p>
+<ul>
+<li>分类<br>1．数组拆分成多行：explode(array)<br>2．Map 拆分成多行：explode(map) </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>自定义函数</p>
+<ul>
+<li>\1. 需要继承 org.apache.hadoop.hive.ql.exec.UDF 类，实现一个或多个 evaluate() 方法</li>
+<li>\2. 将hive的jar包放在hive的classpath路径下，进入hive客户端，执行命令：add jar \<jar path="">;</jar></li>
+<li>\3. 检查jar包是否添加成功，执行命令：list jars;</li>
+<li>\4. 给自定义函数 添加别名，并在hive中 注册 该函数，执行命令：create temporary function myfunc as ‘主类全路径名’;<br>myfunc：自定义函数别名<br>该方法创建的是临时函数，当前客户端关闭就没有了，下次重复第3，4步；<br>真实 生产中就是使用该方法！</li>
+<li>\5. 查看hive函数库有没有成功添加，执行命令：show functions;</li>
+<li>\6. 调用函数时通过函数名和参数列表确定调用的是具体哪一个方法</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+            <a href="/tags/Hive/" rel="tag"># Hive</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/13/Hadoop/3-Hive/i-Hive-1/" rel="next" title="i-Hive-1">
+                <i class="fa fa-chevron-left"></i> i-Hive-1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg"
+                alt="airpoet" />
+            
+              <p class="site-author-name" itemprop="name">airpoet</p>
+              <p class="site-description motion-element" itemprop="description">没有边界就没有自由.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/3b9b97fe7e04" target="_blank" title="我的简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>我的简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:airpoet@qq.com" target="_blank" title="Mile2Me">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mile2Me</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/8ee264c6557d" title="女神凉姨" target="_blank">女神凉姨</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hive数据类型"><span class="nav-text">hive数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-原子数据类型"><span class="nav-text">1) 原子数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-复杂数据类型"><span class="nav-text">2) 复杂数据类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive视图"><span class="nav-text">hive视图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive函数"><span class="nav-text">hive函数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">airpoet</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/06/14/Hadoop/3-Hive/Hive学习-2/';
+          this.page.identifier = '2018/06/14/Hadoop/3-Hive/Hive学习-2/';
+          this.page.title = 'Hive学习—2';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>

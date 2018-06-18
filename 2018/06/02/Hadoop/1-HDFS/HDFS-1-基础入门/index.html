@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="原创,技术,Hadoop,HDFS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="A.P的文艺杂谈" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Hadoop的核心组件 之 HDFSHDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块">
+<meta name="keywords" content="原创,技术,Hadoop,HDFS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop学习笔记-2 HDFS基础入门">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/02/Hadoop/1-HDFS/HDFS-1-基础入门/index.html">
+<meta property="og:site_name" content="A.P的文艺杂谈">
+<meta property="og:description" content="Hadoop的核心组件 之 HDFSHDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-11T11:45:18.181Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop学习笔记-2 HDFS基础入门">
+<meta name="twitter:description" content="Hadoop的核心组件 之 HDFSHDFS1. HDFS是什么: 分布式文件系统  2. HDFS 设计思想 分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储 分块存储: 每一个块叫做 block 如果一个8T的数据, 这个怎么分合适??? 设置分块的时候要考虑一个事情 : 负载均衡 块的大小不能太大, 太大会造成负载不均衡 hadoop2.x 中默认的切分的块">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'airpoet'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/02/Hadoop/1-HDFS/HDFS-1-基础入门/"/>
+
+
+
+
+
+  <title>Hadoop学习笔记-2 HDFS基础入门 | A.P的文艺杂谈</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A.P的文艺杂谈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/02/Hadoop/1-HDFS/HDFS-1-基础入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hadoop学习笔记-2 HDFS基础入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-02T15:07:33+08:00">
+                2018-06-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-11T19:45:18+08:00">
+                2018-06-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/HDFS/" itemprop="url" rel="index">
+                    <span itemprop="name">HDFS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/02/Hadoop/1-HDFS/HDFS-1-基础入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/02/Hadoop/1-HDFS/HDFS-1-基础入门/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Hadoop的核心组件-之-HDFS"><a href="#Hadoop的核心组件-之-HDFS" class="headerlink" title="Hadoop的核心组件 之 HDFS"></a>Hadoop的核心组件 之 HDFS</h1><h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><h3 id="1-HDFS是什么"><a href="#1-HDFS是什么" class="headerlink" title="1. HDFS是什么:"></a>1. HDFS是什么:</h3><ul>
+<li>分布式文件系统</li>
+</ul>
+<h3 id="2-HDFS-设计思想"><a href="#2-HDFS-设计思想" class="headerlink" title="2. HDFS 设计思想"></a>2. HDFS 设计思想</h3><ul>
+<li>分而治之,  切分存储, 当一个文件过大的时候, 一个节点存储不了, 采用切分存储</li>
+<li><strong>分块存储</strong>: 每一个块叫做 block<ul>
+<li>如果一个8T的数据, 这个怎么分合适???<ul>
+<li>设置分块的时候要<strong>考虑</strong>一个事情 : <strong>负载均衡</strong></li>
+<li>块的大小不能太大, 太大会造成负载不均衡</li>
+<li><strong>hadoop2.x</strong> 中默认的切分的<strong>块的大小</strong>是: <strong>128M</strong>, 1.x中默认的是64M</li>
+<li>如果一个文件<strong>不足128M, 也会单独存一个快</strong>, <strong>快的大小就是存储数据的实际大小</strong></li>
+</ul>
+</li>
+<li>这个分块存储思想中, 如果一个块的存储节点宕机了, 这个时候, 数据的安全性得不到保证了</li>
+</ul>
+</li>
+<li>HDFS中默认块的存储采用<strong>备份机制</strong><ul>
+<li><strong>默认的备份个数是3个</strong>(总共存的, 存到datanode上的, namenode不存),  之前自己配的是2个, 所有备份相同地位是相同的.</li>
+<li>相同的数据块的备份一定存储在不同的节点上</li>
+<li>如果节点总共2个,  <code>dfs.replication=3</code> 副本个数是3个,  实际存储2个, 另一个进行<strong>记账</strong>,  当集群节点个数大于3个时, 会复制这个副本, 最终达到3个</li>
+<li>假设集群中的节点4个, 副本3个, 有一个副本的机器宕机了, 这个时候发现副本的个数 小于 设定的个数,  就会进行<strong>复制, 达到3个副本</strong>,</li>
+<li>如果 <em>这个时候</em>, 刚才宕机的节点又恢复了, 这个时候集群副本个数为4了,  集群会等待一段时间, 如果发现还是4个, 就会<strong>删除</strong>一个副本, <strong>达到3个</strong>(<u>设定值</u>)</li>
+<li>备份越多越好吗?<ul>
+<li>理论上副本数越多, 数据安全性越高</li>
+<li>但是副本数越多, 会占用过多的存储资源, 会造成集群的维护变得越困难<ul>
+<li>100 个节点, 50个副本,  在这50个副本中, 随时都有可能宕机, hdfs就需要维护副本</li>
+</ul>
+</li>
+<li>一般情况下, 3个就可以了</li>
+<li>hadoop是基于廉价的pc机设计的, 会造成机器随时可能宕机</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>HDFS的<strong>目录结构</strong><ul>
+<li>hdfs的目录结构与linux 操作系统类似,  以 <code>/</code>为跟节点,  我们将这个目录🌲称为<code>抽象目录树</code></li>
+<li>因为<strong>hdfs的目录结构</strong>代表的是所有数据节点的<strong>抽象出来的目录</strong>,  不代表任何一个节点<ul>
+<li>hdfs:  /hadoop.zip   500M  被分成4个块存储</li>
+<li>hdfs中存储的数据块 是有编号的, blk_1,  blk_2, blk_3,  blk_4</li>
+<li>/spark.zip  300M  3个块, blk_5  blk_6  blk_7</li>
+<li>底层存储的时候, 每一个block都有一个唯一的id</li>
+<li>hdfs的数据底层存储的时候吗, 还是存在真正的物理节点上.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-HDFS-的整体结构"><a href="#2-HDFS-的整体结构" class="headerlink" title="2. HDFS 的整体结构"></a>2. HDFS 的整体结构</h3><p><strong>主从结构:  一个主节点,  多个从节点</strong></p>
+<h4 id="namenode"><a href="#namenode" class="headerlink" title="namenode:"></a>namenode:</h4><ul>
+<li>用于存储元数据, 包括: <ul>
+<li>抽象目录树</li>
+<li>存储数据和block的对应关系</li>
+<li>block存储的位置</li>
+</ul>
+</li>
+<li>处理客户端的读写请求<ul>
+<li>读: 下载</li>
+<li>写: 上传</li>
+</ul>
+</li>
+</ul>
+<h4 id="datanode"><a href="#datanode" class="headerlink" title="datanode"></a>datanode</h4><ul>
+<li>负责真正的数据存储, 存储数据的block</li>
+<li>真正处理读写</li>
+</ul>
+<h4 id="secondarynamenode"><a href="#secondarynamenode" class="headerlink" title="secondarynamenode:"></a>secondarynamenode:</h4><ul>
+<li>冷备份节点: 助理<ul>
+<li>当namenode宕机的时候,  secondarynamenode不能主动切换为 namenode, 但是 secondarynamenode中存储的数据与namenode相同.</li>
+</ul>
+</li>
+<li>主要作用: <ul>
+<li>namenode宕机的时候, 帮助namenode恢复</li>
+<li>帮助namenode做一些事情, 分担namenode的压力</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-HDFS优缺点"><a href="#3-HDFS优缺点" class="headerlink" title="3. HDFS优缺点:"></a>3. HDFS优缺点:</h3><ul>
+<li><p>优点: </p>
+<ol>
+<li><p>可构建在廉价机器上, 成本低,  通过多副本提高可靠性, 提供了容错和恢复机制</p>
+</li>
+<li><p>高容错性</p>
+<ul>
+<li>容错性: 数据访问上, 一个节点数据丢失, 不影响整体的数据访问</li>
+<li>数据自动保存多个副本, 副本丢失后, 自动恢复, 最终恢复到用户配置的副本个数</li>
+</ul>
+</li>
+<li><p>适合批处理, 适合离线数据处理</p>
+<ul>
+<li>移动计算而非数据, 数据位置暴露给计算框架</li>
+</ul>
+</li>
+<li><p>适合大数据处理</p>
+<ul>
+<li>GB,  TB 甚至 PB 级数据, 百万规模以上的文件数量, 10k+ 节点规模</li>
+</ul>
+</li>
+<li><p>流式文件访问, 不支持数据修改, hdfs用于数据存储</p>
+<ul>
+<li>一次性写入, 多次读取, 保证数据一致性</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p><strong>缺点:</strong> </p>
+<ol>
+<li>不支持低延迟的数据访问, 不支持 <strong>实时/近实时</strong> 数据访问, 因为涉及到多轮<code>RPC</code>调用<ol>
+<li>向 NameNode 寻址..</li>
+<li>拿到地址后， 向 DataNode 请求数据..</li>
+</ol>
+</li>
+<li><strong>不擅长存储大量的小文件</strong>–kb级别的<ul>
+<li>寻址时间可能大于读取数据的时间, 不划算<ul>
+<li>进行数据访问的时候先找元数据</li>
+<li>元数据是和block对应的, 1个block块对应一条元数据</li>
+<li>1000w个1kb的文件, 存了1000w个块 — 1000w元数据</li>
+<li>在进行数据访问的时候可能花了 1s 的时间, 总体上不划算</li>
+</ul>
+</li>
+<li>这样会造成元数据存储量过大, 增加namenode的压力<ul>
+<li>在hdfs中一般情况下, 一条元数据大小 150byte 左右</li>
+<li>1000w条元数据 — 1000w * 150,  1.5G左右</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>不支持文件内容修改</strong>, 仅<strong>仅支持</strong>文件<strong>末尾追加</strong> <code>append</code>， 一个文件同时只能有一个写者，<strong>不支持并发操作</strong></li>
+</ol>
+</li>
+</ul>
+<h3 id="4-HDFS-的-常用命令"><a href="#4-HDFS-的-常用命令" class="headerlink" title="==4. HDFS 的 常用命令:=="></a>==4. HDFS 的 常用命令:==</h3><p><strong>HDFS归根结底就是一个文件系统,  类似于 linux,  需要用命令来操作</strong></p>
+<h4 id="1-hapdoop-fs-命令"><a href="#1-hapdoop-fs-命令" class="headerlink" title="1. hapdoop fs 命令"></a>1. <code>hapdoop fs</code> 命令</h4><blockquote>
+<p><code>hadoop fs</code> /  <code>hdfs dfs</code> 效果是一样的</p>
+<p>在hadoop中查看, 只有绝对路径的访问方式</p>
+</blockquote>
+<ol>
+<li><p>查看帮助</p>
+<ul>
+<li><code>hadoop fs -help</code> 查看所有 <code>hadoop fs</code>的帮助</li>
+<li><code>hadoop fs -help ls</code> 查看 <code>fs</code>下的 <code>ls</code>的帮助</li>
+</ul>
+</li>
+<li><p><strong>列出根目录</strong>: <code>hadoop fs -ls /</code></p>
+<ul>
+<li><code>hadoop fs -ls -R /</code> 递归展示</li>
+<li><code>hadoop fs -ls -R -h /</code>友好展示， 展示文件大小单位</li>
+<li><strong>如果不指定目录， 会默认找当前用户xx对应的<code>/user/xx</code>的目录</strong></li>
+</ul>
+</li>
+<li><p><strong>递归创建 -mkdir -p</strong>:  </p>
+<ul>
+<li><code>hadoop fs -mkdir -p /aa/bb/cc/dd</code></li>
+<li>不加 -p  为普通创建</li>
+</ul>
+</li>
+<li><p><strong>创建空文件<code>-touchz</code></strong></p>
+<ul>
+<li>类似于 Linux 下的 touch</li>
+</ul>
+</li>
+<li><p><strong>上传  put</strong>: <code>[-put [-f][-p] [-l] &lt;localsrc&gt; ... &lt;dst&gt;]</code></p>
+<ul>
+<li>上传一个: <code>hadoop fs -put hadoop-2.7.6.tar.gz /ss</code></li>
+<li>上传多个: <code>hadoop fs -put aa.txt bb.txt /ss</code></li>
+</ul>
+</li>
+<li><p><strong>下载 get</strong></p>
+<ul>
+<li><code>hadoop fs -get hdfs路径 本地路径</code></li>
+</ul>
+</li>
+<li><p><strong>合并下载 getmerge</strong></p>
+<ul>
+<li><code>hadoop fs -getmerge /ss/aa.txt /ss/bb.txt /home/ap/cc.txt</code></li>
+<li>会将最后一个路径之前8的当做需要合并的文件, 最后一个路径中指定的文件就是合并生成的文件</li>
+</ul>
+</li>
+<li><p><strong>查看文件内容 cat</strong></p>
+<ul>
+<li><code>-cat</code> 查看文件内容</li>
+<li><code>-text</code>也是类似</li>
+</ul>
+</li>
+<li><p><strong>删除文件  rm</strong></p>
+<ul>
+<li><sub></sub>rm -rf (错误的)<sub></sub></li>
+<li>rm -r(递归)  -f(强制)</li>
+<li>文件<code>hadoop fs -rm -f /ss/aa.txt</code></li>
+<li>文件夹 <code>hadoop fs -rm -f -r /aa</code></li>
+</ul>
+</li>
+<li><p><strong>mv 修改名字, 移动</strong></p>
+<ul>
+<li><p>移动的文件<strong>从 hdfs 到 hdfs</strong></p>
+</li>
+<li><p><code>hadoop fs -mv  ..  ..</code></p>
+</li>
+</ul>
+</li>
+<li><p><strong>cp 复制</strong></p>
+<ul>
+<li><code>hadoop fs -cp /hdfsfile /hdfsfile</code>: 从 hdfs 复制到 hdfs<ul>
+<li>参数 <strong>-p</strong>  ： 复制后<strong>保持文件的原本属性</strong>, 时间戳， 权限等<ul>
+<li><code>Passing -p preserves status [topax] (timestamps, ownership, permission, ACLs, XAttr).</code></li>
+</ul>
+</li>
+<li>参数 <strong>-f</strong>   :   已有同名文件的话， 直接<strong>覆盖</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>在末尾追加</strong>: <code></code>-appendToFile 本地文件  hdfs文件` </p>
+<ul>
+<li>将本地文件bb.txt 追加到 htfd的 /aa/aa.txt 上<ul>
+<li><code>hadoop fs -appendToFile aa.txt /ss/bb.txt</code></li>
+</ul>
+</li>
+<li>从命令行追加 , 但是不知道怎么结束， 先存疑？？<ul>
+<li><code></code>hadoop fs -appendToFile - /a.txt`</li>
+</ul>
+</li>
+<li>这个追加是在原始块的末尾追加的. 会改变集群上的文件</li>
+<li>如果超过128M才会进行切分,  但这个命令<em>一般不会使用</em></li>
+</ul>
+</li>
+<li><p><strong>查看文件，文件夹数量  count</strong></p>
+<ul>
+<li><code>DIR_COUNT FILE_COUNT CONTENT_SIZE FILE_NAME</code></li>
+<li><p><code>8            3         176.5 K     /tmp</code></p>
+</li>
+<li><p><code>hadoop fs -count -h /tmp</code>:  -h 是友好展示</p>
+</li>
+<li><code>hdfs dfs -count -h /tmp</code>:  与上面效果一样</li>
+<li><code>hdfs dfs -count -q -h /tmp</code>:  查看文件配额， 具体看 help</li>
+</ul>
+</li>
+<li><p><strong><code>du</code>：</strong> <strong>展示文件大小</strong>， 如果参数是文件夹， 则展示文件夹下文件的大小</p>
+<ul>
+<li><code>hadoop fs -du -h  /tmp</code></li>
+<li><code>hadoop fs -du -s -h  /tmp</code>: s 应该是  sum 的意思， 展示所有文件大小的总和</li>
+</ul>
+</li>
+<li><p><strong>展示文件最后1kb内容</strong><code>-tail</code></p>
+<ul>
+<li><p>Show the last 1KB of the file.</p>
+</li>
+<li><p><code></code> hadoop fs -tail /dd.txt`</p>
+</li>
+<li><code>-f  Shows appended data as the file grows.</code></li>
+<li>应用场景： <strong>监控日志</strong></li>
+</ul>
+</li>
+<li><p><strong>修改文件权限 chmod</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 直接使用十进制数字修改 </span></span><br><span class="line">[ap@cs2]~/<span class="built_in">test</span>% hadoop fs -ls /</span><br><span class="line">drwxr-xr-x   - ap supergroup          0 2018-06-01 08:55 /aa</span><br><span class="line"><span class="comment"># -R：  /aa 目录下所有的文件递归修改权限</span></span><br><span class="line">[ap@cs2]~/<span class="built_in">test</span>% hadoop fs -chmod -R 777 /aa</span><br><span class="line">[ap@cs2]~/<span class="built_in">test</span>% hadoop fs -ls /</span><br><span class="line">drwxrwxrwx   - ap supergroup          0 2018-06-01 08:55 /aa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 针对用户组修改，注意，修改2个不同组权限， 用，隔开</span></span><br><span class="line">hadoop fs -chmod u+x,g+x /a.txt </span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 最常用的文件权限， 是  644(-rw-r--r--) 和 755(-rwxr-xr-x) </span></span><br><span class="line">	文件创建默认就是644</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. u+x 与 +x 的区别</span></span><br><span class="line">	前者指定加在哪组用户上，  后者是所有组都加</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>修改用户权限 chown</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -chown -R 用户名:组名  hdfs目录/文件</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h4 id="2-hdfs-dfsadmin命令"><a href="#2-hdfs-dfsadmin命令" class="headerlink" title="2. hdfs dfsadmin命令"></a>2. <strong><code>hdfs dfsadmin</code>命令</strong></h4><p> 管理员对当前节点的一些操作</p>
+<ul>
+<li><strong><code>hdfs dfsadmin -report</code>  报告当前的一些状态</strong><ul>
+<li>-live  活跃的   </li>
+<li>-dead  死的</li>
+<li>-decommissioning  退役的</li>
+</ul>
+</li>
+<li>**<code>hdfs dfsadmin -safemode</code> 安全模式<ul>
+<li>系统刚启动的时候， 会有30秒的安全模式开启状态， 过了30秒就关了</li>
+<li>enter 进入</li>
+<li>leave 离开</li>
+<li>get  查看</li>
+</ul>
+</li>
+<li><strong><code>hdfs dfsadmin</code> 设置配额</strong><ul>
+<li><code>-setQuota</code> ： 配额是限定的文件&amp;文件夹的数量<ul>
+<li>A quota of 1 would force the directory to remain empty.</li>
+<li>空文件本身算一个文件</li>
+<li><code>bin/hdfs dfsadmin -setQuota 10 lisi</code></li>
+</ul>
+</li>
+<li><code>-clrQuota</code></li>
+<li><code>-setSpaceQuota</code>： 空间配额限定的是大小<ul>
+<li><code>bin/hdfs dfsadmin -setSpaceQuota 4k /lisi/</code></li>
+</ul>
+</li>
+<li><code>-clrSpaceQuota</code></li>
+<li><code>hdfs dfs -count -q -h /user</code>:  加上 -q 是查看配额</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="3-httpFS访问"><a href="#3-httpFS访问" class="headerlink" title="3.  httpFS访问"></a>3.  httpFS访问</h4><p>使用 REST 的形式， 可以在浏览器上直接访问集群， 可以在非 Linux 平台访问</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 编辑文件httpfs-env.sh</span><br><span class="line"># 打开此句注释, 使用内嵌的 tomcat</span><br><span class="line">export HTTPFS_HTTP_PORT=14000</span><br><span class="line"></span><br><span class="line"># 编辑文件core-site.xml</span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.proxyuser.root.hosts<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>*<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.proxyuser.root.groups<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>*<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">编辑文件hdfs-site.xml</span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.webhdfs.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">重新启动namenode，执行 sbin/httpfs.sh start</span><br><span class="line"># 执行命令</span><br><span class="line">curl -i "http://cs1:14000/webhdfs/v1?user.name=root&amp;op=LISTSTATUS"</span><br></pre></td></tr></table></figure>
+<p><a href="http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/WebHDFS.html" target="_blank" rel="noopener">更多命令参考</a></p>
+<hr>
+<p><strong>相关知识点</strong></p>
+<ul>
+<li><p>这些命令<strong>在集群中的任何节点都可以做</strong>, hdfs文件系统中, 看到的目录结构只是一个抽象目录, 实际存储在集群中的节点上</p>
+<ul>
+<li>aa.txt ,  大小150M,   <code>hadoop fs -put aa.txt /</code></li>
+<li>会在根目录下看到 /aa.txt,  但是 aa.txt 真实存储的时候, 会先进行分块, 分2块, 进行存储, 假设集群中5个存储节点,  这2个块存储在哪个节点,  由namenode进行分配</li>
+<li>图形界面点进去, 可以看到存储的块</li>
+</ul>
+</li>
+<li><p><strong>Linux的权限管理命令</strong>: </p>
+<ol>
+<li>修改 文件/文件夹 权限的 <code>chmod</code>: <ol>
+<li>可读: r ,  =4        </li>
+<li>可写: w,  =2</li>
+<li>可执行: x,  =1<ol>
+<li>最大权限是7</li>
+<li>-rw-rw-r–</li>
+<li>文件属性 d:目录  -:文件  l:链接</li>
+<li>第一组: 本用户,  第二组: 本组用户,  第三组: 其它用户</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>chmod  711 </li>
+<li>改一个文件夹下所有文件权限为711 <code>chmod -R 711 目录</code></li>
+</ul>
+<ol>
+<li>修改文件所属用户和组 <code>chown</code><ul>
+<li><code>chown -R root:root  ss/</code>把ss的文件夹全部改成root用户和root组</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="5、Eclipse查看Hadoop文件信息"><a href="#5、Eclipse查看Hadoop文件信息" class="headerlink" title="5、Eclipse查看Hadoop文件信息"></a>5、Eclipse查看Hadoop文件信息</h3><p><a href="https://app.yinxiang.com/shard/s37/nl/7399077/9f4966ae-da19-48aa-960b-0a6081ab7ff2/" target="_blank" rel="noopener">详情可以查看</a></p>
+<p><a href="https://app.yinxiang.com/shard/s37/nl/7399077/2668e8e5-f7a1-48e3-a5d5-a7fcf9076c1f/" target="_blank" rel="noopener">其中可能遇到的bug，参见</a></p>
+<p>其中， Eclipse端无法直接删除文件的问题，似乎可以通过在<code>hdfs-site.xml</code> 中修改访问权限来实现， <strong>还未尝试</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.permissions<span class="tag">&lt;/<span class="name">name</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="6-通过-Java-API的方式操作-HDFS"><a href="#6-通过-Java-API的方式操作-HDFS" class="headerlink" title="6. 通过 Java API的方式操作 HDFS"></a>6. 通过 Java API的方式操作 HDFS</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+            <a href="/tags/HDFS/" rel="tag"># HDFS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/02/Java/HashMap的实现原理/" rel="next" title="HashMap的实现原理">
+                <i class="fa fa-chevron-left"></i> HashMap的实现原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/03/Poetry/回答/" rel="prev" title="▍回答">
+                ▍回答 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg"
+                alt="airpoet" />
+            
+              <p class="site-author-name" itemprop="name">airpoet</p>
+              <p class="site-description motion-element" itemprop="description">没有边界就没有自由.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/3b9b97fe7e04" target="_blank" title="我的简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>我的简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:airpoet@qq.com" target="_blank" title="Mile2Me">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mile2Me</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/8ee264c6557d" title="女神凉姨" target="_blank">女神凉姨</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop的核心组件-之-HDFS"><span class="nav-text">Hadoop的核心组件 之 HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS"><span class="nav-text">HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HDFS是什么"><span class="nav-text">1. HDFS是什么:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-HDFS-设计思想"><span class="nav-text">2. HDFS 设计思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-HDFS-的整体结构"><span class="nav-text">2. HDFS 的整体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#namenode"><span class="nav-text">namenode:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#datanode"><span class="nav-text">datanode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#secondarynamenode"><span class="nav-text">secondarynamenode:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HDFS优缺点"><span class="nav-text">3. HDFS优缺点:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HDFS-的-常用命令"><span class="nav-text">==4. HDFS 的 常用命令:==</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-hapdoop-fs-命令"><span class="nav-text">1. hapdoop fs 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-hdfs-dfsadmin命令"><span class="nav-text">2. hdfs dfsadmin命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-httpFS访问"><span class="nav-text">3.  httpFS访问</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、Eclipse查看Hadoop文件信息"><span class="nav-text">5、Eclipse查看Hadoop文件信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-通过-Java-API的方式操作-HDFS"><span class="nav-text">6. 通过 Java API的方式操作 HDFS</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">airpoet</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/06/02/Hadoop/1-HDFS/HDFS-1-基础入门/';
+          this.page.identifier = '2018/06/02/Hadoop/1-HDFS/HDFS-1-基础入门/';
+          this.page.title = 'Hadoop学习笔记-2 HDFS基础入门';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>

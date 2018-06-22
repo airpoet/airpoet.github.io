@@ -92,7 +92,7 @@
 <meta property="og:description" content="1.此教程默认已经搭建好完全分布式完全分布式搭建, 请参阅:TODO 2. Zookkeeper 集群搭建 参考..  :TODO 3.HA 集群搭建首先声明我是用的6台主机,  主机名 cs1-cs6,  用户名为ap, 可以对照改为自己的主机名&amp;amp;用户名 另外, 搭建 HA 不会影响原来的完全分布式, 具体操作会在下面告知.hadoop 安装目录层级结构:  /home/ap/apps/">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-21-164723.png">
-<meta property="og:updated_time" content="2018-06-21T17:45:57.598Z">
+<meta property="og:updated_time" content="2018-06-22T04:55:10.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop-HA高可用集群QJM搭建">
 <meta name="twitter:description" content="1.此教程默认已经搭建好完全分布式完全分布式搭建, 请参阅:TODO 2. Zookkeeper 集群搭建 参考..  :TODO 3.HA 集群搭建首先声明我是用的6台主机,  主机名 cs1-cs6,  用户名为ap, 可以对照改为自己的主机名&amp;amp;用户名 另外, 搭建 HA 不会影响原来的完全分布式, 具体操作会在下面告知.hadoop 安装目录层级结构:  /home/ap/apps/">
@@ -338,7 +338,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-22T01:45:57+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-22T12:55:10+08:00">
                 2018-06-22
               </time>
             
@@ -477,6 +477,34 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">1.配置yarn-site.xml</span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.ha.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.cluster-id<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>cluster1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.ha.rm-ids<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>rm1,rm2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname.rm1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>cs1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname.rm2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>cs6<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.webapp.address.rm1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>cs1:8088<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.webapp.address.rm2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>cs6:8088<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.zk-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>cs1:2181,cs2:2181,cs3:2181<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">------------------------------------------------------------------</span><br><span class="line">2.使用管理命令</span><br><span class="line">//查看状态</span><br><span class="line">$&gt;yarn rmadmin -getServiceState rm1</span><br><span class="line">//切换状态到standby</span><br><span class="line">$&gt;yarn rmadmin -transitionToStandby rm1</span><br><span class="line"></span><br><span class="line">3.启动yarn集群</span><br><span class="line">$&gt;start-yarn.sh</span><br><span class="line"></span><br><span class="line">4.hadoop没有启动两个resourcemanager,需要手动启动另外一个</span><br><span class="line">$&gt;yarn-daemon.sh start resourcemanager</span><br><span class="line"></span><br><span class="line">5.查看webUI</span><br><span class="line"></span><br><span class="line">6.做容灾模拟.</span><br><span class="line">kill -9    </span><br><span class="line"></span><br><span class="line">7.注意: 如果容灾失败, 检查下每台主机时间是否同步</span><br><span class="line">$&gt;sudo ntpdate ntp1.aliyun.com</span><br></pre></td></tr></table></figure>
 <p><strong>至此, 大功告成</strong></p>
 <hr>
+<h3 id="4-HA-集群的启动-关闭"><a href="#4-HA-集群的启动-关闭" class="headerlink" title="4.HA 集群的启动/关闭"></a>4.HA 集群的启动/关闭</h3><h4 id="4-1-HA-的启动"><a href="#4-1-HA-的启动" class="headerlink" title="4.1 HA 的启动"></a>4.1 HA 的启动</h4><p><strong>一:单点启动</strong></p>
+<ol start="0">
+<li><p>启动 zk 服务 QuorumPeerMain, 否则后面 RM 会起不来,连不上 ZK 服务<br>cs1-cs3: $&gt; <code>zkServer.sh start</code></p>
+</li>
+<li><p>启动 namenode/datanode<br>cs1,cs6: $&gt; <code>hadoop-daemon.sh start namenode</code><br>cs1/cs6: $&gt; <code>hadoop-daemons.sh start datanode</code><br>cs6:     $&gt; <code>hadoop-daemon.sh start namenode</code></p>
+</li>
+</ol>
+<ol start="2">
+<li>启动 journalnode<br>cs2-cs4: $&gt; <code>hadoop-daemon.sh start journalnode</code></li>
+</ol>
+<ol start="3">
+<li>启动RM (RM 会自动选出一个 active)<br>cs1,cs6: $&gt; <code>yarn-daemon.sh start resourcemanager</code><br>cs1/cs6: $&gt; <code>yarn-daemons.sh start nodemanager</code></li>
+</ol>
+<ol start="4">
+<li>启动 zk 的 DFSZKFailoverController<br>cs1,cs6: $&gt; <code>hadoop-daemon.sh start zkfc</code></li>
+</ol>
+<p><strong>二:懒汉启动</strong></p>
+<ol start="0">
+<li><p>启动 zk 服务 QuorumPeerMain, 否则后面 RM 会起不来,连不上 ZK 服务<br>cs1-cs3: $&gt; <code>zkServer.sh start</code></p>
+</li>
+<li><p>执行启动全部</p>
+<p>cs1: $&gt;  <code>start-all.sh</code></p>
+</li>
+<li><p>另一个 RM 节点不会自己启动,要手动启动</p>
+<p>cs6: $&gt;  <code>yarn-daemon.sh start resourcemanager</code></p>
+</li>
+</ol>
+<h4 id="4-2-HA-的关闭"><a href="#4-2-HA-的关闭" class="headerlink" title="4.2 HA 的关闭"></a>4.2 HA 的关闭</h4><p>在 一台NN 上<code>stop-all.sh</code>, 注意 zk 的 server- <code>QuorumPeerMain</code>不会停掉</p>
 
       
     </div>
@@ -726,7 +754,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-此教程默认已经搭建好完全分布式"><span class="nav-text">1.此教程默认已经搭建好完全分布式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Zookkeeper-集群搭建"><span class="nav-text">2. Zookkeeper 集群搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HA-集群搭建"><span class="nav-text">3.HA 集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先声明"><span class="nav-text">首先声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始搭建"><span class="nav-text">开始搭建</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-此教程默认已经搭建好完全分布式"><span class="nav-text">1.此教程默认已经搭建好完全分布式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Zookkeeper-集群搭建"><span class="nav-text">2. Zookkeeper 集群搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HA-集群搭建"><span class="nav-text">3.HA 集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先声明"><span class="nav-text">首先声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始搭建"><span class="nav-text">开始搭建</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HA-集群的启动-关闭"><span class="nav-text">4.HA 集群的启动/关闭</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-HA-的启动"><span class="nav-text">4.1 HA 的启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-HA-的关闭"><span class="nav-text">4.2 HA 的关闭</span></a></li></ol></li></ol></div>
             
 
           </div>

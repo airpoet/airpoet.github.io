@@ -92,7 +92,7 @@
 <meta property="og:description" content="1.此教程默认已经搭建好完全分布式完全分布式搭建, 请参阅:TODO 2. Zookkeeper 集群搭建 参考..  :TODO 3.HA 集群搭建首先声明我是用的6台主机,  主机名 cs1-cs6,  用户名为ap, 可以对照改为自己的主机名&amp;amp;用户名 另外, 搭建 HA 不会影响原来的完全分布式, 具体操作会在下面告知.hadoop 安装目录层级结构:  /home/ap/apps/">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-21-164723.png">
-<meta property="og:updated_time" content="2018-06-22T04:55:10.719Z">
+<meta property="og:updated_time" content="2018-06-22T08:08:18.093Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop-HA高可用集群QJM搭建">
 <meta name="twitter:description" content="1.此教程默认已经搭建好完全分布式完全分布式搭建, 请参阅:TODO 2. Zookkeeper 集群搭建 参考..  :TODO 3.HA 集群搭建首先声明我是用的6台主机,  主机名 cs1-cs6,  用户名为ap, 可以对照改为自己的主机名&amp;amp;用户名 另外, 搭建 HA 不会影响原来的完全分布式, 具体操作会在下面告知.hadoop 安装目录层级结构:  /home/ap/apps/">
@@ -338,7 +338,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-22T12:55:10+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-22T16:08:18+08:00">
                 2018-06-22
               </time>
             
@@ -505,6 +505,7 @@
 </li>
 </ol>
 <h4 id="4-2-HA-的关闭"><a href="#4-2-HA-的关闭" class="headerlink" title="4.2 HA 的关闭"></a>4.2 HA 的关闭</h4><p>在 一台NN 上<code>stop-all.sh</code>, 注意 zk 的 server- <code>QuorumPeerMain</code>不会停掉</p>
+<h3 id="5-简单时间同步脚本"><a href="#5-简单时间同步脚本" class="headerlink" title="5.简单时间同步脚本"></a>5.简单时间同步脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在所有机器上写定时任务</span></span><br><span class="line">crontab -e</span><br><span class="line">* */1 * * * /usr/sbin/ntpdate time1.aliyun.com</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -754,7 +755,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-此教程默认已经搭建好完全分布式"><span class="nav-text">1.此教程默认已经搭建好完全分布式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Zookkeeper-集群搭建"><span class="nav-text">2. Zookkeeper 集群搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HA-集群搭建"><span class="nav-text">3.HA 集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先声明"><span class="nav-text">首先声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始搭建"><span class="nav-text">开始搭建</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HA-集群的启动-关闭"><span class="nav-text">4.HA 集群的启动/关闭</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-HA-的启动"><span class="nav-text">4.1 HA 的启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-HA-的关闭"><span class="nav-text">4.2 HA 的关闭</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-此教程默认已经搭建好完全分布式"><span class="nav-text">1.此教程默认已经搭建好完全分布式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Zookkeeper-集群搭建"><span class="nav-text">2. Zookkeeper 集群搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HA-集群搭建"><span class="nav-text">3.HA 集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先声明"><span class="nav-text">首先声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始搭建"><span class="nav-text">开始搭建</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HA-集群的启动-关闭"><span class="nav-text">4.HA 集群的启动/关闭</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-HA-的启动"><span class="nav-text">4.1 HA 的启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-HA-的关闭"><span class="nav-text">4.2 HA 的关闭</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-简单时间同步脚本"><span class="nav-text">5.简单时间同步脚本</span></a></li></ol></div>
             
 
           </div>

@@ -83,19 +83,19 @@
 
 
 
-<meta name="description" content="1.此教程默认已经搭建好完全分布式完全分布式搭建, 请参阅:TODO 2. Zookkeeper 集群搭建 参考..  :TODO 3.HA 集群搭建首先声明笔者用的6台主机,  主机名 cs1-cs6,  用户名为ap, 可以对照改为自己的主机名&amp;amp;用户名 另外, 搭建 HA 不会影响原来的完全分布式, 具体操作会在下面告知.hadoop 安装目录层级结构:  /home/ap/apps/">
+<meta name="description" content="1.此教程默认已经搭建好完全分布式完全分布式搭建, 请参阅:TODO 2. Zookkeeper 集群搭建1234567891011121314151617181920212223242526272829配置完全分布式zk集群---------------------    1.挑选3台主机        cs1 ~ cs3    2.每台机器都安装zk        tar        环境变">
 <meta name="keywords" content="原创,技术,Hadoop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop-HA高可用集群QJM搭建">
 <meta property="og:url" content="https://airpoet.github.io/2018/06/22/Hadoop/0-Hadoop/Hadoop-HA高可用集群搭建/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="1.此教程默认已经搭建好完全分布式完全分布式搭建, 请参阅:TODO 2. Zookkeeper 集群搭建 参考..  :TODO 3.HA 集群搭建首先声明笔者用的6台主机,  主机名 cs1-cs6,  用户名为ap, 可以对照改为自己的主机名&amp;amp;用户名 另外, 搭建 HA 不会影响原来的完全分布式, 具体操作会在下面告知.hadoop 安装目录层级结构:  /home/ap/apps/">
+<meta property="og:description" content="1.此教程默认已经搭建好完全分布式完全分布式搭建, 请参阅:TODO 2. Zookkeeper 集群搭建1234567891011121314151617181920212223242526272829配置完全分布式zk集群---------------------    1.挑选3台主机        cs1 ~ cs3    2.每台机器都安装zk        tar        环境变">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-21-164723.png">
-<meta property="og:updated_time" content="2018-06-22T10:35:44.856Z">
+<meta property="og:updated_time" content="2018-06-22T11:10:16.994Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop-HA高可用集群QJM搭建">
-<meta name="twitter:description" content="1.此教程默认已经搭建好完全分布式完全分布式搭建, 请参阅:TODO 2. Zookkeeper 集群搭建 参考..  :TODO 3.HA 集群搭建首先声明笔者用的6台主机,  主机名 cs1-cs6,  用户名为ap, 可以对照改为自己的主机名&amp;amp;用户名 另外, 搭建 HA 不会影响原来的完全分布式, 具体操作会在下面告知.hadoop 安装目录层级结构:  /home/ap/apps/">
+<meta name="twitter:description" content="1.此教程默认已经搭建好完全分布式完全分布式搭建, 请参阅:TODO 2. Zookkeeper 集群搭建1234567891011121314151617181920212223242526272829配置完全分布式zk集群---------------------    1.挑选3台主机        cs1 ~ cs3    2.每台机器都安装zk        tar        环境变">
 <meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-21-164723.png">
 
 
@@ -338,7 +338,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-22T18:35:44+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-22T19:10:16+08:00">
                 2018-06-22
               </time>
             
@@ -422,7 +422,7 @@
 
       
         <h3 id="1-此教程默认已经搭建好完全分布式"><a href="#1-此教程默认已经搭建好完全分布式" class="headerlink" title="1.此教程默认已经搭建好完全分布式"></a>1.此教程默认已经搭建好完全分布式</h3><p>完全分布式搭建, 请参阅<strong>:TODO</strong></p>
-<h3 id="2-Zookkeeper-集群搭建"><a href="#2-Zookkeeper-集群搭建" class="headerlink" title="2. Zookkeeper 集群搭建"></a>2. Zookkeeper 集群搭建</h3><p> 参考..  :TODO</p>
+<h3 id="2-Zookkeeper-集群搭建"><a href="#2-Zookkeeper-集群搭建" class="headerlink" title="2. Zookkeeper 集群搭建"></a>2. Zookkeeper 集群搭建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">配置完全分布式zk集群</span><br><span class="line">---------------------</span><br><span class="line">    1.挑选3台主机</span><br><span class="line">        cs1 ~ cs3</span><br><span class="line">    2.每台机器都安装zk</span><br><span class="line">        tar</span><br><span class="line">        环境变量</span><br><span class="line"></span><br><span class="line">    3.配置zk配置文件</span><br><span class="line">        cs1 ~ cs3</span><br><span class="line">        [/home/ap/apps/zk/conf/zoo.cfg]</span><br><span class="line">        ...</span><br><span class="line">        dataDir=/home/ap/zookeeper</span><br><span class="line"></span><br><span class="line">    4.在每台主机的/home/centos/zookeeper中添加myid,内容分别是1,2,3</span><br><span class="line">        [cs1]</span><br><span class="line">        $&gt;<span class="built_in">echo</span> 1 &gt; /home/ap/zookeeper/myid</span><br><span class="line">        [cs2]</span><br><span class="line">        $&gt;<span class="built_in">echo</span> 2 &gt; /home/ap/zookeeper/myid</span><br><span class="line">        [cs3]</span><br><span class="line">        $&gt;<span class="built_in">echo</span> 3 &gt; /home/ap/zookeeper/myid</span><br><span class="line"></span><br><span class="line">    5.启动服务器集群 </span><br><span class="line">        $&gt;zkServer.sh start</span><br><span class="line">            </span><br><span class="line">    6.查看每台服务器的状态</span><br><span class="line">        $&gt;zkServer.sh status</span><br><span class="line">* 注意: 如果有3台机器, 只启动一台的话, 会显示如下, 因为根据配置, 有3台机器, 此时只有一台启动, 没有过半数, 整个集群是挂掉的</span><br><span class="line">* 只有启动的机器数量超过配置的半数, zk 集群才有效.</span><br></pre></td></tr></table></figure>
 <h3 id="3-HA-集群搭建"><a href="#3-HA-集群搭建" class="headerlink" title="3.HA 集群搭建"></a>3.HA 集群搭建</h3><h4 id="首先声明"><a href="#首先声明" class="headerlink" title="首先声明"></a>首先声明</h4><p><strong>笔者用的6台主机,  主机名 <code>cs1-cs6</code>,  用户名为<code>ap</code>, 可以对照改为自己的主机名&amp;用户名</strong></p>
 <p>另外, 搭建 HA 不会影响原来的完全分布式, 具体操作会在下面告知.<br><strong>hadoop 安装目录层级结构:</strong></p>
 <ul>

@@ -99,7 +99,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-073914.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-074113.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-074213.png">
-<meta property="og:updated_time" content="2018-06-23T08:38:17.716Z">
+<meta property="og:updated_time" content="2018-06-23T08:46:42.873Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-Zookeeper">
 <meta name="twitter:description" content="1.Zookeeper 的安装&amp;amp;概述1.1. Zookeeper 简介Zookeeper是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。 zk提供的服务   Naming service                //按名称区分集群中的节点.   Configuration management    //对加入节点的最新化处理。   Cluster manageme">
@@ -345,7 +345,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-23T16:38:17+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-23T16:46:42+08:00">
                 2018-06-23
               </time>
             
@@ -428,7 +428,7 @@
       
 
       
-        <h1 id="1-Zookeeper-的安装-amp-概述"><a href="#1-Zookeeper-的安装-amp-概述" class="headerlink" title="1.Zookeeper 的安装&amp;概述"></a>1.Zookeeper 的安装&amp;概述</h1><h2 id="1-1-Zookeeper-简介"><a href="#1-1-Zookeeper-简介" class="headerlink" title="1.1. Zookeeper 简介"></a>1.1. Zookeeper 简介</h2><p><strong>Zookeeper是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。</strong></p>
+        <h1 id="1-Zookeeper-的安装-amp-概述"><a href="#1-Zookeeper-的安装-amp-概述" class="headerlink" title="1.Zookeeper 的安装&amp;概述"></a>1.Zookeeper 的安装&amp;概述</h1><h3 id="1-1-Zookeeper-简介"><a href="#1-1-Zookeeper-简介" class="headerlink" title="1.1. Zookeeper 简介"></a>1.1. Zookeeper 简介</h3><p><strong>Zookeeper是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。</strong></p>
 <p>zk提供的服务 </p>
 <ul>
 <li><p>Naming service                //按名称区分集群中的节点. </p>
@@ -440,8 +440,8 @@
 <li>Locking and synchronization service    //修改时锁定数据，实现容灾. </li>
 <li>Highly reliable data registry        //节点宕机数据也是可用的。 </li>
 </ul>
-<h2 id="1-2-ZK-的工作机制"><a href="#1-2-ZK-的工作机制" class="headerlink" title="1.2.  ZK 的工作机制"></a>1.2.  ZK 的工作机制</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-065529.png" alt="image-20180623145528682"></p>
-<h2 id="1-4-ZK-架构"><a href="#1-4-ZK-架构" class="headerlink" title="1.4. ZK 架构"></a>1.4. ZK 架构</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-064232.png" alt="image-20180623144232085"></p>
+<h3 id="1-2-ZK-的工作机制"><a href="#1-2-ZK-的工作机制" class="headerlink" title="1.2.  ZK 的工作机制"></a>1.2.  ZK 的工作机制</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-065529.png" alt="image-20180623145528682"></p>
+<h3 id="1-4-ZK-架构"><a href="#1-4-ZK-架构" class="headerlink" title="1.4. ZK 架构"></a>1.4. ZK 架构</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-064232.png" alt="image-20180623144232085"></p>
 <h4 id="1-4-1-名词解释"><a href="#1-4-1-名词解释" class="headerlink" title="1.4.1 名词解释"></a>1.4.1 名词解释</h4><p>   1.Client </p>
 <p>​        从server获取信息，周期性发送数据给server，表示自己还活着。 </p>
 <p>​        client连接时，server回传ack信息。 </p>
@@ -465,27 +465,27 @@
 <li>7）数据更新原子性，一次数据更新要么成功，要么失败。</li>
 <li>8）实时性，在一定时间范围内，client能读到最新数据。</li>
 </ul>
-<h2 id="1-5-znode"><a href="#1-5-znode" class="headerlink" title="1.5. znode"></a>1.5. znode</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-064202.png" alt="image-20180623144202281"></p>
+<h3 id="1-5-znode"><a href="#1-5-znode" class="headerlink" title="1.5. znode"></a>1.5. znode</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-064202.png" alt="image-20180623144202281"></p>
 <p>ZooKeeper数据模型的结构与Unix文件系统很类似，整体上可以看作是一棵树，每个节点称做一个ZNode。每一个ZNode默认能够存储1MB的数据，每个ZNode都可以通过其路径唯一标识 </p>
 <p>zk中的节点，维护了stat，由Version number, Action control list (ACL), Timestamp,Data length.构成. </p>
 <p>data version        //数据写入的过程变化 </p>
 <p> ACL                    //action control list, </p>
-<h2 id="1-6-节点类型"><a href="#1-6-节点类型" class="headerlink" title="1.6. 节点类型"></a>1.6. 节点类型</h2><p>​    1.持久节点 </p>
+<h3 id="1-6-节点类型"><a href="#1-6-节点类型" class="headerlink" title="1.6. 节点类型"></a>1.6. 节点类型</h3><p>​    1.持久节点 </p>
 <p>​        client结束，还存在。 </p>
 <p>​    2.临时节点 </p>
 <p>​        在client活动时有效，断开自动删除。临时节点不能有子节点。 </p>
 <p>​        leader推选时使用。 </p>
 <p>​    3.序列节点 </p>
 <p>​        在节点名之后附加10个数字，主要用于同步和锁. </p>
-<h2 id="1-7-Session"><a href="#1-7-Session" class="headerlink" title="1.7. Session"></a>1.7. Session</h2><p>​    Session中的请求以FIFO执行，一旦client连接到server，session就建立了。sessionid分配client. </p>
+<h3 id="1-7-Session"><a href="#1-7-Session" class="headerlink" title="1.7. Session"></a>1.7. Session</h3><p>​    Session中的请求以FIFO执行，一旦client连接到server，session就建立了。sessionid分配client. </p>
 <p>​    client以固定间隔向server发送心跳，表示session是valid的，zk集群如果在超时时候，没有收到心跳， </p>
 <p>​    判定为client挂了，与此同时，临时节点被删除。 </p>
-<h2 id="1-8-Watches"><a href="#1-8-Watches" class="headerlink" title="1.8. Watches"></a>1.8. Watches</h2><p>​    观察。 </p>
+<h3 id="1-8-Watches"><a href="#1-8-Watches" class="headerlink" title="1.8. Watches"></a>1.8. Watches</h3><p>​    观察。 </p>
 <p>​    client能够通过watch机制在数据发生变化时收到通知。 </p>
 <p>​    client可以在read 节点时设置观察者。watch机制会发送通知给注册的客户端。 </p>
 <p>​    观察模式只触发一次。 </p>
 <p>​    session过期，watch机制删除了。 </p>
-<h2 id="1-9-zk工作流程"><a href="#1-9-zk工作流程" class="headerlink" title="1.9. zk工作流程"></a>1.9. zk工作流程</h2><p>​    zk集群启动后，client连接到其中的一个节点，这个节点可以是leader，也可以是follower。 </p>
+<h3 id="1-9-zk工作流程"><a href="#1-9-zk工作流程" class="headerlink" title="1.9. zk工作流程"></a>1.9. zk工作流程</h3><p>​    zk集群启动后，client连接到其中的一个节点，这个节点可以是leader，也可以是follower。 </p>
 <p>​    连通后，node分配一个id给client，发送ack信息给client。 </p>
 <p>​    如果客户端没有收到ack，连接到另一个节点。 </p>
 <p>​    client周期性发送心跳信息给节点保证连接不会丢失。 </p>
@@ -493,7 +493,7 @@
 <p>​    如果client想要在 zk 中存储数据，将路径和数据发送给server，server转发给leader。 </p>
 <p>​    leader再补发请求给所有follower。只有大多数(超过半数)节点成功响应，则 </p>
 <p>​    写操作成功。 </p>
-<h2 id="1-10-zk-应用场景"><a href="#1-10-zk-应用场景" class="headerlink" title="1.10 zk 应用场景"></a>1.10 zk 应用场景</h2><h4 id="1-10-1-统一命名服务"><a href="#1-10-1-统一命名服务" class="headerlink" title="1.10.1 统一命名服务"></a>1.10.1 统一命名服务</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-073654.png" alt="image-20180623153654235"></p>
+<h3 id="1-10-zk-应用场景"><a href="#1-10-zk-应用场景" class="headerlink" title="1.10 zk 应用场景"></a>1.10 zk 应用场景</h3><h4 id="1-10-1-统一命名服务"><a href="#1-10-1-统一命名服务" class="headerlink" title="1.10.1 统一命名服务"></a>1.10.1 统一命名服务</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-073654.png" alt="image-20180623153654235"></p>
 <h4 id="1-10-2-统一配管理"><a href="#1-10-2-统一配管理" class="headerlink" title="1.10.2 统一配管理"></a>1.10.2 统一配管理</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-073811.png" alt="image-20180623153811327"></p>
 <h4 id="1-10-3-统一集群管理"><a href="#1-10-3-统一集群管理" class="headerlink" title="1.10.3 统一集群管理"></a>1.10.3 统一集群管理</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-073914.png" alt="image-20180623153914499"></p>
 <h4 id="1-10-4-服务器动态上下线"><a href="#1-10-4-服务器动态上下线" class="headerlink" title="1.10.4 服务器动态上下线"></a>1.10.4 服务器动态上下线</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-074113.png" alt="image-20180623154113232"></p>
@@ -782,7 +782,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Zookeeper-的安装-amp-概述"><span class="nav-text">1.Zookeeper 的安装&amp;概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Zookeeper-简介"><span class="nav-text">1.1. Zookeeper 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-ZK-的工作机制"><span class="nav-text">1.2.  ZK 的工作机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-ZK-架构"><span class="nav-text">1.4. ZK 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1-名词解释"><span class="nav-text">1.4.1 名词解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2-整体解释"><span class="nav-text">1.4.2 整体解释</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-znode"><span class="nav-text">1.5. znode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-节点类型"><span class="nav-text">1.6. 节点类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-Session"><span class="nav-text">1.7. Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-Watches"><span class="nav-text">1.8. Watches</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-zk工作流程"><span class="nav-text">1.9. zk工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-10-zk-应用场景"><span class="nav-text">1.10 zk 应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-1-统一命名服务"><span class="nav-text">1.10.1 统一命名服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-2-统一配管理"><span class="nav-text">1.10.2 统一配管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-3-统一集群管理"><span class="nav-text">1.10.3 统一集群管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-4-服务器动态上下线"><span class="nav-text">1.10.4 服务器动态上下线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-5-软负载均衡"><span class="nav-text">1.10.5 软负载均衡</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Zookeeper-完全分布式的安装-amp-基本使用"><span class="nav-text">2.Zookeeper 完全分布式的安装&amp;基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装"><span class="nav-text">2.1 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-高可用安装"><span class="nav-text">2.1.1 高可用安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-完全分布式安装"><span class="nav-text">2.2.2 完全分布式安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-zoo-cfg-文件中配置参数的含义"><span class="nav-text">2.2.3 zoo.cfg 文件中配置参数的含义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-ZK客户端的连接"><span class="nav-text">2.2 ZK客户端的连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-监听测试"><span class="nav-text">2.3 监听测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-ZK-内部机制"><span class="nav-text">3. ZK 内部机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-选举机制"><span class="nav-text">3.1  选举机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-zookeeper的选举机制（全新集群paxos）"><span class="nav-text">3.1.1. zookeeper的选举机制（全新集群paxos）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-非全新集群的选举机制-数据恢复"><span class="nav-text">3.1.2. 非全新集群的选举机制(数据恢复)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-stat-的结构"><span class="nav-text">3.2  stat 的结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-通过-JavaAPI-访问-ZK"><span class="nav-text">4. 通过 JavaAPI 访问 ZK</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Zookeeper-的安装-amp-概述"><span class="nav-text">1.Zookeeper 的安装&amp;概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Zookeeper-简介"><span class="nav-text">1.1. Zookeeper 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-ZK-的工作机制"><span class="nav-text">1.2.  ZK 的工作机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-ZK-架构"><span class="nav-text">1.4. ZK 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1-名词解释"><span class="nav-text">1.4.1 名词解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2-整体解释"><span class="nav-text">1.4.2 整体解释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-znode"><span class="nav-text">1.5. znode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-节点类型"><span class="nav-text">1.6. 节点类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-Session"><span class="nav-text">1.7. Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-Watches"><span class="nav-text">1.8. Watches</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-zk工作流程"><span class="nav-text">1.9. zk工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-zk-应用场景"><span class="nav-text">1.10 zk 应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-1-统一命名服务"><span class="nav-text">1.10.1 统一命名服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-2-统一配管理"><span class="nav-text">1.10.2 统一配管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-3-统一集群管理"><span class="nav-text">1.10.3 统一集群管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-4-服务器动态上下线"><span class="nav-text">1.10.4 服务器动态上下线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-5-软负载均衡"><span class="nav-text">1.10.5 软负载均衡</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Zookeeper-完全分布式的安装-amp-基本使用"><span class="nav-text">2.Zookeeper 完全分布式的安装&amp;基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装"><span class="nav-text">2.1 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-高可用安装"><span class="nav-text">2.1.1 高可用安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-完全分布式安装"><span class="nav-text">2.2.2 完全分布式安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-zoo-cfg-文件中配置参数的含义"><span class="nav-text">2.2.3 zoo.cfg 文件中配置参数的含义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-ZK客户端的连接"><span class="nav-text">2.2 ZK客户端的连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-监听测试"><span class="nav-text">2.3 监听测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-ZK-内部机制"><span class="nav-text">3. ZK 内部机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-选举机制"><span class="nav-text">3.1  选举机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-zookeeper的选举机制（全新集群paxos）"><span class="nav-text">3.1.1. zookeeper的选举机制（全新集群paxos）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-非全新集群的选举机制-数据恢复"><span class="nav-text">3.1.2. 非全新集群的选举机制(数据恢复)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-stat-的结构"><span class="nav-text">3.2  stat 的结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-通过-JavaAPI-访问-ZK"><span class="nav-text">4. 通过 JavaAPI 访问 ZK</span></a></li></ol></div>
             
 
           </div>

@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="原创,技术,Hadoop,Zookeeper," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="A.P的文艺杂谈" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="1.Zookeeper 的安装&amp;amp;概述1.1. Zookeeper 简介Zookeeper是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。 zk提供的服务   Naming service                //按名称区分集群中的节点.   Configuration management    //对加入节点的最新化处理。   Cluster manageme">
+<meta name="keywords" content="原创,技术,Hadoop,Zookeeper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="i-Zookeeper">
+<meta property="og:url" content="https://airpoet.github.io/2018/06/23/Hadoop/4-Zookeeper/i-Zookeeper/index.html">
+<meta property="og:site_name" content="A.P的文艺杂谈">
+<meta property="og:description" content="1.Zookeeper 的安装&amp;amp;概述1.1. Zookeeper 简介Zookeeper是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。 zk提供的服务   Naming service                //按名称区分集群中的节点.   Configuration management    //对加入节点的最新化处理。   Cluster manageme">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-065529.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-064232.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-064202.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-073654.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-073811.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-073914.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-074113.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-074213.png">
+<meta property="og:updated_time" content="2018-06-23T07:54:05.537Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="i-Zookeeper">
+<meta name="twitter:description" content="1.Zookeeper 的安装&amp;amp;概述1.1. Zookeeper 简介Zookeeper是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。 zk提供的服务   Naming service                //按名称区分集群中的节点.   Configuration management    //对加入节点的最新化处理。   Cluster manageme">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-065529.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'airpoet'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://airpoet.github.io/2018/06/23/Hadoop/4-Zookeeper/i-Zookeeper/"/>
+
+
+
+
+
+  <title>i-Zookeeper | A.P的文艺杂谈</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A.P的文艺杂谈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/23/Hadoop/4-Zookeeper/i-Zookeeper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">i-Zookeeper</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T14:00:32+08:00">
+                2018-06-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-23T15:54:05+08:00">
+                2018-06-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Zookeeper/" itemprop="url" rel="index">
+                    <span itemprop="name">Zookeeper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/23/Hadoop/4-Zookeeper/i-Zookeeper/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/23/Hadoop/4-Zookeeper/i-Zookeeper/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-Zookeeper-的安装-amp-概述"><a href="#1-Zookeeper-的安装-amp-概述" class="headerlink" title="1.Zookeeper 的安装&amp;概述"></a>1.Zookeeper 的安装&amp;概述</h1><h2 id="1-1-Zookeeper-简介"><a href="#1-1-Zookeeper-简介" class="headerlink" title="1.1. Zookeeper 简介"></a>1.1. Zookeeper 简介</h2><p><strong>Zookeeper是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。</strong></p>
+<p>zk提供的服务 </p>
+<ul>
+<li><p>Naming service                //按名称区分集群中的节点. </p>
+</li>
+<li><p>Configuration management    //对加入节点的最新化处理。 </p>
+</li>
+<li>Cluster management            //实时感知集群中节点的增减. </li>
+<li>Leader election                //leader选举 </li>
+<li>Locking and synchronization service    //修改时锁定数据，实现容灾. </li>
+<li>Highly reliable data registry        //节点宕机数据也是可用的。 </li>
+</ul>
+<h2 id="1-2-ZK-的工作机制"><a href="#1-2-ZK-的工作机制" class="headerlink" title="1.2.  ZK 的工作机制"></a>1.2.  ZK 的工作机制</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-065529.png" alt="image-20180623145528682"></p>
+<h2 id="1-4-ZK-架构"><a href="#1-4-ZK-架构" class="headerlink" title="1.4. ZK 架构"></a>1.4. ZK 架构</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-064232.png" alt="image-20180623144232085"></p>
+<h4 id="1-4-1-名词解释"><a href="#1-4-1-名词解释" class="headerlink" title="1.4.1 名词解释"></a>1.4.1 名词解释</h4><p>   1.Client </p>
+<p>​        从server获取信息，周期性发送数据给server，表示自己还活着。 </p>
+<p>​        client连接时，server回传ack信息。 </p>
+<p>​        如果client没有收到reponse，自动重定向到另一个server. </p>
+<p>​    2.Server </p>
+<p>​        zk集群中的一员，向client提供所有service，回传ack信息给client，表示自己还活着。 </p>
+<p>​    3.ensemble </p>
+<p>​        一组服务器。 </p>
+<p>​        最小节点数是3. </p>
+<p>​    4.Leader </p>
+<p>​        如果连接的节点失败，自定恢复，zk服务启动时，完成leader选举。 </p>
+<p>​    5.Follower </p>
+<p>​        追寻leader指令的节点。 </p>
+<h4 id="1-4-2-整体解释"><a href="#1-4-2-整体解释" class="headerlink" title="1.4.2 整体解释"></a>1.4.2 整体解释</h4><ul>
+<li>1）Zookeeper：一个领导者（leader），多个跟随者（follower）组成的集群。</li>
+<li>2）Leader负责进行投票的发起和决议，更新系统状态</li>
+<li>3）Follower用于接收客户请求并向客户端返回结果，在选举Leader过程中参与投票</li>
+<li>4）集群中只要有半数以上节点存活，Zookeeper集群就能正常服务。</li>
+<li>5）全局数据一致：每个server保存一份相同的数据副本，client无论连接到哪个server，数据都是一致的。</li>
+<li>6）更新请求顺序进行，来自同一个client的更新请求按其发送顺序依次执行。</li>
+<li>7）数据更新原子性，一次数据更新要么成功，要么失败。</li>
+<li>8）实时性，在一定时间范围内，client能读到最新数据。</li>
+</ul>
+<h2 id="1-5-znode"><a href="#1-5-znode" class="headerlink" title="1.5. znode"></a>1.5. znode</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-064202.png" alt="image-20180623144202281"></p>
+<p>ZooKeeper数据模型的结构与Unix文件系统很类似，整体上可以看作是一棵树，每个节点称做一个ZNode。每一个ZNode默认能够存储1MB的数据，每个ZNode都可以通过其路径唯一标识 </p>
+<p>zk中的节点，维护了stat，由Version number, Action control list (ACL), Timestamp,Data length.构成. </p>
+<p>data version        //数据写入的过程变化 </p>
+<p> ACL                    //action control list, </p>
+<h2 id="1-6-节点类型"><a href="#1-6-节点类型" class="headerlink" title="1.6. 节点类型"></a>1.6. 节点类型</h2><p>​    1.持久节点 </p>
+<p>​        client结束，还存在。 </p>
+<p>​    2.临时节点 </p>
+<p>​        在client活动时有效，断开自动删除。临时节点不能有子节点。 </p>
+<p>​        leader推选时使用。 </p>
+<p>​    3.序列节点 </p>
+<p>​        在节点名之后附加10个数字，主要用于同步和锁. </p>
+<h2 id="1-7-Session"><a href="#1-7-Session" class="headerlink" title="1.7. Session"></a>1.7. Session</h2><p>​    Session中的请求以FIFO执行，一旦client连接到server，session就建立了。sessionid分配client. </p>
+<p>​    client以固定间隔向server发送心跳，表示session是valid的，zk集群如果在超时时候，没有收到心跳， </p>
+<p>​    判定为client挂了，与此同时，临时节点被删除。 </p>
+<h2 id="1-8-Watches"><a href="#1-8-Watches" class="headerlink" title="1.8. Watches"></a>1.8. Watches</h2><p>​    观察。 </p>
+<p>​    client能够通过watch机制在数据发生变化时收到通知。 </p>
+<p>​    client可以在read 节点时设置观察者。watch机制会发送通知给注册的客户端。 </p>
+<p>​    观察模式只触发一次。 </p>
+<p>​    session过期，watch机制删除了。 </p>
+<h2 id="1-9-zk工作流程"><a href="#1-9-zk工作流程" class="headerlink" title="1.9. zk工作流程"></a>1.9. zk工作流程</h2><p>​    zk集群启动后，client连接到其中的一个节点，这个节点可以是leader，也可以是follower。 </p>
+<p>​    连通后，node分配一个id给client，发送ack信息给client。 </p>
+<p>​    如果客户端没有收到ack，连接到另一个节点。 </p>
+<p>​    client周期性发送心跳信息给节点保证连接不会丢失。 </p>
+<p>​    如果client读取数据，发送请求给node，node读取自己数据库，返回节点数据给client. </p>
+<p>​    如果client想要在 zk 中存储数据，将路径和数据发送给server，server转发给leader。 </p>
+<p>​    leader再补发请求给所有follower。只有大多数(超过半数)节点成功响应，则 </p>
+<p>​    写操作成功。 </p>
+<h2 id="1-10-zk-应用场景"><a href="#1-10-zk-应用场景" class="headerlink" title="1.10 zk 应用场景"></a>1.10 zk 应用场景</h2><h4 id="1-10-1-统一命名服务"><a href="#1-10-1-统一命名服务" class="headerlink" title="1.10.1 统一命名服务"></a>1.10.1 统一命名服务</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-073654.png" alt="image-20180623153654235"></p>
+<h4 id="1-10-2-统一配管理"><a href="#1-10-2-统一配管理" class="headerlink" title="1.10.2 统一配管理"></a>1.10.2 统一配管理</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-073811.png" alt="image-20180623153811327"></p>
+<h4 id="1-10-3-统一集群管理"><a href="#1-10-3-统一集群管理" class="headerlink" title="1.10.3 统一集群管理"></a>1.10.3 统一集群管理</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-073914.png" alt="image-20180623153914499"></p>
+<h4 id="1-10-4-服务器动态上下线"><a href="#1-10-4-服务器动态上下线" class="headerlink" title="1.10.4 服务器动态上下线"></a>1.10.4 服务器动态上下线</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-074113.png" alt="image-20180623154113232"></p>
+<h4 id="1-10-5-软负载均衡"><a href="#1-10-5-软负载均衡" class="headerlink" title="1.10.5 软负载均衡"></a>1.10.5 软负载均衡</h4><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-23-074213.png" alt="image-20180623154212560"></p>
+<h1 id="2-Zookeeper-完全分布式的安装-amp-基本使用"><a href="#2-Zookeeper-完全分布式的安装-amp-基本使用" class="headerlink" title="2.Zookeeper 完全分布式的安装&amp;基本使用"></a>2.Zookeeper 完全分布式的安装&amp;基本使用</h1><h3 id="2-1-安装"><a href="#2-1-安装" class="headerlink" title="2.1 安装"></a>2.1 安装</h3><h4 id="2-1-1-高可用安装"><a href="#2-1-1-高可用安装" class="headerlink" title="2.1.1 高可用安装"></a>2.1.1 高可用安装</h4><p><a href="https://airpoet.github.io/2018/06/22/Hadoop/0-Hadoop/Hadoop-HA%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">PS:  高可用安装见这里</a></p>
+<h4 id="2-2-2-完全分布式安装"><a href="#2-2-2-完全分布式安装" class="headerlink" title="2.2.2 完全分布式安装"></a>2.2.2 完全分布式安装</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">1.挑选3台主机</span><br><span class="line">cs1 ~ cs3</span><br><span class="line">2.每台机器都安装zk &amp; 配置环境变量</span><br><span class="line"></span><br><span class="line">3.配置zk配置文件</span><br><span class="line">cs1 ~ cs3</span><br><span class="line">[/home/ap/apps/zk/conf/zoo.cfg]</span><br><span class="line">----------</span><br><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/home/ap/zookeeper</span><br><span class="line">clientPort=2181</span><br><span class="line"></span><br><span class="line">server.1=cs1:2888:3888</span><br><span class="line">server.2=cs2:2888:3888</span><br><span class="line">server.3=cs3:2888:3888</span><br><span class="line">---------</span><br><span class="line"></span><br><span class="line">4.在每台主机的/home/ap/zookeeper中添加myid,内容分别是1,2,3</span><br><span class="line">[cs1]</span><br><span class="line">$&gt;<span class="built_in">echo</span> 1 &gt; /home/ap/zookeeper/myid</span><br><span class="line">[cs2]</span><br><span class="line">$&gt;<span class="built_in">echo</span> 2 &gt; /home/ap/zookeeper/myid</span><br><span class="line">[cs3]</span><br><span class="line">$&gt;<span class="built_in">echo</span> 3 &gt; /home/ap/zookeeper/myid</span><br><span class="line"></span><br><span class="line">5.在cs1~cs3上,启动服务器集群 </span><br><span class="line">$&gt;zkServer.sh start</span><br><span class="line"></span><br><span class="line">6.查看每台服务器的状态</span><br><span class="line">$&gt;zkServer.sh status</span><br><span class="line">* 注意: 如果有3台机器, 只启动一台的话, 会显示如下, 因为根据配置, 有3台机器, 此时只有一台启动, 没有过半数, 整个集群是挂掉的</span><br><span class="line">* 只有启动的机器数量超过配置的半数, zk 集群才有效.</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-3-zoo-cfg-文件中配置参数的含义"><a href="#2-2-3-zoo-cfg-文件中配置参数的含义" class="headerlink" title="2.2.3 zoo.cfg 文件中配置参数的含义"></a>2.2.3 <strong>zoo.cfg 文件中配置参数的含义</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">1）tickTime=2000：通信心跳数</span><br><span class="line">    tickTime：通信心跳数，Zookeeper服务器心跳时间，单位毫秒</span><br><span class="line">    Zookeeper使用的基本时间，服务器之间或客户端与服务器之间维持心跳的时间间隔，也就是每个tickTime时间就会发送一个心跳，时间单位为毫秒。</span><br><span class="line">    它用于心跳机制，并且设置最小的session超时时间为两倍心跳时间。(session的最小超时时间是2*tickTime)</span><br><span class="line">2）initLimit=10：LF初始通信时限</span><br><span class="line">    initLimit：LF初始通信时限</span><br><span class="line">    集群中的follower跟随者服务器(F)与leader领导者服务器(L)之间初始连接时能容忍的最多心跳数（tickTime的数量），用它来限定集群中的Zookeeper服务器连接到Leader的时限。</span><br><span class="line">    投票选举新leader的初始化时间</span><br><span class="line">    Follower在启动过程中，会从Leader同步所有最新数据，然后确定自己能够对外服务的起始状态。</span><br><span class="line">    Leader允许F在initLimit时间内完成这个工作。</span><br><span class="line">3）syncLimit=5：LF同步通信时限</span><br><span class="line">    syncLimit：LF同步通信时限</span><br><span class="line">    集群中Leader与Follower之间的最大响应时间单位，假如响应超过syncLimit * tickTime，</span><br><span class="line">    Leader认为Follwer死掉，从服务器列表中删除Follwer。</span><br><span class="line">    在运行过程中，Leader负责与ZK集群中所有机器进行通信，例如通过一些心跳检测机制，来检测机器的存活状态。</span><br><span class="line">    如果L发出心跳包在syncLimit之后，还没有从F那收到响应，那么就认为这个F已经不在线了。</span><br><span class="line">4）dataDir：数据文件目录+数据持久化路径</span><br><span class="line">    dataDir：数据文件目录+数据持久化路径</span><br><span class="line">    保存内存数据库快照信息的位置，如果没有其他说明，更新的事务日志也保存到数据库。</span><br><span class="line">5）clientPort=2181：客户端连接端口</span><br><span class="line">    监听客户端连接的端口</span><br><span class="line">6) Server.A=B:C:D。</span><br><span class="line">    A是一个数字，表示这个是第几号服务器；</span><br><span class="line">    B是这个服务器的ip地址；</span><br><span class="line">    C是这个服务器与集群中的Leader服务器交换信息的端口；</span><br><span class="line">    D是万一集群中的Leader服务器挂了，需要一个端口来重新进行选举，选出一个新的Leader，而这个端口就是用来执行选举时服务器相互通信的端口。</span><br><span class="line">    <span class="comment"># 集群模式下配置一个文件myid，这个文件在dataDir目录下，这个文件里面有一个数据就是A的值，Zookeeper启动时读取此文件，拿到里面的数据与zoo.cfg里面的配置信息比较从而判断到底是哪个server。</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-ZK客户端的连接"><a href="#2-2-ZK客户端的连接" class="headerlink" title="2.2 ZK客户端的连接"></a>2.2 ZK客户端的连接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">$&gt;zkCli.sh -server cs1:2181    		//进入zk命令行</span><br><span class="line"><span class="variable">$zk</span>]<span class="built_in">help</span>                        	//查看帮助</span><br><span class="line"><span class="variable">$zk</span>]quit                        	//退出</span><br><span class="line"><span class="variable">$zk</span>]create /a tom                 //创建节点</span><br><span class="line"><span class="variable">$zk</span>]get /a                        //查看数据</span><br><span class="line"><span class="variable">$zk</span>]ls /                          //列出节点</span><br><span class="line"><span class="variable">$zk</span>]ls2 /                         //查看当前节点数据并能看到更新次数等数据</span><br><span class="line"><span class="variable">$zk</span>]<span class="built_in">set</span> /a tom                    //设置数据</span><br><span class="line"><span class="variable">$zk</span>]delete /a                     //删除一个节点</span><br><span class="line"><span class="variable">$zk</span>]rmr /a                        //递归删除所有节点。</span><br><span class="line"><span class="variable">$zk</span>]<span class="built_in">stat</span> /						//查看节点状态</span><br><span class="line"></span><br><span class="line">注意: </span><br><span class="line">* 创建节点不能递归创建, 目前只能一层一层创建</span><br><span class="line">* 每次创建都的写数据, 只创建目录的话会创建不成功</span><br><span class="line">* 如果 close 后, 并没有退出客户端, 只是访问不到数据, 此时如果想要连接, 可以用connect host:port</span><br><span class="line">================================================================================</span><br><span class="line"></span><br><span class="line">ZK 的帮助文档</span><br><span class="line">----------------</span><br><span class="line"><span class="built_in">help</span>:</span><br><span class="line">ZooKeeper -server host:port cmd args</span><br><span class="line">    <span class="built_in">stat</span> path [watch]</span><br><span class="line">    <span class="built_in">set</span> path data [version]</span><br><span class="line">    ls path [watch]</span><br><span class="line">    delquota [-n|-b] path</span><br><span class="line">    ls2 path [watch]</span><br><span class="line">    setAcl path acl</span><br><span class="line">    setquota -n|-b val path</span><br><span class="line">    <span class="built_in">history</span></span><br><span class="line">    redo cmdno</span><br><span class="line">    printwatches on|off</span><br><span class="line">    delete path [version]</span><br><span class="line">    sync path</span><br><span class="line">    listquota path</span><br><span class="line">    rmr path</span><br><span class="line">    get path [watch]</span><br><span class="line">    create [-s] [-e] path data acl</span><br><span class="line">    addauth scheme auth</span><br><span class="line">    quit</span><br><span class="line">    getAcl path</span><br><span class="line">    close</span><br><span class="line">    connect host:port</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-监听测试"><a href="#2-3-监听测试" class="headerlink" title="2.3 监听测试"></a>2.3 监听测试</h3><p><strong>注意点: 注册的监听只能使用一次, 监听完毕后需要重新注册.</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">=======节点值的变化的监听==========</span><br><span class="line">（1）在cs1主机上注册监听/app1节点数据变化</span><br><span class="line">[zk: localhost:2181(CONNECTED) 26] get /app1 watch</span><br><span class="line">	</span><br><span class="line">（2）在cs2主机上修改/app1节点的数据</span><br><span class="line">[zk: localhost:2181(CONNECTED) 5] <span class="built_in">set</span> /app1  777</span><br><span class="line"></span><br><span class="line">（3）观察cs2主机收到数据变化的监听</span><br><span class="line">WATCHER::</span><br><span class="line">WatchedEvent state:SyncConnected <span class="built_in">type</span>:NodeDataChanged path:/app1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">=======节点的子节点变化的监听==========</span><br><span class="line">（1）在cs1主机上注册监听/app1节点的子节点变化</span><br><span class="line">[zk: localhost:2181(CONNECTED) 1] ls /app1 watch</span><br><span class="line">[aa0000000001, server101]</span><br><span class="line"></span><br><span class="line">（2）在cs2主机/app1节点上创建子节点</span><br><span class="line">[zk: localhost:2181(CONNECTED) 6] create /app1/bb 666</span><br><span class="line">Created /app1/bb</span><br><span class="line"></span><br><span class="line">（3）观察cs1主机收到子节点变化的监听</span><br><span class="line">WATCHER::</span><br><span class="line">WatchedEvent state:SyncConnected <span class="built_in">type</span>:NodeChildrenChanged path:/app1</span><br></pre></td></tr></table></figure>
+<h1 id="3-通过-JavaAPI-访问-ZK"><a href="#3-通过-JavaAPI-访问-ZK" class="headerlink" title="3. 通过 JavaAPI 访问 ZK"></a>3. 通过 JavaAPI 访问 ZK</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+            <a href="/tags/Zookeeper/" rel="tag"># Zookeeper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/22/Hadoop/0-Hadoop/Hadoop-HA高可用集群搭建/" rel="next" title="Hadoop-HA高可用集群QJM搭建">
+                <i class="fa fa-chevron-left"></i> Hadoop-HA高可用集群QJM搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg"
+                alt="airpoet" />
+            
+              <p class="site-author-name" itemprop="name">airpoet</p>
+              <p class="site-description motion-element" itemprop="description">没有边界就没有自由.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/3b9b97fe7e04" target="_blank" title="我的简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>我的简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:airpoet@qq.com" target="_blank" title="Mile2Me">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mile2Me</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/8ee264c6557d" title="女神凉姨" target="_blank">女神凉姨</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Zookeeper-的安装-amp-概述"><span class="nav-text">1.Zookeeper 的安装&amp;概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Zookeeper-简介"><span class="nav-text">1.1. Zookeeper 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-ZK-的工作机制"><span class="nav-text">1.2.  ZK 的工作机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-ZK-架构"><span class="nav-text">1.4. ZK 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1-名词解释"><span class="nav-text">1.4.1 名词解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2-整体解释"><span class="nav-text">1.4.2 整体解释</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-znode"><span class="nav-text">1.5. znode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-节点类型"><span class="nav-text">1.6. 节点类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-Session"><span class="nav-text">1.7. Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-Watches"><span class="nav-text">1.8. Watches</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-zk工作流程"><span class="nav-text">1.9. zk工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-10-zk-应用场景"><span class="nav-text">1.10 zk 应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-1-统一命名服务"><span class="nav-text">1.10.1 统一命名服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-2-统一配管理"><span class="nav-text">1.10.2 统一配管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-3-统一集群管理"><span class="nav-text">1.10.3 统一集群管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-4-服务器动态上下线"><span class="nav-text">1.10.4 服务器动态上下线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-5-软负载均衡"><span class="nav-text">1.10.5 软负载均衡</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Zookeeper-完全分布式的安装-amp-基本使用"><span class="nav-text">2.Zookeeper 完全分布式的安装&amp;基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装"><span class="nav-text">2.1 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-高可用安装"><span class="nav-text">2.1.1 高可用安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-完全分布式安装"><span class="nav-text">2.2.2 完全分布式安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-zoo-cfg-文件中配置参数的含义"><span class="nav-text">2.2.3 zoo.cfg 文件中配置参数的含义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-ZK客户端的连接"><span class="nav-text">2.2 ZK客户端的连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-监听测试"><span class="nav-text">2.3 监听测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-通过-JavaAPI-访问-ZK"><span class="nav-text">3. 通过 JavaAPI 访问 ZK</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">airpoet</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/06/23/Hadoop/4-Zookeeper/i-Zookeeper/';
+          this.page.identifier = '2018/06/23/Hadoop/4-Zookeeper/i-Zookeeper/';
+          this.page.title = 'i-Zookeeper';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>

@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-28-123419.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-29-092721.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-29-092707.png">
-<meta property="og:updated_time" content="2018-06-29T09:28:51.023Z">
+<meta property="og:updated_time" content="2018-06-29T09:30:28.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sqoop">
 <meta name="twitter:description" content="1. 作用  Sqoop 是 Apache 旗下一款“Hadoop 和关系数据库服务器之间传送数据”的工具。 导入数据：MySQL，Oracle 导入数据到 Hadoop 的 HDFS、HIVE、HBASE 等数据存储系统 导出数据：从 Hadoop 的文件系统中导出数据到关系数据库 MySQL 等 Sqoop 的本质还是一个命令行工具，和 HDFS，Hive 相比，并没有什么高深的理论。 2.工">
@@ -341,7 +341,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-29T17:28:51+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-29T17:30:28+08:00">
                 2018-06-29
               </time>
             
@@ -470,8 +470,8 @@
 <p>4、 第四步，sqoop 利用生成的这个 java 类，并行的从 hdfs 中读取数据</p>
 <p>5、 第五步，每个 map 作业都会根据读取到的导出表的元数据信息和读取到的数据，生成一 批 insert 语句，然后多个 map 作业会并行的向数据库 mysql 中插入数据</p>
 <p>所以，数据是从 hdfs 中并行的进行读取，也是并行的进入写入，那并行的读取是依赖 hdfs 的性能，而并行的写入到 mysql 中，那就要依赖于 mysql 的写入性能嘞。</p>
-<p><strong>官网:</strong> </p>
-<p><a href="http://sqoop.apache.org/docs/" target="_blank" rel="noopener">http://sqoop.apache.org/docs/</a> </p>
+<p><a href="http://sqoop.apache.org/docs/" target="_blank" rel="noopener"><strong>官网:</strong></a> </p>
+<p><a href="https://app.yinxiang.com/shard/s37/nl/7399077/8530b06a-e01c-42fb-a833-7f14c918e0da/" target="_blank" rel="noopener"><strong>参考PDF:</strong></a></p>
 
       
     </div>

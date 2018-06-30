@@ -100,7 +100,11 @@
 <meta property="og:image" content="https://img.mubu.com/document_image/12d391d8-836e-48de-bf08-53a95e01343c-584150.jpg">
 <meta property="og:image" content="https://img.mubu.com/document_image/5c640ea0-d4ff-43ed-94bb-ebebfc35aa62-584150.jpg">
 <meta property="og:image" content="https://img.mubu.com/document_image/ebc78e6e-830c-49af-a05f-c79ec1bad8d6-584150.jpg">
-<meta property="og:updated_time" content="2018-06-26T01:51:25.411Z">
+<meta property="og:image" content="https://img.mubu.com/document_image/7d75648a-c26c-46c9-9c06-286805d4270b-584150.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/36f8af62-4775-498f-a399-3e6a7f748382-584150.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/16c4bf5b-b2ea-4908-a6d2-1fc2cf779e22-584150.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/78a0ca5e-5ead-4a01-b37c-e5e29f650045-584150.jpg">
+<meta property="og:updated_time" content="2018-06-29T16:51:50.191Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-HBase-1">
 <meta name="twitter:description" content="Hbase概念 hbase &amp;amp; hdfs 关系图   hadoop数据库，分布式可伸缩大型数据存储。  用户对随机、实时读写数据。  十亿行 x 百万列。      版本化、非关系型数据库。   Feature Linear and modular scalability. //线性模块化扩展方式。 Strictly consistent reads and writes. //严格一致性">
@@ -346,8 +350,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-26T09:51:25+08:00">
-                2018-06-26
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-30T00:51:50+08:00">
+                2018-06-30
               </time>
             
           </span>
@@ -992,9 +996,140 @@ if(i % 2000 == 0){
 </code></pre>}<br>//<br>table.flushCommits();<br>System.out.println(System.currentTimeMillis() - start ); </li>
 </ul>
 <h2 id="HBase-切割文件"><a href="#HBase-切割文件" class="headerlink" title="HBase 切割文件"></a>HBase 切割文件</h2><ul>
-<li>默认10G 进行切割<property><br>        <name>hbase.hregion.max.filesize</name><br>        <value>10737418240</value><br>        <source>hbase-default.xml<br></property> </li>
-</ul>
+<li>默认10G 进行切割<property><br>        <name>hbase.hregion.max.filesize</name><br>        <value>10737418240</value><br>        <source>hbase-default.xml<br></property> 
 
+
+
+
+
+</li>
+</ul>
+<h2 id="HBase-合并文件"><a href="#HBase-合并文件" class="headerlink" title="HBase 合并文件"></a>HBase 合并文件</h2><ul>
+<li>merge_region ‘1f4609ba4e2a9440aedde5d0e7123722’,’48277c27196a5c6e30d5ae679e9ec4f0’<br>merge ‘前一个区域的 encoded’ , ‘后一个区域的 encoded’</li>
+</ul>
+<h2 id="HBase-手动移动文件"><a href="#HBase-手动移动文件" class="headerlink" title="HBase 手动移动文件"></a>HBase 手动移动文件</h2><ul>
+<li>hbase(main):034:0&gt; move ‘8658ac9ea01f80c2cca32693397a1e70’,’cs3,16020,1529980599903’<br>前面是 encoded region name , 后面是服务器名</li>
+</ul>
+<h2 id="预先切割"><a href="#预先切割" class="headerlink" title="预先切割"></a>预先切割</h2><ul>
+<li>创建表时, 预先对表进行切割</li>
+<li>切割线是 rowkey<br>create ‘ns1:t2’,’f1’,SPLITS=&gt;[‘row300’, ‘row600’]</li>
+<li>创建预先切割表之后, 存的值就会到对应的区域中去</li>
+<li>注意: put 一次就是一条数据</li>
+</ul>
+<h2 id="指定版本数的问题"><a href="#指定版本数的问题" class="headerlink" title="指定版本数的问题"></a>指定版本数的问题</h2><ul>
+<li>创建表时指定列族的版本数,该列族的所有列都具有相同数量版本 </li>
+<li>创建表时，指定列族的版本数。<br>$hbase&gt;create ‘ns1:t3’,{NAME=&gt;’f1’,VERSIONS=&gt;3}            </li>
+<li>如果创建表的时候创的是3个版本, 查4个版本, 此时最多也就显示3个<br>$hbase&gt;get ‘ns1:t3’,’row1’,{COLUMN=&gt;’f1’,VERSIONS=&gt;4}<br>COLUMN                  CELL<br> f1:name                timestamp=1530019546709, value=tom3<br> f1:name                timestamp=1530019542978, value=tom2<br> f1:name                timestamp=1530019540164, value=tom1</li>
+</ul>
+<h2 id="原生扫描-expert"><a href="#原生扫描-expert" class="headerlink" title="原生扫描(expert)"></a>原生扫描(expert)</h2><ul>
+<li><p><img src="https://img.mubu.com/document_image/7d75648a-c26c-46c9-9c06-286805d4270b-584150.jpg" alt="img"></p>
+</li>
+<li><p>原生扫描, 包含标记了delete的数据<br>$hbase&gt;scan ‘ns1:t3’,{COLUMN=&gt;’f1’,RAW=&gt;true,VERSIONS=&gt;10}<br>hbase(main):177:0&gt; scan ‘ns1:t3’,{COLUMN=&gt;’f1’,RAW=&gt;true,VERSIONS=&gt;10}<br>ROW                     COLUMN+CELL<br> row1                   column=f1:name, timestamp=1530019546709, value=tom3<br> row1                   column=f1:name, timestamp=1530019542978, value=tom2<br> row1                   column=f1:name, timestamp=1530019540164, type=DeleteColumn<br> row1                   column=f1:name, timestamp=1530019540164, value=tom1</p>
+</li>
+<li><p>删除数据, 标记为删除, 小于该删除时间的数据都作废, flush 后, 用 RAW 似乎还会保留, 用非 RAW 的方式查看的画, 此删除数据, 及时间戳比这个小的数据, 都不会显示.</p>
+</li>
+</ul>
+<p>   $hbase&gt;delete ‘ns1:t3’,’row1’,’f1:name’,148989875645</p>
+<ul>
+<li>这里是否要停掉 hbase 服务再起来看看?</li>
+</ul>
+<ul>
+<li><p>TTL</p>
+<ul>
+<li>time to live ,存活时间</li>
+<li>影响所有的数据，包括没有删除的数据</li>
+<li>超过该时间，原生扫描也扫不到数据</li>
+<li>创建带 TTL参数的表<br>$hbase&gt;create ‘ns1:tx’ , {NAME=&gt;’f1’,TTL=&gt;10,VERSIONS=&gt;10} </li>
+</ul>
+</li>
+<li><p>KEEP_DELETED_CELLS</p>
+<ul>
+<li>删除key之后，数据是否还保留, 未测试<br>$hbase&gt;create ‘ns1:tx’ , {NAME=&gt;’f1’,TTL=&gt;10,VERSIONS,KEEP_DELETED_CELLS=&gt;true}</li>
+<li>TTL 的优先级高于 KEEP_DELETED_CELLS, 如果设置了 TTL, 时间一到就没了, 用 RAW 也找不回来</li>
+</ul>
+</li>
+</ul>
+<h2 id="缓存-和-批处理"><a href="#缓存-和-批处理" class="headerlink" title="缓存 和 批处理"></a>缓存 和 批处理</h2><ul>
+<li><p>开启服务器端扫描器缓存</p>
+<ul>
+<li>表层面(全局), 貌似是默认的? 再看看书上说的<property><br>    <name>hbase.client.scanner.caching</name><br>    <!-- 整数最大值 --><br>    <value>2147483647</value><br>    <source>hbase-default.xml<br></property> 
+</li>
+</ul>
+</li>
+<li><p>操作层面</p>
+</li>
+</ul>
+<p>  注意: 貌似JavaAPI 中默认是没有设置 caching 的</p>
+<ul>
+<li>设置方式<br>scan.setCaching(10);</li>
+<li>操作时间<br>cache row nums : 1000            //632<br>cache row nums : 5000            //423<br>cache row nums : 1                //7359 </li>
+</ul>
+<ul>
+<li><p>扫描器缓存是 面向行级别的</p>
+</li>
+<li><p>批量扫描是 面向列级别的</p>
+<ul>
+<li>控制每次next()服务器端返回的列的个数。</li>
+<li>scan.setBatch(5);<br>每次next返回5列。</li>
+</ul>
+</li>
+</ul>
+<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><ul>
+<li><p>图示</p>
+<p><img src="https://img.mubu.com/document_image/36f8af62-4775-498f-a399-3e6a7f748382-584150.jpg" alt="img"></p>
+</li>
+<li><p>代码</p>
+<ul>
+<li><a href="https://github.com/airpoet/bigdata/blob/master/HBaseDemo/src/test/java/com/rox/text/TestCRUD.java" target="_blank" rel="noopener">https://github.com/airpoet/bigdata/blob/master/HBaseDemo/src/test/java/com/rox/text/TestCRUD.java</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="计数器"><a href="#计数器" class="headerlink" title="计数器"></a>计数器</h2><ul>
+<li>shell 实现<ul>
+<li>$hbase&gt;incr ‘ns1:t8’,’row1’,’f1:click’,1<br>后面可以跟任意数字, 正负,0都可以</li>
+<li>$hbase&gt;get_counter ‘ns1:t8’,’row1’,’f1:click’<br>获取计数器</li>
+</ul>
+</li>
+<li>Java 代码<ul>
+<li><a href="https://github.com/airpoet/bigdata/blob/master/HBaseDemo/src/test/java/com/rox/text/TestCRUD.java" target="_blank" rel="noopener">https://github.com/airpoet/bigdata/blob/master/HBaseDemo/src/test/java/com/rox/text/TestCRUD.java</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="协处理器-coprocessor-TODO-有空再看"><a href="#协处理器-coprocessor-TODO-有空再看" class="headerlink" title="协处理器 coprocessor :TODO 有空再看"></a>协处理器 coprocessor :TODO 有空再看</h2><ul>
+<li><p>批处理的，等价于存储过程或者触发器 </p>
+<p><img src="https://img.mubu.com/document_image/16c4bf5b-b2ea-4908-a6d2-1fc2cf779e22-584150.jpg" alt="img"></p>
+</li>
+<li><p>Observer</p>
+<p><img src="https://img.mubu.com/document_image/78a0ca5e-5ead-4a01-b37c-e5e29f650045-584150.jpg" alt="img"></p>
+<ul>
+<li>RegionObserver        //RegionServer区域观察者</li>
+<li>MasterObserver        //Master节点。</li>
+<li>WAlObserver            //</li>
+</ul>
+</li>
+<li><p>Endpoint</p>
+<ul>
+<li>终端,类似于存储过程。 </li>
+</ul>
+</li>
+</ul>
+<h2 id="HBase-amp-Mapreduce-整合"><a href="#HBase-amp-Mapreduce-整合" class="headerlink" title="HBase &amp; Mapreduce 整合"></a>HBase &amp; Mapreduce 整合</h2><ul>
+<li>运行官方案例<ul>
+<li>[ap@cs1]~/apps/hbase%  export HBASE_HOME=/home/ap/apps/hbase</li>
+<li>[ap@cs1]~/apps/hbase%  export HADOOP_HOME=/home/ap/apps/hadoop</li>
+<li>[ap@cs1]~/apps/hbase% export HADOOP_CLASSPATH=<code>${HBASE_HOME}/bin/hbase mapredcp</code></li>
+</ul>
+</li>
+<li>使用 MapReduce导入本地数据到Hbase<ul>
+<li>apps/hadoop/bin/yarn jar apps/hbase/lib/hbase-server-1.2.6.1.jar importtsv \</li>
+<li>-Dimporttsv.columns=HBASE_ROW_KEY,info:name,info:color fruit \</li>
+<li><a href="hdfs://cs1:8020/input_fruit" target="_blank" rel="noopener">hdfs://cs1:8020/input_fruit</a><br>这是 namenode 的 RPC 地址</li>
+</ul>
+</li>
+</ul>
+<h2 id="HBase-amp-Hive-整合"><a href="#HBase-amp-Hive-整合" class="headerlink" title="HBase &amp; Hive 整合"></a>HBase &amp; Hive 整合</h2><p>1.环境配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HBASE_HOME=/home/ap/apps/hbase</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=/home/ap/apps/hadoop</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> HADOOP_CLASSPATH=`<span class="variable">$&#123;HBASE_HOME&#125;</span>/bin/hbase mapredcp`</span><br></pre></td></tr></table></figure>
+<h2 id="剩下的hbase知识点-有空再补充"><a href="#剩下的hbase知识点-有空再补充" class="headerlink" title="剩下的hbase知识点 有空再补充"></a>剩下的hbase知识点 有空再补充</h2>
       
     </div>
     
@@ -1157,7 +1292,7 @@ if(i % 2000 == 0){
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1168,7 +1303,7 @@ if(i % 2000 == 0){
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1179,7 +1314,7 @@ if(i % 2000 == 0){
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1249,7 +1384,7 @@ if(i % 2000 == 0){
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hbase概念"><span class="nav-text">Hbase概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Feature"><span class="nav-text">Feature</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase要点"><span class="nav-text">HBase要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-表特点"><span class="nav-text">HBase 表特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-存储机制"><span class="nav-text">HBase 存储机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-定位机制-三级坐标"><span class="nav-text">HBase 定位机制(三级坐标)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表-行-列-列族的关系"><span class="nav-text">表 行 列 列族的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RowKey-Column-Family-TimeStamp-Cell-概念解释"><span class="nav-text">RowKey, Column Family, TimeStamp, Cell 概念解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-的HA搭建"><span class="nav-text">HBase 的HA搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vi-backup-masters"><span class="nav-text">vi backup-masters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-停止-hbase-进程"><span class="nav-text">启动/停止 hbase 进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-shell-操作"><span class="nav-text">HBase shell 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#登录shell终端"><span class="nav-text">登录shell终端.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#help-相关"><span class="nav-text">help 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#desc-查看描述信息"><span class="nav-text">desc 查看描述信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-相关"><span class="nav-text">list 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#create-相关"><span class="nav-text">create 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exist-相关"><span class="nav-text">exist 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#put-相关"><span class="nav-text">put 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#get-相关"><span class="nav-text">get 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scan-相关"><span class="nav-text">scan 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delete-truncate-相关-删除-清空数据"><span class="nav-text">delete/truncate 相关 (删除,清空数据)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#alter-相关"><span class="nav-text">alter 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#drop-相关"><span class="nav-text">drop 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#count-相关"><span class="nav-text">count 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flush-相关"><span class="nav-text">flush 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ValueFilter-过滤器"><span class="nav-text">ValueFilter 过滤器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exit-退出"><span class="nav-text">exit 退出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遇到问题总结"><span class="nav-text">遇到问题总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过Java-API访问Hbase"><span class="nav-text">通过Java API访问Hbase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-写入过程-amp-存储路径"><span class="nav-text">HBase 写入过程 &amp; 存储路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-和-Hive-的比较"><span class="nav-text">HBase 和 Hive 的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase在-HDFS-上的存储路径"><span class="nav-text">HBase在 HDFS 上的存储路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-端-与-HBase-交互过程"><span class="nav-text">Client 端 与 HBase 交互过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#百万数据批量插入"><span class="nav-text">百万数据批量插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-切割文件"><span class="nav-text">HBase 切割文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hbase概念"><span class="nav-text">Hbase概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Feature"><span class="nav-text">Feature</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase要点"><span class="nav-text">HBase要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-表特点"><span class="nav-text">HBase 表特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-存储机制"><span class="nav-text">HBase 存储机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-定位机制-三级坐标"><span class="nav-text">HBase 定位机制(三级坐标)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表-行-列-列族的关系"><span class="nav-text">表 行 列 列族的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RowKey-Column-Family-TimeStamp-Cell-概念解释"><span class="nav-text">RowKey, Column Family, TimeStamp, Cell 概念解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-的HA搭建"><span class="nav-text">HBase 的HA搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vi-backup-masters"><span class="nav-text">vi backup-masters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-停止-hbase-进程"><span class="nav-text">启动/停止 hbase 进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-shell-操作"><span class="nav-text">HBase shell 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#登录shell终端"><span class="nav-text">登录shell终端.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#help-相关"><span class="nav-text">help 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#desc-查看描述信息"><span class="nav-text">desc 查看描述信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-相关"><span class="nav-text">list 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#create-相关"><span class="nav-text">create 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exist-相关"><span class="nav-text">exist 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#put-相关"><span class="nav-text">put 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#get-相关"><span class="nav-text">get 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scan-相关"><span class="nav-text">scan 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delete-truncate-相关-删除-清空数据"><span class="nav-text">delete/truncate 相关 (删除,清空数据)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#alter-相关"><span class="nav-text">alter 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#drop-相关"><span class="nav-text">drop 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#count-相关"><span class="nav-text">count 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flush-相关"><span class="nav-text">flush 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ValueFilter-过滤器"><span class="nav-text">ValueFilter 过滤器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exit-退出"><span class="nav-text">exit 退出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遇到问题总结"><span class="nav-text">遇到问题总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过Java-API访问Hbase"><span class="nav-text">通过Java API访问Hbase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-写入过程-amp-存储路径"><span class="nav-text">HBase 写入过程 &amp; 存储路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-和-Hive-的比较"><span class="nav-text">HBase 和 Hive 的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase在-HDFS-上的存储路径"><span class="nav-text">HBase在 HDFS 上的存储路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-端-与-HBase-交互过程"><span class="nav-text">Client 端 与 HBase 交互过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#百万数据批量插入"><span class="nav-text">百万数据批量插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-切割文件"><span class="nav-text">HBase 切割文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-合并文件"><span class="nav-text">HBase 合并文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-手动移动文件"><span class="nav-text">HBase 手动移动文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预先切割"><span class="nav-text">预先切割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定版本数的问题"><span class="nav-text">指定版本数的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生扫描-expert"><span class="nav-text">原生扫描(expert)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存-和-批处理"><span class="nav-text">缓存 和 批处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤器"><span class="nav-text">过滤器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计数器"><span class="nav-text">计数器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协处理器-coprocessor-TODO-有空再看"><span class="nav-text">协处理器 coprocessor :TODO 有空再看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-amp-Mapreduce-整合"><span class="nav-text">HBase &amp; Mapreduce 整合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase-amp-Hive-整合"><span class="nav-text">HBase &amp; Hive 整合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#剩下的hbase知识点-有空再补充"><span class="nav-text">剩下的hbase知识点 有空再补充</span></a></li></ol></div>
             
 
           </div>

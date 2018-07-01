@@ -179,21 +179,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[i-数据分析系统Hive]]></title>
-    <url>%2F2018%2F06%2F12%2FHadoop%2F3-Hive%2Fi-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9FHive%2F</url>
-    <content type="text"><![CDATA[Hive背景及应用场景Hive是什么？看一下MR的 wordcount 和 Hive 的 wordcount Hive典型应用场景 为什么使用Hive？ 有了Hive，还需要自己写MR程序吗？ Hive基本架构 Hive各模块组成 Hive部署架构-实验环境 Hive部署架构-生产环境 Hive部署架构-metastore服务 Hive使用方式CLI（Command Line Interface） CLI—hive外部资源 Hive Web UI Hive客户端程序 HQL查询语句数据模型 数据类型（不断增加中……） 自有的特殊类型 数据定义语句（DDL） 分隔符开发中这样写 Hive Partition与Bucket Hive数据格式 应用举例：日志清理 数据操作语句（DML） 数据加载与插入语句 几个实例 数据查询语句SELECT 两种分布式Join算法 HQL中两种特殊Join Order By与Sort By Distribute by与Cluster by Transform语法（Streaming） 用户自定义函数（UDF） UDAF http://svn.apache.org/repos/asf/hive/branches/branch0.13/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDAFAverage.java UDTF http://svn.apache.org/repos/asf/hive/branches/branch0.13/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDTFExplode.java 其它问题 Hive On HBase Hive总结及其类似开源系统Stinger Hive-MR vs Hive-Tez Shark Impala 性能比较]]></content>
-      <categories>
-        <category>Hadoop</category>
-        <category>Hive</category>
-      </categories>
-      <tags>
-        <tag>原创</tag>
-        <tag>技术</tag>
-        <tag>Hadoop</tag>
-        <tag>Hive</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[偶然发现的好歌]]></title>
     <url>%2F2018%2F06%2F11%2FSongs%2F%E5%81%B6%E7%84%B6%E5%8F%91%E7%8E%B0%E7%9A%84%E5%A5%BD%E6%AD%8C%2F</url>
     <content type="text"><![CDATA[Dealbreaker 专辑：Chesapeake 歌手：Rachael Yamagata 链接：http://music.163.com/#/m/song?id=18733198 You Won’t Let Me 专辑：Chesapeake 歌手：Rachael Yamagata 链接：http://music.163.com/#/song?id=18733192]]></content>

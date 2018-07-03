@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="原创,技术,Hadoop,Redis," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="A.P的文艺杂谈" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="1.安装12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849501. 下载2. tar3. ln -s redis.xxxx  redis4. cd redis-----------------5. 执行编译脚本$&amp;gt; make 6. 默认会自动安装到 /usr/loc">
+<meta name="keywords" content="原创,技术,Hadoop,Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis">
+<meta property="og:url" content="https://airpoet.github.io/2018/07/03/Hadoop/8_Redis/Redis/index.html">
+<meta property="og:site_name" content="A.P的文艺杂谈">
+<meta property="og:description" content="1.安装12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849501. 下载2. tar3. ln -s redis.xxxx  redis4. cd redis-----------------5. 执行编译脚本$&amp;gt; make 6. 默认会自动安装到 /usr/loc">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-03-151528.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-03-151738.png">
+<meta property="og:updated_time" content="2018-07-03T15:36:25.291Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis">
+<meta name="twitter:description" content="1.安装12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849501. 下载2. tar3. ln -s redis.xxxx  redis4. cd redis-----------------5. 执行编译脚本$&amp;gt; make 6. 默认会自动安装到 /usr/loc">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-03-151528.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'airpoet'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://airpoet.github.io/2018/07/03/Hadoop/8_Redis/Redis/"/>
+
+
+
+
+
+  <title>Redis | A.P的文艺杂谈</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A.P的文艺杂谈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/07/03/Hadoop/8_Redis/Redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-03T21:36:06+08:00">
+                2018-07-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-03T23:36:25+08:00">
+                2018-07-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/03/Hadoop/8_Redis/Redis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/03/Hadoop/8_Redis/Redis/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">1. 下载</span><br><span class="line">2. tar</span><br><span class="line">3. ln -s redis.xxxx  redis</span><br><span class="line">4. <span class="built_in">cd</span> redis</span><br><span class="line">-----------------</span><br><span class="line">5. 执行编译脚本</span><br><span class="line">$&gt; make </span><br><span class="line"></span><br><span class="line">6. 默认会自动安装到 /usr/<span class="built_in">local</span>/bin, 后面跟上 PREFIX 可以自己指定安装路径</span><br><span class="line">$&gt; sudo make  PREFIX=/usr/<span class="built_in">local</span>/redis install</span><br><span class="line"></span><br><span class="line">7. 移动配置文件到redis安装目录</span><br><span class="line">$&gt; sudo cp redis.conf /usr/<span class="built_in">local</span>/redis</span><br><span class="line"></span><br><span class="line">8. 启动试试看~</span><br><span class="line">[ap@cs1]/usr/<span class="built_in">local</span>/redis% bin/redis-server redis.conf</span><br><span class="line">                _._</span><br><span class="line">           _.-``__ <span class="string">''</span>-._</span><br><span class="line">      _.-``    `.  `_.  <span class="string">''</span>-._           Redis 4.0.10 (00000000/0) 64 bit</span><br><span class="line">  .-`` .-```.  ```\/    _.,_ <span class="string">''</span>-._</span><br><span class="line"> (    <span class="string">'      ,       .-`  | `,    )     Running in standalone mode</span></span><br><span class="line"><span class="string"> |`-._`-...-` __...-.``-._|'</span>` _.-<span class="string">'|     Port: 6379</span></span><br><span class="line"><span class="string"> |    `-._   `._    /     _.-'</span>    |     PID: 1034</span><br><span class="line">  `-._    `-._  `-./  _.-<span class="string">'    _.-'</span></span><br><span class="line"> |`-._`-._    `-.__.-<span class="string">'    _.-'</span>_.-<span class="string">'|</span></span><br><span class="line"><span class="string"> |    `-._`-._        _.-'</span>_.-<span class="string">'    |           http://redis.io</span></span><br><span class="line"><span class="string">  `-._    `-._`-.__.-'</span>_.-<span class="string">'    _.-'</span></span><br><span class="line"> |`-._`-._    `-.__.-<span class="string">'    _.-'</span>_.-<span class="string">'|</span></span><br><span class="line"><span class="string"> |    `-._`-._        _.-'</span>_.-<span class="string">'    |</span></span><br><span class="line"><span class="string">  `-._    `-._`-.__.-'</span>_.-<span class="string">'    _.-'</span></span><br><span class="line">      `-._    `-.__.-<span class="string">'    _.-'</span></span><br><span class="line">          `-._        _.-<span class="string">'</span></span><br><span class="line"><span class="string">              `-.__.-'</span></span><br><span class="line"></span><br><span class="line">出现一个这个吊的图像, 就说明启动成功了.....</span><br><span class="line"></span><br><span class="line">查看是否启动成功</span><br><span class="line">netstat anop | grep 6379</span><br><span class="line"></span><br><span class="line"><span class="comment"># 让redis以后台进程的形式运行</span></span><br><span class="line">编辑conf配置文件,修改如下内容</span><br><span class="line">daemonize yes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">9. 连接</span><br><span class="line"><span class="comment"># redis/bin/redis-cli [-h localhost -p 6379 ]</span></span><br><span class="line">如果是本机</span><br><span class="line">$&gt;/usr/<span class="built_in">local</span>/redis%  bin/redis-cli -h localhost -p 6379</span><br><span class="line">or</span><br><span class="line">$&gt;/usr/<span class="built_in">local</span>/redis%  bin/redis-cli</span><br></pre></td></tr></table></figure>
+<h2 id="2-Redis基本操作"><a href="#2-Redis基本操作" class="headerlink" title="2.Redis基本操作"></a>2.Redis基本操作</h2><h3 id="2-1-字符串"><a href="#2-1-字符串" class="headerlink" title="2.1 字符串"></a>2.1 字符串</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-03-151528.png" alt="image-20180703231528195"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><span class="line">如果给定了 NX 选项，那么命令仅在键 key 不存在的情况下，才进行设置操作；如果键 key 已经存 在，那么 SET ... NX 命令不做动作（不会覆盖旧值）。===&gt; not exist</span><br><span class="line"></span><br><span class="line">如果给定了 XX 选项，那么命令仅在键 key 已经存在的情况下，才进行设置操作；如果键 key 不存 在，那么 SET ... XX 命令不做动作（一定会覆盖旧值）。</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简单存取</span></span><br><span class="line">----------------------------------------------------------------------</span><br><span class="line">复杂度为 O(1) 。</span><br><span class="line">redis&gt; SET msg <span class="string">"hello world"</span> </span><br><span class="line">OK</span><br><span class="line">redis&gt; GET msg</span><br><span class="line">hello world</span><br><span class="line"></span><br><span class="line"><span class="comment"># multi 存取</span></span><br><span class="line">----------------------------------------------------------------------</span><br><span class="line"><span class="comment"># 中间的分隔符是自己指定的</span></span><br><span class="line">127.0.0.1:6379&gt; mset ss::name <span class="string">"airpoet"</span> ss::age <span class="string">"a8"</span> ss::like <span class="string">"ycy"</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; mget ss::name ss::age ss::like</span><br><span class="line">1) <span class="string">"airpoet"</span></span><br><span class="line">2) <span class="string">"a8"</span></span><br><span class="line">3) <span class="string">"ycy"</span></span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; mset ss.age <span class="string">"18"</span> ss.teacher <span class="string">"noone"</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; mget ss.age ss::age</span><br><span class="line">1) <span class="string">"18"</span></span><br><span class="line">2) <span class="string">"a8"</span></span><br><span class="line"></span><br><span class="line">msetnx</span><br><span class="line">----------------------------------------------------------------------</span><br><span class="line">只有在所有给定键都不存在的情况下， MSETNX 会为所有给定键设置值，效果和同时执行多个 SETNX 一样。如果给定的键至少有一个是存在的 ，那么 MSETNX 将不执行任何设置操作。</span><br><span class="line">redis&gt; MSETNX nx-1 <span class="string">"hello"</span> nx-2 <span class="string">"world"</span> nx-3 <span class="string">"good luck"</span> 1</span><br><span class="line">redis&gt; SET ex-key <span class="string">"bad key here"</span></span><br><span class="line">OK</span><br><span class="line">redis&gt; MSETNX nx-4 <span class="string">"apple"</span> nx-5 <span class="string">"banana"</span> ex-key <span class="string">"cherry"</span> nx-6 <span class="string">"durian"</span> </span><br><span class="line">0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置新值并返回旧值</span></span><br><span class="line">GETSET key new-value</span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line"><span class="comment"># 先设置</span></span><br><span class="line">redis&gt; SET getset-str <span class="string">"i'm old value"</span></span><br><span class="line">OK</span><br><span class="line"><span class="comment"># 设置新的值, 返回旧值</span></span><br><span class="line">redis&gt; GETSET getset-str <span class="string">"i'm new value"</span> </span><br><span class="line">i<span class="string">'m old value</span></span><br><span class="line"><span class="string"># 重新 get 一下, 发现已是新值</span></span><br><span class="line"><span class="string">redis&gt; GET getset-str </span></span><br><span class="line"><span class="string">i'</span>m new value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#追加内容到字符串末尾</span></span><br><span class="line">APPEND key value</span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">redis&gt; SET myPhone <span class="string">"nokia"</span> </span><br><span class="line">OK</span><br><span class="line">redis&gt; APPEND myPhone <span class="string">"-1110"</span> (<span class="built_in">integer</span>) </span><br><span class="line">10</span><br><span class="line">redis&gt; GET myPhone </span><br><span class="line"><span class="string">"nokia-1110"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#返回值的长度</span></span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">redis&gt; SET msg <span class="string">"hello"</span> </span><br><span class="line">OK </span><br><span class="line">redis&gt; STRLEN msg </span><br><span class="line">(<span class="built_in">integer</span>) 5 redis&gt; </span><br><span class="line"></span><br><span class="line">APPEND msg <span class="string">" world"</span> </span><br><span class="line">(<span class="built_in">integer</span>) 11 </span><br><span class="line">redis&gt; STRLEN msg (<span class="built_in">integer</span>) 11</span><br><span class="line"></span><br><span class="line">==========================================================================================</span><br><span class="line"><span class="comment"># 索引</span></span><br><span class="line">-------------------------------------------------------------------------------------</span><br><span class="line">$ 如果字符串长度为 n</span><br><span class="line">从左到右&gt;&gt; 0 ~ n-1</span><br><span class="line">从右到做&gt;&gt; -1 ~ -n </span><br><span class="line"></span><br><span class="line"><span class="comment"># 范围设置</span></span><br><span class="line">SETRANGE key index value</span><br><span class="line">-------------------------------------------------------------------------------------</span><br><span class="line">从索引 index 开始，用 value 覆写(overwrite)给定键 key 所储存的字符串值。只接受正数索引。</span><br><span class="line">redis&gt; SET msg <span class="string">"hello"</span></span><br><span class="line">OK</span><br><span class="line">redis&gt; SETRANGE msg 1 <span class="string">"appy"</span> </span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">redis&gt; GET msg </span><br><span class="line"><span class="string">"happy"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 范围取值</span></span><br><span class="line">GETRANGE key start end</span><br><span class="line">-------------------------------------------------------------------------------------</span><br><span class="line">返回键 key 储存的字符串值中，位于 start 和 end 两个索引之间的内容(闭区间，start 和 end 会被包括 在内)。和 SETRANGE 只接受正数索引不同， GETRANGE 的索引可以是正数或者 负数。</span><br><span class="line">redis&gt; SET msg <span class="string">"hello world"</span></span><br><span class="line">OK</span><br><span class="line">redis&gt; GETRANGE msg 0 4 </span><br><span class="line"><span class="string">"hello"</span></span><br><span class="line"><span class="comment"># 从后往前取范围, 依然是从左往右(从前往后)读的</span></span><br><span class="line">redis&gt; GETRANGE msg -5 -1 </span><br><span class="line"><span class="string">"world"</span></span><br><span class="line"></span><br><span class="line">==========================================================================================</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数字操作</span></span><br><span class="line">-------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">只要储存在字符串键里面的值可以被解释为 64 位整数，或者 IEEE-754 标准的 64 位浮点数，</span><br><span class="line">那么用户就可以对这个字符串键执行针对数字值的命令。</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 增加或者减少数字的值 </span></span><br><span class="line">INCRBY, DECRBY</span><br><span class="line">可实现案例: 计数器(counter), id 生成器</span><br><span class="line">  <span class="comment"># 键 num 不存在，命令先将 num 的值初始化为 0 ,然后再执行加 100 操作</span></span><br><span class="line"> redis&gt; INCRBY num 100 </span><br><span class="line"> (<span class="built_in">integer</span>) 100</span><br><span class="line"> redis&gt; DECRBY num 50 </span><br><span class="line"> (<span class="built_in">integer</span>) 50</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 浮点数的自增和自减</span></span><br><span class="line">INCRBYFLOAT key increment</span><br><span class="line">减的话 用负数</span><br><span class="line">-------------------------------------------------------------------------------------</span><br><span class="line">redis&gt; SET num 10</span><br><span class="line">OK</span><br><span class="line">redis&gt; INCRBYFLOAT num 3.14 </span><br><span class="line"><span class="string">"13.14"</span></span><br><span class="line">redis&gt; INCRBYFLOAT num -2.04 </span><br><span class="line"><span class="string">"11.1"</span></span><br><span class="line"></span><br><span class="line">即使字符串键储存的是数字值，它也可以执行 APPEND、STRLEN、SETRANGE 和 GETRANGE</span><br><span class="line">当用户针对一个数字值执行这些命令的时候，Redis 会先将数字值转换为字符串，然后再执行命令。</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">==========================================================================================</span><br><span class="line"></span><br><span class="line"><span class="comment"># 二进制的操作</span></span><br><span class="line">索引是从右往左递增 </span><br><span class="line">具体查看</span><br><span class="line">应用案例: 实现在线人数统计</span><br><span class="line">应用案例: 使用 Redis 缓存热门图片(二进制)</span><br><span class="line">https://app.yinxiang.com/shard/s37/nl/7399077/92dcb5fb-c005-45dc-bcc5-d00863c08f84/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">==========================================================================================</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 储存中文时的注意事项</span></span><br><span class="line">一个英文字符只需要使用 单个字节来储存，而一个中文字符却需要使用多个字 节来储存。</span><br><span class="line">STRLEN、SETRANGE 和 GETRANGE 都是为英文设置的，它们只会在字符为单个字节的情况下正常 工作，而一旦我们储存的是类似中文这样的多字节字符，那么这三个命令就不再适用了。</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 redis-cli 中使用中文时，必须打开 --raw 选项，才能正常显示中文</span></span><br><span class="line">$ redis-cli --raw</span><br><span class="line"></span><br><span class="line">$ redis&gt; SET msg <span class="string">"世界你好"</span> </span><br><span class="line">OK</span><br><span class="line">$ redis&gt; GET msg </span><br><span class="line">世界你好</span><br><span class="line"><span class="comment"># strlen 只能获取字节</span></span><br><span class="line"><span class="variable">$redis</span>&gt; STRLEN msg </span><br><span class="line">12</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-散列"><a href="#2-2-散列" class="headerlink" title="2.2 散列"></a>2.2 散列</h3><p><strong>一个散列由多个域值对(field-value pair)组成，散列的键和值都可以是文字、整数、浮点数或者二 进制数据。</strong></p>
+<p><strong>同一个散列里面的各个域必 须是独一无二的，但不同域的 值可以是重复的。</strong> </p>
+<p><strong>尽量使用散列键而不是字符串键来储存键值对数据，因为散列键管理方便、能够避免键名冲突、并且还能够节约内存。</strong> </p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-03-151738.png" alt="image-20180703231738040"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 散列(hash)</span></span><br><span class="line">类似于 HashMap</span><br><span class="line">一个散列由多个域 值对(field-value pair)组成，散列的域和值都可以是文字、整数、浮点数或者二 进制数据</span><br><span class="line">同一个散列里面的每个域必 须是独一无二、各不相同 的，而域的值则没有这一要求，换句话说，不同域的值 可以是重的。</span><br><span class="line"></span><br><span class="line"><span class="comment">#关联域值对</span></span><br><span class="line">HSET key field value</span><br><span class="line">HGET key field</span><br><span class="line">:TODO  真正的 kv 是 f v, 那设置这个 key 干嘛的? ? 👌</span><br><span class="line">===&gt; key 是散列名称, 比如 散列 message 的 field-value pair 是<span class="string">"sender"</span> <span class="string">"peter"</span> </span><br><span class="line">-------------------------------------------------------------------------------------</span><br><span class="line">redis&gt; HSET message <span class="string">"id"</span> 10086 </span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">redis&gt; HSET message <span class="string">"sender"</span> <span class="string">"peter"</span> </span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">redis&gt; HSET message <span class="string">"receiver"</span> <span class="string">"jack"</span> </span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">==========================================================================================</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#一次设置或获取散列中的多个域值对</span></span><br><span class="line">HMSET key field value [field value ...]</span><br><span class="line">HMGET key field [field ...]</span><br><span class="line"></span><br><span class="line">redis&gt; HMSET message  <span class="string">"id"</span> 10086  <span class="string">"sender"</span> <span class="string">"peter"</span>  <span class="string">"receiver"</span> <span class="string">"jack"</span></span><br><span class="line">OK</span><br><span class="line">redis&gt; HMGET message <span class="string">"id"</span> <span class="string">"sender"</span> <span class="string">"receiver"</span></span><br><span class="line">1) <span class="string">"10086"</span></span><br><span class="line">2) <span class="string">"peter"</span></span><br><span class="line">3) <span class="string">"jack"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取散列包含的所有域、值、或者域值对</span></span><br><span class="line">HKEYS key =&gt; 返回散列键 key 包含的所有域。</span><br><span class="line">HVALS key =&gt; 返回散列键 key 中，所有域的值。</span><br><span class="line">HGETALL key =&gt; 返回散列键 key 包含的所有域值对。</span><br><span class="line"></span><br><span class="line">redis&gt; HKEYS message 1) <span class="string">"id"</span></span><br><span class="line">2) <span class="string">"sender"</span></span><br><span class="line">3) <span class="string">"receiver"</span></span><br><span class="line">4) <span class="string">"date"</span></span><br><span class="line">5) <span class="string">"content"</span></span><br><span class="line"></span><br><span class="line">redis&gt; HVALS message </span><br><span class="line">1) <span class="string">"10086"</span></span><br><span class="line">2) <span class="string">"peter"</span></span><br><span class="line">3) <span class="string">"jack"</span></span><br><span class="line">4) <span class="string">"2014-8-3 3:25 p.m."</span> </span><br><span class="line">5) <span class="string">"Good morning, jack!"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">redis&gt; HGETALL message</span><br><span class="line">1) <span class="string">"id"</span>			<span class="comment">#域</span></span><br><span class="line">2) <span class="string">"10086"</span>		<span class="comment">#值</span></span><br><span class="line">3) <span class="string">"sender"</span>		<span class="comment">#域</span></span><br><span class="line">4) <span class="string">"peter"</span>		<span class="comment">#值</span></span><br><span class="line">5) <span class="string">"receiver"</span></span><br><span class="line">6) <span class="string">"jack"</span></span><br><span class="line">7) <span class="string">"date"</span></span><br><span class="line">8) <span class="string">"2014-8-3 3:25 p.m."</span> 9) <span class="string">"content"</span></span><br><span class="line">10) <span class="string">"Good morning, jack!"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">==========================================================================================</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数字操作</span></span><br></pre></td></tr></table></figure>
+<h2 id="Redis-错误"><a href="#Redis-错误" class="headerlink" title="Redis 错误"></a>Redis 错误</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 出现此错误后</span></span><br><span class="line">(error) MISCONF Redis is configured to save RDB snapshots, but it is currently not able to persist on disk. Commands that may modify the data <span class="built_in">set</span> are disabled, because this instance is configured to report errors during writes <span class="keyword">if</span> RDB snapshotting fails (stop-writes-on-bgsave-error option). Please check the Redis logs <span class="keyword">for</span> details about the RDB error.</span><br><span class="line">127.0.0.1:6379&gt; config <span class="built_in">set</span> stop-writes-on-bgsave-error no</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; ping</span><br><span class="line">PONG</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/01/Hadoop/7-Flume&Kafka/Kafka/" rel="next" title="Kafka">
+                <i class="fa fa-chevron-left"></i> Kafka
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg"
+                alt="airpoet" />
+            
+              <p class="site-author-name" itemprop="name">airpoet</p>
+              <p class="site-description motion-element" itemprop="description">没有边界就没有自由.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/3b9b97fe7e04" target="_blank" title="我的简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>我的简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:airpoet@qq.com" target="_blank" title="Mile2Me">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mile2Me</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/8ee264c6557d" title="女神凉姨" target="_blank">女神凉姨</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装"><span class="nav-text">1.安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Redis基本操作"><span class="nav-text">2.Redis基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-字符串"><span class="nav-text">2.1 字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-散列"><span class="nav-text">2.2 散列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-错误"><span class="nav-text">Redis 错误</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">airpoet</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/07/03/Hadoop/8_Redis/Redis/';
+          this.page.identifier = '2018/07/03/Hadoop/8_Redis/Redis/';
+          this.page.title = 'Redis';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>

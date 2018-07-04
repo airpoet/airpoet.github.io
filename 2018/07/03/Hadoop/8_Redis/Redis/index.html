@@ -100,7 +100,9 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-04-123528.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-04-125134.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-04-125206.png">
-<meta property="og:updated_time" content="2018-07-04T13:15:30.003Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-04-132734.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-04-133033.png">
+<meta property="og:updated_time" content="2018-07-04T13:41:21.800Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
 <meta name="twitter:description" content="1.安装1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192931. 下载2. tar3. cd re">
@@ -346,7 +348,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-04T21:15:30+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-04T21:41:21+08:00">
                 2018-07-04
               </time>
             
@@ -499,8 +501,150 @@
 <h4 id="shell简单实用"><a href="#shell简单实用" class="headerlink" title="shell简单实用"></a>shell简单实用</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询所有 cart 开头的 key</span></span><br><span class="line">127.0.0.1:6379&gt; keys cart*</span><br><span class="line">1) <span class="string">"cart:huangbo"</span></span><br><span class="line">2) <span class="string">"cart:xuzheng"</span></span><br><span class="line">3) <span class="string">"cart:wangbaoqiang"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询所有 key</span></span><br><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line"> 1) <span class="string">"bigdata:hadoop"</span></span><br><span class="line"> 2) <span class="string">"uniondb"</span></span><br><span class="line"> 3) <span class="string">"myset"</span></span><br><span class="line"> 4) <span class="string">"cart:huangbo"</span></span><br><span class="line"> 5) <span class="string">"bigdata:spark"</span></span><br><span class="line"> .....</span><br><span class="line"> </span><br><span class="line"> <span class="comment"># 判断一个 key 是否存在 exists</span></span><br><span class="line"> 127.0.0.1:6379&gt; EXISTS bigdata</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># del 删除一个或多个 key</span></span><br><span class="line">127.0.0.1:6379&gt; del facevalue</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># type 查看类型, 便于针对类型操作</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">type</span> bigdata</span><br><span class="line"><span class="built_in">set</span></span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS bigdata</span><br><span class="line">1) <span class="string">"hadoop"</span></span><br><span class="line">2) <span class="string">"spark"</span></span><br><span class="line">3) <span class="string">"hive"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># expire [key] second 设置一个 key 的过期时间, 单位是秒</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">type</span> names</span><br><span class="line">list</span><br><span class="line">127.0.0.1:6379&gt; lrange names 0 -1</span><br><span class="line">1) <span class="string">"xuzheng"</span></span><br><span class="line">2) <span class="string">"huangbo"</span></span><br><span class="line">3) <span class="string">"ycy"</span></span><br><span class="line">$ 127.0.0.1:6379&gt; expire names 5</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; lrange names 0 -1</span><br><span class="line">1) <span class="string">"xuzheng"</span></span><br><span class="line">2) <span class="string">"huangbo"</span></span><br><span class="line">3) <span class="string">"ycy"</span></span><br><span class="line">$ 127.0.0.1:6379&gt; lrange names 0 -1</span><br><span class="line">(empty list or <span class="built_in">set</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># expireat [key] timestamp 设置在时间戳 timestamp 过期</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ttl [key] 查询 key 的有效时长, 不存在或没有超时设置, 返回 -1</span></span><br><span class="line">127.0.0.1:6379&gt; ttl bigdata</span><br><span class="line">(<span class="built_in">integer</span>) -1</span><br><span class="line"></span><br><span class="line"><span class="comment"># move [key] database 将当前库中的 key 移动到其它数据库中</span></span><br><span class="line"><span class="comment"># 默认是有16个 databases  0-15</span></span><br><span class="line">127.0.0.1:6379&gt; move bigdata 2</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">type</span> bigdata</span><br><span class="line">none</span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS bigdata</span><br><span class="line">(empty list or <span class="built_in">set</span>)</span><br><span class="line">127.0.0.1:6379&gt; SELECT 2</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379[2]&gt; keys *</span><br><span class="line">1) <span class="string">"bigdata"</span></span><br><span class="line">127.0.0.1:6379[2]&gt; SMEMBERS bigdata</span><br><span class="line">1) <span class="string">"hadoop"</span></span><br><span class="line">2) <span class="string">"spark"</span></span><br><span class="line">3) <span class="string">"hive"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除给定key 的过期时间</span></span><br><span class="line">127.0.0.1:6379[2]&gt; keys *</span><br><span class="line">1) <span class="string">"bigdata"</span></span><br><span class="line">127.0.0.1:6379[2]&gt; expire bigdata 100</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379[2]&gt; ttl bigdata</span><br><span class="line">(<span class="built_in">integer</span>) 96</span><br><span class="line">127.0.0.1:6379[2]&gt; persist bigdata</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379[2]&gt; ttl bigdata</span><br><span class="line">(<span class="built_in">integer</span>) -1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机获取 key空间中的一个</span></span><br><span class="line">127.0.0.1:6379&gt; randomkey</span><br><span class="line"><span class="string">"student_tang"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重命名 key</span></span><br><span class="line">127.0.0.1:6379&gt; zrange yanzhi 0 -1</span><br><span class="line">1) <span class="string">"wangbaoqiang"</span></span><br><span class="line">2) <span class="string">"xuzheng"</span></span><br><span class="line">3) <span class="string">"huangbo"</span></span><br><span class="line">127.0.0.1:6379&gt; rename yanzhi shuiMa</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; zrange shuiMa 0 -1</span><br><span class="line">1) <span class="string">"wangbaoqiang"</span></span><br><span class="line">2) <span class="string">"xuzheng"</span></span><br><span class="line">3) <span class="string">"huangbo"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># renamenx [key] newkey  如果 newkey 存在, 则失败返回0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># type [key] 查询 key 的类型</span></span><br></pre></td></tr></table></figure>
 <h3 id="3-7-服务器相关命令"><a href="#3-7-服务器相关命令" class="headerlink" title="3.7 服务器相关命令"></a>3.7 服务器相关命令</h3><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-04-125206.png" alt="image-20180704205206183"></p>
 <h4 id="简单测试"><a href="#简单测试" class="headerlink" title="简单测试"></a>简单测试</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 选择数据库 (redis 默认数据库编号 0-15)</span></span><br><span class="line">127.0.0.1:6379&gt; select 3</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line"><span class="comment"># quit</span></span><br><span class="line">退出</span><br><span class="line"></span><br><span class="line"><span class="comment"># echo msg 发现不能有空格</span></span><br><span class="line">127.0.0.1:6379[3]&gt; <span class="built_in">echo</span> 要吐了</span><br><span class="line"><span class="string">"\xe8\xa6\x81\xe5\x90\x90\xe4\xba\x86"</span></span><br><span class="line"></span><br><span class="line">127.0.0.1:6379[3]&gt; <span class="built_in">echo</span> iFellSick</span><br><span class="line"><span class="string">"iFellSick"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># dbsize  返回当期那数据库中的 key 的条数</span></span><br><span class="line">127.0.0.1:6379[3]&gt; select 0</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; DBSIZE</span><br><span class="line">(<span class="built_in">integer</span>) 23</span><br><span class="line"></span><br><span class="line"><span class="comment"># flushdb 删除当前选择数据库中的所有key</span></span><br><span class="line">127.0.0.1:6379[2]&gt; dbsize</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379[2]&gt; keys *</span><br><span class="line">1) <span class="string">"bigdata"</span></span><br><span class="line">127.0.0.1:6379[2]&gt; flushdb</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379[2]&gt; keys *</span><br><span class="line">(empty list or <span class="built_in">set</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># flushall 删除所有数据库中的所有的 key</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-其它了解的"><a href="#4-其它了解的" class="headerlink" title="4.其它了解的"></a>4.其它了解的</h2><p>gson: 对象转 json 工具</p>
-<p><strong>添加注释的技巧:</strong> </p>
+<h2 id="5-Redis高可用"><a href="#5-Redis高可用" class="headerlink" title="5. Redis高可用"></a>5. Redis高可用</h2><p>在 <strong>Redis</strong> 中，实现<strong>高可用</strong>的技术主要包括<strong>持久化、复制、哨兵和集群</strong></p>
+<blockquote>
+<p>第一：持久化</p>
+<p>持久化是最简单的高可用方法(有时甚至不被归为高可用的手段)，主要作用是数据备份， 即将数据存储在硬盘，保证数据不会因进程退出而丢失。</p>
+<p>第二：主从复制</p>
+<p>复制是高可用 Redis 的基础，哨兵和集群都是在复制基础上实现高可用的。复制主要实现 了数据的多机备份，以及对于读操作的负载均衡和简单的故障恢复。缺陷：故障恢复无 法自动化；写操作无法负载均衡；存储能力受到单机的限制。</p>
+<p>第三：哨兵</p>
+<p>哨兵在复制的基础上，哨兵实现了自动化的故障恢复。缺陷：写操作无法负载均衡；存 储能力受到单机的限制。</p>
+<p><strong>第四</strong>：<strong>集群</strong></p>
+<p><strong>通过集群，Redis 解决了写操作无法负载均衡，以及存储能力受到单机限制的问题，实现 了较为完善的高可用方案。</strong></p>
+</blockquote>
+<h3 id="5-1-Redis-持久化"><a href="#5-1-Redis-持久化" class="headerlink" title="5.1 Redis 持久化"></a>5.1 Redis 持久化</h3><p>Redis 持久化分为 <strong>RDB 持久化</strong>和 <strong>AOF 持久化</strong>：</p>
+<blockquote>
+<p>RDB：将当前数据保存到硬盘</p>
+<p>AOF：将每次执行的写命令保存到硬盘（类似于 MySQL 的 binlog）</p>
+</blockquote>
+<p>由于 AOF 持久化的实时性更好，即当进程意外退出时丢失的数据更少，因此 AOF 是目前主 流的持久化方式，不过 RDB 持久化仍然有其用武之地。</p>
+<h5 id="5-1-1-RDB"><a href="#5-1-1-RDB" class="headerlink" title="5.1.1 RDB"></a>5.1.1 RDB</h5><ul>
+<li><p><strong>手动方式</strong></p>
+<ul>
+<li>save<ul>
+<li>save 命令会阻塞 Redis 服务器进程，直到 RDB 文件创建完毕为止</li>
+</ul>
+</li>
+<li>bgsave<ul>
+<li>bgsave 命令会创建一个子进程，由子进程来负责创建 RDB 文件，父进程(即 Redis 主 进程)则继续处理请求。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>自动触发</strong></p>
+<ul>
+<li><p>在配置文件<code>redis.conf</code>中配置 <code>save m n</code></p>
+</li>
+<li><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-04-132734.png" alt="image-20180704212733947"></p>
+</li>
+<li><blockquote>
+<p>save 900 1</p>
+<p>save 300 10</p>
+<p>save 60 10000</p>
+<p>#900 秒内如果超过 1 个 key 被修改，则发起快照保存</p>
+<p>#300 秒内容如超过 10 个 key 被修改，则发起快照保存</p>
+<p>#60 秒内容如超过 10000 个 key 被修改，则发起快照保存</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="5-1-2-AOF-方式"><a href="#5-1-2-AOF-方式" class="headerlink" title="5.1.2 AOF 方式"></a>5.1.2 AOF 方式</h5><p>AOF 比快照方式有更好的持久化性，是由于在使用 AOF 持久化方式时，<strong>Redis 会将每一个收 到的写命令都通过 write 函数追加到文件中</strong>(默认是 appendonly.aof)。当 <strong>Redis 重启时会通过 重新执行文件中保存的写命令来在内存中重建整个数据库的内容</strong>。</p>
+<p>我们可以通过配置文件告诉 redis 我们想要 通过 fsync 函数强制 os 写入到磁盘的时机。</p>
+<p>三种方式如下<strong>（默认是：每秒 fsync 一次）</strong>：</p>
+<p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-04-133033.png" alt="image-20180704213033435"></p>
+<h3 id="5-2-Redis-主从复制"><a href="#5-2-Redis-主从复制" class="headerlink" title="5.2 Redis 主从复制"></a>5.2 Redis 主从复制</h3><p>Redis 主从复制配置和使用都非常简单。通过主从复制可以允许多个 slave server 拥有和 master server 相同的数据库副本。下面是关于 </p>
+<h5 id="redis-主从复制的一些特点："><a href="#redis-主从复制的一些特点：" class="headerlink" title="redis 主从复制的一些特点："></a>redis 主从复制的一些特点：</h5><blockquote>
+<p>1、master 可以有多个 slave</p>
+<p>2、除了多个 slave 连到相同的 master 外，slave 也可以连接其他 slave 形成图状结构</p>
+<p>3、主从复制不会阻塞 master。也就是说当一个或多个 slave 与 master 进行初次同步数据时， master 可以继续处理 client 发来的请求。相反 slave 在初次同步数据时则会阻塞不能处理 client 的请求。</p>
+<p>4、主从复制可以用来提高系统的可伸缩性,我们可以用多个 slave 专门用于 client 的读请求， 比如 sort 操作可以使用 slave 来处理。也可以用来做简单的数据冗余</p>
+<p>5、可以在 master 禁用数据持久化，只需要注释掉 master 配置文件中的所有 save 配置，然 后只在 slave 上配置数据持久化。</p>
+</blockquote>
+<h5 id="主从复制的过程"><a href="#主从复制的过程" class="headerlink" title="主从复制的过程"></a>主从复制的过程</h5><p>当设置好 slave 服务器后，slave 会建立和 master 的连接，然后发送 sync 命令。</p>
+<p>无论是第一 次同步建立的连接还是连接断开后的重新连接，master 都会启动(fork)一个后台进程，将数 据库快照保存到文件中（fork 一个进程入内在也被复制了，即内存会是原来的两倍），同时 master 主进程会开始收集新的写命令并缓存起来。</p>
+<p>后台进程完成写文件后，master 就发送 文件给 slave，slave 将文件保存到磁盘上，然后加载到内存恢复数据库快照到 slave 上。</p>
+<p>接着 master 就会把缓存的命令转发给 slave。</p>
+<p>而且后续 master 收到的写命令都会通过开始建立 的连接发送给 slave。</p>
+<p>从 master 到 slave 的同步数据的命令和从 client 发送的命令使用相同的 协议格式。</p>
+<p>当 master 和 slave 的连接断开时 slave 可以自动重新建立连接。</p>
+<p>如果 master 同时 收到多个 slave 发来的同步连接命令，只会使用启动一个进程来写数据库镜像，然后发送给 所有 slave。</p>
+<blockquote>
+<p>配置 slave 服务器只需要在配置文件中加入如下配置：</p>
+<p>slaveof cs1 6379   #指定 master 的 ip 和端口</p>
+<p>注意：主节点不用加！！！</p>
+</blockquote>
+<h2 id="6-Redis-conf配置文件参数说明"><a href="#6-Redis-conf配置文件参数说明" class="headerlink" title="6.Redis.conf配置文件参数说明"></a>6.Redis.conf配置文件参数说明</h2><p><strong>redis.conf 配置项说明如下：</strong></p>
+<p>1、Redis 默认不是以守护进程的方式运行，可以通过该配置项修改，使用 yes 启用守护进 程</p>
+<p>daemonize no</p>
+<p>2、当 Redis 以守护进程方式运行时，Redis 默认会把 pid 写入/var/run/redis.pid 文件，可以 通过 pidfile 指定</p>
+<p>pidfile /var/run/redis.pid</p>
+<p>3、指定 Redis 监听端口，默认端口为 6379，作者在自己的一篇博文中解释了为什么选用 6379 作为默认端口，因为 6379 在手机按键上 MERZ 对应的号码，而 MERZ 取自意大利歌 女 Alessia Merz 的名字</p>
+<p>port 6379</p>
+<p>4、绑定的主机地址</p>
+<p>bind 127.0.0.1</p>
+<p>5、当客户端闲置多长时间后关闭连接，如果指定为 0，表示关闭该功能</p>
+<p>timeout 300</p>
+<p>6、指定日志记录级别，Redis 总共支持四个级别：debug、verbose、notice、warning，默 认为 verbose</p>
+<p>loglevel verbose</p>
+<p>7、日志记录方式，默认为标准输出，如果配置 Redis 为守护进程方式运行，而这里又配 置为日志记录方式为标准输出，则日志将会发送给/dev/null</p>
+<p>logfile stdout</p>
+<p>8、设置数据库的数量，默认数据库为 0，可以使用 SELECT <dbid>命令在连接上指定数据 库 id</dbid></p>
+<p>databases 16</p>
+<p>9、指定在多长时间内，有多少次更新操作，就将数据同步到数据文件，可以多个条件配 合</p>
+<p>save \&lt;seconds> \&lt;changes></p>
+<p>Redis 默认配置文件中提供了三个条件：</p>
+<p>save 900 1</p>
+<p>save 300 10</p>
+<p>save 60 10000</p>
+<p>分别表示 900 秒（15 分钟）内有 1 个更改，300 秒（5 分钟）内有 10 个更改以及 60 秒 内有 10000 个更改。</p>
+<p>10、指定存储至本地数据库时是否压缩数据，默认为 yes，Redis 采用 LZF 压缩，如果为了 节省 CPU 时间，可以关闭该选项，但会导致数据库文件变的巨大</p>
+<p>rdbcompression yes</p>
+<p>11、指定本地数据库文件名，默认值为 dump.rdb</p>
+<p>dbfilename dump.rdb</p>
+<p>12、指定本地数据库存放目录</p>
+<p>dir ./</p>
+<p>13、设置当本机为 slave 服务时，设置 master 服务的 IP 地址及端口，在 Redis 启动时，它 会自动从 master 进行数据同步</p>
+<p>slaveof \&lt;masterip> \&lt;masterport></p>
+<p>14、当 master 服务设置了密码保护时，slav 服务连接 master 的密码</p>
+<p>masterauth \&lt;master-password></p>
+<p>15、设置 Redis 连接密码，如果配置了连接密码，客户端在连接 Redis 时需要通过 AUTH \&lt;password>命令提供密码，默认关闭</p>
+<p>requirepass foobared</p>
+<p>16、设置同一时间最大客户端连接数，默认无限制，Redis 可以同时打开的客户端连接数 为 Redis 进程可以打开的最大文件描述符数，如果设置 maxclients 0，表示不作限制。当 客户端连接数到达限制时，Redis 会关闭新的连接并向客户端返回 max number of clients reached 错误信息</p>
+<p>maxclients 128</p>
+<p>17、指定 Redis 最大内存限制，Redis 在启动时会把数据加载到内存中，达到最大内存后， Redis 会先尝试清除已到期或即将到期的 Key，当此方法处理 后，仍然到达最大内存设置， 将无法再进行写入操作，但仍然可以进行读取操作。Redis 新的 vm 机制，会把 Key 存放 内存，Value 会存放在 swap 区</p>
+<p>maxmemory \&lt;bytes></p>
+<p>18、指定是否在每次更新操作后进行日志记录，Redis 在默认情况下是异步的把数据写入 磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。因为 redis 本身同步数 据文件是按上面 save 条件来同步的，所以有的数据会在一段时间内只存在于内存中。默 认为 no</p>
+<p>appendonly no</p>
+<p>19、指定更新日志文件名，默认为 appendonly.aof</p>
+<p>appendfilename appendonly.aof</p>
+<p>20、指定更新日志条件，共有 3 个可选值：</p>
+<p>no：表示等操作系统进行数据缓存同步到磁盘（快）</p>
+<p>always：表示每次更新操作后手动调用 fsync()将数据写到磁盘（慢，安全）</p>
+<p>everysec：表示每秒同步一次（折衷，默认值）</p>
+<p>appendfsync everysec</p>
+<p>21、指定是否启用虚拟内存机制，默认值为 no，简单的介绍一下，VM 机制将数据分页 存放，由 Redis 将访问量较少的页即冷数据 swap 到磁盘上，访问多的页面由磁盘自动换 出到内存中（在后面的文章我会仔细分析 Redis 的 VM 机制）</p>
+<p>vm-enabled no</p>
+<p>22、虚拟内存文件路径，默认值为/tmp/redis.swap，不可多个 Redis 实例共享</p>
+<p>vm-swap-file /tmp/redis.swap</p>
+<p>23、将所有大于 vm-max-memory 的数据存入虚拟内存,无论 vm-max-memory 设置多小,所 有索引数据都是内存存储的(Redis 的索引数据 就是 keys),也就是说,当 vm-max-memory 设 置为 0 的时候,其实是所有 value 都存在于磁盘。默认值为 0</p>
+<p>vm-max-memory 0</p>
+<p>24、Redis swap 文件分成了很多的 page，一个对象可以保存在多个 page 上面，但一个 page 上不能被多个对象共享，vm-page-size 是要根据存储的 数据大小来设定的，作者建议如 果存储很多小对象，page 大小最好设置为 32 或者 64bytes；如果存储很大大对象，则可 以使用更大的 page，如果不 确定，就使用默认值</p>
+<p>vm-page-size 32</p>
+<p>25、设置 swap 文件中的 page 数量，由于页表（一种表示页面空闲或使用的 bitmap）是 在放在内存中的，，在磁盘上每 8 个 pages 将消耗 1byte 的内存。</p>
+<p>vm-pages 134217728</p>
+<p>26、设置访问 swap 文件的线程数,最好不要超过机器的核数,如果设置为 0,那么所有对 swap 文件的操作都是串行的，可能会造成比较长时间的延迟。默认值为 4</p>
+<p>vm-max-threads 4</p>
+<p>27、设置在向客户端应答时，是否把较小的包合并为一个包发送，默认为开启</p>
+<p>glueoutputbuf yes</p>
+<p>28、指定在超过一定的数量或者最大的元素超过某一临界值时，采用一种特殊的哈希算 法</p>
+<p>hash-max-zipmap-entries 64</p>
+<p>hash-max-zipmap-value 512</p>
+<p>29、指定是否激活重置哈希，默认为开启（后面在介绍 Redis 的哈希算法时具体介绍）</p>
+<p>activerehashing yes</p>
+<p>30、指定包含其它的配置文件，可以在同一主机上多个 Redis 实例之间使用同一份配置文 件，而同时各个实例又拥有自己的特定配置文件</p>
+<p>include /path/to/local.conf</p>
+<h2 id="4-其它需要了解的"><a href="#4-其它需要了解的" class="headerlink" title="4.其它需要了解的"></a>4.其它需要了解的</h2><p><strong>添加注释的技巧:</strong> </p>
 <blockquote>
 <p> 最好的注释方式: 少而精</p>
 <p>完成一段小逻辑的代码就加个注释</p>
@@ -511,57 +655,8 @@
 <p><strong>Second-chance</strong></p>
 <p><strong>LRU(Least recently Used)</strong></p>
 <p><strong>redis 的内存模型</strong></p>
-<p><strong>redis 的高可用策略:</strong></p>
-<p>第一：持久化</p>
-<p>持久化是最简单的高可用方法(有时甚至不被归为高可用的手段)，主要作用是数据备份， 即将数据存储在硬盘，保证数据不会因进程退出而丢失。</p>
-<p>第二：主从复制</p>
-<p>复制是高可用 Redis 的基础，哨兵和集群都是在复制基础上实现高可用的。复制主要实现 了数据的多机备份，以及对于读操作的负载均衡和简单的故障恢复。缺陷：故障恢复无 法自动化；写操作无法负载均衡；存储能力受到单机的限制。</p>
-<p>第三：哨兵</p>
-<p>哨兵在复制的基础上，哨兵实现了自动化的故障恢复。缺陷：写操作无法负载均衡；存 储能力受到单机的限制。</p>
-<p>第四：集群</p>
-<p>通过集群，Redis 解决了写操作无法负载均衡，以及存储能力受到单机限制的问题，实现 了较为完善的高可用方案。</p>
 <p><strong>Hadoop3.0 新特性机制</strong></p>
 <p><code>纠删码</code> 机制</p>
-<h4 id="Redis-持久化"><a href="#Redis-持久化" class="headerlink" title="Redis 持久化"></a>Redis 持久化</h4><p>Redis 持久化分为 RDB 持久化和 AOF 持久化：</p>
-<ul>
-<li><p>RDB：将当前数据保存到硬盘</p>
-<ul>
-<li><p>手动</p>
-<ul>
-<li><p>save (基本废弃)命令和 <strong>bgsave</strong> 命令都可以生成 RDB 文件。</p>
-</li>
-<li><p>save 命令会阻塞 Redis 服务器进程，直到 RDB 文件创建完毕为止，在 Redis 服务器阻塞 期间，服务器不能处理任何命令请求。</p>
-<p>而 bgsave 命令会创建一个子进程，由子进程来负责创建 RDB 文件，父进程(即 Redis 主 进程)则继续处理请求。</p>
-</li>
-</ul>
-</li>
-<li><p>自动</p>
-<ul>
-<li><p>配置文件: save m n</p>
-</li>
-<li><p>save 900 1</p>
-<p>save 300 10</p>
-<p>save 60 10000</p>
-<p>#900 秒内如果超过 1 个 key 被修改，则发起快照保存</p>
-<p>#300 秒内容如超过 10 个 key 被修改，则发起快照保存</p>
-<p>#60 秒内容如超过 10000 个 key 被修改，则发起快照保存</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>AOF</strong>：将每次执行的写命令保存到硬盘（类似于 MySQL 的 binlog）</p>
-<ul>
-<li><p>由于 AOF 持久化的实时性更好，即当进程意外退出时丢失的数据更少，因此 AOF 是目前主 流的持久化方式，不过 RDB 持久化仍然有其用武之地。</p>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">appendonly yes</span><br><span class="line"># appendfsync always 的持久化，不推荐使用</span><br><span class="line">appendfsync everysec 中，推荐</span><br><span class="line"></span><br><span class="line"># appendfsync no</span><br><span class="line">#启用 aof 持久化方式</span><br><span class="line">#每次收到写命令就立即强制写入磁盘，最慢的，但是保证完全</span><br><span class="line">#每秒钟强制写入磁盘一次，在性能和持久化方面做了很好的折</span><br><span class="line">#完全依赖 os，性能最好，持久化没保证</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过配置文件告诉 redis 我们想要 通过 fsync 函数强制 os 写入到磁盘的时机。有三种方式如下（默认是：每秒 fsync 一次）：</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Redis-主从复制"><a href="#Redis-主从复制" class="headerlink" title="Redis 主从复制"></a>Redis 主从复制</h4><p>配置文件中加上: <strong>slaveof cs1 6379</strong></p>
 <h2 id="Redis-错误"><a href="#Redis-错误" class="headerlink" title="Redis 错误"></a>Redis 错误</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 错误1</span></span><br><span class="line">(error) MISCONF Redis is configured to save RDB snapshots, but it is currently not able to persist on disk. Commands that may modify the data <span class="built_in">set</span> are disabled, because this instance is configured to report errors during writes <span class="keyword">if</span> RDB snapshotting fails (stop-writes-on-bgsave-error option). Please check the Redis logs <span class="keyword">for</span> details about the RDB error.</span><br><span class="line">127.0.0.1:6379&gt; config <span class="built_in">set</span> stop-writes-on-bgsave-error no</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 错误2</span></span><br><span class="line">cc: ../deps/hiredis/libhiredis.a: No such file or directory</span><br><span class="line">cc: ../deps/lua/src/liblua.a: No such file or directory</span><br><span class="line">cc: ../deps/geohash-int/geohash.o: No such file or directory</span><br><span class="line">cc: ../deps/geohash-int/geohash_helper.o: No such file or directory</span><br><span class="line">make[1]: * [redis-server] Error 1</span><br><span class="line">make[1]: Leaving directory `/usr/<span class="built_in">local</span>/src/redis-3.2.9/src<span class="string">'</span></span><br><span class="line"><span class="string">make: * [all] Error 2</span></span><br><span class="line"><span class="string">----------------</span></span><br><span class="line"><span class="string">解决办法</span></span><br><span class="line"><span class="string">进入源码包目录下的deps目录中执行</span></span><br><span class="line"><span class="string">make geohash-int hiredis jemalloc linenoise lua</span></span><br><span class="line"><span class="string">然后再进行../make编译就可以了</span></span><br><span class="line"><span class="string">再 $&gt; sudo make  PREFIX=/usr/local/redis install</span></span><br></pre></td></tr></table></figure>
 
       
@@ -814,7 +909,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装"><span class="nav-text">1.安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Redis-注意点"><span class="nav-text">2.Redis 注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#REmote-DIctionary-Server-Redis"><span class="nav-text">REmote DIctionary Server(Redis)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与其他-key-value-缓存产品比较独有特点"><span class="nav-text">与其他 key-value 缓存产品比较独有特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis优势"><span class="nav-text">Redis优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#持久化机制有两种："><span class="nav-text">持久化机制有两种：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis适用场景"><span class="nav-text">Redis适用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Redis基本操作"><span class="nav-text">3.Redis基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-字符串"><span class="nav-text">3.1 字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-String-shell"><span class="nav-text">3.1.1 String shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-String-使用案例"><span class="nav-text">3.1.2 String 使用案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-list"><span class="nav-text">3.2 list</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-List常用操作示例"><span class="nav-text">3.2.1 List常用操作示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-list应用案例"><span class="nav-text">3.2.2 list应用案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Set-集合"><span class="nav-text">3.3 Set 集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-Set-的-shell-使用"><span class="nav-text">3.3.1 Set 的 shell 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-set-使用案例"><span class="nav-text">3.3.2 set 使用案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-ZSet–有序集合"><span class="nav-text">3.4 ZSet–有序集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-1-zset-shell操作"><span class="nav-text">3.4.1 zset shell操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-2-案例"><span class="nav-text">3.4.2  案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-散列-–-Hash–-哈希表"><span class="nav-text">3.5 散列 – Hash– 哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-1-shell-操作"><span class="nav-text">3.5.1 shell 操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-2-案例-实现购物车"><span class="nav-text">3.5.2 案例: 实现购物车</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-键值相关命令"><span class="nav-text">3.6 键值相关命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shell简单实用"><span class="nav-text">shell简单实用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-服务器相关命令"><span class="nav-text">3.7 服务器相关命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单测试"><span class="nav-text">简单测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-其它了解的"><span class="nav-text">4.其它了解的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#拓展-缓存淘汰算法-TODO"><span class="nav-text">拓展: 缓存淘汰算法 :TODO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-持久化"><span class="nav-text">Redis 持久化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-主从复制"><span class="nav-text">Redis 主从复制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-错误"><span class="nav-text">Redis 错误</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装"><span class="nav-text">1.安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Redis-注意点"><span class="nav-text">2.Redis 注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#REmote-DIctionary-Server-Redis"><span class="nav-text">REmote DIctionary Server(Redis)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与其他-key-value-缓存产品比较独有特点"><span class="nav-text">与其他 key-value 缓存产品比较独有特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis优势"><span class="nav-text">Redis优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#持久化机制有两种："><span class="nav-text">持久化机制有两种：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis适用场景"><span class="nav-text">Redis适用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Redis基本操作"><span class="nav-text">3.Redis基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-字符串"><span class="nav-text">3.1 字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-String-shell"><span class="nav-text">3.1.1 String shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-String-使用案例"><span class="nav-text">3.1.2 String 使用案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-list"><span class="nav-text">3.2 list</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-List常用操作示例"><span class="nav-text">3.2.1 List常用操作示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-list应用案例"><span class="nav-text">3.2.2 list应用案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Set-集合"><span class="nav-text">3.3 Set 集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-Set-的-shell-使用"><span class="nav-text">3.3.1 Set 的 shell 使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-set-使用案例"><span class="nav-text">3.3.2 set 使用案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-ZSet–有序集合"><span class="nav-text">3.4 ZSet–有序集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-1-zset-shell操作"><span class="nav-text">3.4.1 zset shell操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-2-案例"><span class="nav-text">3.4.2  案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-散列-–-Hash–-哈希表"><span class="nav-text">3.5 散列 – Hash– 哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-1-shell-操作"><span class="nav-text">3.5.1 shell 操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-2-案例-实现购物车"><span class="nav-text">3.5.2 案例: 实现购物车</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-键值相关命令"><span class="nav-text">3.6 键值相关命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shell简单实用"><span class="nav-text">shell简单实用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-服务器相关命令"><span class="nav-text">3.7 服务器相关命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单测试"><span class="nav-text">简单测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Redis高可用"><span class="nav-text">5. Redis高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Redis-持久化"><span class="nav-text">5.1 Redis 持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-1-RDB"><span class="nav-text">5.1.1 RDB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-2-AOF-方式"><span class="nav-text">5.1.2 AOF 方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Redis-主从复制"><span class="nav-text">5.2 Redis 主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#redis-主从复制的一些特点："><span class="nav-text">redis 主从复制的一些特点：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主从复制的过程"><span class="nav-text">主从复制的过程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Redis-conf配置文件参数说明"><span class="nav-text">6.Redis.conf配置文件参数说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-其它需要了解的"><span class="nav-text">4.其它需要了解的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#拓展-缓存淘汰算法-TODO"><span class="nav-text">拓展: 缓存淘汰算法 :TODO</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-错误"><span class="nav-text">Redis 错误</span></a></li></ol></div>
             
 
           </div>

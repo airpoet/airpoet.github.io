@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="文艺, it, 大数据, 诗歌, airpoet" />
+  <meta name="keywords" content="技术,Java,转载," />
 
 
 
@@ -84,16 +84,16 @@
 
 
 <meta name="description" content="Java 多线程常见问题上下文切换多线程并不一定是要在多核处理器才支持的，就算是单核也是可以支持多线程的。CPU 通过给每个线程分配一定的时间片，由于时间非常短通常是几十毫秒，所以 CPU 可以不停的切换线程执行任务从而达到了多线程的效果。 但是由于在线程切换的时候需要保存本次执行的信息(详见)，在该线程被 CPU 剥夺时间片后又再次运行恢复上次所保存的信息的过程就成为上下文切换。  上下文切换是">
-<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
+<meta name="keywords" content="技术,Java,转载">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A.P的文艺杂谈">
+<meta property="og:title" content="Thread-common-problem">
 <meta property="og:url" content="https://airpoet.github.io/2018/07/09/Java/Interview/Java-Interview/Thread-common-problem/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="Java 多线程常见问题上下文切换多线程并不一定是要在多核处理器才支持的，就算是单核也是可以支持多线程的。CPU 通过给每个线程分配一定的时间片，由于时间非常短通常是几十毫秒，所以 CPU 可以不停的切换线程执行任务从而达到了多线程的效果。 但是由于在线程切换的时候需要保存本次执行的信息(详见)，在该线程被 CPU 剥夺时间片后又再次运行恢复上次所保存的信息的过程就成为上下文切换。  上下文切换是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-09T03:26:48.525Z">
+<meta property="og:updated_time" content="2018-07-09T07:24:19.160Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A.P的文艺杂谈">
+<meta name="twitter:title" content="Thread-common-problem">
 <meta name="twitter:description" content="Java 多线程常见问题上下文切换多线程并不一定是要在多核处理器才支持的，就算是单核也是可以支持多线程的。CPU 通过给每个线程分配一定的时间片，由于时间非常短通常是几十毫秒，所以 CPU 可以不停的切换线程执行任务从而达到了多线程的效果。 但是由于在线程切换的时候需要保存本次执行的信息(详见)，在该线程被 CPU 剥夺时间片后又再次运行恢复上次所保存的信息的过程就成为上下文切换。  上下文切换是">
 
 
@@ -130,7 +130,7 @@
 
 
 
-  <title> | A.P的文艺杂谈</title>
+  <title>Thread-common-problem | A.P的文艺杂谈</title>
   
 
 
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Thread-common-problem</h1>
         
 
         <div class="post-meta">
@@ -336,12 +336,45 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T11:26:48+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:24:19+08:00">
                 2018-07-09
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/" itemprop="url" rel="index">
+                    <span itemprop="name">Github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/Java-Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Java-Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -445,6 +478,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/转载/" rel="tag"># 转载</a>
+          
+        </div>
+      
 
       
       
@@ -454,8 +497,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/09/Java/Interview/Java-Interview/HashMap/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2018/07/09/Java/Interview/Java-Interview/HashMap/" rel="next" title="HashMap">
+                <i class="fa fa-chevron-left"></i> HashMap
               </a>
             
           </div>
@@ -464,8 +507,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/09/Java/Interview/Java-Interview/collection/LinkedHashMap/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/09/Java/Interview/Java-Interview/collection/LinkedHashMap/" rel="prev" title="LinkedHashMap">
+                LinkedHashMap <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -557,7 +600,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -568,7 +611,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -579,7 +622,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -843,7 +886,7 @@
         var disqus_config = function () {
           this.page.url = 'https://airpoet.github.io/2018/07/09/Java/Interview/Java-Interview/Thread-common-problem/';
           this.page.identifier = '2018/07/09/Java/Interview/Java-Interview/Thread-common-problem/';
-          this.page.title = '';
+          this.page.title = 'Thread-common-problem';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

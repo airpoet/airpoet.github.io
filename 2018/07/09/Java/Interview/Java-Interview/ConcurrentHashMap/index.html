@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="文艺, it, 大数据, 诗歌, airpoet" />
+  <meta name="keywords" content="技术,Java,转载," />
 
 
 
@@ -84,17 +84,17 @@
 
 
 <meta name="description" content="ConcurrentHashMap 实现原理由于 HashMap 是一个线程不安全的容器，主要体现在容量大于总量*负载因子发生扩容时会出现环形链表从而导致死循环。 因此需要支持线程安全的并发容器 ConcurrentHashMap 。 数据结构 如图所示，是由 Segment 数组、HashEntry 数组组成，和 HashMap 一样，仍然是数组加链表组成。 ConcurrentHashMap">
-<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
+<meta name="keywords" content="技术,Java,转载">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A.P的文艺杂谈">
+<meta property="og:title" content="ConcurrentHashMap">
 <meta property="og:url" content="https://airpoet.github.io/2018/07/09/Java/Interview/Java-Interview/ConcurrentHashMap/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="ConcurrentHashMap 实现原理由于 HashMap 是一个线程不安全的容器，主要体现在容量大于总量*负载因子发生扩容时会出现环形链表从而导致死循环。 因此需要支持线程安全的并发容器 ConcurrentHashMap 。 数据结构 如图所示，是由 Segment 数组、HashEntry 数组组成，和 HashMap 一样，仍然是数组加链表组成。 ConcurrentHashMap">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1fn2f5pgxinj30dw0730t7.jpg">
-<meta property="og:updated_time" content="2018-07-09T03:26:48.519Z">
+<meta property="og:updated_time" content="2018-07-09T07:19:20.903Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A.P的文艺杂谈">
+<meta name="twitter:title" content="ConcurrentHashMap">
 <meta name="twitter:description" content="ConcurrentHashMap 实现原理由于 HashMap 是一个线程不安全的容器，主要体现在容量大于总量*负载因子发生扩容时会出现环形链表从而导致死循环。 因此需要支持线程安全的并发容器 ConcurrentHashMap 。 数据结构 如图所示，是由 Segment 数组、HashEntry 数组组成，和 HashMap 一样，仍然是数组加链表组成。 ConcurrentHashMap">
 <meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1fn2f5pgxinj30dw0730t7.jpg">
 
@@ -132,7 +132,7 @@
 
 
 
-  <title> | A.P的文艺杂谈</title>
+  <title>ConcurrentHashMap | A.P的文艺杂谈</title>
   
 
 
@@ -310,7 +310,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">ConcurrentHashMap</h1>
         
 
         <div class="post-meta">
@@ -338,12 +338,45 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T11:26:48+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:19:20+08:00">
                 2018-07-09
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/" itemprop="url" rel="index">
+                    <span itemprop="name">Github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/Java-Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Java-Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -444,6 +477,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/转载/" rel="tag"># 转载</a>
+          
+        </div>
+      
 
       
       
@@ -463,8 +506,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/09/Java/Interview/Java-Interview/HashMap/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/09/Java/Interview/Java-Interview/HashMap/" rel="prev" title="HashMap">
+                HashMap <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -556,7 +599,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -567,7 +610,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -578,7 +621,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -842,7 +885,7 @@
         var disqus_config = function () {
           this.page.url = 'https://airpoet.github.io/2018/07/09/Java/Interview/Java-Interview/ConcurrentHashMap/';
           this.page.identifier = '2018/07/09/Java/Interview/Java-Interview/ConcurrentHashMap/';
-          this.page.title = '';
+          this.page.title = 'ConcurrentHashMap';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

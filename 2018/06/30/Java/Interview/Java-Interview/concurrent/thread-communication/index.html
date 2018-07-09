@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="文艺, it, 大数据, 诗歌, airpoet" />
+  <meta name="keywords" content="技术,Java,转载," />
 
 
 
@@ -84,16 +84,16 @@
 
 
 <meta name="description" content="深入理解线程通信前言开发中不免会遇到需要所有子线程执行完毕通知主线程处理某些逻辑的场景。 或者是线程 A 在执行到某个条件通知线程 B 执行某个操作。 可以通过以下几种方式实现： 等待通知机制 等待通知模式是 Java 中比较经典的线程通信方式。  两个线程通过对同一对象调用等待 wait() 和通知 notify() 方法来进行通讯。 如两个线程交替打印奇偶数： 1234567891011121">
-<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
+<meta name="keywords" content="技术,Java,转载">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A.P的文艺杂谈">
+<meta property="og:title" content="thread-communication">
 <meta property="og:url" content="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/concurrent/thread-communication/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="深入理解线程通信前言开发中不免会遇到需要所有子线程执行完毕通知主线程处理某些逻辑的场景。 或者是线程 A 在执行到某个条件通知线程 B 执行某个操作。 可以通过以下几种方式实现： 等待通知机制 等待通知模式是 Java 中比较经典的线程通信方式。  两个线程通过对同一对象调用等待 wait() 和通知 notify() 方法来进行通讯。 如两个线程交替打印奇偶数： 1234567891011121">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-30T02:06:27.083Z">
+<meta property="og:updated_time" content="2018-07-09T07:17:25.639Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A.P的文艺杂谈">
+<meta name="twitter:title" content="thread-communication">
 <meta name="twitter:description" content="深入理解线程通信前言开发中不免会遇到需要所有子线程执行完毕通知主线程处理某些逻辑的场景。 或者是线程 A 在执行到某个条件通知线程 B 执行某个操作。 可以通过以下几种方式实现： 等待通知机制 等待通知模式是 Java 中比较经典的线程通信方式。  两个线程通过对同一对象调用等待 wait() 和通知 notify() 方法来进行通讯。 如两个线程交替打印奇偶数： 1234567891011121">
 
 
@@ -130,7 +130,7 @@
 
 
 
-  <title> | A.P的文艺杂谈</title>
+  <title>thread-communication | A.P的文艺杂谈</title>
   
 
 
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">thread-communication</h1>
         
 
         <div class="post-meta">
@@ -336,12 +336,45 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-30T10:06:27+08:00">
-                2018-06-30
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:17:25+08:00">
+                2018-07-09
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/" itemprop="url" rel="index">
+                    <span itemprop="name">Github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/Java-Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Java-Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -514,6 +547,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/转载/" rel="tag"># 转载</a>
+          
+        </div>
+      
 
       
       
@@ -523,8 +566,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/30/Java/Interview/Java-Interview/ThreadPoolExecutor/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2018/06/30/Java/Interview/Java-Interview/Threadcore/" rel="next" title="Threadcore">
+                <i class="fa fa-chevron-left"></i> Threadcore
               </a>
             
           </div>
@@ -533,8 +576,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/30/Java/Interview/Java-Interview/concurrent/volatile/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/30/Java/Interview/Java-Interview/concurrent/volatile/" rel="prev" title="volatile">
+                volatile <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -626,7 +669,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -637,7 +680,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -648,7 +691,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -912,7 +955,7 @@
         var disqus_config = function () {
           this.page.url = 'https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/concurrent/thread-communication/';
           this.page.identifier = '2018/06/30/Java/Interview/Java-Interview/concurrent/thread-communication/';
-          this.page.title = '';
+          this.page.title = 'thread-communication';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

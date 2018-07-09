@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="文艺, it, 大数据, 诗歌, airpoet" />
+  <meta name="keywords" content="技术,Java,转载," />
 
 
 
@@ -84,16 +84,16 @@
 
 
 <meta name="description" content="OOM 分析Java 堆内存溢出在 Java 堆中只要不断的创建对象，并且 GC-Roots 到对象之间存在引用链，这样 JVM 就不会回收对象。 只要将-Xms(最小堆),-Xmx(最大堆) 设置为一样禁止自动扩展堆内存。 当使用一个 while(true) 循环来不断创建对象就会发生 OutOfMemory，还可以使用 -XX:+HeapDumpOutofMemoryErorr 当发生 OOM">
-<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
+<meta name="keywords" content="技术,Java,转载">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A.P的文艺杂谈">
+<meta property="og:title" content="OOM-analysis">
 <meta property="og:url" content="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/OOM-analysis/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="OOM 分析Java 堆内存溢出在 Java 堆中只要不断的创建对象，并且 GC-Roots 到对象之间存在引用链，这样 JVM 就不会回收对象。 只要将-Xms(最小堆),-Xmx(最大堆) 设置为一样禁止自动扩展堆内存。 当使用一个 while(true) 循环来不断创建对象就会发生 OutOfMemory，还可以使用 -XX:+HeapDumpOutofMemoryErorr 当发生 OOM">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-30T02:06:27.079Z">
+<meta property="og:updated_time" content="2018-07-09T07:22:46.571Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A.P的文艺杂谈">
+<meta name="twitter:title" content="OOM-analysis">
 <meta name="twitter:description" content="OOM 分析Java 堆内存溢出在 Java 堆中只要不断的创建对象，并且 GC-Roots 到对象之间存在引用链，这样 JVM 就不会回收对象。 只要将-Xms(最小堆),-Xmx(最大堆) 设置为一样禁止自动扩展堆内存。 当使用一个 while(true) 循环来不断创建对象就会发生 OutOfMemory，还可以使用 -XX:+HeapDumpOutofMemoryErorr 当发生 OOM">
 
 
@@ -130,7 +130,7 @@
 
 
 
-  <title> | A.P的文艺杂谈</title>
+  <title>OOM-analysis | A.P的文艺杂谈</title>
   
 
 
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">OOM-analysis</h1>
         
 
         <div class="post-meta">
@@ -336,12 +336,45 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-30T10:06:27+08:00">
-                2018-06-30
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:22:46+08:00">
+                2018-07-09
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/" itemprop="url" rel="index">
+                    <span itemprop="name">Github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/Java-Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Java-Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -442,6 +475,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/转载/" rel="tag"># 转载</a>
+          
+        </div>
+      
 
       
       
@@ -451,8 +494,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/30/Java/Interview/Java-Interview/Limiting/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2018/06/30/Java/Interview/Java-Interview/ID-generator/" rel="next" title="ID-generator">
+                <i class="fa fa-chevron-left"></i> ID-generator
               </a>
             
           </div>
@@ -461,8 +504,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/30/Java/Interview/Java-Interview/MySQL-Index/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/30/Java/Interview/Java-Interview/ReentrantLock/" rel="prev" title="ReentrantLock">
+                ReentrantLock <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -554,7 +597,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -565,7 +608,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -576,7 +619,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -840,7 +883,7 @@
         var disqus_config = function () {
           this.page.url = 'https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/OOM-analysis/';
           this.page.identifier = '2018/06/30/Java/Interview/Java-Interview/OOM-analysis/';
-          this.page.title = '';
+          this.page.title = 'OOM-analysis';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="文艺, it, 大数据, 诗歌, airpoet" />
+  <meta name="keywords" content="技术,Java,转载," />
 
 
 
@@ -84,17 +84,17 @@
 
 
 <meta name="description" content="线程池原理分析首先要明确为什么要使用线程池，使用线程池会带来什么好处？  线程是稀缺资源，不能频繁的创建。 应当将其放入一个池子中，可以给其他任务进行复用。 解耦作用，线程的创建于执行完全分开，方便维护。  创建一个线程池以一个使用较多的  1ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,">
-<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
+<meta name="keywords" content="技术,Java,转载">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A.P的文艺杂谈">
+<meta property="og:title" content="ThreadPoolExecutor">
 <meta property="og:url" content="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/ThreadPoolExecutor/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="线程池原理分析首先要明确为什么要使用线程池，使用线程池会带来什么好处？  线程是稀缺资源，不能频繁的创建。 应当将其放入一个池子中，可以给其他任务进行复用。 解耦作用，线程的创建于执行完全分开，方便维护。  创建一个线程池以一个使用较多的  1ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwgy1fnbzmai8yrj30dw08574s.jpg">
-<meta property="og:updated_time" content="2018-06-30T02:06:27.081Z">
+<meta property="og:updated_time" content="2018-07-09T07:24:48.088Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A.P的文艺杂谈">
+<meta name="twitter:title" content="ThreadPoolExecutor">
 <meta name="twitter:description" content="线程池原理分析首先要明确为什么要使用线程池，使用线程池会带来什么好处？  线程是稀缺资源，不能频繁的创建。 应当将其放入一个池子中，可以给其他任务进行复用。 解耦作用，线程的创建于执行完全分开，方便维护。  创建一个线程池以一个使用较多的  1ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,">
 <meta name="twitter:image" content="https://ws1.sinaimg.cn/large/006tNbRwgy1fnbzmai8yrj30dw08574s.jpg">
 
@@ -132,7 +132,7 @@
 
 
 
-  <title> | A.P的文艺杂谈</title>
+  <title>ThreadPoolExecutor | A.P的文艺杂谈</title>
   
 
 
@@ -310,7 +310,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">ThreadPoolExecutor</h1>
         
 
         <div class="post-meta">
@@ -338,12 +338,45 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-30T10:06:27+08:00">
-                2018-06-30
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:24:48+08:00">
+                2018-07-09
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/" itemprop="url" rel="index">
+                    <span itemprop="name">Github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/Java-Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Java-Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -457,6 +490,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/转载/" rel="tag"># 转载</a>
+          
+        </div>
+      
 
       
       
@@ -466,8 +509,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/30/Java/Interview/Java-Interview/Threadcore/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2018/06/30/Java/Interview/Java-Interview/collection/HashSet/" rel="next" title="HashSet">
+                <i class="fa fa-chevron-left"></i> HashSet
               </a>
             
           </div>
@@ -476,8 +519,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/30/Java/Interview/Java-Interview/concurrent/thread-communication/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/30/Java/Interview/Java-Interview/Threadcore/" rel="prev" title="Threadcore">
+                Threadcore <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -569,7 +612,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -580,7 +623,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -591,7 +634,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -855,7 +898,7 @@
         var disqus_config = function () {
           this.page.url = 'https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/ThreadPoolExecutor/';
           this.page.identifier = '2018/06/30/Java/Interview/Java-Interview/ThreadPoolExecutor/';
-          this.page.title = '';
+          this.page.title = 'ThreadPoolExecutor';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="文艺, it, 大数据, 诗歌, airpoet" />
+  <meta name="keywords" content="技术,Java,转载," />
 
 
 
@@ -84,17 +84,17 @@
 
 
 <meta name="description" content="你应该知道的 volatile 关键字前言不管是在面试还是实际开发中 volatile 都是一个应该掌握的技能。 首先来看看为什么会出现这个关键字。 内存可见性由于 Java 内存模型(JMM)规定，所有的变量都存放在主内存中，而每个线程都有着自己的工作内存(高速缓存)。 线程在工作时，需要将主内存中的数据拷贝到工作内存中。这样对数据的任何操作都是基于工作内存(效率提高)，并且不能直接操作主内存以">
-<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
+<meta name="keywords" content="技术,Java,转载">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A.P的文艺杂谈">
+<meta property="og:title" content="volatile">
 <meta property="og:url" content="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/concurrent/volatile/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="你应该知道的 volatile 关键字前言不管是在面试还是实际开发中 volatile 都是一个应该掌握的技能。 首先来看看为什么会出现这个关键字。 内存可见性由于 Java 内存模型(JMM)规定，所有的变量都存放在主内存中，而每个线程都有着自己的工作内存(高速缓存)。 线程在工作时，需要将主内存中的数据拷贝到工作内存中。这样对数据的任何操作都是基于工作内存(效率提高)，并且不能直接操作主内存以">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1fmouu3fpokj31ae0osjt1.jpg">
-<meta property="og:updated_time" content="2018-06-30T02:06:27.083Z">
+<meta property="og:updated_time" content="2018-07-09T07:17:40.548Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A.P的文艺杂谈">
+<meta name="twitter:title" content="volatile">
 <meta name="twitter:description" content="你应该知道的 volatile 关键字前言不管是在面试还是实际开发中 volatile 都是一个应该掌握的技能。 首先来看看为什么会出现这个关键字。 内存可见性由于 Java 内存模型(JMM)规定，所有的变量都存放在主内存中，而每个线程都有着自己的工作内存(高速缓存)。 线程在工作时，需要将主内存中的数据拷贝到工作内存中。这样对数据的任何操作都是基于工作内存(效率提高)，并且不能直接操作主内存以">
 <meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1fmouu3fpokj31ae0osjt1.jpg">
 
@@ -132,7 +132,7 @@
 
 
 
-  <title> | A.P的文艺杂谈</title>
+  <title>volatile | A.P的文艺杂谈</title>
   
 
 
@@ -310,7 +310,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">volatile</h1>
         
 
         <div class="post-meta">
@@ -338,12 +338,45 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-30T10:06:27+08:00">
-                2018-06-30
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:17:40+08:00">
+                2018-07-09
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/" itemprop="url" rel="index">
+                    <span itemprop="name">Github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/Java-Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Java-Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -485,6 +518,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/转载/" rel="tag"># 转载</a>
+          
+        </div>
+      
 
       
       
@@ -494,8 +537,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/30/Java/Interview/Java-Interview/concurrent/thread-communication/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2018/06/30/Java/Interview/Java-Interview/concurrent/thread-communication/" rel="next" title="thread-communication">
+                <i class="fa fa-chevron-left"></i> thread-communication
               </a>
             
           </div>
@@ -504,8 +547,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/30/Java/Interview/Java-Interview/spring/spring-bean-lifecycle/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/30/Java/Interview/Java-Interview/spring/spring-bean-lifecycle/" rel="prev" title="spring-bean-lifecycle">
+                spring-bean-lifecycle <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -597,7 +640,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -608,7 +651,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -619,7 +662,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -883,7 +926,7 @@
         var disqus_config = function () {
           this.page.url = 'https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/concurrent/volatile/';
           this.page.identifier = '2018/06/30/Java/Interview/Java-Interview/concurrent/volatile/';
-          this.page.title = '';
+          this.page.title = 'volatile';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

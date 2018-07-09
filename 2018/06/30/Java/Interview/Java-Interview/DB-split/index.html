@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="文艺, it, 大数据, 诗歌, airpoet" />
+  <meta name="keywords" content="技术,Java,转载," />
 
 
 
@@ -84,16 +84,16 @@
 
 
 <meta name="description" content="数据库水平垂直拆分当数据库量非常大的时候，DB 已经成为系统瓶颈时就可以考虑进行水平垂直拆分了。 水平拆分一般水平拆分是根据表中的某一字段(通常是主键 ID )取模处理，将一张表的数据拆分到多个表中。这样每张表的表结构是相同的但是数据不同。 不但可以通过 ID 取模分表还可以通过时间分表，比如每月生成一张表。按照范围分表也是可行的:一张表只存储 0~1000W的数据，超过只就进行分表，这样分表的优">
-<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
+<meta name="keywords" content="技术,Java,转载">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A.P的文艺杂谈">
+<meta property="og:title" content="DB-split">
 <meta property="og:url" content="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/DB-split/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="数据库水平垂直拆分当数据库量非常大的时候，DB 已经成为系统瓶颈时就可以考虑进行水平垂直拆分了。 水平拆分一般水平拆分是根据表中的某一字段(通常是主键 ID )取模处理，将一张表的数据拆分到多个表中。这样每张表的表结构是相同的但是数据不同。 不但可以通过 ID 取模分表还可以通过时间分表，比如每月生成一张表。按照范围分表也是可行的:一张表只存储 0~1000W的数据，超过只就进行分表，这样分表的优">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-30T02:06:27.077Z">
+<meta property="og:updated_time" content="2018-07-09T07:20:00.502Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A.P的文艺杂谈">
+<meta name="twitter:title" content="DB-split">
 <meta name="twitter:description" content="数据库水平垂直拆分当数据库量非常大的时候，DB 已经成为系统瓶颈时就可以考虑进行水平垂直拆分了。 水平拆分一般水平拆分是根据表中的某一字段(通常是主键 ID )取模处理，将一张表的数据拆分到多个表中。这样每张表的表结构是相同的但是数据不同。 不但可以通过 ID 取模分表还可以通过时间分表，比如每月生成一张表。按照范围分表也是可行的:一张表只存储 0~1000W的数据，超过只就进行分表，这样分表的优">
 
 
@@ -130,7 +130,7 @@
 
 
 
-  <title> | A.P的文艺杂谈</title>
+  <title>DB-split | A.P的文艺杂谈</title>
   
 
 
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">DB-split</h1>
         
 
         <div class="post-meta">
@@ -336,12 +336,45 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-30T10:06:27+08:00">
-                2018-06-30
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:20:00+08:00">
+                2018-07-09
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/" itemprop="url" rel="index">
+                    <span itemprop="name">Github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/Java-Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Java-Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -436,6 +469,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/转载/" rel="tag"># 转载</a>
+          
+        </div>
+      
 
       
       
@@ -445,8 +488,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/" rel="next" title="Consistent-Hash">
+                <i class="fa fa-chevron-left"></i> Consistent-Hash
               </a>
             
           </div>
@@ -455,8 +498,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/30/Java/Interview/Java-Interview/GarbageCollection/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/" rel="prev" title="ClassLoad">
+                ClassLoad <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -548,7 +591,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -559,7 +602,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -570,7 +613,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -834,7 +877,7 @@
         var disqus_config = function () {
           this.page.url = 'https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/DB-split/';
           this.page.identifier = '2018/06/30/Java/Interview/Java-Interview/DB-split/';
-          this.page.title = '';
+          this.page.title = 'DB-split';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

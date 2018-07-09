@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="文艺, it, 大数据, 诗歌, airpoet" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="A.P的文艺杂谈" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="一、分布式锁 数据库的唯一索引 Redis 的 SETNX 指令 Redis 的 RedLock 算法 Zookeeper 的有序节点   二、分布式事务 本地消息表 两阶段提交协议   三、分布式 Session Sticky Sessions Session Replication Session Server   四、负载均衡 算法 实现     一、分布式锁在单机场景下，可以使用 Ja">
+<meta name="keywords" content="诗歌, 文艺, 技术, 大数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A.P的文艺杂谈">
+<meta property="og:url" content="https://airpoet.github.io/2018/07/04/Java/Interview/Interview-Notebook/分布式问题分析/index.html">
+<meta property="og:site_name" content="A.P的文艺杂谈">
+<meta property="og:description" content="一、分布式锁 数据库的唯一索引 Redis 的 SETNX 指令 Redis 的 RedLock 算法 Zookeeper 的有序节点   二、分布式事务 本地消息表 两阶段提交协议   三、分布式 Session Sticky Sessions Session Replication Session Server   四、负载均衡 算法 实现     一、分布式锁在单机场景下，可以使用 Ja">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044440.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044448.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044453.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044458.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044501.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044505.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044513.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044518.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-045638.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044521.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044525.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044528.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044534.jpg">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044538.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044551.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044554.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044558.png">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044605.jpg">
+<meta property="og:updated_time" content="2018-07-09T04:56:40.716Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A.P的文艺杂谈">
+<meta name="twitter:description" content="一、分布式锁 数据库的唯一索引 Redis 的 SETNX 指令 Redis 的 RedLock 算法 Zookeeper 的有序节点   二、分布式事务 本地消息表 两阶段提交协议   三、分布式 Session Sticky Sessions Session Replication Session Server   四、负载均衡 算法 实现     一、分布式锁在单机场景下，可以使用 Ja">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044440.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'airpoet'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://airpoet.github.io/2018/07/04/Java/Interview/Interview-Notebook/分布式问题分析/"/>
+
+
+
+
+
+  <title> | A.P的文艺杂谈</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A.P的文艺杂谈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/07/04/Java/Interview/Interview-Notebook/分布式问题分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-04T21:51:06+08:00">
+                2018-07-04
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T12:56:40+08:00">
+                2018-07-09
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/04/Java/Interview/Interview-Notebook/分布式问题分析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/04/Java/Interview/Interview-Notebook/分布式问题分析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- GFM-TOC -->
+<ul>
+<li><a href="#一分布式锁">一、分布式锁</a><ul>
+<li><a href="#数据库的唯一索引">数据库的唯一索引</a></li>
+<li><a href="#redis-的-setnx-指令">Redis 的 SETNX 指令</a></li>
+<li><a href="#redis-的-redlock-算法">Redis 的 RedLock 算法</a></li>
+<li><a href="#zookeeper-的有序节点">Zookeeper 的有序节点</a></li>
+</ul>
+</li>
+<li><a href="#二分布式事务">二、分布式事务</a><ul>
+<li><a href="#本地消息表">本地消息表</a></li>
+<li><a href="#两阶段提交协议">两阶段提交协议</a></li>
+</ul>
+</li>
+<li><a href="#三分布式-session">三、分布式 Session</a><ul>
+<li><a href="#sticky-sessions">Sticky Sessions</a></li>
+<li><a href="#session-replication">Session Replication</a></li>
+<li><a href="#session-server">Session Server</a></li>
+</ul>
+</li>
+<li><a href="#四负载均衡">四、负载均衡</a><ul>
+<li><a href="#算法">算法</a></li>
+<li><a href="#实现">实现</a><!-- GFM-TOC -->
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="一、分布式锁"><a href="#一、分布式锁" class="headerlink" title="一、分布式锁"></a>一、分布式锁</h1><p>在单机场景下，可以使用 Java 提供的内置锁来实现进程同步。但是在分布式场景下，需要同步的进程可能位于不同的节点上，那么就需要使用分布式锁。</p>
+<p>阻塞锁通常使用互斥量来实现，互斥量为 1 表示有其它进程在使用锁，此时处于锁定状态，互斥量为 0 表示未锁定状态。1 和 0 可以用一个整型值来存储，也可以用某个数据存在或者不存在来存储，某个数据存在表示互斥量为 1。</p>
+<h2 id="数据库的唯一索引"><a href="#数据库的唯一索引" class="headerlink" title="数据库的唯一索引"></a>数据库的唯一索引</h2><p>当想要获得锁时，就向表中插入一条记录，释放锁时就删除这条记录。唯一索引可以保证该记录只被插入一次，那么就可以用这个记录是否存在来判断是否存于锁定状态。</p>
+<p>存在以下几个问题：</p>
+<ul>
+<li>锁没有失效时间，解锁失败的话其他线程无法再获得锁。</li>
+<li>只能是非阻塞锁，插入失败直接就报错了，无法重试。</li>
+<li>不可重入，已经获得锁的进程也必须重新获取锁。</li>
+</ul>
+<h2 id="Redis-的-SETNX-指令"><a href="#Redis-的-SETNX-指令" class="headerlink" title="Redis 的 SETNX 指令"></a>Redis 的 SETNX 指令</h2><p>使用 SETNX（set if not exist）指令插入一个键值对，如果 Key 已经存在，那么会返回 False，否则插入成功并返回 True。</p>
+<p>SETNX 指令和数据库的唯一索引类似，可以保证只存在一个 Key 的键值对，可以用一个 Key 的键值对是否存在来判断是否存于锁定状态。</p>
+<p>EXPIRE 指令可以为一个键值对设置一个过期时间，从而避免了数据库唯一索引实现方式中释放锁失败的问题。</p>
+<h2 id="Redis-的-RedLock-算法"><a href="#Redis-的-RedLock-算法" class="headerlink" title="Redis 的 RedLock 算法"></a>Redis 的 RedLock 算法</h2><p>使用了多个 Redis 实例来实现分布式锁，这是为了保证在发生单点故障时仍然可用。</p>
+<ul>
+<li>尝试从 N 个相互独立 Redis 实例获取锁，如果一个实例不可用，应该尽快尝试下一个。</li>
+<li>计算获取锁消耗的时间，只有当这个时间小于锁的过期时间，并且从大多数（N/2+1）实例上获取了锁，那么就认为锁获取成功了。</li>
+<li>如果锁获取失败，会到每个实例上释放锁。</li>
+</ul>
+<h2 id="Zookeeper-的有序节点"><a href="#Zookeeper-的有序节点" class="headerlink" title="Zookeeper 的有序节点"></a>Zookeeper 的有序节点</h2><h3 id="1-Zookeeper-抽象模型"><a href="#1-Zookeeper-抽象模型" class="headerlink" title="1. Zookeeper 抽象模型"></a>1. Zookeeper 抽象模型</h3><p>Zookeeper 提供了一种树形结构级的命名空间，/app1/p_1 节点表示它的父节点为 /app1。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044440.jpg" width="400"> </div><br></p>
+<h3 id="2-节点类型"><a href="#2-节点类型" class="headerlink" title="2. 节点类型"></a>2. 节点类型</h3><ul>
+<li>永久节点：不会因为会话结束或者超时而消失；</li>
+<li>临时节点：如果会话结束或者超时就会消失；</li>
+<li>有序节点：会在节点名的后面加一个数字后缀，并且是有序的，例如生成的有序节点为 /lock/node-0000000000，它的下一个有序节点则为 /lock/node-0000000001，以此类推。</li>
+</ul>
+<h3 id="3-监听器"><a href="#3-监听器" class="headerlink" title="3. 监听器"></a>3. 监听器</h3><p>为一个节点注册监听器，在节点状态发生改变时，会给客户端发送消息。</p>
+<h3 id="4-分布式锁实现"><a href="#4-分布式锁实现" class="headerlink" title="4. 分布式锁实现"></a>4. 分布式锁实现</h3><ul>
+<li>创建一个锁目录 /lock；</li>
+<li>当一个客户端需要获取锁时，在 /lock 下创建临时的且有序的子节点；</li>
+<li>客户端获取 /lock 下的子节点列表，判断自己创建的子节点是否为当前子节点列表中序号最小的子节点，如果是则认为获得锁；否则监听自己的前一个子节点，获得子节点的变更通知后重复此步骤直至获得锁；</li>
+<li>执行业务代码，完成后，删除对应的子节点。</li>
+</ul>
+<h3 id="5-会话超时"><a href="#5-会话超时" class="headerlink" title="5. 会话超时"></a>5. 会话超时</h3><p>如果一个已经获得锁的会话超时了，因为创建的是临时节点，所以该会话对应的临时节点会被删除，其它会话就可以获得锁了。可以看到，Zookeeper 分布式锁不会出现数据库的唯一索引实现分布式锁的释放锁失败问题。</p>
+<h3 id="6-羊群效应"><a href="#6-羊群效应" class="headerlink" title="6. 羊群效应"></a>6. 羊群效应</h3><p>一个节点未获得锁，需要监听自己的前一个子节点，这是因为如果监听所有的子节点，那么任意一个子节点状态改变，其它所有子节点都会收到通知（羊群效应），而我们只希望它的后一个子节点收到通知。</p>
+<p>参考：</p>
+<ul>
+<li><a href="http://www.linkedkeeper.com/detail/blog.action?bid=1023" target="_blank" rel="noopener">浅谈分布式锁</a></li>
+<li><a href="https://redis.io/topics/distlock" target="_blank" rel="noopener">Distributed locks with Redis</a></li>
+<li><a href="http://www.dengshenyu.com/java/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/2017/10/23/zookeeper-distributed-lock.html" target="_blank" rel="noopener">基于 Zookeeper 的分布式锁</a></li>
+</ul>
+<h1 id="二、分布式事务"><a href="#二、分布式事务" class="headerlink" title="二、分布式事务"></a>二、分布式事务</h1><p>指事务的操作位于不同的节点上，需要保证事务的 AICD 特性。例如在下单场景下，库存和订单如果不在同一个节点上，就涉及分布式事务。</p>
+<h2 id="本地消息表"><a href="#本地消息表" class="headerlink" title="本地消息表"></a>本地消息表</h2><h3 id="1-原理"><a href="#1-原理" class="headerlink" title="1. 原理"></a>1. 原理</h3><p>本地消息表与业务数据表处于同一个数据库中，这样就能利用本地事务来保证在对这两个表的操作满足事务特性。</p>
+<ol>
+<li>在分布式事务操作的一方完成写业务数据的操作之后向本地消息表发送一个消息，本地事务能保证这个消息一定会被写入本地消息表中。</li>
+<li>之后将本地消息表中的消息转发到 Kafka 等消息队列（MQ）中，如果转发成功则将消息从本地消息表中删除，否则继续重新转发。</li>
+<li>在分布式事务操作的另一方从消息队列中读取一个消息，并执行消息中的操作。</li>
+</ol>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044448.jpg"> </div><br></p>
+<h3 id="2-分析"><a href="#2-分析" class="headerlink" title="2. 分析"></a>2. 分析</h3><p>本地消息表利用了本地事务来实现分布式事务，并且使用了消息队列来保证最终一致性。</p>
+<h2 id="两阶段提交协议"><a href="#两阶段提交协议" class="headerlink" title="两阶段提交协议"></a>两阶段提交协议</h2><p><a href="https://github.com/CyC2018/Interview-Notebook/blob/master/notes/%E4%B8%80%E8%87%B4%E6%80%A7.md" target="_blank" rel="noopener">CyC2018/Interview-Notebook/一致性.md/2PC</a></p>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.cnblogs.com/savorboard/p/distributed-system-transaction-consistency.html" target="_blank" rel="noopener">聊聊分布式事务，再说说解决方案</a></li>
+<li><a href="https://coolshell.cn/articles/10910.html" target="_blank" rel="noopener">分布式系统的事务处理</a></li>
+<li><a href="https://juejin.im/entry/577c6f220a2b5800573492be" target="_blank" rel="noopener">深入理解分布式事务</a></li>
+</ul>
+<h1 id="三、分布式-Session"><a href="#三、分布式-Session" class="headerlink" title="三、分布式 Session"></a>三、分布式 Session</h1><p>在分布式场景下，一个用户的 Session 如果只存储在一个服务器上，那么当负载均衡器把用户的下一个请求转发到另一个服务器上，该服务器没有用户的 Session，就可能导致用户需要重新进行登录等操作。</p>
+<h2 id="Sticky-Sessions"><a href="#Sticky-Sessions" class="headerlink" title="Sticky Sessions"></a>Sticky Sessions</h2><p>需要配置负载均衡器，使得一个用户的所有请求都路由到一个服务器节点上，这样就可以把用户的 Session 存放在该服务器节点中。</p>
+<p>缺点：当服务器节点宕机时，将丢失该服务器节点上的所有 Session。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044453.jpg"> </div><br></p>
+<h2 id="Session-Replication"><a href="#Session-Replication" class="headerlink" title="Session Replication"></a>Session Replication</h2><p>在服务器节点之间进行 Session 同步操作，这样的话用户可以访问任何一个服务器节点。</p>
+<p>缺点：占用过多内存；同步过程占用网络带宽以及服务器处理器时间。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044458.jpg"> </div><br></p>
+<h2 id="Session-Server"><a href="#Session-Server" class="headerlink" title="Session Server"></a>Session Server</h2><p>使用一个单独的服务器存储 Session 数据，可以存在 MySQL 数据库上，也可以存在 Redis 或者 Memcached 这种内存型数据库。</p>
+<p>缺点：需要去实现存取 Session 的代码。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044501.jpg"> </div><br></p>
+<p>参考：</p>
+<ul>
+<li><a href="https://sivalabs.in/2018/02/session-management-using-spring-session-jdbc-datastore/" target="_blank" rel="noopener">Session Management using Spring Session with JDBC DataStore</a></li>
+</ul>
+<h1 id="四、负载均衡"><a href="#四、负载均衡" class="headerlink" title="四、负载均衡"></a>四、负载均衡</h1><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="1-轮询（Round-Robin）"><a href="#1-轮询（Round-Robin）" class="headerlink" title="1. 轮询（Round Robin）"></a>1. 轮询（Round Robin）</h3><p>轮询算法把每个请求轮流发送到每个服务器上。下图中，一共有 6 个客户端产生了 6 个请求，这 6 个请求按 (1, 2, 3, 4, 5, 6) 的顺序发送。最后，(1, 3, 5) 的请求会被发送到服务器 1，(2, 4, 6) 的请求会被发送到服务器 2。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044505.jpg"> </div><br></p>
+<p>该算法比较适合每个服务器的性能差不多的场景，如果有性能存在差异的情况下，那么性能较差的服务器可能无法承担过大的负载（下图的 Server 2）。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044513.jpg"> </div><br></p>
+<h3 id="2-加权轮询（Weighted-Round-Robbin）"><a href="#2-加权轮询（Weighted-Round-Robbin）" class="headerlink" title="2. 加权轮询（Weighted Round Robbin）"></a>2. 加权轮询（Weighted Round Robbin）</h3><p>加权轮询是在轮询的基础上，根据服务器的性能差异，为服务器赋予一定的权值。例如下图中，服务器 1 被赋予的权值为 5，服务器 2 被赋予的权值为 1，那么 (1, 2, 3, 4, 5) 请求会被发送到服务器 1，(6) 请求会被发送到服务器 2。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044518.jpg"> </div><br></p>
+<h3 id="3-最少连接（least-Connections）"><a href="#3-最少连接（least-Connections）" class="headerlink" title="3. 最少连接（least Connections）"></a>3. 最少连接（least Connections）</h3><p>由于每个请求的连接时间不一样，使用轮询或者加权轮询算法的话，可能会让一台服务器当前连接数过大，而另一台服务器的连接过小，造成负载不均衡。例如下图中，(1, 3, 5) 请求会被发送到服务器 1，但是 (1, 3) 很快就断开连接，此时只有 (5) 请求连接服务器 1；(2, 4, 6) 请求被发送到服务器 2，只有 (2) 的连接断开。该系统继续运行时，服务器 2 会承担过大的负载。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-045638.jpg"> </div><br></p>
+<p>最少连接算法就是将请求发送给当前最少连接数的服务器上。例如下图中，服务器 1 当前连接数最小，那么新到来的请求 6 就会被发送到服务器 1 上。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044521.jpg"> </div><br></p>
+<h3 id="4-加权最少连接（Weighted-Least-Connection）"><a href="#4-加权最少连接（Weighted-Least-Connection）" class="headerlink" title="4. 加权最少连接（Weighted Least Connection）"></a>4. 加权最少连接（Weighted Least Connection）</h3><p>在最少连接的基础上，根据服务器的性能为每台服务器分配权重，再根据权重计算出每台服务器能处理的连接数。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044525.jpg"> </div><br></p>
+<h3 id="5-随机算法（Random）"><a href="#5-随机算法（Random）" class="headerlink" title="5. 随机算法（Random）"></a>5. 随机算法（Random）</h3><p>把请求随机发送到服务器上。和轮询算法类似，该算法比较适合服务器性能差不多的场景。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044528.jpg"> </div><br></p>
+<h3 id="6-源地址哈希法-IP-Hash"><a href="#6-源地址哈希法-IP-Hash" class="headerlink" title="6. 源地址哈希法 (IP Hash)"></a>6. 源地址哈希法 (IP Hash)</h3><p>源地址哈希通过对客户端 IP 哈希计算得到的一个数值，用该数值对服务器数量进行取模运算，取模结果便是目标服务器的序号。</p>
+<ul>
+<li>优点：保证同一 IP 的客户端都会被 hash 到同一台服务器上。</li>
+<li>缺点：不利于集群扩展，后台服务器数量变更都会影响 hash 结果。可以采用一致性 Hash 改进。</li>
+</ul>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044534.jpg"> </div><br></p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="1-HTTP-重定向"><a href="#1-HTTP-重定向" class="headerlink" title="1. HTTP 重定向"></a>1. HTTP 重定向</h3><p>HTTP 重定向负载均衡服务器收到 HTTP 请求之后会返回服务器的地址，并将该地址写入 HTTP 重定向响应中返回给浏览器，浏览器收到后需要再次发送请求。</p>
+<p>缺点：</p>
+<ul>
+<li>用户访问的延迟会增加；</li>
+<li>如果负载均衡器宕机，就无法访问该站点。</li>
+</ul>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044538.png"> </div><br></p>
+<h3 id="2-DNS-重定向"><a href="#2-DNS-重定向" class="headerlink" title="2. DNS 重定向"></a>2. DNS 重定向</h3><p>使用 DNS 作为负载均衡器，根据负载情况返回不同服务器的 IP 地址。大型网站基本使用了这种方式做为第一级负载均衡手段，然后在内部使用其它方式做第二级负载均衡。</p>
+<p>缺点：</p>
+<ul>
+<li>DNS 查找表可能会被客户端缓存起来，那么之后的所有请求都会被重定向到同一个服务器。</li>
+</ul>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044551.png"> </div><br></p>
+<h3 id="3-修改-MAC-地址"><a href="#3-修改-MAC-地址" class="headerlink" title="3. 修改 MAC 地址"></a>3. 修改 MAC 地址</h3><p>使用 LVS（Linux Virtual Server）这种链路层负载均衡器，根据负载情况修改请求的 MAC 地址。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044554.png"> </div><br></p>
+<h3 id="4-修改-IP-地址"><a href="#4-修改-IP-地址" class="headerlink" title="4. 修改 IP 地址"></a>4. 修改 IP 地址</h3><p>在网络层修改请求的目的 IP 地址。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044558.png"> </div><br></p>
+<h3 id="5-代理自动配置"><a href="#5-代理自动配置" class="headerlink" title="5. 代理自动配置"></a>5. 代理自动配置</h3><p>正向代理与反向代理的区别：</p>
+<ul>
+<li>正向代理：发生在客户端，是由用户主动发起的。比如翻墙，客户端通过主动访问代理服务器，让代理服务器获得需要的外网数据，然后转发回客户端。</li>
+<li>反向代理：发生在服务器端，用户不知道代理的存在。</li>
+</ul>
+<p>PAC 服务器是用来判断一个请求是否要经过代理。</p>
+<p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-044605.jpg"> </div><br></p>
+<p>参考：</p>
+<ul>
+<li><a href="http://www.jscape.com/blog/load-balancing-algorithms" target="_blank" rel="noopener">Comparing Load Balancing Algorithms</a></li>
+<li><a href="https://segmentfault.com/a/1190000004492447" target="_blank" rel="noopener">负载均衡算法及手段</a></li>
+<li><a href="http://slideplayer.com/slide/6599069/#" target="_blank" rel="noopener">Redirection and Load Balancing</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果帮到你, 可以给我赞助杯咖啡☕️</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/images/wechat-reward.jpg" alt="airpoet 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/04/Java/Interview/Interview-Notebook/代码可读性/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/04/Java/Interview/Interview-Notebook/代码风格规范/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg"
+                alt="airpoet" />
+            
+              <p class="site-author-name" itemprop="name">airpoet</p>
+              <p class="site-description motion-element" itemprop="description">没有边界就没有自由.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/3b9b97fe7e04" target="_blank" title="我的简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>我的简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:airpoet@qq.com" target="_blank" title="Mile2Me">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>Mile2Me</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/8ee264c6557d" title="女神凉姨" target="_blank">女神凉姨</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、分布式锁"><span class="nav-text">一、分布式锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库的唯一索引"><span class="nav-text">数据库的唯一索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-的-SETNX-指令"><span class="nav-text">Redis 的 SETNX 指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-的-RedLock-算法"><span class="nav-text">Redis 的 RedLock 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper-的有序节点"><span class="nav-text">Zookeeper 的有序节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Zookeeper-抽象模型"><span class="nav-text">1. Zookeeper 抽象模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-节点类型"><span class="nav-text">2. 节点类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-监听器"><span class="nav-text">3. 监听器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-分布式锁实现"><span class="nav-text">4. 分布式锁实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-会话超时"><span class="nav-text">5. 会话超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-羊群效应"><span class="nav-text">6. 羊群效应</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、分布式事务"><span class="nav-text">二、分布式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地消息表"><span class="nav-text">本地消息表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-原理"><span class="nav-text">1. 原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分析"><span class="nav-text">2. 分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两阶段提交协议"><span class="nav-text">两阶段提交协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、分布式-Session"><span class="nav-text">三、分布式 Session</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sticky-Sessions"><span class="nav-text">Sticky Sessions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session-Replication"><span class="nav-text">Session Replication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session-Server"><span class="nav-text">Session Server</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、负载均衡"><span class="nav-text">四、负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-轮询（Round-Robin）"><span class="nav-text">1. 轮询（Round Robin）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-加权轮询（Weighted-Round-Robbin）"><span class="nav-text">2. 加权轮询（Weighted Round Robbin）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-最少连接（least-Connections）"><span class="nav-text">3. 最少连接（least Connections）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-加权最少连接（Weighted-Least-Connection）"><span class="nav-text">4. 加权最少连接（Weighted Least Connection）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-随机算法（Random）"><span class="nav-text">5. 随机算法（Random）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-源地址哈希法-IP-Hash"><span class="nav-text">6. 源地址哈希法 (IP Hash)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HTTP-重定向"><span class="nav-text">1. HTTP 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-DNS-重定向"><span class="nav-text">2. DNS 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-修改-MAC-地址"><span class="nav-text">3. 修改 MAC 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-修改-IP-地址"><span class="nav-text">4. 修改 IP 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-代理自动配置"><span class="nav-text">5. 代理自动配置</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">airpoet</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://A.P.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://airpoet.github.io/2018/07/04/Java/Interview/Interview-Notebook/分布式问题分析/';
+          this.page.identifier = '2018/07/04/Java/Interview/Interview-Notebook/分布式问题分析/';
+          this.page.title = '';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://A.P.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>

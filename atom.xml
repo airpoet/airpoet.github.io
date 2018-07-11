@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://airpoet.github.io/"/>
-  <updated>2018-07-09T07:22:23.926Z</updated>
+  <updated>2018-07-11T06:01:27.028Z</updated>
   <id>https://airpoet.github.io/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NIO</title>
+    <link href="https://airpoet.github.io/2018/07/11/Hadoop/11_NIO/NIO/"/>
+    <id>https://airpoet.github.io/2018/07/11/Hadoop/11_NIO/NIO/</id>
+    <published>2018-07-11T03:38:15.042Z</published>
+    <updated>2018-07-11T06:01:27.028Z</updated>
+    
+    <content type="html"><![CDATA[<!-- GFM-TOC --><h1 id="一-同步-异步-amp-阻塞-非阻塞"><a href="#一-同步-异步-amp-阻塞-非阻塞" class="headerlink" title="一.  同步, 异步 &amp; 阻塞, 非阻塞"></a>一.  同步, 异步 &amp; 阻塞, 非阻塞</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><strong>同步和异步其实指的是，请求发起方对消息结果的获取是主动发起的，还是等被动通知的</strong>。</p><ul><li>如果是请求方主动发起的，<strong>一直在等待应答结果（同步阻塞）</strong></li><li>如果是<strong>结果由服务方通知的，也就是请求方发出请求后，要么在一直等待通知（异步阻塞）, 要么就先去干自己的事了（异步非阻塞)</strong></li></ul><p><strong>调用了一个函数之后，在等待这个函数返回结果之前，当前的线程是处于挂起状态，还是运行状态：</strong></p><ul><li>如果是挂起状态，就意味着<strong>当前线程什么都不能干</strong>，就等着获取结果，这就叫<strong>同步阻塞</strong>，</li><li>如果仍然是运行状态，就意味<strong>当前线程是可以的继续处理其他任务，但要时不时的去看下是否有结果了，这就是同步非阻塞</strong>。</li></ul><h2 id="形象的例子"><a href="#形象的例子" class="headerlink" title="形象的例子"></a>形象的例子</h2><p>故事：老王烧开水。</p><p>出场人物：老王，水壶两把（普通水壶，简称水壶；会响的水壶，简称响水壶）。</p><p>老王想了想，有好几种等待方式<br>1、老王用水壶煮水，并且站在那里，不管水开没开，每隔一定时间看看水开了没    ———-同步阻塞<br>老王想了想，这种方法不够聪明。</p><p>2、老王还是用水壶煮水，不再傻傻的站在那里看水开，跑去寝室上网，但是还是会每隔一段时间过来看看水开了没有，水没有开就走人。    ———-同步非阻塞<br>老王想了想，现在的方法聪明了些，但是还是不够好。</p><p>3、老王这次使用高大上的响水壶来煮水，站在那里，但是不会再每隔一段时间去看水开，而是等水开了，水壶会自动的通知他。    ———-异步阻塞<br>老王想了想，不会呀，既然水壶可以通知我，那我为什么还要傻傻的站在那里等呢，嗯，得换个方法。</p><p>4、老王还是使用响水壶煮水，跑到客厅上网去，等着响水壶自己把水煮熟了以后通知他。    ———-异步非阻塞</p><p>老王豁然，这下感觉轻松了很多。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;!-- GFM-TOC --&gt;
+&lt;h1 id=&quot;一-同步-异步-amp-阻塞-非阻塞&quot;&gt;&lt;a href=&quot;#一-同步-异步-amp-阻塞-非阻塞&quot; class=&quot;headerlink&quot; title=&quot;一.  同步, 异步 &amp;amp; 阻塞, 非阻塞&quot;&gt;&lt;/a&gt;一.  同步, 异
+      
+    
+    </summary>
+    
+      <category term="Hadoop" scheme="https://airpoet.github.io/categories/Hadoop/"/>
+    
+      <category term="NIO" scheme="https://airpoet.github.io/categories/Hadoop/NIO/"/>
+    
+    
+      <category term="原创" scheme="https://airpoet.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="技术" scheme="https://airpoet.github.io/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="Hadoop" scheme="https://airpoet.github.io/tags/Hadoop/"/>
+    
+      <category term="NIO" scheme="https://airpoet.github.io/tags/NIO/"/>
+    
+  </entry>
   
   <entry>
     <title>newObject</title>
@@ -612,42 +646,6 @@
 &lt;!-- GFM-TOC --&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/twitter/commons/blob/master/src/java/com/twitter/common/styleguide.md
-      
-    
-    </summary>
-    
-      <category term="Github" scheme="https://airpoet.github.io/categories/Github/"/>
-    
-      <category term="Interview-Notebook" scheme="https://airpoet.github.io/categories/Github/Interview-Notebook/"/>
-    
-    
-      <category term="技术" scheme="https://airpoet.github.io/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-      <category term="Java" scheme="https://airpoet.github.io/tags/Java/"/>
-    
-      <category term="转载" scheme="https://airpoet.github.io/tags/%E8%BD%AC%E8%BD%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一致性</title>
-    <link href="https://airpoet.github.io/2018/07/04/Java/Interview/Interview-Notebook/%E4%B8%80%E8%87%B4%E6%80%A7/"/>
-    <id>https://airpoet.github.io/2018/07/04/Java/Interview/Interview-Notebook/一致性/</id>
-    <published>2018-07-04T13:51:06.354Z</published>
-    <updated>2018-07-09T07:07:18.375Z</updated>
-    
-    <content type="html"><![CDATA[<!-- GFM-TOC --><ul><li><a href="#一cap">一、CAP</a><ul><li><a href="#一致性">一致性</a></li><li><a href="#可用性">可用性</a></li><li><a href="#分区容忍性">分区容忍性</a></li><li><a href="#权衡">权衡</a></li></ul></li><li><a href="#二base">二、BASE</a><ul><li><a href="#基本可用">基本可用</a></li><li><a href="#软状态">软状态</a></li><li><a href="#最终一致性">最终一致性</a></li></ul></li><li><a href="#三2pc">三、2PC</a><ul><li><a href="#运行过程">运行过程</a></li><li><a href="#存在的问题">存在的问题</a></li></ul></li><li><a href="#四paxos">四、Paxos</a><ul><li><a href="#执行过程">执行过程</a></li><li><a href="#约束条件">约束条件</a></li></ul></li><li><a href="#五raft">五、Raft</a><ul><li><a href="#单个-candidate-的竞选">单个 Candidate 的竞选</a></li><li><a href="#多个-candidate-竞选">多个 Candidate 竞选</a></li><li><a href="#日志复制">日志复制</a></li></ul></li><li><a href="#参考资料">参考资料</a><!-- GFM-TOC --></li></ul><h1 id="一、CAP"><a href="#一、CAP" class="headerlink" title="一、CAP"></a>一、CAP</h1><p>分布式系统不可能同时满足一致性（C：Consistency）、可用性（A：Availability）和分区容忍性（P：Partition Tolerance），最多只能同时满足其中两项。</p><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062307.jpg" width="500"> </div><br></p><h2 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h2><p>一致性指的是多个数据副本是否能保持一致的特性。</p><p>在一致性的条件下，系统在执行数据更新操作之后能够从一致性状态转移到另一个一致性状态。</p><p>对系统的一个数据更新成功之后，如果所有用户都能够读取到最新的值，该系统就被认为具有强一致性。</p><h2 id="可用性"><a href="#可用性" class="headerlink" title="可用性"></a>可用性</h2><p>可用性指分布式系统在面对各种异常时可以提供正常服务的能力，可以用系统可用时间占总时间的比值来衡量，4 个 9 的可用性表示系统 99.99% 的时间是可用的。</p><p>在可用性条件下，系统提供的服务一直处于可用的状态，对于用户的每一个操作请求总是能够在有限的时间内返回结果。</p><h2 id="分区容忍性"><a href="#分区容忍性" class="headerlink" title="分区容忍性"></a>分区容忍性</h2><p>网络分区指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。</p><p>在分区容忍性条件下，分布式系统在遇到任何网络分区故障的时候，仍然需要能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障。</p><h2 id="权衡"><a href="#权衡" class="headerlink" title="权衡"></a>权衡</h2><p>在分布式系统中，分区容忍性必不可少，因为需要总是假设网络是不可靠的。因此，CAP 理论实际在是要在可用性和一致性之间做权衡。</p><p>可用性和一致性往往是冲突的，很难都使它们同时满足。在多个节点之间进行数据同步时，</p><ul><li>为了保证一致性（CP），就需要让所有节点下线成为不可用的状态，等待同步完成；</li><li>为了保证可用性（AP），在同步过程中允许读取所有节点的数据，但是数据可能不一致。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062312.jpg" width="500"> </div><br></p><h1 id="二、BASE"><a href="#二、BASE" class="headerlink" title="二、BASE"></a>二、BASE</h1><p>BASE 是基本可用（Basically Available）、软状态（Soft State）和最终一致性（Eventually Consistent）三个短语的缩写。</p><p>BASE 理论是对 CAP 中一致性和可用性权衡的结果，它的理论的核心思想是：即使无法做到强一致性，但每个应用都可以根据自身业务特点，采用适当的方式来使系统达到最终一致性。</p><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062317.png" width="250"> </div><br></p><h2 id="基本可用"><a href="#基本可用" class="headerlink" title="基本可用"></a>基本可用</h2><p>指分布式系统在出现故障的时候，保证核心可用，允许损失部分可用性。</p><p>例如，电商在做促销时，为了保证购物系统的稳定性，部分消费者可能会被引导到一个降级的页面。</p><h2 id="软状态"><a href="#软状态" class="headerlink" title="软状态"></a>软状态</h2><p>指允许系统中的数据存在中间状态，并认为该中间状态不会影响系统整体可用性，即允许系统不同节点的数据副本之间进行同步的过程存在延时。</p><h2 id="最终一致性"><a href="#最终一致性" class="headerlink" title="最终一致性"></a>最终一致性</h2><p>最终一致性强调的是系统中所有的数据副本，在经过一段时间的同步后，最终能达到一致的状态。</p><p>ACID 要求强一致性，通常运用在传统的数据库系统上。而 BASE 要求最终一致性，通过牺牲强一致性来达到可用性，通常运用在大型分布式系统中。</p><p>在实际的分布式场景中，不同业务单元和组件对一致性的要求是不同的，因此 ACID 和 BASE 往往会结合在一起使用。</p><h1 id="三、2PC"><a href="#三、2PC" class="headerlink" title="三、2PC"></a>三、2PC</h1><p>两阶段提交（Two-phase Commit，2PC）</p><p>主要用于实现分布式事务，分布式事务指的是事务操作跨越多个节点，并且要求满足事务的 ACID 特性。</p><p>通过引入协调者（Coordinator）来调度参与者的行为，，并最终决定这些参与者是否要真正执行事务。</p><h2 id="运行过程"><a href="#运行过程" class="headerlink" title="运行过程"></a>运行过程</h2><h3 id="1-准备阶段"><a href="#1-准备阶段" class="headerlink" title="1. 准备阶段"></a>1. 准备阶段</h3><p>协调者询问参与者事务是否执行成功，参与者发回事务执行结果。</p><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062323.jpg" width=""> </div><br></p><h3 id="2-提交阶段"><a href="#2-提交阶段" class="headerlink" title="2. 提交阶段"></a>2. 提交阶段</h3><p>如果事务在每个参与者上都执行成功，事务协调者发送通知让参与者提交事务；否则，协调者发送通知让参与者回滚事务。</p><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062326.jpg" width=""> </div><br></p><p>需要注意的是，在准备阶段，参与者执行了事务，但是还未提交。只有在提交阶段接收到协调者发来的通知后，才进行提交或者回滚。</p><h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><h3 id="1-同步阻塞"><a href="#1-同步阻塞" class="headerlink" title="1. 同步阻塞"></a>1. 同步阻塞</h3><p>所有事务参与者在等待其它参与者响应的时候都处于同步阻塞状态，无法进行其它操作。</p><h3 id="2-单点问题"><a href="#2-单点问题" class="headerlink" title="2. 单点问题"></a>2. 单点问题</h3><p>协调者在 2PC 中起到非常大的作用，发生故障将会造成很大影响，特别是在阶段二发生故障，所有参与者会一直等待状态，无法完成其它操作。</p><h3 id="3-数据不一致"><a href="#3-数据不一致" class="headerlink" title="3. 数据不一致"></a>3. 数据不一致</h3><p>在阶段二，如果协调者只发送了部分 Commit 消息，此时网络发生异常，那么只有部分参与者接收到 Commit 消息，也就是说只有部分参与者提交了事务，使得系统数据不一致。</p><h3 id="4-太过保守"><a href="#4-太过保守" class="headerlink" title="4. 太过保守"></a>4. 太过保守</h3><p>任意一个节点失败就会导致整个事务失败，没有完善的容错机制。</p><h1 id="四、Paxos"><a href="#四、Paxos" class="headerlink" title="四、Paxos"></a>四、Paxos</h1><p>用于达成共识性问题，即对多个节点产生的值，该算法能保证只选出唯一一个值。</p><p>主要有三类节点：</p><ul><li>提议者（Proposer）：提议一个值；</li><li>接受者（Acceptor）：对每个提议进行投票；</li><li>告知者（Learner）：被告知投票的结果，不参与投票过程。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062330.jpg" width=""> </div><br></p><h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>规定一个提议包含两个字段：[n, v]，其中 n 为序号（具有唯一性），v 为提议值。</p><p>下图演示了两个 Proposer 和三个 Acceptor 的系统中运行该算法的初始过程，每个 Proposer 都会向所有 Acceptor 发送提议请求。</p><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062333.png" width=""> </div><br></p><p>当 Acceptor 接收到一个提议请求，包含的提议为 [n1, v1]，并且之前还未接收过提议请求，那么发送一个提议响应，设置当前接收到的提议为 [n1, v1]，并且保证以后不会再接受序号小于 n1 的提议。</p><p>如下图，Acceptor X 在收到 [n=2, v=8] 的提议请求时，由于之前没有接收过提议，因此就发送一个 [no previous] 的提议响应，设置当前接收到的提议为 [n=2, v=8]，并且保证以后不会再接受序号小于 2 的提议。其它的 Acceptor 类似。</p><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062336.jpg" width=""> </div><br></p><p>如果 Acceptor 接收到一个提议请求，包含的提议为 [n2, v2]，并且之前已经接收过提议 [n1, v1]。如果 n1 &gt; n2，那么就丢弃该提议请求；否则，发送提议响应，该提议响应包含之前已经接收过的提议 [n1, v1]，设置当前接收到的提议为 [n2, v2]，并且保证以后不会再接受序号小于 n2 的提议。</p><p>如下图，Acceptor Z 收到 Proposer A 发来的 [n=2, v=8] 的提议请求，由于之前已经接收过 [n=4, v=5] 的提议，并且 n &gt; 2，因此就抛弃该提议请求；Acceptor X 收到 Proposer B 发来的 [n=4, v=5] 的提议请求，因为之前接收到的提议为 [n=2, v=8]，并且 2 &lt;= 4，因此就发送 [n=2, v=8] 的提议响应，设置当前接收到的提议为 [n=4, v=5]，并且保证以后不会再接受序号小于 4 的提议。Acceptor Y 类似。</p><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062340.jpg" width=""> </div><br></p><p>当一个 Proposer 接收到超过一半 Acceptor 的提议响应时，就可以发送接受请求。</p><p>Proposer A 接收到两个提议响应之后，就发送 [n=2, v=8] 接受请求。该接受请求会被所有 Acceptor 丢弃，因为此时所有 Acceptor 都保证不接受序号小于 4 的提议。</p><p>Proposer B 过后也收到了两个提议响应，因此也开始发送接受请求。需要注意的是，接受请求的 v 需要取它收到的最大 v 值，也就是 8。因此它发送 [n=4, v=8] 的接受请求。</p><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062343.png" width=""> </div><br></p><p>Acceptor 接收到接受请求时，如果序号大于等于该 Acceptor 承诺的最小序号，那么就发送通知给所有的 Learner。当 Learner 发现有大多数的 Acceptor 接收了某个提议，那么该提议的提议值就被 Paxos 选择出来。</p><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062348.jpg" width=""> </div><br></p><h2 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h2><h3 id="1-正确性"><a href="#1-正确性" class="headerlink" title="1. 正确性"></a>1. 正确性</h3><p>指只有一个提议值会生效。</p><p>因为 Paxos 协议要求每个生效的提议被多数 Acceptor 接收，并且 Acceptor 不会接受两个不同的提议，因此可以保证正确性。</p><h3 id="2-可终止性"><a href="#2-可终止性" class="headerlink" title="2. 可终止性"></a>2. 可终止性</h3><p>指最后总会有一个提议生效。</p><p>Paxos 协议能够让 Proposer 发送的提议朝着能被大多数 Acceptor 接受的那个提议靠拢，因此能够保证可终止性。</p><h1 id="五、Raft"><a href="#五、Raft" class="headerlink" title="五、Raft"></a>五、Raft</h1><p>Raft 和 Paxos 类似，但是更容易理解，也更容易实现。</p><p>Raft 主要是用来竞选主节点。</p><h2 id="单个-Candidate-的竞选"><a href="#单个-Candidate-的竞选" class="headerlink" title="单个 Candidate 的竞选"></a>单个 Candidate 的竞选</h2><p>有三种节点：Follower、Candidate 和 Leader。Leader 会周期性的发送心跳包给 Follower。每个 Follower 都设置了一个随机的竞选超时时间，一般为 150ms~300ms，如果在这个时间内没有收到 Leader 的心跳包，就会变成 Candidate，进入竞选阶段。</p><ul><li>下图表示一个分布式系统的最初阶段，此时只有 Follower，没有 Leader。Follower A 等待一个随机的竞选超时时间之后，没收到 Leader 发来的心跳包，因此进入竞选阶段。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062352.gif" width=""> </div><br></p><ul><li>此时 A 发送投票请求给其它所有节点。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062356.gif" width=""> </div><br></p><ul><li>其它节点会对请求进行回复，如果超过一半的节点回复了，那么该 Candidate 就会变成 Leader。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062400.gif" width=""> </div><br></p><ul><li>之后 Leader 会周期性地发送心跳包给 Follower，Follower 接收到心跳包，会重新开始计时。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062408.gif" width=""> </div><br></p><h2 id="多个-Candidate-竞选"><a href="#多个-Candidate-竞选" class="headerlink" title="多个 Candidate 竞选"></a>多个 Candidate 竞选</h2><ul><li>如果有多个 Follower 成为 Candidate，并且所获得票数相同，那么就需要重新开始投票，例如下图中 Candidate B 和 Candidate D 都获得两票，因此需要重新开始投票。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062412.gif" width=""> </div><br></p><ul><li>当重新开始投票时，由于每个节点设置的随机竞选超时时间不同，因此能下一次再次出现多个 Candidate 并获得同样票数的概率很低。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062416.gif" width=""> </div><br></p><h2 id="日志复制"><a href="#日志复制" class="headerlink" title="日志复制"></a>日志复制</h2><ul><li>来自客户端的修改都会被传入 Leader。注意该修改还未被提交，只是写入日志中。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062420.gif" width=""> </div><br></p><ul><li>Leader 会把修改复制到所有 Follower。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062423.gif" width=""> </div><br></p><ul><li>Leader 会等待大多数的 Follower 也进行了修改，然后才将修改提交。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062426.gif" width=""> </div><br></p><ul><li>此时 Leader 会通知的所有 Follower 让它们也提交修改，此时所有节点的值达成一致。</li></ul><p><div align="center"> <img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-09-062430.gif" width=""> </div><br></p><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul><li>倪超. 从 Paxos 到 ZooKeeper : 分布式一致性原理与实践 [M]. 电子工业出版社, 2015.</li><li><a href="http://www.colooshiki.com/index.php/2017/04/20/what-is-cap-theorem-in-distributed-database-system/" target="_blank" rel="noopener">What is CAP theorem in distributed database system?</a></li><li><a href="http://harry.me/blog/2014/12/27/neat-algorithms-paxos/" target="_blank" rel="noopener">NEAT ALGORITHMS - PAXOS</a></li><li><a href="http://thesecretlivesofdata.com/raft" target="_blank" rel="noopener">Raft: Understandable Distributed Consensus</a></li><li><a href="https://angus.nyc/2012/paxos-by-example/" target="_blank" rel="noopener">Paxos By Example</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;!-- GFM-TOC --&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#一cap&quot;&gt;一、CAP&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#一致性&quot;&gt;一致性&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#可用性&quot;&gt;可用性&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#分区容忍性&quot;
       
     
     </summary>

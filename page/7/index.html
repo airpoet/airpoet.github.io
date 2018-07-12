@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/ClassLoad/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/DB-split/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -310,7 +310,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/" itemprop="url">ClassLoad</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/DB-split/" itemprop="url">DB-split</a></h1>
         
 
         <div class="post-meta">
@@ -338,7 +338,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:19:06+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:20:00+08:00">
                 2018-07-09
               </time>
             
@@ -386,9 +386,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/DB-split/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/ClassLoad/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/DB-split/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -418,16 +418,13 @@
       
         
           
-          类加载机制双亲委派模型模型如下图：
-
-双亲委派模型中除了启动类加载器之外其余都需要有自己的父类加载器
-当一个类收到了类加载请求时: 自己不会首先加载，而是委派给父加载器进行加载，每个层次的加载器都是这样。
-所以最终每个加载请求都会经过启动类加载器。只有当父类加载返回不能加载时子加载器才会进行加载。
-
+          数据库水平垂直拆分当数据库量非常大的时候，DB 已经成为系统瓶颈时就可以考虑进行水平垂直拆分了。
+水平拆分一般水平拆分是根据表中的某一字段(通常是主键 ID )取模处理，将一张表的数据拆分到多个表中。这样每张表的表结构是相同的但是数据不同。
+不但可以通过 ID 取模分表还可以通过时间分表，比如每月生
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/DB-split/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -663,7 +660,7 @@ Hash 取模随机放置就不说了，会带来很多问题。通常最容易想
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/DB-split/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/ClassLoad/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -682,7 +679,7 @@ Hash 取模随机放置就不说了，会带来很多问题。通常最容易想
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/DB-split/" itemprop="url">DB-split</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/" itemprop="url">ClassLoad</a></h1>
         
 
         <div class="post-meta">
@@ -710,7 +707,7 @@ Hash 取模随机放置就不说了，会带来很多问题。通常最容易想
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:20:00+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:19:06+08:00">
                 2018-07-09
               </time>
             
@@ -758,9 +755,9 @@ Hash 取模随机放置就不说了，会带来很多问题。通常最容易想
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/DB-split/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/DB-split/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/ClassLoad/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -790,13 +787,16 @@ Hash 取模随机放置就不说了，会带来很多问题。通常最容易想
       
         
           
-          数据库水平垂直拆分当数据库量非常大的时候，DB 已经成为系统瓶颈时就可以考虑进行水平垂直拆分了。
-水平拆分一般水平拆分是根据表中的某一字段(通常是主键 ID )取模处理，将一张表的数据拆分到多个表中。这样每张表的表结构是相同的但是数据不同。
-不但可以通过 ID 取模分表还可以通过时间分表，比如每月生
+          类加载机制双亲委派模型模型如下图：
+
+双亲委派模型中除了启动类加载器之外其余都需要有自己的父类加载器
+当一个类收到了类加载请求时: 自己不会首先加载，而是委派给父加载器进行加载，每个层次的加载器都是这样。
+所以最终每个加载请求都会经过启动类加载器。只有当父类加载返回不能加载时子加载器才会进行加载。
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/DB-split/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

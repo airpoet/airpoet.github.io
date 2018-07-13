@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="1.创建 SparkContext 时, 遇到的问题错误描述: A master URL must be set in your configuration 12345678910//创建 spark 配置对象val conf = new SparkConf()conf.setAppName(&quot;MyWordCount_Scala&quot;)//设置 master 属性conf.setMaster(&quot;loc">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-13T06:23:41.838Z">
+<meta property="og:updated_time" content="2018-07-13T08:26:45.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark中Bug集锦">
 <meta name="twitter:description" content="1.创建 SparkContext 时, 遇到的问题错误描述: A master URL must be set in your configuration 12345678910//创建 spark 配置对象val conf = new SparkConf()conf.setAppName(&quot;MyWordCount_Scala&quot;)//设置 master 属性conf.setMaster(&quot;loc">
@@ -336,7 +336,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-13T14:23:41+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-13T16:26:45+08:00">
                 2018-07-13
               </time>
             
@@ -410,6 +410,12 @@
       
         <h4 id="1-创建-SparkContext-时-遇到的问题"><a href="#1-创建-SparkContext-时-遇到的问题" class="headerlink" title="1.创建 SparkContext 时, 遇到的问题"></a>1.创建 SparkContext 时, 遇到的问题</h4><p><strong>错误描述:</strong> <code>A master URL must be set in your configuration</code></p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建 spark 配置对象</span></span><br><span class="line"><span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">conf.setAppName(<span class="string">"MyWordCount_Scala"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置 master 属性</span></span><br><span class="line">conf.setMaster(<span class="string">"local"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过 conf 创建 sc (注意, 这里一定要传入 conf, 否则就会报下面这个错误)</span></span><br><span class="line"><span class="comment">// A master URL must be set in your configuration</span></span><br><span class="line"><span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br></pre></td></tr></table></figure>
+<h4 id="2-配置-Spark-独立模式时-找不到-JAVA-HOME"><a href="#2-配置-Spark-独立模式时-找不到-JAVA-HOME" class="headerlink" title="2. 配置 Spark 独立模式时, 找不到 JAVA_HOME"></a>2. 配置 Spark 独立模式时, 找不到 JAVA_HOME</h4><p><strong>错误描述: <code>JAVA_HOME is not set</code></strong></p>
+<p><em>解决方法</em>: </p>
+<ul>
+<li><strong>在 <code>sbin</code>目录中,  在<code>spark-config.sh</code>中加上</strong> <strong><code>export JAVA_HOME=...</code></strong></li>
+<li>分发到其它主机</li>
+</ul>
 
       
     </div>
@@ -659,7 +665,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建-SparkContext-时-遇到的问题"><span class="nav-text">1.创建 SparkContext 时, 遇到的问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建-SparkContext-时-遇到的问题"><span class="nav-text">1.创建 SparkContext 时, 遇到的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-配置-Spark-独立模式时-找不到-JAVA-HOME"><span class="nav-text">2. 配置 Spark 独立模式时, 找不到 JAVA_HOME</span></a></li></ol></div>
             
 
           </div>

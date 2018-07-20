@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="Tips:   并行  集群计算。  并行计算。  硬件方面的概念   并发  并发执行。   线程方面的概念   一. Spark 简介1.概念Lightning-fast cluster computing。  快如闪电的集群计算。  大规模快速通用的计算引擎。  速度:    比hadoop 100x,磁盘计算快10x  使用:    java / Scala /R /python">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-20T08:24:58.807Z">
+<meta property="og:updated_time" content="2018-07-20T08:37:12.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-Spark-1">
 <meta name="twitter:description" content="Tips:   并行  集群计算。  并行计算。  硬件方面的概念   并发  并发执行。   线程方面的概念   一. Spark 简介1.概念Lightning-fast cluster computing。  快如闪电的集群计算。  大规模快速通用的计算引擎。  速度:    比hadoop 100x,磁盘计算快10x  使用:    java / Scala /R /python">
@@ -336,7 +336,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-20T16:24:58+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-20T16:37:12+08:00">
                 2018-07-20
               </time>
             
@@ -445,12 +445,14 @@
 <p><strong>创建RDD方式:</strong>  1)并行化一个现有集合.  2) 由另一个 RDD 转换</p>
 <p>hadoop 花费90%时间 read, write。 </p>
 <p>内存处理计算。在job间进行数据共享。内存的IO速率高于网络和disk的10 ~ 100之间。 </p>
-<h2 id="4-Spark-RDD-内部包含5个主要属性"><a href="#4-Spark-RDD-内部包含5个主要属性" class="headerlink" title="4. Spark RDD 内部包含5个主要属性"></a>4. Spark RDD 内部包含5个主要属性</h2><pre><code>1.  分区列表 
-</code></pre><p>​    2.  针对每个split的计算函数。 </p>
-<p>​    3.  对其他rdd的依赖列表 </p>
-<p>​    4.  可选，如果是KeyValueRDD的话，可以带分区类。 </p>
-<pre><code>5.  可选，首选块位置列表(hdfs block location); 
-</code></pre><hr>
+<h2 id="4-Spark-RDD-内部包含5个主要属性"><a href="#4-Spark-RDD-内部包含5个主要属性" class="headerlink" title="4. Spark RDD 内部包含5个主要属性"></a>4. Spark RDD 内部包含5个主要属性</h2><ol>
+<li>分区列表</li>
+<li>针对每个split的计算函数。 </li>
+<li>对其他rdd的依赖列表 </li>
+<li>可选，如果是KeyValueRDD的话，可以带分区类。 </li>
+<li>可选，首选块位置列表(hdfs block location); </li>
+</ol>
+<hr>
 <h1 id="二-Spark-安装"><a href="#二-Spark-安装" class="headerlink" title="二. Spark 安装"></a>二. Spark 安装</h1><h2 id="1-local模式"><a href="#1-local模式" class="headerlink" title="1. local模式"></a>1. local模式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">1).下载spark-2.1.3-bin-hadoop2.7.tgz</span><br><span class="line"></span><br><span class="line">2).解压到/home/ap/apps</span><br><span class="line">  创建符号连接 :  ln -s spark-2.1.3-bin-hadoop2.7 spark</span><br><span class="line"></span><br><span class="line">3).环境变量</span><br><span class="line">    [.zshrc]</span><br><span class="line">    SPARK_HOME=/home/ap/apps/spark</span><br><span class="line">    PATH=<span class="variable">$PATH</span>:<span class="variable">$SPARK_HOME</span>/bin:<span class="variable">$SPARK_HOME</span>/sbin</span><br><span class="line"></span><br><span class="line">	[<span class="built_in">source</span>]</span><br><span class="line">	$&gt;<span class="built_in">source</span> ~/.zshrc</span><br><span class="line"></span><br><span class="line">4).验证spark</span><br><span class="line">    $&gt;<span class="built_in">cd</span> apps/spark/sbin</span><br><span class="line">    $&gt;./spark-shell</span><br><span class="line"></span><br><span class="line">5).webui</span><br><span class="line">	http://cs1:4040/</span><br><span class="line">	</span><br><span class="line"><span class="comment"># PS : 启动本地模式,登录4040 webUI端口, 只需要启动spark-shell. 要把master 或者 worker 关掉</span></span><br></pre></td></tr></table></figure>
 <h2 id="2-Stand-alone-分布式"><a href="#2-Stand-alone-分布式" class="headerlink" title="2. Stand alone 分布式"></a>2. Stand alone 分布式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">1). 配置其他主机的所有环境变量, 发送cs1上的.zshrc 到其它机器</span><br><span class="line">--------------------</span><br><span class="line">    <span class="comment"># 发送</span></span><br><span class="line">    &lt;sub&gt;&gt; xsync.sh &lt;/sub&gt;/.zshrc</span><br><span class="line">    <span class="comment"># source</span></span><br><span class="line">    &lt;sub&gt;&gt; xcall.sh <span class="string">"source &lt;/sub&gt;/.zshrc"</span></span><br><span class="line"></span><br><span class="line">2). 配置master节点的slaves</span><br><span class="line">--------------------</span><br><span class="line">    [/soft/spark/conf/slaves]</span><br><span class="line">    cs2</span><br><span class="line">    cs3</span><br><span class="line">    cs4</span><br><span class="line">    cs5</span><br><span class="line"></span><br><span class="line">3). 发送文件到其它节点</span><br><span class="line">--------------------</span><br><span class="line">    ~&gt; xsync.sh apps/spark</span><br><span class="line"></span><br><span class="line">4). 启动spark集群</span><br><span class="line">--------------------</span><br><span class="line">    ~&gt; apps/spark/sbin/start-all.sh</span><br><span class="line"></span><br><span class="line">5). 查看进程</span><br><span class="line">--------------------</span><br><span class="line">    $&gt;xcall.jps jps</span><br><span class="line">    master        //cs1</span><br><span class="line">    worker        //cs2</span><br><span class="line">    worker        //cs3</span><br><span class="line">    worker        //cs4</span><br><span class="line"></span><br><span class="line">6). 查看 webUI</span><br><span class="line">--------------------</span><br><span class="line">    http://cs1:8080</span><br></pre></td></tr></table></figure>
 <h2 id="3-Stand-alone-HA-模式"><a href="#3-Stand-alone-HA-模式" class="headerlink" title="3. Stand alone HA 模式"></a>3. Stand alone HA 模式</h2><blockquote>
@@ -463,12 +465,18 @@
 <h2 id="5-yarn-模式"><a href="#5-yarn-模式" class="headerlink" title="5. yarn 模式"></a>5. yarn 模式</h2><p>…</p>
 <hr>
 <h1 id="三-Spark-简单体验"><a href="#三-Spark-简单体验" class="headerlink" title="三. Spark 简单体验"></a>三. Spark 简单体验</h1><h2 id="1-API"><a href="#1-API" class="headerlink" title="1. API"></a>1. API</h2><p><strong>[SparkContext]</strong></p>
-<p>​        Spark功能的主要入口点。代表到Spark集群的连接，可以创建RDD、累加器和广播变量. </p>
-<p>​        每个JVM只能激活一个SparkContext对象，在创建sc之前需要stop掉active的sc。 </p>
+<ul>
+<li>Spark功能的主要入口点。代表到Spark集群的连接，可以创建RDD、累加器和广播变量. </li>
+<li>每个JVM只能激活一个SparkContext对象，在创建sc之前需要stop掉active的sc。 </li>
+</ul>
 <p><strong>[RDD]</strong></p>
-<p>​        resilient distributed dataset,弹性分布式数据集。等价于集合。 </p>
+<ul>
+<li>resilient distributed dataset,弹性分布式数据集。等价于集合。 </li>
+</ul>
 <p><strong>[SparkConf]</strong></p>
-<p>​        spark配置对象，设置Spark应用各种参数，kv形式。 </p>
+<ul>
+<li>spark配置对象，设置Spark应用各种参数，kv形式。 </li>
+</ul>
 <h2 id="2-Spark-实现-WordCount"><a href="#2-Spark-实现-WordCount" class="headerlink" title="2. Spark 实现 WordCount"></a>2. Spark 实现 WordCount</h2><h4 id="2-1-spark-shell"><a href="#2-1-spark-shell" class="headerlink" title="2.1 spark-shell"></a>2.1 spark-shell</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 登录 shell </span></span><br><span class="line">	spark-shell --master spark:<span class="comment">//cs1:7077</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//加载文本文件,以换行符方式切割文本.Array(hello  world2,hello world2 ,...)</span></span><br><span class="line">	<span class="keyword">val</span> rdd1 = sc.textFile(<span class="string">"/home/ap/a.txt"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//单词统计1 =&gt; 分步骤</span></span><br><span class="line">    $scala&gt;<span class="keyword">val</span> rdd1 = sc.textFile(<span class="string">"/home/centos/test.txt"</span>)</span><br><span class="line">    $scala&gt;<span class="keyword">val</span> rdd2 = rdd1.flatMap(line=&gt;line.split(<span class="string">" "</span>))</span><br><span class="line">    $scala&gt;<span class="keyword">val</span> rdd3 = rdd2.map(word = &gt; (word,<span class="number">1</span>))</span><br><span class="line">    $scala&gt;<span class="keyword">val</span> rdd4 = rdd3.reduceByKey(_ + _)</span><br><span class="line">    $scala&gt;rdd4.collect</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一句话</span></span><br><span class="line">    scala&gt; sc.textFile(<span class="string">"/home/ap/a.txt"</span>).flatMap(_.split(<span class="string">" "</span>)).map((_,<span class="number">1</span>)).reduceByKey(_+_).collect</span><br><span class="line">    res6: <span class="type">Array</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Array</span>((world2,<span class="number">1</span>), (world1,<span class="number">1</span>), (world4,<span class="number">1</span>), (<span class="string">""</span>,<span class="number">1</span>), (hello,<span class="number">4</span>), (world3,<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
 <h4 id="2-2-idea-编程"><a href="#2-2-idea-编程" class="headerlink" title="2.2 idea 编程"></a>2.2 idea 编程</h4><blockquote>
 <p><strong>[pom依赖文件]</strong></p>
@@ -502,7 +510,8 @@
 </blockquote>
 <p><img src="" alt=""> </p>
 <hr>
-<h1 id="四-RDD-的-transform-amp-action"><a href="#四-RDD-的-transform-amp-action" class="headerlink" title="四. RDD  的 transform &amp; action"></a>四. RDD  的 transform &amp; action</h1><p><a href="spark.apache.org/docs/latest/rdd-programming-guide.html#resilient-distributed-datasets-rdds">详细的见官方文档</a> </p>
+<h1 id="四-RDD-的-transform-amp-action"><a href="#四-RDD-的-transform-amp-action" class="headerlink" title="四. RDD  的 transform &amp; action"></a>四. RDD  的 transform &amp; action</h1><p><a href="https://spark.apache.org/docs/latest/rdd-programming-guide.html#transformations" target="_blank" rel="noopener">详细的见官方文档</a> </p>
+<p><a href="https://github.com/airpoet/bigdata/tree/master/Spark_Project/SparkDemo-1/src/main/java/com/rox/spark/scala" target="_blank" rel="noopener">我的github代码</a></p>
 <h2 id="1-变换-transform"><a href="#1-变换-transform" class="headerlink" title="1. 变换 (transform )"></a>1. 变换 (transform )</h2><p><strong>注意:  直到遇到一个不是返回 RDD 对象的方法/函数,  才会开始计算</strong></p>
 <p>Spark is lazy, so nothing will be executed unless you call some transformation or action that will trigger job creation and execution. Look at the following snippet of the word-count example. </p>
 <p><strong>变换: 返回指向新rdd的指针，在rdd之间创建依赖关系。每个rdd都有计算函数和指向父RDD的指针。</strong></p>

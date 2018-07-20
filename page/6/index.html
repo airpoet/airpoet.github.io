@@ -1971,7 +1971,7 @@ B+ Tree 的数据结构
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/Limiting/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/LinkedList/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -1990,7 +1990,7 @@ B+ Tree 的数据结构
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/Limiting/" itemprop="url">Limiting</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/LinkedList/" itemprop="url">LinkedList</a></h1>
         
 
         <div class="post-meta">
@@ -2018,7 +2018,7 @@ B+ Tree 的数据结构
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:21:16+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:21:35+08:00">
                 2018-07-09
               </time>
             
@@ -2066,9 +2066,9 @@ B+ Tree 的数据结构
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/Limiting/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/LinkedList/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/Limiting/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/LinkedList/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2098,19 +2098,13 @@ B+ Tree 的数据结构
       
         
           
-          限流算法限流是解决高并发大流量的一种方案，至少是可以保证应用的可用性。
-通常有以下两种限流方案：
-
-漏桶算法
-令牌桶算法
-
-漏桶算法
-漏桶算法非常简单，就是将流量放入桶中并按照一定的速率流出。如果流量过大时候并不会提高流出效率，而溢出的流量也只能是抛弃掉了。
-这种算法很简单，但也非常粗暴，无法应对突
+          LinkedList 底层分析
+如图所示 LinkedList 底层是基于双向链表实现的，也是实现了 List 接口，所以也拥有 List 的一些特点(JDK1.7/8 之后取消了循环，修改为双向链表)。
+新增方法123456789101112131415161718public boolean a
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Limiting/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/LinkedList/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

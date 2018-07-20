@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="一. Spark 核心 API[SparkContext]  连接到spark集群,入口点.  [HadoopRDD]  读取hadoop上的数据，  [MapPartitionsRDD]  针对父RDD的每个分区提供了函数构成的新类型RDD.  [PairRDDFunctions]  对偶RDD函数类。 可用于KV类型RDD的附加函数。可以通过隐式转化得到.  [ShuffleRDD]  从Sh">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-20T09:26:25.559Z">
+<meta property="og:updated_time" content="2018-07-20T10:43:51.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-Spark-2">
 <meta name="twitter:description" content="一. Spark 核心 API[SparkContext]  连接到spark集群,入口点.  [HadoopRDD]  读取hadoop上的数据，  [MapPartitionsRDD]  针对父RDD的每个分区提供了函数构成的新类型RDD.  [PairRDDFunctions]  对偶RDD函数类。 可用于KV类型RDD的附加函数。可以通过隐式转化得到.  [ShuffleRDD]  从Sh">
@@ -336,7 +336,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-20T17:26:25+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-20T18:43:51+08:00">
                 2018-07-20
               </time>
             
@@ -461,14 +461,14 @@
 <p><br></p>
 <h4 id="术语介绍"><a href="#术语介绍" class="headerlink" title="术语介绍"></a><strong>术语介绍</strong></h4><p><strong>[ job ]</strong></p>
 <ul>
-<li>提交给调度的顶层的工作项目，由ActiveJob表示。</li>
+<li>提交给调度的顶层的工作项目，由 <strong>ActiveJob</strong> 表示。</li>
 <li>是Stage集合。</li>
 </ul>
-<p><strong>[Stage]</strong></p>
+<p><u><strong>[Stage]</strong></u></p>
 <ul>
 <li>是task的集合，计算job中的中间结果。同一RDD的每个分区都会应用相同的计算函数。</li>
 <li>在shuffle的边界处进行隔离(因此引入了隔断，需要上一个stage完成后，才能得到output结果)</li>
-<li>有两种类型的stage:<ul>
+<li><strong>Stage有两个子类:</strong><ul>
 <li>1) ResultStage，用于执行action动作的最终stage。</li>
 <li>2) ShuffleMapStage,  对shuffle进行输出文件的写操作的。如果job重用了同一个rdd的话，stage通常可以跨越多个job实现共享。</li>
 </ul>
@@ -486,7 +486,7 @@
 <ul>
 <li>该阶段在RDD的一些分区中应用函数来计算Action的结果。有些stage并不会在所有分区上执行。例如first(),lookup();</li>
 </ul>
-<p><strong>[Task]</strong></p>
+<p><u><strong>[Task]</strong></u></p>
 <ul>
 <li>单独的工作单元，每个发送给一台主机。</li>
 </ul>
@@ -554,7 +554,76 @@
 <ul>
 <li>spark程序执行者，通过线程池执行任务。</li>
 </ul>
-
+<p><strong>[Dependency]:依赖</strong></p>
+<ul>
+<li><p><strong>NarrowDependency</strong>:    子RDD的每个分区依赖于父RDD的少量分区。 </p>
+<p>​         | </p>
+<p>​        / \ </p>
+<p>​        — </p>
+<p>​         |—-    OneToOneDependency        //父子RDD之间的分区存在一对一关系。 </p>
+<p>​         |—-    RangeDependency            //父RDD的一个分区范围和子RDD存在一对一关系。 </p>
+<p>​         |—-    PruneDependency            // 在PartitionPruningRDD和其父RDD之间的依赖,   子RDD包含了父RDD的分区子集。 </p>
+</li>
+<li><p><strong>ShuffleDependency</strong>:    在shuffle阶段输出时的一种依赖, 属于一种宽依赖</p>
+</li>
+</ul>
+<h1 id="二-Spark-其它概念"><a href="#二-Spark-其它概念" class="headerlink" title="二. Spark 其它概念"></a>二. Spark 其它概念</h1><h2 id="1-创建-Spark-上下文-Context"><a href="#1-创建-Spark-上下文-Context" class="headerlink" title="1. 创建 Spark 上下文(Context)"></a>1. 创建 Spark 上下文(Context)</h2><p><strong>[本地模式,通过线程模拟]</strong></p>
+<blockquote>
+<p>​    本地后台调度器 </p>
+<p>​    spark local </p>
+<p>​    spark local[3]                            //3线程,模拟cluster集群 </p>
+<p>​    spark local[*]                            //匹配cpu个数， </p>
+<p>​    spark local[3,2]                        //3:3个线程，2为maxFailures。 </p>
+<ul>
+<li>// local[*, M] means the number of cores on the computer with M failures</li>
+<li>// local[N, M] means exactly N threads with M failures </li>
+<li>0和1等价，只执行一次, 失败后不会重试</li>
+</ul>
+</blockquote>
+<p><strong>[相当于伪分布式]</strong></p>
+<blockquote>
+<p>​    StandaloneSchedulerBackend </p>
+<p>​    spark local-cluster[N, cores, memory]    //模拟spark集群。  </p>
+</blockquote>
+<p><strong>[完全分布式]</strong></p>
+<blockquote>
+<p>​    StandaloneSchedulerBackend </p>
+<p>​    spark <a href="spark://cs1:7077" target="_blank" rel="noopener">spark://cs1:7077</a>                    //连接到spark集群上. </p>
+</blockquote>
+<h2 id="2-RDD-持久化"><a href="#2-RDD-持久化" class="headerlink" title="2. RDD 持久化"></a>2. RDD 持久化</h2><ul>
+<li><p>跨操作进行RDD的内存式存储。 </p>
+</li>
+<li><p>持久化RDD时，节点上的每个分区都会保存操内存中,以备在其他操作中进行重用。 </p>
+</li>
+<li><p>缓存技术是迭代式计算和交互式查询的重要工具。 </p>
+</li>
+<li><p>使用persist()和cache()进行rdd的持久化。 </p>
+</li>
+<li><p>cache()是persist()一种. </p>
+</li>
+<li><p>action第一次计算时会发生persist(). </p>
+</li>
+<li><p>spark的cache是容错的，如果rdd的任何一个分区丢失了，都可以通过最初创建rdd的进行重新计算。 </p>
+</li>
+<li><p>persist可以使用不同的存储级别进行持久化。 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MEMORY_ONLY            //只在内存</span><br><span class="line">MEMORY_AND_DISK</span><br><span class="line">MEMORY_ONLY_SER        //内存存储(串行化)</span><br><span class="line">MEMORY_AND_DISK_SER </span><br><span class="line">DISK_ONLY            //硬盘                        // 默认的路径似乎在程序执行完后自己会删掉??</span><br><span class="line">MEMORY_ONLY_2        //带有副本 </span><br><span class="line">MEMORY_AND_DISK_2    //快速容错。</span><br><span class="line">OFF_HEAP             // 离堆内存</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除持久化数据 <code>rdd.unpersist();</code></p>
+</li>
+</ul>
+<h2 id="3-数据传递"><a href="#3-数据传递" class="headerlink" title="3.数据传递"></a>3.数据传递</h2><ul>
+<li>map(),filter()高级函数中访问的对象被串行化到各个节点。每个节点都有一份拷贝。 </li>
+<li>变量值并不会回传到driver程序。 </li>
+</ul>
+<h2 id="4-共享变量"><a href="#4-共享变量" class="headerlink" title="4.共享变量"></a>4.共享变量</h2><p> <strong>spark通过广播变量和累加器实现共享变量。</strong></p>
+<p><br></p>
+<p><strong>[广播变量]</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建广播变量</span></span><br><span class="line"><span class="keyword">val</span> bc1 = sc.broadcast(<span class="type">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line">bc1.value</span><br></pre></td></tr></table></figure>
+<p><strong>[累加器]</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建累加器</span></span><br><span class="line"><span class="keyword">val</span> ac1 = sc.longaccumulator(<span class="string">"ac1"</span>)</span><br><span class="line">ac1.value</span><br><span class="line">sc.parallelize(<span class="number">1</span> to <span class="number">10</span>).map(_ * <span class="number">2</span>).map(e=&gt;&#123;ac1.add(<span class="number">1</span>) ; e&#125;).reduce(_+_)</span><br><span class="line">ac1.value            <span class="comment">//10</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-通过-Spark-实现-PI-的分布式计算"><a href="#5-通过-Spark-实现-PI-的分布式计算" class="headerlink" title="5.通过 Spark 实现 PI 的分布式计算"></a>5.通过 Spark 实现 PI 的分布式计算</h2><p>:TODO 计算出来的结果不精准 ??</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sc.parallelize(<span class="number">1</span> to <span class="number">100000000</span>).map(e=&gt;&#123;</span><br><span class="line">    <span class="keyword">val</span> a = <span class="number">1</span>f / (<span class="number">2</span> * e - <span class="number">1</span>) ;</span><br><span class="line">    <span class="keyword">val</span> b = <span class="keyword">if</span> (e % <span class="number">2</span> == <span class="number">0</span>) <span class="number">-1</span> <span class="keyword">else</span> <span class="number">1</span> ;</span><br><span class="line">    a * b * <span class="number">4</span></span><br><span class="line">&#125;).reduce(_+_)</span><br><span class="line"></span><br><span class="line">res25: <span class="type">Float</span> = <span class="number">3.1415968</span>  </span><br><span class="line">==&gt; 用了一个亿算出来这个...</span><br></pre></td></tr></table></figure>
+<h1 id="三-SparkSQL"><a href="#三-SparkSQL" class="headerlink" title="三. SparkSQL"></a>三. SparkSQL</h1>
       
     </div>
     
@@ -803,7 +872,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-Spark-核心-API"><span class="nav-text">一. Spark 核心 API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#术语介绍"><span class="nav-text">术语介绍</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-Spark-核心-API"><span class="nav-text">一. Spark 核心 API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#术语介绍"><span class="nav-text">术语介绍</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-Spark-其它概念"><span class="nav-text">二. Spark 其它概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-创建-Spark-上下文-Context"><span class="nav-text">1. 创建 Spark 上下文(Context)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-RDD-持久化"><span class="nav-text">2. RDD 持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据传递"><span class="nav-text">3.数据传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-共享变量"><span class="nav-text">4.共享变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-通过-Spark-实现-PI-的分布式计算"><span class="nav-text">5.通过 Spark 实现 PI 的分布式计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-SparkSQL"><span class="nav-text">三. SparkSQL</span></a></li></ol></div>
             
 
           </div>

@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="一. Spark 核心 API[SparkContext]  连接到spark集群,入口点.  [HadoopRDD]  读取hadoop上的数据，  [MapPartitionsRDD]  针对父RDD的每个分区提供了函数构成的新类型RDD.  [PairRDDFunctions]  对偶RDD函数类。 可用于KV类型RDD的附加函数。可以通过隐式转化得到.  [ShuffleRDD]  从Sh">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-20T12:08:41.652Z">
+<meta property="og:updated_time" content="2018-07-23T02:59:09.490Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-Spark-2">
 <meta name="twitter:description" content="一. Spark 核心 API[SparkContext]  连接到spark集群,入口点.  [HadoopRDD]  读取hadoop上的数据，  [MapPartitionsRDD]  针对父RDD的每个分区提供了函数构成的新类型RDD.  [PairRDDFunctions]  对偶RDD函数类。 可用于KV类型RDD的附加函数。可以通过隐式转化得到.  [ShuffleRDD]  从Sh">
@@ -336,8 +336,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-20T20:08:41+08:00">
-                2018-07-20
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-23T10:59:09+08:00">
+                2018-07-23
               </time>
             
           </span>
@@ -567,7 +567,7 @@
 </ul>
 <p><strong>[Dependency]:依赖</strong></p>
 <ul>
-<li><p><strong>NarrowDependency</strong>:    子RDD的每个分区依赖于父RDD的少量分区。 </p>
+<li><p><strong>NarrowDependency</strong>:    子RDD的每个分区依赖于父RDD的少量分区, 也叫完全依赖</p>
 <p>​         | </p>
 <p>​        / \ </p>
 <p>​        — </p>
@@ -575,7 +575,7 @@
 <p>​         |—-    RangeDependency            //父RDD的一个分区范围和子RDD存在一对一关系。 </p>
 <p>​         |—-    PruneDependency            // 在PartitionPruningRDD和其父RDD之间的依赖,   子RDD包含了父RDD的分区子集。 </p>
 </li>
-<li><p><strong>ShuffleDependency</strong>:    在shuffle阶段输出时的一种依赖, 属于一种宽依赖</p>
+<li><p><strong>ShuffleDependency</strong>:    在shuffle阶段输出时的一种依赖, 属于一种宽依赖, 也叫部分依赖</p>
 </li>
 </ul>
 <h1 id="二-Spark-其它概念"><a href="#二-Spark-其它概念" class="headerlink" title="二. Spark 其它概念"></a>二. Spark 其它概念</h1><h2 id="1-创建-Spark-上下文-Context"><a href="#1-创建-Spark-上下文-Context" class="headerlink" title="1. 创建 Spark 上下文(Context)"></a>1. 创建 Spark 上下文(Context)</h2><p><strong>[本地模式,通过线程模拟]</strong></p>

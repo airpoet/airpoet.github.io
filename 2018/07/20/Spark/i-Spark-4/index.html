@@ -83,18 +83,20 @@
 
 
 
-<meta name="description" content="一. 机器学习分类1.监督学习 有训练数据集。规范数据。合规数据。产生推断函数.然后对新数据应用函数。  director actor edit         Label   2.非监督学习 没有训练数据。  分组。   3.推荐 协同过滤.  猜测你喜欢.  电商。    二. Spark机器学习库[Estimator]  运行在包含了feature和label(结果)的dataFrame之上">
+<meta name="description" content="一. 机器学习分类1.监督学习  有训练数据集。规范数据。合规数据。产生推断函数.然后对新数据应用函数。  director actor edit         Label   2.非监督学习 没有训练数据。  分组。   3.推荐 协同过滤.  猜测你喜欢.  电商。    二. Spark机器学习库[Estimator]  运行在包含了feature和label(结果)的dataFrame之">
 <meta name="keywords" content="原创,技术,Hadoop,MLLib,机器学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="i-Spark-4">
 <meta property="og:url" content="https://airpoet.github.io/2018/07/20/Spark/i-Spark-4/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="一. 机器学习分类1.监督学习 有训练数据集。规范数据。合规数据。产生推断函数.然后对新数据应用函数。  director actor edit         Label   2.非监督学习 没有训练数据。  分组。   3.推荐 协同过滤.  猜测你喜欢.  电商。    二. Spark机器学习库[Estimator]  运行在包含了feature和label(结果)的dataFrame之上">
+<meta property="og:description" content="一. 机器学习分类1.监督学习  有训练数据集。规范数据。合规数据。产生推断函数.然后对新数据应用函数。  director actor edit         Label   2.非监督学习 没有训练数据。  分组。   3.推荐 协同过滤.  猜测你喜欢.  电商。    二. Spark机器学习库[Estimator]  运行在包含了feature和label(结果)的dataFrame之">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-20T14:15:11.420Z">
+<meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-20-141755.png">
+<meta property="og:updated_time" content="2018-07-23T04:35:00.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i-Spark-4">
-<meta name="twitter:description" content="一. 机器学习分类1.监督学习 有训练数据集。规范数据。合规数据。产生推断函数.然后对新数据应用函数。  director actor edit         Label   2.非监督学习 没有训练数据。  分组。   3.推荐 协同过滤.  猜测你喜欢.  电商。    二. Spark机器学习库[Estimator]  运行在包含了feature和label(结果)的dataFrame之上">
+<meta name="twitter:description" content="一. 机器学习分类1.监督学习  有训练数据集。规范数据。合规数据。产生推断函数.然后对新数据应用函数。  director actor edit         Label   2.非监督学习 没有训练数据。  分组。   3.推荐 协同过滤.  猜测你喜欢.  电商。    二. Spark机器学习库[Estimator]  运行在包含了feature和label(结果)的dataFrame之">
+<meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-20-141755.png">
 
 
 
@@ -336,8 +338,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-20T22:15:11+08:00">
-                2018-07-20
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-23T12:35:00+08:00">
+                2018-07-23
               </time>
             
           </span>
@@ -419,7 +421,8 @@
       
 
       
-        <h1 id="一-机器学习分类"><a href="#一-机器学习分类" class="headerlink" title="一. 机器学习分类"></a>一. 机器学习分类</h1><h2 id="1-监督学习"><a href="#1-监督学习" class="headerlink" title="1.监督学习"></a>1.监督学习</h2><ul>
+        <h1 id="一-机器学习分类"><a href="#一-机器学习分类" class="headerlink" title="一. 机器学习分类"></a>一. 机器学习分类</h1><h2 id="1-监督学习"><a href="#1-监督学习" class="headerlink" title="1.监督学习"></a>1.监督学习</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-20-141755.png" alt="image-20180720221754476"></p>
+<ul>
 <li>有训练数据集。规范数据。合规数据。产生推断函数.然后对新数据应用函数。 </li>
 <li>director actor edit         Label </li>
 </ul>
@@ -454,6 +457,28 @@
 <ul>
 <li>将Estimators和Transformers组合在一起，形成机器学习工作流.</li>
 </ul>
+<h4 id="机器学习应用步骤"><a href="#机器学习应用步骤" class="headerlink" title="机器学习应用步骤"></a>机器学习应用步骤</h4><ol>
+<li>读取数据文件形成训练数据框 </li>
+<li>创建LinearRegression并设置参数 </li>
+<li>对训练数据进行模型拟合，完成评估管线. </li>
+<li>创建包含测试数据的DataFrame，典型包含feature和label，可以通过比较预测标签和测试标签确认model是ok， </li>
+<li>使用模型，对测试数据进行变换(应用模型),抽取feature ，label，predication. </li>
+</ol>
+<h1 id="三-代码实例"><a href="#三-代码实例" class="headerlink" title="三. 代码实例"></a>三. 代码实例</h1><h2 id="1-线性回归"><a href="#1-线性回归" class="headerlink" title="1. 线性回归"></a>1. 线性回归</h2><blockquote>
+<p><a href="https://github.com/airpoet/bigdata/blob/master/Spark_Project/SparkDemo-1/src/main/java/com/rox/spark/scala/SparkMLDemo1.scala" target="_blank" rel="noopener">测试案例</a></p>
+</blockquote>
+<h2 id="2-逻辑回归"><a href="#2-逻辑回归" class="headerlink" title="2. 逻辑回归"></a>2. 逻辑回归</h2><blockquote>
+<p><a href="https://github.com/airpoet/bigdata/blob/master/Spark_Project/SparkDemo-1/src/main/java/com/rox/spark/scala/LogicRegressWineClassifyDemo.scala" target="_blank" rel="noopener">酒质量预测</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://github.com/airpoet/bigdata/blob/master/Spark_Project/SparkDemo-1/src/main/java/com/rox/spark/scala/SpamFilterDemo1.scala" target="_blank" rel="noopener">垃圾邮件过滤</a></p>
+</blockquote>
+<h2 id="3-ALS-最小二乘法"><a href="#3-ALS-最小二乘法" class="headerlink" title="3. ALS (最小二乘法)"></a>3. ALS (最小二乘法)</h2><blockquote>
+<p>商品推荐: <a href="https://github.com/airpoet/bigdata/blob/master/Spark_Project/SparkDemo-1/src/main/java/com/rox/spark/scala/RecommDemo.scala" target="_blank" rel="noopener">添加向指定用户推荐n款商品; 将指定的商品推荐给n个用户; 向所有用户推荐n种商品</a></p>
+</blockquote>
+<blockquote>
+<p>电影推荐: <a href="https://github.com/airpoet/bigdata/blob/master/Spark_Project/SparkDemo-1/src/main/java/com/rox/spark/scala/MovieRecommDemo.scala" target="_blank" rel="noopener">ALS算法电影推荐</a> </p>
+</blockquote>
 
       
     </div>
@@ -707,7 +732,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-机器学习分类"><span class="nav-text">一. 机器学习分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-监督学习"><span class="nav-text">1.监督学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-非监督学习"><span class="nav-text">2.非监督学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-推荐"><span class="nav-text">3.推荐</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-Spark机器学习库"><span class="nav-text">二. Spark机器学习库</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-机器学习分类"><span class="nav-text">一. 机器学习分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-监督学习"><span class="nav-text">1.监督学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-非监督学习"><span class="nav-text">2.非监督学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-推荐"><span class="nav-text">3.推荐</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-Spark机器学习库"><span class="nav-text">二. Spark机器学习库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#机器学习应用步骤"><span class="nav-text">机器学习应用步骤</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-代码实例"><span class="nav-text">三. 代码实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-线性回归"><span class="nav-text">1. 线性回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-逻辑回归"><span class="nav-text">2. 逻辑回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-ALS-最小二乘法"><span class="nav-text">3. ALS (最小二乘法)</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/ArrayList/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/Cache-design/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -310,7 +310,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/ArrayList/" itemprop="url">ArrayList</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/Cache-design/" itemprop="url">Cache-design</a></h1>
         
 
         <div class="post-meta">
@@ -338,7 +338,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:18:25+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:18:51+08:00">
                 2018-07-09
               </time>
             
@@ -386,9 +386,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/ArrayList/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/Cache-design/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/ArrayList/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/Cache-design/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -418,12 +418,16 @@
       
         
           
-          ArrayList/Vector 的底层分析ArrayListArrayList 实现于 List、RandomAccess 接口。可以插入空数据，也支持随机访问。
-ArrayList相当于动态数据，其中最重要的两个属性分别是:elementData 数组，以及 size 大小。在调用 add() 
+          分布式缓存设计目前常见的缓存方案都是分层缓存，通常可以分为以下几层：
+
+NG 本地缓存，命中的话直接返回。
+NG 没有命中时则需要查询分布式缓存，如 Redis 。
+如果分布式缓存没有命中则需要回源到 Tomcat 在本地堆进行查询，命中之后异步写回 Redis 。
+以上都没有命中那就只有从 DB 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/ArrayList/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Cache-design/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

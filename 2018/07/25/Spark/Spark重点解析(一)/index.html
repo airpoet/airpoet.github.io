@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-25-070716.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-25-075654.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-25-084407.png">
-<meta property="og:updated_time" content="2018-07-25T09:00:26.489Z">
+<meta property="og:updated_time" content="2018-07-25T15:05:16.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark重点解析(一)">
 <meta name="twitter:description" content="一. Spark 与 MapReduce 区别Apache Spark™ is a fast and general engine for large-scale data processing. 与mapreduce比较 ：  Spark大多数执行过程是基于内存的迭代  MapReduce 的 优点, SparkCore 都有  Hive 能做的操作, SparkSQL 都能做, 可以写 SQL">
@@ -341,7 +341,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-25T17:00:26+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-25T23:05:16+08:00">
                 2018-07-25
               </time>
             
@@ -441,6 +441,7 @@
 </li>
 </ul>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-25-070107.png" alt="image-20180725150106695"></p>
+<hr>
 <h1 id="二-什么是RDD"><a href="#二-什么是RDD" class="headerlink" title="二. 什么是RDD"></a>二. 什么是RDD</h1><p>1、RDD是Spark提供的核心<strong>抽象</strong>，全称为Resillient Distributed Dataset，即<strong>弹性</strong>分布式数据集。</p>
 <p>2、RDD在抽象上来说是一种元素集合，包含了数据。它是<strong>被分区的</strong>，分为多个分区，每个分区分布在集群中的不同节点上，从而让RDD中的数据可以被并行操作。（分布式数据集）</p>
 <ul>
@@ -459,14 +460,17 @@
 <p><strong>下图中画橙色框的都是 RDD </strong></p>
 </blockquote>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-25-070716.png" alt="image-20180725150715950"></p>
+<hr>
 <h1 id="三-Spark-的架构-standalone"><a href="#三-Spark-的架构-standalone" class="headerlink" title="三. Spark 的架构(standalone)"></a>三. Spark 的架构(standalone)</h1><p>涉及到的名词: <strong>Driver</strong>, <strong>Master</strong>, <strong>Worker</strong>, <strong>Executor</strong> , <strong>Task</strong></p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-25-075654.png" alt="image-20180725155654170"></p>
+<hr>
 <h1 id="四-Spark-任务提交"><a href="#四-Spark-任务提交" class="headerlink" title="四. Spark 任务提交"></a>四. Spark 任务提交</h1><p>参考官网 <a href="http://spark.apache.org/docs/latest/submitting-applications.html" target="_blank" rel="noopener">http://spark.apache.org/docs/latest/submitting-applications.html</a></p>
 <p><strong>Client</strong>模式</p>
 <p>不指定<code>deploy-mode</code> ,默认就是<strong>client</strong>模式，也就是<strong>哪一台服务器提交</strong>spark代码，那么<strong>哪一台就是driver服务器</strong>。</p>
 <p><strong>Cluster</strong>模式</p>
 <p>需要指定<code>deploy-mode</code>，driver服务器并不是提交代码的那一台服务器，而是在提交代码的时候，在<strong>worker</strong>主机上，<strong>随机挑选一台作为driver服务器</strong>，那么<u>如果提交10个应用，那么就有可能10台driver服务器</u>。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Run application locally on 8 cores</span></span><br><span class="line">./bin/spark-submit \</span><br><span class="line">  --class org.apache.spark.examples.SparkPi \</span><br><span class="line">  --master <span class="built_in">local</span>[8] \</span><br><span class="line">  /path/to/examples.jar \</span><br><span class="line">  100</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run on a Spark standalone cluster in client deploy mode</span></span><br><span class="line">./bin/spark-submit \</span><br><span class="line">  --class org.apache.spark.examples.SparkPi \</span><br><span class="line">  --master spark://207.184.161.138:7077 \</span><br><span class="line">  --executor-memory 20G \</span><br><span class="line">  --total-executor-cores 100 \</span><br><span class="line">  /path/to/examples.jar \</span><br><span class="line">  1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run on a Spark standalone cluster in cluster deploy mode with supervise</span></span><br><span class="line">./bin/spark-submit \</span><br><span class="line">  --class org.apache.spark.examples.SparkPi \</span><br><span class="line">  --master spark://207.184.161.138:7077 \</span><br><span class="line">  --deploy-mode cluster \</span><br><span class="line">  --supervise \</span><br><span class="line">  --executor-memory 20G \</span><br><span class="line">  --total-executor-cores 100 \</span><br><span class="line">  /path/to/examples.jar \</span><br><span class="line">  1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run on a YARN cluster</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_CONF_DIR=XXX</span><br><span class="line">./bin/spark-submit \</span><br><span class="line">  --class org.apache.spark.examples.SparkPi \</span><br><span class="line">  --master yarn \</span><br><span class="line">  --deploy-mode cluster \  <span class="comment"># can be client for client mode</span></span><br><span class="line">  --executor-memory 20G \</span><br><span class="line">  --num-executors 50 \</span><br><span class="line">  /path/to/examples.jar \</span><br><span class="line">  1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run a Python application on a Spark standalone cluster</span></span><br><span class="line">./bin/spark-submit \</span><br><span class="line">  --master spark://207.184.161.138:7077 \</span><br><span class="line">  examples/src/main/python/pi.py \</span><br><span class="line">  1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run on a Mesos cluster in cluster deploy mode with supervise</span></span><br><span class="line">./bin/spark-submit \</span><br><span class="line">  --class org.apache.spark.examples.SparkPi \</span><br><span class="line">  --master mesos://207.184.161.138:7077 \</span><br><span class="line">  --deploy-mode cluster \</span><br><span class="line">  --supervise \</span><br><span class="line">  --executor-memory 20G \</span><br><span class="line">  --total-executor-cores 100 \</span><br><span class="line">  http://path/to/examples.jar \</span><br><span class="line">  1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run on a Kubernetes cluster in cluster deploy mode</span></span><br><span class="line">./bin/spark-submit \</span><br><span class="line">  --class org.apache.spark.examples.SparkPi \</span><br><span class="line">  --master k8s://xx.yy.zz.ww:443 \</span><br><span class="line">  --deploy-mode cluster \</span><br><span class="line">  --executor-memory 20G \</span><br><span class="line">  --num-executors 50 \</span><br><span class="line">  http://path/to/examples.jar \</span><br><span class="line">  1000</span><br></pre></td></tr></table></figure>
+<hr>
 <h1 id="五-Transformation和action原理"><a href="#五-Transformation和action原理" class="headerlink" title="五. Transformation和action原理"></a>五. Transformation和action原理</h1><p><strong>Spark支持两种RDD操作：<code>transformation</code>和<code>action</code></strong>。</p>
 <ul>
 <li><code>transformation</code>操作会<strong>针对已有的RDD创建一个新的RDD</strong>；</li>
@@ -476,6 +480,94 @@
 <p><strong>transformation的特点就是lazy特性</strong>。lazy特性指的是，如果一个spark应用中只定义了transformation操作，那么即使你执行该应用，这些操作也不会执行。也就是说，transformation是不会触发spark程序的执行的，它们只是记录了对RDD所做的操作，但是不会自发的执行。只有当transformation之后，接着执行了一个action操作，那么所有的transformation才会执行。<strong>Spark通过这种lazy特性，来进行底层的spark应用执行的优化，<u>避免产生过多中间结果</u>。</strong></p>
 <p><strong>action操作执行，会触发一个<code>spark job</code>的运行，从而触发这个action之前所有的transformation的执行。</strong>这是action的特性。</p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-25-084407.png" alt="image-20180725164407028"></p>
+<hr>
+<h1 id="六-Transformation-和-Action-算子"><a href="#六-Transformation-和-Action-算子" class="headerlink" title="六. Transformation 和 Action 算子"></a>六. Transformation 和 Action 算子</h1><h2 id="1-Transformation-算子"><a href="#1-Transformation-算子" class="headerlink" title="1.Transformation 算子"></a>1.Transformation 算子</h2><p><a href="https://github.com/airpoet/bigdata/blob/master/Spark_Project/SparkDemo-1/src/main/java/com/rox/spark/java/TransfromationOperation.java" target="_blank" rel="noopener">Java 版代码, 见这里</a> </p>
+<h4 id="map"><a href="#map" class="headerlink" title="map:"></a>map:</h4><p>对调用map的RDD数据集中的每个element都使用func，然后返回一个新的RDD,这个返回的数据集是分布式的数据集</p>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter:"></a>filter:</h4><p>对调用filter的RDD数据集中的每个元素都使用func，然后返回一个包含使func为true的元素构成的RDD</p>
+<h4 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap:"></a>flatMap:</h4><p>和map差不多，但是flatMap生成的是多个结果</p>
+<h4 id="groupByKey-reduceByKey-sortByKey"><a href="#groupByKey-reduceByKey-sortByKey" class="headerlink" title="groupByKey, reduceByKey, sortByKey :"></a>groupByKey, reduceByKey, sortByKey :</h4><p>凡是这种.. ByKey 的, 必须传入一个对偶元祖,  Java中是 JavaPairRdd</p>
+<h4 id="cogroup-与-join-与-union-区别"><a href="#cogroup-与-join-与-union-区别" class="headerlink" title="cogroup 与 join 与 union 区别:"></a>cogroup 与 join 与 union 区别:</h4><p><a href="http://lxw1234.com/archives/2015/07/384.htm" target="_blank" rel="noopener">详情可参考</a></p>
+<ul>
+<li><strong>cogroup</strong><ul>
+<li>相当于SQL中的<strong>全外关联full outer join</strong>，返回左右RDD中的记录，<strong>关联不上的为空。</strong></li>
+<li>return:   JavaPairRDD[K, (JIterable[V], JIterable[W])</li>
+<li>RDD的value是一个Pair的实例,这个实例包含两个Iterable的值, <code>V</code>表示的是RDD1中相同KEY的值, <code>W</code>表示的是RDD2中相同key的值. </li>
+</ul>
+</li>
+<li><strong>join</strong><ul>
+<li>相当于SQL中的<strong>内关联join</strong>，<strong>只返回两个RDD根据K可以关联上的结果</strong>，join只能用于两个RDD之间的关联，如果要多个RDD关联，多关联几次即可。</li>
+</ul>
+</li>
+<li><strong>union</strong><ul>
+<li>求rdd并集，但是不去重</li>
+</ul>
+</li>
+</ul>
+<h4 id="Intersection，Distinct，Cartesian"><a href="#Intersection，Distinct，Cartesian" class="headerlink" title="Intersection，Distinct，Cartesian"></a>Intersection，Distinct，Cartesian</h4><ul>
+<li><strong>intersection</strong> <ul>
+<li>intersection <strong>求交集</strong>,提取两个rdd中都含有的元素。</li>
+<li>Returns a new RDD that contains the intersection of elements in the source dataset and the argument.</li>
+</ul>
+</li>
+<li><strong>Distinct</strong> (独特的,有区别的)<ul>
+<li>去重 </li>
+<li>Return a new RDD containing the distinct elements in this RDD.</li>
+</ul>
+</li>
+<li><strong>Cartesian</strong> (笛卡尔积)<ul>
+<li>笛卡尔积, 全连接, 前后集合个数为a,b,  a x b  种组合</li>
+</ul>
+</li>
+</ul>
+<h4 id="mapPartition，reparation，coalesce"><a href="#mapPartition，reparation，coalesce" class="headerlink" title="mapPartition，reparation，coalesce"></a>mapPartition，reparation，coalesce</h4><ul>
+<li><p><strong>mapPartition</strong></p>
+<ul>
+<li>该函数和map函数类似，只不过映射函数的参数<strong>由RDD中的每一个元素</strong>变成了<strong><code>RDD</code>中每一个分区的迭代器</strong>。如果在映射的过程中需要频繁创建额外的对象，使用mapPartitions要比map高效的多。 </li>
+<li>比如，将RDD中的所有数据通过JDBC连接写入数据库，如果使用map函数，可能要为每一个元素都创建一个<code>connection</code>，这样开销很大，如果使用<code>mapPartitions</code>，那么只需要针对每一个分区建立一个<code>connection</code>。 </li>
+</ul>
+</li>
+<li><p><strong>coalesce</strong> </p>
+<ul>
+<li><p>默认参数为 false, 默认只响应减少分区, 不响应增加 :TODO</p>
+</li>
+<li><p>如果原来有N个partition，需要重新规划承M个partition </p>
+<ul>
+<li>N,M 差别大的时候,  <code>coalesce(numPartitions: Int, shuffle: Boolean = false,..)</code> 的 shuffle 参数要设置为 true</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>reparation</strong></p>
+<ul>
+<li>一般改变分区用这个就行</li>
+<li>reparition是<code>coalesce shuffle</code>为<code>true</code>的简易实现 </li>
+</ul>
+</li>
+</ul>
+<h4 id="sample-和-aggregateByKey"><a href="#sample-和-aggregateByKey" class="headerlink" title="sample   和  aggregateByKey"></a>sample   和  aggregateByKey</h4><ul>
+<li><strong>sample</strong><ul>
+<li>对RDD中的集合内元素进行采样，第一个参数withReplacement是true表示有放回取样，false表示无放回。第二个参数表示比例 </li>
+</ul>
+</li>
+<li><strong>aggregateByKey</strong><ul>
+<li><code>aggregateByKey(zeroValue)(seqOp, combOp, [numTasks])</code>            //按照key进行聚合 </li>
+<li>其实<code>reduceBykey</code> 就是<code>aggregateByKey</code>的简化版。  </li>
+<li><code>aggregateByKey</code>多提供了一个函数 seqOp 类似于Mapreduce的combine操作（就在map端执行reduce的操作）</li>
+</ul>
+</li>
+</ul>
+<h4 id="mapPartitionsWithIndex-和-repartitionAndSortWithinPartitions"><a href="#mapPartitionsWithIndex-和-repartitionAndSortWithinPartitions" class="headerlink" title="mapPartitionsWithIndex 和 repartitionAndSortWithinPartitions"></a>mapPartitionsWithIndex 和 repartitionAndSortWithinPartitions</h4><ul>
+<li><strong>mapPartitionsWithIndex</strong> <ul>
+<li>说白了就是可以打印出当前所在分区数</li>
+</ul>
+</li>
+<li><strong>repartitionAndSortWithinPartitions</strong><ul>
+<li><strong>该方法依据partitioner对RDD进行分区，并且在每个结果分区中按key进行排序；通过对比sortByKey发现，这种方式比先分区，然后在每个分区中进行排序效率高，这是因为它可以将排序融入到shuffle阶段。</strong> </li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -725,7 +817,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-Spark-与-MapReduce-区别"><span class="nav-text">一. Spark 与 MapReduce 区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-什么是RDD"><span class="nav-text">二. 什么是RDD</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-Spark-的架构-standalone"><span class="nav-text">三. Spark 的架构(standalone)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四-Spark-任务提交"><span class="nav-text">四. Spark 任务提交</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五-Transformation和action原理"><span class="nav-text">五. Transformation和action原理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-Spark-与-MapReduce-区别"><span class="nav-text">一. Spark 与 MapReduce 区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-什么是RDD"><span class="nav-text">二. 什么是RDD</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-Spark-的架构-standalone"><span class="nav-text">三. Spark 的架构(standalone)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四-Spark-任务提交"><span class="nav-text">四. Spark 任务提交</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五-Transformation和action原理"><span class="nav-text">五. Transformation和action原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六-Transformation-和-Action-算子"><span class="nav-text">六. Transformation 和 Action 算子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Transformation-算子"><span class="nav-text">1.Transformation 算子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#map"><span class="nav-text">map:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#filter"><span class="nav-text">filter:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flatMap"><span class="nav-text">flatMap:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#groupByKey-reduceByKey-sortByKey"><span class="nav-text">groupByKey, reduceByKey, sortByKey :</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cogroup-与-join-与-union-区别"><span class="nav-text">cogroup 与 join 与 union 区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Intersection，Distinct，Cartesian"><span class="nav-text">Intersection，Distinct，Cartesian</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mapPartition，reparation，coalesce"><span class="nav-text">mapPartition，reparation，coalesce</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sample-和-aggregateByKey"><span class="nav-text">sample   和  aggregateByKey</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mapPartitionsWithIndex-和-repartitionAndSortWithinPartitions"><span class="nav-text">mapPartitionsWithIndex 和 repartitionAndSortWithinPartitions</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

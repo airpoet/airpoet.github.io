@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="1.创建 SparkContext 时, 遇到的问题错误描述: A master URL must be set in your configuration 12345678910//创建 spark 配置对象val conf = new SparkConf()conf.setAppName(&quot;MyWordCount_Scala&quot;)//设置 master 属性conf.setMaster(&quot;loc">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-13T08:26:55.123Z">
+<meta property="og:updated_time" content="2018-07-25T09:30:34.264Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark中Bug集锦">
 <meta name="twitter:description" content="1.创建 SparkContext 时, 遇到的问题错误描述: A master URL must be set in your configuration 12345678910//创建 spark 配置对象val conf = new SparkConf()conf.setAppName(&quot;MyWordCount_Scala&quot;)//设置 master 属性conf.setMaster(&quot;loc">
@@ -336,8 +336,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-13T16:26:55+08:00">
-                2018-07-13
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-25T17:30:34+08:00">
+                2018-07-25
               </time>
             
           </span>
@@ -416,6 +416,9 @@
 <li><strong>在 <code>sbin</code>目录中,  在<code>spark-config.sh</code>中加上</strong> <strong><code>export JAVA_HOME=...</code></strong></li>
 <li>分发到其它主机</li>
 </ul>
+<h4 id="3-一个-JVM-中如果存在多个-SparkContext"><a href="#3-一个-JVM-中如果存在多个-SparkContext" class="headerlink" title="3.一个 JVM 中如果存在多个 SparkContext"></a>3.一个 JVM 中如果存在多个 SparkContext</h4><p>Exception in thread “main” org.apache.spark.SparkException: Only one SparkContext may be running in this JVM (see SPARK-2243). To ignore this error, set spark.driver.allowMultipleContexts = true. The currently running SparkContext was created at:</p>
+<p>原因是因为, 每个 static 方法中, 都创建了 sc, 当然, 这里只是测试用, 可忽略, 见这里: </p>
+<p><a href="https://github.com/airpoet/bigdata/blob/master/Spark_Project/SparkDemo-1/src/main/java/com/rox/spark/java/TransfromationOperation.java" target="_blank" rel="noopener">https://github.com/airpoet/bigdata/blob/master/Spark_Project/SparkDemo-1/src/main/java/com/rox/spark/java/TransfromationOperation.java</a></p>
 
       
     </div>
@@ -669,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建-SparkContext-时-遇到的问题"><span class="nav-text">1.创建 SparkContext 时, 遇到的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-配置-Spark-独立模式时-找不到-JAVA-HOME"><span class="nav-text">2. 配置 Spark 独立模式时, 找不到 JAVA_HOME</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建-SparkContext-时-遇到的问题"><span class="nav-text">1.创建 SparkContext 时, 遇到的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-配置-Spark-独立模式时-找不到-JAVA-HOME"><span class="nav-text">2. 配置 Spark 独立模式时, 找不到 JAVA_HOME</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-一个-JVM-中如果存在多个-SparkContext"><span class="nav-text">3.一个 JVM 中如果存在多个 SparkContext</span></a></li></ol></div>
             
 
           </div>

@@ -86,7 +86,7 @@
 <meta name="description" content="一. Spark 与 MapReduce 区别Apache Spark™ is a fast and general engine for large-scale data processing. 与mapreduce比较 ：  Spark大多数执行过程是基于内存的迭代  MapReduce 的 优点, SparkCore 都有  Hive 能做的操作, SparkSQL 都能做, 可以写 SQL">
 <meta name="keywords" content="原创,技术,Spark">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark重点解析(一)">
+<meta property="og:title" content="Spark重点解析(一) =&gt; SparkCore">
 <meta property="og:url" content="https://airpoet.github.io/2018/07/25/Spark/Spark重点解析(一)/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="一. Spark 与 MapReduce 区别Apache Spark™ is a fast and general engine for large-scale data processing. 与mapreduce比较 ：  Spark大多数执行过程是基于内存的迭代  MapReduce 的 优点, SparkCore 都有  Hive 能做的操作, SparkSQL 都能做, 可以写 SQL">
@@ -105,9 +105,9 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-172557.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-173025.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-spark%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%9B%BE%E8%A7%A3.png">
-<meta property="og:updated_time" content="2018-07-26T17:44:18.385Z">
+<meta property="og:updated_time" content="2018-07-26T17:45:40.695Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark重点解析(一)">
+<meta name="twitter:title" content="Spark重点解析(一) =&gt; SparkCore">
 <meta name="twitter:description" content="一. Spark 与 MapReduce 区别Apache Spark™ is a fast and general engine for large-scale data processing. 与mapreduce比较 ：  Spark大多数执行过程是基于内存的迭代  MapReduce 的 优点, SparkCore 都有  Hive 能做的操作, SparkSQL 都能做, 可以写 SQL">
 <meta name="twitter:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-25-070107.png">
 
@@ -145,7 +145,7 @@
 
 
 
-  <title>Spark重点解析(一) | A.P的文艺杂谈</title>
+  <title>Spark重点解析(一) => SparkCore | A.P的文艺杂谈</title>
   
 
 
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Spark重点解析(一)</h1>
+          <h1 class="post-title" itemprop="name headline">Spark重点解析(一) => SparkCore</h1>
         
 
         <div class="post-meta">
@@ -351,7 +351,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-27T01:44:18+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-27T01:45:40+08:00">
                 2018-07-27
               </time>
             
@@ -1158,7 +1158,7 @@
         var disqus_config = function () {
           this.page.url = 'https://airpoet.github.io/2018/07/25/Spark/Spark重点解析(一)/';
           this.page.identifier = '2018/07/25/Spark/Spark重点解析(一)/';
-          this.page.title = 'Spark重点解析(一)';
+          this.page.title = 'Spark重点解析(一) => SparkCore';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

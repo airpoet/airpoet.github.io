@@ -87,7 +87,7 @@
 <meta name="keywords" content="原创,技术,Spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark重点解析(一) =&gt; SparkCore">
-<meta property="og:url" content="https://airpoet.github.io/2018/07/25/Spark/Spark重点解析(一)/index.html">
+<meta property="og:url" content="https://airpoet.github.io/2018/07/25/Spark/Spark重点解析(一) => SparkCore/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="一. Spark 与 MapReduce 区别Apache Spark™ is a fast and general engine for large-scale data processing. 与mapreduce比较 ：  Spark大多数执行过程是基于内存的迭代  MapReduce 的 优点, SparkCore 都有  Hive 能做的操作, SparkSQL 都能做, 可以写 SQL">
 <meta property="og:locale" content="zh-Hans">
@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-172557.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-173025.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-spark%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%9B%BE%E8%A7%A3.png">
-<meta property="og:updated_time" content="2018-07-26T17:45:40.695Z">
+<meta property="og:updated_time" content="2018-07-26T17:47:46.352Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark重点解析(一) =&gt; SparkCore">
 <meta name="twitter:description" content="一. Spark 与 MapReduce 区别Apache Spark™ is a fast and general engine for large-scale data processing. 与mapreduce比较 ：  Spark大多数执行过程是基于内存的迭代  MapReduce 的 优点, SparkCore 都有  Hive 能做的操作, SparkSQL 都能做, 可以写 SQL">
@@ -139,7 +139,7 @@
 
 
 
-  <link rel="canonical" href="https://airpoet.github.io/2018/07/25/Spark/Spark重点解析(一)/"/>
+  <link rel="canonical" href="https://airpoet.github.io/2018/07/25/Spark/Spark重点解析(一) => SparkCore/"/>
 
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/07/25/Spark/Spark重点解析(一)/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/07/25/Spark/Spark重点解析(一) => SparkCore/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -351,7 +351,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-27T01:45:40+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-27T01:47:46+08:00">
                 2018-07-27
               </time>
             
@@ -381,8 +381,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spark/图示/" itemprop="url" rel="index">
-                    <span itemprop="name">图示</span>
+                  <a href="/categories/Spark/精讲/" itemprop="url" rel="index">
+                    <span itemprop="name">精讲</span>
                   </a>
                 </span>
 
@@ -399,9 +399,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/25/Spark/Spark重点解析(一)/#comments" itemprop="discussionUrl">
+                <a href="/2018/07/25/Spark/Spark重点解析(一) => SparkCore/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/25/Spark/Spark重点解析(一)/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/07/25/Spark/Spark重点解析(一) => SparkCore/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -783,6 +783,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/07/27/Spark/Spark重点解析(二) => Spark调优/" rel="prev" title="Spark重点解析(一) => Spark调优">
+                Spark重点解析(一) => Spark调优 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -872,7 +876,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-count">115</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1156,8 +1160,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://airpoet.github.io/2018/07/25/Spark/Spark重点解析(一)/';
-          this.page.identifier = '2018/07/25/Spark/Spark重点解析(一)/';
+          this.page.url = 'https://airpoet.github.io/2018/07/25/Spark/Spark重点解析(一) => SparkCore/';
+          this.page.identifier = '2018/07/25/Spark/Spark重点解析(一) => SparkCore/';
           this.page.title = 'Spark重点解析(一) => SparkCore';
         };
         var d = document, s = d.createElement('script');

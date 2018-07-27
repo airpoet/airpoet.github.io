@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-172557.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-173025.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-spark%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%9B%BE%E8%A7%A3.png">
-<meta property="og:updated_time" content="2018-07-26T17:47:46.352Z">
+<meta property="og:updated_time" content="2018-07-27T07:33:37.183Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark重点解析(一) =&gt; SparkCore">
 <meta name="twitter:description" content="一. Spark 与 MapReduce 区别Apache Spark™ is a fast and general engine for large-scale data processing. 与mapreduce比较 ：  Spark大多数执行过程是基于内存的迭代  MapReduce 的 优点, SparkCore 都有  Hive 能做的操作, SparkSQL 都能做, 可以写 SQL">
@@ -351,7 +351,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-27T01:47:46+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-27T15:33:37+08:00">
                 2018-07-27
               </time>
             
@@ -699,9 +699,14 @@
 <p>遇到一个 shuffle 算子, 就会从中间分开, 划分为2个 stage</p>
 <p>Task计算的就是分区上面的数据。</p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-172557.png" alt="image-20180727012556575"></p>
-<h1 id="十二-Spark-任务调度"><a href="#十二-Spark-任务调度" class="headerlink" title="十二. Spark 任务调度"></a>十二. Spark 任务调度</h1><p><strong>Shuffle 机制见下一篇</strong></p>
+<h1 id="十二-Spark-任务调度"><a href="#十二-Spark-任务调度" class="headerlink" title="十二. Spark 任务调度"></a><strong>十二. Spark 任务调度</strong></h1><p><strong>Shuffle 机制见下一篇</strong></p>
 <h2 id="1-简版"><a href="#1-简版" class="headerlink" title="1.简版"></a>1.简版</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-173025.png" alt="image-20180727013025763"></p>
 <h2 id="2-完整版"><a href="#2-完整版" class="headerlink" title="2.完整版"></a>2.完整版</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-spark%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%9B%BE%E8%A7%A3.png" alt=""></p>
+<p><strong>注意:</strong> </p>
+<ul>
+<li>AppClient / clientActor：在 Standalone 模式下的实现是 <code>StandaloneAppClient</code> 类</li>
+<li>dirverActor:  :TODO</li>
+</ul>
 <h1 id="十三-TopN-案例"><a href="#十三-TopN-案例" class="headerlink" title="十三. TopN 案例"></a>十三. TopN 案例</h1><p><strong>对一个文件里面的单词进行单词计数，然后取前3个出现次数最多的三个单词。</strong> </p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TopN</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">     <span class="keyword">val</span> conf=<span class="keyword">new</span> <span class="type">SparkConf</span>().setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"TopN"</span>)</span><br><span class="line">     <span class="keyword">val</span> sc=<span class="keyword">new</span> <span class="type">SparkContext</span>(conf);</span><br><span class="line">     <span class="keyword">val</span> file=sc.textFile(<span class="string">"file://..."</span>)</span><br><span class="line">     <span class="keyword">val</span> topN=file.flatMap &#123; line =&gt; line.split(<span class="string">"\t"</span>) &#125;</span><br><span class="line">     .map &#123; word =&gt; (word,<span class="number">1</span>) &#125;</span><br><span class="line">     .reduceByKey(_+_)  <span class="comment">//key word  value:count</span></span><br><span class="line">     .map(tuple =&gt;(tuple._2,tuple._1))	<span class="comment">// swap k,v</span></span><br><span class="line">     .sortByKey(<span class="literal">false</span>)				   <span class="comment">// sort the count</span></span><br><span class="line">     .take(<span class="number">3</span>)						  <span class="comment">// take top 3</span></span><br><span class="line">     <span class="keyword">for</span>( i &lt;- topN)&#123;</span><br><span class="line">       println(i._2 + <span class="string">"  出现次数："</span>+i._1);</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="十四-网站访问日志分析"><a href="#十四-网站访问日志分析" class="headerlink" title="十四. 网站访问日志分析"></a>十四. 网站访问日志分析</h1><h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p><strong>需求一 ：</strong></p>
@@ -876,7 +881,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">115</span>
+                  <span class="site-state-item-count">116</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

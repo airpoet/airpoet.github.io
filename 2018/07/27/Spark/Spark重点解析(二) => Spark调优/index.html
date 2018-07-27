@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="没有边界就没有自由.">
+<meta name="description" content="前言Spark整套调优方案主要分为开发调优、资源调优、数据倾斜调优、shuffle调优几个部分。 开发调优和资源调优是所有Spark作业都需要注意和遵循的一些基本原则，是高性能Spark作业的基础； 数据倾斜调优，主要讲解了一套完整的用来解决Spark作业数据倾斜的解决方案； shuffle调优，主要讲解了如何对Spark作业的shuffle运行过程以及细节进行调优。 本文主要参考美团点评技术博客">
 <meta name="keywords" content="原创,技术,Spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark重点解析(一) =&gt; Spark调优">
 <meta property="og:url" content="https://airpoet.github.io/2018/07/27/Spark/Spark重点解析(二) => Spark调优/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
-<meta property="og:description" content="没有边界就没有自由.">
+<meta property="og:description" content="前言Spark整套调优方案主要分为开发调优、资源调优、数据倾斜调优、shuffle调优几个部分。 开发调优和资源调优是所有Spark作业都需要注意和遵循的一些基本原则，是高性能Spark作业的基础； 数据倾斜调优，主要讲解了一套完整的用来解决Spark作业数据倾斜的解决方案； shuffle调优，主要讲解了如何对Spark作业的shuffle运行过程以及细节进行调优。 本文主要参考美团点评技术博客">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-26T17:47:57.015Z">
+<meta property="og:updated_time" content="2018-07-27T02:18:26.576Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark重点解析(一) =&gt; Spark调优">
-<meta name="twitter:description" content="没有边界就没有自由.">
+<meta name="twitter:description" content="前言Spark整套调优方案主要分为开发调优、资源调优、数据倾斜调优、shuffle调优几个部分。 开发调优和资源调优是所有Spark作业都需要注意和遵循的一些基本原则，是高性能Spark作业的基础； 数据倾斜调优，主要讲解了一套完整的用来解决Spark作业数据倾斜的解决方案； shuffle调优，主要讲解了如何对Spark作业的shuffle运行过程以及细节进行调优。 本文主要参考美团点评技术博客">
 
 
 
@@ -336,7 +336,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-27T01:47:57+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-27T10:18:26+08:00">
                 2018-07-27
               </time>
             
@@ -419,7 +419,17 @@
       
 
       
-        
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Spark整套调优方案主要分为开发调优、资源调优、数据倾斜调优、shuffle调优几个部分。</p>
+<p><strong>开发调优和资源调优</strong>是所有Spark作业都需要注意和遵循的一些基本原则，<strong>是高性能Spark作业的基础</strong>；</p>
+<p><strong>数据倾斜调优</strong>，主要讲解了一套完整的用来<strong>解决Spark作业数据倾斜的解决方案</strong>；</p>
+<p><strong>shuffle调优</strong>，主要讲解了如何<strong>对Spark作业的shuffle运行过程以及细节进行调优</strong>。</p>
+<p><strong>本文主要参考美团点评技术博客之</strong></p>
+<ul>
+<li><a href="https://tech.meituan.com/spark_tuning_basic.html" target="_blank" rel="noopener">Spark性能优化指南——基础篇</a></li>
+<li><a href="https://tech.meituan.com/spark_tuning_pro.html" target="_blank" rel="noopener">Spark性能优化指南——高级篇</a></li>
+</ul>
+<hr>
+<h1 id="一-开发调优"><a href="#一-开发调优" class="headerlink" title="一. 开发调优"></a>一. 开发调优</h1>
       
     </div>
     
@@ -487,6 +497,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/07/27/Spark/Spark重点解析(三)-=-Spark-SQL/" rel="prev" title="Spark重点解析(三) => Spark SQL">
+                Spark重点解析(三) => Spark SQL <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -547,8 +561,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -567,7 +590,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">115</span>
+                  <span class="site-state-item-count">116</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -649,6 +672,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一-开发调优"><span class="nav-text">一. 开发调优</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

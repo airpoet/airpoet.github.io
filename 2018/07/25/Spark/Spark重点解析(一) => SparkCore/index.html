@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-172557.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-173025.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-26-spark%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%9B%BE%E8%A7%A3.png">
-<meta property="og:updated_time" content="2018-07-27T07:33:37.183Z">
+<meta property="og:updated_time" content="2018-07-28T03:23:35.440Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark重点解析(一) =&gt; SparkCore">
 <meta name="twitter:description" content="一. Spark 与 MapReduce 区别Apache Spark™ is a fast and general engine for large-scale data processing. 与mapreduce比较 ：  Spark大多数执行过程是基于内存的迭代  MapReduce 的 优点, SparkCore 都有  Hive 能做的操作, SparkSQL 都能做, 可以写 SQL">
@@ -351,8 +351,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-27T15:33:37+08:00">
-                2018-07-27
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-28T11:23:35+08:00">
+                2018-07-28
               </time>
             
           </span>
@@ -564,20 +564,12 @@
 </li>
 <li><p><strong>coalesce</strong> </p>
 <ul>
-<li><p>默认参数为 false, 默认只响应减少分区, 不响应增加 :TODO</p>
-</li>
-<li><p>如果原来有N个partition，需要重新规划承M个partition </p>
-<ul>
-<li>N,M 差别大的时候,  <code>coalesce(numPartitions: Int, shuffle: Boolean = false,..)</code> 的 shuffle 参数要设置为 true</li>
+<li><strong>coalesce: 只能用于减少分区的数量</strong>，而且<strong>可以选择不发生shuffle</strong> 其实说白了他就是<strong>合并分区</strong></li>
+<li><strong>repartition:可以增加分区，也可以减少分区</strong>，<strong>必须会发生shuffle</strong>，相当于就是进行<strong>重新分区</strong></li>
 </ul>
 </li>
-</ul>
-</li>
-</ul>
-<ul>
 <li><p><strong>reparation</strong></p>
 <ul>
-<li>一般改变分区用这个就行</li>
 <li>reparition是<code>coalesce shuffle</code>为<code>true</code>的简易实现 </li>
 </ul>
 </li>

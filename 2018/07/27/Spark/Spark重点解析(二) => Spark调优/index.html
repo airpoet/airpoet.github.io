@@ -86,16 +86,17 @@
 <meta name="description" content="前言Spark整套调优方案主要分为开发调优、资源调优、数据倾斜调优、shuffle调优几个部分。 开发调优和资源调优是所有Spark作业都需要注意和遵循的一些基本原则，是高性能Spark作业的基础； 数据倾斜调优，主要讲解了一套完整的用来解决Spark作业数据倾斜的解决方案； shuffle调优，主要讲解了如何对Spark作业的shuffle运行过程以及细节进行调优。 本文主要参考美团点评技术博客">
 <meta name="keywords" content="原创,技术,Spark">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark重点解析(一) =&gt; Spark调优">
+<meta property="og:title" content="Spark重点解析(二) =&gt; Spark调优">
 <meta property="og:url" content="https://airpoet.github.io/2018/07/27/Spark/Spark重点解析(二) => Spark调优/index.html">
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="前言Spark整套调优方案主要分为开发调优、资源调优、数据倾斜调优、shuffle调优几个部分。 开发调优和资源调优是所有Spark作业都需要注意和遵循的一些基本原则，是高性能Spark作业的基础； 数据倾斜调优，主要讲解了一套完整的用来解决Spark作业数据倾斜的解决方案； shuffle调优，主要讲解了如何对Spark作业的shuffle运行过程以及细节进行调优。 本文主要参考美团点评技术博客">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tech.meituan.com/img/spark-tuning/group-by-key-wordcount.png">
 <meta property="og:image" content="https://tech.meituan.com/img/spark-tuning/reduce-by-key-wordcount.png">
-<meta property="og:updated_time" content="2018-07-28T07:50:05.579Z">
+<meta property="og:image" content="https://tech.meituan.com/img/spark-tuning/spark-base-mech.png">
+<meta property="og:updated_time" content="2018-07-28T08:06:37.309Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark重点解析(一) =&gt; Spark调优">
+<meta name="twitter:title" content="Spark重点解析(二) =&gt; Spark调优">
 <meta name="twitter:description" content="前言Spark整套调优方案主要分为开发调优、资源调优、数据倾斜调优、shuffle调优几个部分。 开发调优和资源调优是所有Spark作业都需要注意和遵循的一些基本原则，是高性能Spark作业的基础； 数据倾斜调优，主要讲解了一套完整的用来解决Spark作业数据倾斜的解决方案； shuffle调优，主要讲解了如何对Spark作业的shuffle运行过程以及细节进行调优。 本文主要参考美团点评技术博客">
 <meta name="twitter:image" content="https://tech.meituan.com/img/spark-tuning/group-by-key-wordcount.png">
 
@@ -133,7 +134,7 @@
 
 
 
-  <title>Spark重点解析(一) => Spark调优 | A.P的文艺杂谈</title>
+  <title>Spark重点解析(二) => Spark调优 | A.P的文艺杂谈</title>
   
 
 
@@ -311,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Spark重点解析(一) => Spark调优</h1>
+          <h1 class="post-title" itemprop="name headline">Spark重点解析(二) => Spark调优</h1>
         
 
         <div class="post-meta">
@@ -339,7 +340,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-28T15:50:05+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-28T16:06:37+08:00">
                 2018-07-28
               </time>
             
@@ -520,7 +521,15 @@
 <p>因此Spark官方建议，在Spark编码实现中，特别是对于算子函数中的代码，尽量不要使用上述三种数据结构，尽量使用<strong>字符串替代对象</strong>，使用<strong>原始类型（比如Int、Long）替代字符串</strong>，使用<strong>数组替代集合</strong>类型，这样尽可能地减少内存占用，从而降低GC频率，提升性能。</p>
 <p>但是在笔者的编码实践中发现，要做到该原则其实并不容易。因为我们同时要考虑到代码的可维护性，如果一个代码中，完全没有任何对象抽象，全部是字符串拼接的方式，那么对于后续的代码维护和修改，无疑是一场巨大的灾难。同理，如果所有操作都基于数组实现，而不使用HashMap、LinkedList等集合类型，那么对于我们的编码难度以及代码可维护性，也是一个极大的挑战。因此笔者建议，<strong>在可能以及合适的情况下，使用占用内存较少的数据结构，但是前提是要保证代码的可维护性。</strong></p>
 <hr>
-<h1 id="二-资源调优"><a href="#二-资源调优" class="headerlink" title="二. 资源调优"></a>二. 资源调优</h1><h2 id="调优概述-1"><a href="#调优概述-1" class="headerlink" title="调优概述"></a>调优概述</h2><p>在开发完Spark作业之后，就该为作业配置合适的资源了。Spark的资源参数，基本都可以在spark-submit命令中作为参数设置。很多Spark初学者，通常不知道该设置哪些必要的参数，以及如何设置这些参数，最后就只能胡乱设置，甚至压根儿不设置。资源参数设置的不合理，可能会导致没有充分利用集群资源，作业运行会极其缓慢；或者设置的资源过大，队列没有足够的资源来提供，进而导致各种异常。总之，无论是哪种情况，都会导致Spark作业的运行效率低下，甚至根本无法运行。因此我们必须对Spark作业的资源使用原理有一个清晰的认识，并知道在Spark作业运行过程中，有哪些资源参数是可以设置的，以及如何设置合适的参数值。</p>
+<h1 id="二-资源调优"><a href="#二-资源调优" class="headerlink" title="二. 资源调优"></a>二. 资源调优</h1><h2 id="调优概述-1"><a href="#调优概述-1" class="headerlink" title="调优概述"></a>调优概述</h2><p>在开发完Spark作业之后，就该为作业配置合适的资源了。<strong>Spark的资源参数，基本都可以在spark-submit命令中作为参数设置。</strong>很多Spark初学者，通常不知道该设置哪些必要的参数，以及如何设置这些参数，最后就只能胡乱设置，甚至压根儿不设置。资源参数设置的不合理，可能会导致没有充分利用集群资源，作业运行会极其缓慢；或者设置的资源过大，队列没有足够的资源来提供，进而导致各种异常。总之，无论是哪种情况，都会导致Spark作业的运行效率低下，甚至根本无法运行。因此我们<strong>必须对Spark作业的资源使用原理有一个清晰的认识</strong>，<strong>并知道在Spark作业运行过程中，有哪些资源参数是可以设置的，以及如何设置合适的参数值。</strong></p>
+<h2 id="Spark作业基本运行原理"><a href="#Spark作业基本运行原理" class="headerlink" title="Spark作业基本运行原理"></a>Spark作业基本运行原理</h2><p><img src="https://tech.meituan.com/img/spark-tuning/spark-base-mech.png" alt="Spark基本运行原理"></p>
+<p>详细原理见上图。我们使用spark-submit提交一个Spark作业之后，这个作业就会启动一个对应的Driver进程。根据你使用的部署模式（deploy-mode）不同，Driver进程可能在本地启动，也可能在集群中某个工作节点上启动。Driver进程本身会根据我们设置的参数，占有一定数量的内存和CPU core。而Driver进程要做的第一件事情，就是向集群管理器（可以是Spark Standalone集群，也可以是其他的资源管理集群，美团•大众点评使用的是YARN作为资源管理集群）申请运行Spark作业需要使用的资源，这里的资源指的就是Executor进程。YARN集群管理器会根据我们为Spark作业设置的资源参数，在各个工作节点上，启动一定数量的Executor进程，每个Executor进程都占有一定数量的内存和CPU core。</p>
+<p>在申请到了作业执行所需的资源之后，Driver进程就会开始调度和执行我们编写的作业代码了。Driver进程会将我们编写的Spark作业代码分拆为多个stage，每个stage执行一部分代码片段，并为每个stage创建一批task，然后将这些task分配到各个Executor进程中执行。task是最小的计算单元，负责执行一模一样的计算逻辑（也就是我们自己编写的某个代码片段），只是每个task处理的数据不同而已。一个stage的所有task都执行完毕之后，会在各个节点本地的磁盘文件中写入计算中间结果，然后Driver就会调度运行下一个stage。下一个stage的task的输入数据就是上一个stage输出的中间结果。如此循环往复，直到将我们自己编写的代码逻辑全部执行完，并且计算完所有的数据，得到我们想要的结果为止。</p>
+<p>Spark是根据shuffle类算子来进行stage的划分。如果我们的代码中执行了某个shuffle类算子（比如reduceByKey、join等），那么就会在该算子处，划分出一个stage界限来。可以大致理解为，shuffle算子执行之前的代码会被划分为一个stage，shuffle算子执行以及之后的代码会被划分为下一个stage。因此一个stage刚开始执行的时候，它的每个task可能都会从上一个stage的task所在的节点，去通过网络传输拉取需要自己处理的所有key，然后对拉取到的所有相同的key使用我们自己编写的算子函数执行聚合操作（比如reduceByKey()算子接收的函数）。这个过程就是shuffle。</p>
+<p>当我们在代码中执行了cache/persist等持久化操作时，根据我们选择的持久化级别的不同，每个task计算出来的数据也会保存到Executor进程的内存或者所在节点的磁盘文件中。</p>
+<p>因此Executor的内存主要分为三块：第一块是让task执行我们自己编写的代码时使用，默认是占Executor总内存的20%；第二块是让task通过shuffle过程拉取了上一个stage的task的输出后，进行聚合等操作时使用，默认也是占Executor总内存的20%；第三块是让RDD持久化时使用，默认占Executor总内存的60%。</p>
+<p>task的执行速度是跟每个Executor进程的CPU core数量有直接关系的。一个CPU core同一时间只能执行一个线程。而每个Executor进程上分配到的多个task，都是以每个task一条线程的方式，多线程并发运行的。如果CPU core数量比较充足，而且分配到的task数量比较合理，那么通常来说，可以比较快速和高效地执行完这些task线程。</p>
+<p>以上就是Spark作业的基本运行原理的说明，大家可以结合上图来理解。理解作业基本原理，是我们进行资源参数调优的基本前提。</p>
 
       
     </div>
@@ -774,7 +783,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一-开发调优"><span class="nav-text">一. 开发调优</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#调优概述"><span class="nav-text">调优概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则一：避免创建重复的RDD"><span class="nav-text">原则一：避免创建重复的RDD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个简单的例子"><span class="nav-text">一个简单的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则二：尽可能复用同一个RDD"><span class="nav-text">原则二：尽可能复用同一个RDD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个简单的例子-1"><span class="nav-text">一个简单的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则三：对多次使用的RDD进行持久化"><span class="nav-text">原则三：对多次使用的RDD进行持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对多次使用的RDD进行持久化的代码示例"><span class="nav-text">对多次使用的RDD进行持久化的代码示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark的持久化级别"><span class="nav-text">Spark的持久化级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何选择一种最合适的持久化策略"><span class="nav-text">如何选择一种最合适的持久化策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则四：尽量避免使用shuffle类算子"><span class="nav-text">原则四：尽量避免使用shuffle类算子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Broadcast与map进行join代码示例-※"><span class="nav-text">Broadcast与map进行join代码示例 ※</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则五：使用map-side预聚合的shuffle操作"><span class="nav-text">原则五：使用map-side预聚合的shuffle操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则六：使用高性能的算子"><span class="nav-text">原则六：使用高性能的算子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用reduceByKey-aggregateByKey替代groupByKey"><span class="nav-text">1. 使用reduceByKey/aggregateByKey替代groupByKey</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-使用mapPartitions替代普通map"><span class="nav-text">2. 使用mapPartitions替代普通map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-使用foreachPartitions替代foreach"><span class="nav-text">3. 使用foreachPartitions替代foreach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-使用filter之后进行coalesce操作"><span class="nav-text">4. 使用filter之后进行coalesce操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-使用repartitionAndSortWithinPartitions替代repartition与sort类操作"><span class="nav-text">5. 使用repartitionAndSortWithinPartitions替代repartition与sort类操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则七：广播大变量"><span class="nav-text">原则七：广播大变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#广播大变量的代码示例"><span class="nav-text">广播大变量的代码示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则八：使用Kryo优化序列化性能"><span class="nav-text">原则八：使用Kryo优化序列化性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则九：优化数据结构"><span class="nav-text">原则九：优化数据结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-资源调优"><span class="nav-text">二. 资源调优</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#调优概述-1"><span class="nav-text">调优概述</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一-开发调优"><span class="nav-text">一. 开发调优</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#调优概述"><span class="nav-text">调优概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则一：避免创建重复的RDD"><span class="nav-text">原则一：避免创建重复的RDD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个简单的例子"><span class="nav-text">一个简单的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则二：尽可能复用同一个RDD"><span class="nav-text">原则二：尽可能复用同一个RDD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个简单的例子-1"><span class="nav-text">一个简单的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则三：对多次使用的RDD进行持久化"><span class="nav-text">原则三：对多次使用的RDD进行持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对多次使用的RDD进行持久化的代码示例"><span class="nav-text">对多次使用的RDD进行持久化的代码示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark的持久化级别"><span class="nav-text">Spark的持久化级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何选择一种最合适的持久化策略"><span class="nav-text">如何选择一种最合适的持久化策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则四：尽量避免使用shuffle类算子"><span class="nav-text">原则四：尽量避免使用shuffle类算子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Broadcast与map进行join代码示例-※"><span class="nav-text">Broadcast与map进行join代码示例 ※</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则五：使用map-side预聚合的shuffle操作"><span class="nav-text">原则五：使用map-side预聚合的shuffle操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则六：使用高性能的算子"><span class="nav-text">原则六：使用高性能的算子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用reduceByKey-aggregateByKey替代groupByKey"><span class="nav-text">1. 使用reduceByKey/aggregateByKey替代groupByKey</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-使用mapPartitions替代普通map"><span class="nav-text">2. 使用mapPartitions替代普通map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-使用foreachPartitions替代foreach"><span class="nav-text">3. 使用foreachPartitions替代foreach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-使用filter之后进行coalesce操作"><span class="nav-text">4. 使用filter之后进行coalesce操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-使用repartitionAndSortWithinPartitions替代repartition与sort类操作"><span class="nav-text">5. 使用repartitionAndSortWithinPartitions替代repartition与sort类操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则七：广播大变量"><span class="nav-text">原则七：广播大变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#广播大变量的代码示例"><span class="nav-text">广播大变量的代码示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则八：使用Kryo优化序列化性能"><span class="nav-text">原则八：使用Kryo优化序列化性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则九：优化数据结构"><span class="nav-text">原则九：优化数据结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-资源调优"><span class="nav-text">二. 资源调优</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#调优概述-1"><span class="nav-text">调优概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark作业基本运行原理"><span class="nav-text">Spark作业基本运行原理</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -968,7 +977,7 @@
         var disqus_config = function () {
           this.page.url = 'https://airpoet.github.io/2018/07/27/Spark/Spark重点解析(二) => Spark调优/';
           this.page.identifier = '2018/07/27/Spark/Spark重点解析(二) => Spark调优/';
-          this.page.title = 'Spark重点解析(一) => Spark调优';
+          this.page.title = 'Spark重点解析(二) => Spark调优';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://A.P.disqus.com/embed.js';

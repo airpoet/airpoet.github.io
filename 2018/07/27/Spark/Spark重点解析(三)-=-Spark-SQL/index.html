@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-27-084726.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-27-085823.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-07-27-145640.png">
-<meta property="og:updated_time" content="2018-07-27T15:26:01.673Z">
+<meta property="og:updated_time" content="2018-07-30T03:09:19.161Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark重点解析(三) =&gt; Spark SQL">
 <meta name="twitter:description" content="一. SparkSQL 的前世今生 Hive =&amp;gt; MapReduce =&amp;gt; HDFS Shark =&amp;gt; 使用 Hive 的 SQL 解析引擎 =&amp;gt; RDD =&amp;gt; 通过Hive 的metadata表去操作 HDFS SparkSQL =&amp;gt; 使用自己SQL 解析引擎 =&amp;gt; RDD =&amp;gt; 通过Hive 的metadata表去操作 HDFS    二. S">
@@ -341,8 +341,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-27T23:26:01+08:00">
-                2018-07-27
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-30T11:09:19+08:00">
+                2018-07-30
               </time>
             
           </span>
@@ -525,7 +525,8 @@
 <p>提交任务给 Spark 集群：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$<span class="type">SPARK_HOME</span>/bin/spark-submit \</span><br><span class="line">--<span class="class"><span class="keyword">class</span> <span class="title">com</span>.<span class="title">mazh</span>.<span class="title">spark</span>.<span class="title">sql</span>.<span class="title">SparkSQL_JDBC</span> <span class="title">\</span></span></span><br><span class="line"><span class="class"><span class="title">--master</span> <span class="title">yarn</span> <span class="title">\</span></span></span><br><span class="line"><span class="class"><span class="title">--driver-class-path</span> <span class="title">$SPARK_HOME/jars/mysql-connector-java-5</span>.1.40<span class="title">-bin</span>.<span class="title">jar</span> <span class="title">\</span></span></span><br><span class="line"><span class="class"><span class="title">/home/hadoop/Spark_WordCount-1</span>.0<span class="title">-SNAPSHOT</span>.<span class="title">jar</span> <span class="title">\</span></span></span><br><span class="line"><span class="class"><span class="title">hdfs</span></span>:<span class="comment">//mycluster/user/ap/sparkdatas/student.txt</span></span><br></pre></td></tr></table></figure>
 <h1 id="八-数据源之json"><a href="#八-数据源之json" class="headerlink" title="八. 数据源之json"></a>八. 数据源之json</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式 1</span></span><br><span class="line"><span class="keyword">val</span> df1 = sparkSession.read.json(<span class="string">"file://.."</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式 2</span></span><br><span class="line"><span class="keyword">val</span> df2 = sparkSession.read.format(<span class="string">"json"</span>).load(<span class="string">"hdfs://mycluster/..."</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="九-数据源之-Hive"><a href="#九-数据源之-Hive" class="headerlink" title="九. 数据源之 Hive"></a>九. 数据源之 Hive</h1><p>与之前的自己构造数据, 或者读<code>json</code>数据等,得到 <code>DataFrame</code> , 然后把此 <code>df.createTempView(“tmpView”)</code></p>
+<h1 id="九-数据源之-Hive"><a href="#九-数据源之-Hive" class="headerlink" title="九. 数据源之 Hive"></a>九. 数据源之 Hive</h1><p><a href="https://airpoet.github.io/2018/07/20/Spark/i-Spark-2/">其它可以参考我的另一篇文章</a></p>
+<p>与之前的自己构造数据, 或者读<code>json</code>数据等,得到 <code>DataFrame</code> , 然后把此 <code>df.createTempView(“tmpView”)</code></p>
 <p>然后再对此 <code>tmpView</code> 使用 sql 语句查询不一样</p>
 <p><strong>直接用 <code>sparkSession.sql(“...”)</code> 操作的对象默认就是 hive</strong> </p>
 <p><strong>==&gt; 访问 hive 的元数据库(mysql),  把 hive 底层的执行引擎 <code>MapReduce</code> 换成了<code>SparkCore</code></strong></p>
@@ -587,8 +588,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/27/Spark/Spark重点解析(二) => Spark调优/" rel="next" title="Spark重点解析(二) => Spark调优">
-                <i class="fa fa-chevron-left"></i> Spark重点解析(二) => Spark调优
+              <a href="/2018/07/27/Spark/Spark重点解析(二) => Spark调优/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>

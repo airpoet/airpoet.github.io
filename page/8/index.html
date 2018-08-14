@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/Limiting/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/Java-lock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -310,7 +310,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/Limiting/" itemprop="url">Limiting</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/Java-lock/" itemprop="url">Java-lock</a></h1>
         
 
         <div class="post-meta">
@@ -338,7 +338,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:21:16+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:21:03+08:00">
                 2018-07-09
               </time>
             
@@ -386,9 +386,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/Limiting/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/Java-lock/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/Limiting/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/Java-lock/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -418,19 +418,12 @@
       
         
           
-          限流算法限流是解决高并发大流量的一种方案，至少是可以保证应用的可用性。
-通常有以下两种限流方案：
-
-漏桶算法
-令牌桶算法
-
-漏桶算法
-漏桶算法非常简单，就是将流量放入桶中并按照一定的速率流出。如果流量过大时候并不会提高流出效率，而溢出的流量也只能是抛弃掉了。
-这种算法很简单，但也非常粗暴，无法应对突
+          对锁的一些认知 有哪些锁同一进程重入锁使用 ReentrantLock 获取锁的时候会会判断当前线程是否为获取锁的线程，如果是则将同步的状态 +1 ,释放锁的时候则将状态 -1。只有将同步状态的次数置为 0 的时候才会最终释放锁。
+读写锁使用 ReentrantReadWriteLock ,同时维护
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Limiting/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Java-lock/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -670,189 +663,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/Java-lock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="airpoet">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A.P的文艺杂谈">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/Java-lock/" itemprop="url">Java-lock</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-30T10:06:27+08:00">
-                2018-06-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:21:03+08:00">
-                2018-07-09
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Github/" itemprop="url" rel="index">
-                    <span itemprop="name">Github</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Github/Java-Interview/" itemprop="url" rel="index">
-                    <span itemprop="name">Java-Interview</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/Java-lock/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/Java-lock/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          对锁的一些认知 有哪些锁同一进程重入锁使用 ReentrantLock 获取锁的时候会会判断当前线程是否为获取锁的线程，如果是则将同步的状态 +1 ,释放锁的时候则将状态 -1。只有将同步状态的次数置为 0 的时候才会最终释放锁。
-读写锁使用 ReentrantReadWriteLock ,同时维护
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Java-lock/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/LinkedList/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1037,7 +847,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/ClassLoad/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/Limiting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -1056,7 +866,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/" itemprop="url">ClassLoad</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/Limiting/" itemprop="url">Limiting</a></h1>
         
 
         <div class="post-meta">
@@ -1084,7 +894,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:19:06+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:21:16+08:00">
                 2018-07-09
               </time>
             
@@ -1132,9 +942,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/Limiting/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/ClassLoad/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/Limiting/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1164,16 +974,19 @@
       
         
           
-          类加载机制双亲委派模型模型如下图：
+          限流算法限流是解决高并发大流量的一种方案，至少是可以保证应用的可用性。
+通常有以下两种限流方案：
 
-双亲委派模型中除了启动类加载器之外其余都需要有自己的父类加载器
-当一个类收到了类加载请求时: 自己不会首先加载，而是委派给父加载器进行加载，每个层次的加载器都是这样。
-所以最终每个加载请求都会经过启动类加载器。只有当父类加载返回不能加载时子加载器才会进行加载。
+漏桶算法
+令牌桶算法
 
+漏桶算法
+漏桶算法非常简单，就是将流量放入桶中并按照一定的速率流出。如果流量过大时候并不会提高流出效率，而溢出的流量也只能是抛弃掉了。
+这种算法很简单，但也非常粗暴，无法应对突
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Limiting/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1415,7 +1228,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/DB-split/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/ClassLoad/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -1434,7 +1247,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/DB-split/" itemprop="url">DB-split</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/" itemprop="url">ClassLoad</a></h1>
         
 
         <div class="post-meta">
@@ -1462,7 +1275,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:20:00+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:19:06+08:00">
                 2018-07-09
               </time>
             
@@ -1510,9 +1323,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/DB-split/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/DB-split/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/ClassLoad/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1542,13 +1355,16 @@
       
         
           
-          数据库水平垂直拆分当数据库量非常大的时候，DB 已经成为系统瓶颈时就可以考虑进行水平垂直拆分了。
-水平拆分一般水平拆分是根据表中的某一字段(通常是主键 ID )取模处理，将一张表的数据拆分到多个表中。这样每张表的表结构是相同的但是数据不同。
-不但可以通过 ID 取模分表还可以通过时间分表，比如每月生
+          类加载机制双亲委派模型模型如下图：
+
+双亲委派模型中除了启动类加载器之外其余都需要有自己的父类加载器
+当一个类收到了类加载请求时: 自己不会首先加载，而是委派给父加载器进行加载，每个层次的加载器都是这样。
+所以最终每个加载请求都会经过启动类加载器。只有当父类加载返回不能加载时子加载器才会进行加载。
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/DB-split/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/ClassLoad/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1734,6 +1550,190 @@ Hash 取模随机放置就不说了，会带来很多问题。通常最容易想
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/DB-split/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="airpoet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-14-045043.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A.P的文艺杂谈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/DB-split/" itemprop="url">DB-split</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-30T10:06:27+08:00">
+                2018-06-30
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:20:00+08:00">
+                2018-07-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/" itemprop="url" rel="index">
+                    <span itemprop="name">Github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github/Java-Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Java-Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/30/Java/Interview/Java-Interview/DB-split/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/DB-split/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          数据库水平垂直拆分当数据库量非常大的时候，DB 已经成为系统瓶颈时就可以考虑进行水平垂直拆分了。
+水平拆分一般水平拆分是根据表中的某一字段(通常是主键 ID )取模处理，将一张表的数据拆分到多个表中。这样每张表的表结构是相同的但是数据不同。
+不但可以通过 ID 取模分表还可以通过时间分表，比如每月生
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/DB-split/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

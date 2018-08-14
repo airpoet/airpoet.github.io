@@ -338,8 +338,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-13T22:39:10+08:00">
-                2018-08-13
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-14T09:24:40+08:00">
+                2018-08-14
               </time>
             
           </span>
@@ -407,14 +407,19 @@
       
         
           
-          一. Lucene
-索引 和 Document 都存在磁盘
-二. Nginx 整合KeepAlive
-三. ECharts散点图, 堆叠区域图, 饼图, 热力图
-四. 热力图参考百度地图官方热力图案例
+          一. Lucene查询总结:
 
-可以直接使用百度开放平台的热力图, 申请 ak(秘钥) (accesskey)
-把 ak 放到百
+Term 查询(传入new Term()对象), 不分词, 严格匹配内容
+分词查询
+多字段查询
+Boolean 查询
+范围查询 (数字类型)
+确切值查询 (数字类型)
+查询所有
+
+索引 和 Document 都存在磁盘
+代码见我的 github
+二. Nginx 整合
           ...
           <!--noindex-->
           <div class="post-button text-center">

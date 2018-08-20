@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[单车项目]]></title>
-    <url>%2F2018%2F08%2F19%2FProject%2F%E5%8D%95%E8%BD%A6%E9%A1%B9%E7%9B%AE%2F</url>
-    <content type="text"><![CDATA[一. 项目总体架构 二. Nginx 部署 &amp; 负载均衡12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273使用 root 安装1.上传nginx安装包2.解压nginx tar -zxvf nginx-1.12.2.tar.gz -C /usr/local/src/3.进入到nginx的源码目录 cd /usr/local/src/nginx-1.12.2/4.预编译 ./configure5.安静gcc编译器 yum -y install gcc pcre-devel openssl openssl-devel6.然后再执行 ./configure7.编译安装nginx make &amp;&amp; make install8.启动nginx sbin/nginx9.查看nginx进程 ps -ef | grep nginx netstat -anpt | grep nginx--------------------------------------------------------------------------#将springboot程序部署在多台服务器上，然后启动springboot$&gt; java -jar /home/ap/jars/sbike-0.0.1-SNAPSHOT.war 1&gt;/home/ap/logs/sbike.log 2&gt;/home/ap/logs/sbike.err &amp;--------------------------------------------------------------------------#修改nginx的配置文件，让nginx实现负载均衡功能vi /usr/local/nginx/conf/nginx.conf#关于nginx 的详细配置见笔记https://app.yinxiang.com/shard/s37/nl/7399077/03809ee1-8c47-4383-98b1-a72867450681/#负载均衡简单配置$&gt; vi /usr/local/nginx/conf/nginx.conf## 在 http 中插入如下内容http &#123;======================================================================== #响应数据的来源( tomcat 的服务器集群, weigth 是权重) upstream tomcats &#123; server cs1:8888 weight=1; server cs2:8888 weight=1; server cs3:8888 weight=1; &#125; #负载均衡服务器配置 server &#123; listen 80; server_name cs7; location / &#123; #转发给tomcats组 proxy_pass http://tomcats; &#125; &#125;========================================================================&#125;$&gt; nginx/sbin/nginx -h #查看帮助$&gt; nginx/sbin/nginx -h #测试配置是否语法正确$&gt; nginx/sbin/nginx -s reload # -s signal : send signal to a master process: stop, quit, reopen, reload #启动Nginx $&gt; sbin/nginx(注意: 此时打好的 war 包需要已经在 cs1-cs3上运行起来了,否则就无法往这3台 tomcat 上转发)#访问: http://cs7/host#会发现, 每一次访问都会分别转发给 cs1-cs3 三. Nginx 安装 kafka 插件 直接把日志给到 kafka注意: 从 Nginx 直推日志到 kafka 是一个亮点 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192安装nginx-kafka插件1.安装git yum install -y git 2.切换到/usr/local/src目录，然后将kafka的c客户端源码clone到本地 (The Apache Kafka C/C++ library ) cd /usr/local/src # 安装 kafka的 c/c++ 的客户端 git clone https://github.com/edenhill/librdkafka3.进入到librdkafka，然后进行编译 cd librdkafka yum install -y gcc gcc-c++ pcre-devel zlib-devel ./configure make &amp;&amp; make install4.安装nginx整合kafka的插件，进入到/usr/local/src，clone nginx整合kafka的源码 cd /usr/local/src #安装 nginx 整合 kafka 的插件 git clone https://github.com/brg-liuwei/ngx_kafka_module5.进入到nginx的源码包目录下 （编译nginx，然后将将插件同时编译） cd /usr/local/src/nginx-1.12.2 ./configure --add-module=/usr/local/src/ngx_kafka_module/ make make install6.修改nginx的配置文件，详情请查看当前目录的nginx.conf#同样是在 http&#123;&#125; 中 修改的用 #### 包起来了http &#123; include mime.types; default_type application/octet-stream; sendfile on; #tcp_nopush on; #keepalive_timeout 0; keepalive_timeout 65; #gzip on;################################################ kafka; kafka_broker_list cs1:9092 cs2:9092 cs3:9092;################################################ server &#123; listen 80; ################################################ server_name cs8; #charset koi8-r; #access_log logs/host.access.log main; location = /kafka/track &#123; kafka_topic track; &#125; location = /kafka/user &#123; kafka_topic user; &#125; ################################################ #error_page 404 /404.html; # redirect server error pages to the static page /50x.html # error_page 500 502 503 504 /50x.html; location = /50x.html &#123; root html; &#125; &#125;&#125;7.启动zk和kafka集群(创建topic) zkServer.sh start kafka-server-start.sh -daemon /home/ap/apps/kafka/config/server.properties &gt; 创建主题 track 和 user kafka-topics.sh --create --zookeeper cs1:2181 --replication-factor 3 --partitions 3 --topic track kafka-topics.sh --create --zookeeper cs1:2181 --replication-factor 3 --partitions 3 --topic user &gt; 查看 kafka-topics.sh --zookeeper cs1:2181 --describe --topic track 8.启动nginx，报错，找不到kafka.so.1的文件 error while loading shared libraries: librdkafka.so.1: cannot open shared object file: No such file or directory 9.加载so库 echo "/usr/local/lib" &gt;&gt; /etc/ld.so.conf ldconfig10.测试，向nginx中写入数据，然后观察kafka的消费者能不能消费到数据 # 因为在 nginx 的配置文件 nginx.conf 中, 已经指明了 kafka_broker_list 的所有主机, 所以才可以写到 kafka 中去 curl localhost/kafka/topic -d "message send to kafka topic" #例子: 1&gt; 在 cs1~3上随便一台开一个消费者 $&gt; kafka-console-consumer.sh --bootstrap-server cs1:9092,cs2:9092,cs3:9092 --topic track --from-beginning 2&gt; 在 nginx 服务骑上, 使用 # curl localhost/kafka/topic -d "message send to kafka topic" 往配置的主题目录发送消息 /usr/local/nginx $&gt; curl localhost/kafka/track -d "哎哟我去, 你也太厉害辣...." 接下来, 测试微信小程序, 把 生命周期函数onReady后, 采集的用户openid + 经度 + 纬度 , post 请求 nginx的服务器 http://cs8/kafka/user,会直接转发到 kafka 对应的主题中 1234567891011121314151617181920212223240&gt; # 运行 sbike 程序1&gt; # wechat 小程序中 wx.request(&#123; //用POST方式请求es可以只指定index和type，不用指定id // url: "http://localhost:8888/log/ready", // 注意: 这里直接请求 Nginx, 由 nginx 直接把此条user 日志, 推到 kafka 中 url: "http://cs8/kafka/user", data: &#123; time: new Date(), openid: openid, lat: lat, log: log &#125;, method: "POST" &#125;)2&gt; # 在 cs1-cs3 随便开一个 kafkaconsumer 进行消费 $&gt; kafka-console-consumer.sh --bootstrap-server cs1:9092,cs2:9092,cs3:9092 --topic top --from-beginning3&gt; # 刷新 wechat 小程序, 会在 onReady后, 发送一条 post 请求到 nginx, 请求中为 user 信息 在 kafka consumer 端, 会搜集到 user 信息]]></content>
-      <categories>
-        <category>Project</category>
-        <category>共享单车</category>
-      </categories>
-      <tags>
-        <tag>原创</tag>
-        <tag>技术</tag>
-        <tag>Project</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[MongoDB]]></title>
     <url>%2F2018%2F08%2F16%2FMongoDB%2FMongoDB%2F</url>
     <content type="text"><![CDATA[注意点: 创建用户名, 密码前, 要先选择对应的库, 用户&amp;密码 是对应的库的 一. MongoDB 简介mongdb一个NoSQL数据库，里面存储的是BSON（Binary Serialized Document Format)，支持集群，高可用、可扩展。 MongoDB MySQL database database collection table json 二维表 不支持SQL SQL _id 主键 二. 安装 MongoDB安装前准备12345678910111213141516171819202122232425#创建一个普通用户apuseradd ap#为hadoop用户添加密码：echo 123456 | passwd --stdin ap#将bigdata添加到sudoersecho "ap ALL = (root) NOPASSWD:ALL" | tee /etc/sudoers.d/apchmod 0440 /etc/sudoers.d/ap#解决sudo: sorry, you must have a tty to run sudo问题，在/etc/sudoer注释掉 Default requiretty 一行sudo sed -i 's/Defaults requiretty/Defaults:ap !requiretty/' /etc/sudoers#配置mongo的yum源sudo vi /etc/yum.repos.d/mongodb-org.repo[mongodb-org]name=MongoDB Repositorybaseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/6Server/mongodb-org/3.4/x86_64/gpgcheck=0enabled=1#关闭selinuxvi /etc/sysconfig/selinux SELINUX=disabled#重新启动reboot mongo的安装和基本使用详细使用吗, 见菜鸟教程 1234567891011121314151617181920212223242526272829303132333435363738394041#在机器上使用ap用户登录（本地安装rpm包d的话，rpm -ivh *.rpm）sudo yum install -y mongodb-org#修改mongo的配置文件sudo vi /etc/mongod.conf #注释掉bindIp或者修改成当前机器的某一个ip地址#启动mongosudo service mongod start#连接到mongo## 如果注释掉了bindIp，那么连接时用mongo## 指定了ip地址mongo --host 192.168.170.171 --port 27017#使用或创建databaseuse ap#创建集合（表）db.createCollection("bike")#插入数据db.bike.insert(&#123;"_id": 100001, "status": 1, "desc": "test"&#125;)db.bike.insert(&#123;"_id": 100002, "status": 1, "desc": "test"&#125;)#查找数据(所有)db.bike.find()#退出exit#关闭mongo服务sudu service mongod stop#设置服务开机启动sudo checkconfig mongod on#设置mongo服务开机不启动sudo chkconfig mongod off mongo安全认证配置 注意: #如果修改了mongo存储是的目录那么一定要修改该目录的所属用户和组为mongod $&gt; chown -R mongod:mongod /mongo/ 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354#添加管理员用户#使用admin这个databaseuse admin#在没有开启认证的情况下，创建一个超级用户db.createUser( &#123; user: "root", pwd: "123", roles: [ &#123;role: "root", db: "admin" &#125;] &#125;)#修改mongo的配置文件/etc/mongod.conf，配置mongo的安全认证, 前面空2格security: authorization: enabled#重启mongo服务service mongod restart#重新使用mongo shell连接mongo#使用admin databaseuse admin#授权登录db.auth("admin", "admin123")#创建一个bike数据库use bike#添加一个普通用户，具备读写权限db.createUser( &#123; user: "ap", pwd: "123", roles: ["readWrite"] &#125;)#使用ap用户登录mongo#因为用户都是针对数据库设置的, 所以要先选择数据库use bike# 选择完数据库之后, 验证 用户名&amp;密码db.auth("ap", "123")#在database下创建collectiondb.createCollection("users")db.createCollection("bikes")show tables]]></content>
@@ -867,9 +853,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[HashSet]]></title>
-    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2Fcollection%2FHashSet%2F</url>
-    <content type="text"><![CDATA[HashSetHashSet 是一个不允许存储重复元素的集合，它的实现比较简单，只要理解了 HashMap，HashSet 就水到渠成了。 成员变量首先了解下 HashSet 的成员变量: 1234private transient HashMap&lt;E,Object&gt; map;// Dummy value to associate with an Object in the backing Mapprivate static final Object PRESENT = new Object(); 发现主要就两个变量: map ：用于存放最终数据的。 PRESENT ：是所有写入 map 的 value 值。 构造函数1234567public HashSet() &#123; map = new HashMap&lt;&gt;();&#125;public HashSet(int initialCapacity, float loadFactor) &#123; map = new HashMap&lt;&gt;(initialCapacity, loadFactor);&#125; 构造函数很简单，利用了 HashMap 初始化了 map 。 add123public boolean add(E e) &#123; return map.put(e, PRESENT)==null;&#125; 比较关键的就是这个 add() 方法。可以看出它是将存放的对象当做了 HashMap 的健，value 都是相同的 PRESENT 。由于 HashMap 的 key 是不能重复的，所以每当有重复的值写入到 HashSet 时，value 会被覆盖，但 key 不会收到影响，这样就保证了 HashSet 中只能存放不重复的元素。 总结HashSet 的原理比较简单，几乎全部借助于 HashMap 来实现的。 所以 HashMap 会出现的问题 HashSet 依然不能避免。]]></content>
+    <title><![CDATA[Threadcore]]></title>
+    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FThreadcore%2F</url>
+    <content type="text"><![CDATA[Java 多线程三大核心原子性Java 的原子性就和数据库事物的原子性差不多，一个操作中要么全部执行成功或者失败。 JMM 只是保证了基本的原子性，但类似于 i++ 之类的操作，看似是原子操作，其实里面涉及到: 获取 i 的值。 自增。 再赋值给 i。 这三步操作，所以想要实现 i++ 这样的原子操作就需要用到 synchronize 或者是 lock 进行加锁处理。 如果是基础类的自增操作可以使用 AtomicInteger 这样的原子类来实现(其本质是利用了 CPU 级别的 的 CAS 指令来完成的)。 其中用的最多的方法就是: incrementAndGet() 以原子的方式自增。源码如下: 12345678public final long incrementAndGet() &#123; for (;;) &#123; long current = get(); long next = current + 1; if (compareAndSet(current, next)) return next; &#125; &#125; 首先是获得当前的值，然后自增 +1。接着则是最核心的 compareAndSet() 来进行原子更新。 123public final boolean compareAndSet(long expect, long update) &#123; return unsafe.compareAndSwapLong(this, valueOffset, expect, update); &#125; 其逻辑就是判断当前的值是否被更新过，是否等于 current，如果等于就说明没有更新过然后将当前的值更新为 next，如果不等于则返回false 进入循环，直到更新成功为止。 还有其中的 get() 方法也很关键，返回的是当前的值，当前值用了 volatile 关键词修饰，保证了内存可见性。 1private volatile int value; 可见性现代计算机中，由于 CPU 直接从主内存中读取数据的效率不高，所以都会对应的 CPU 高速缓存，先将主内存中的数据读取到缓存中，线程修改数据之后首先更新到缓存，之后才会更新到主内存。如果此时还没有将数据更新到主内存其他的线程此时来读取就是修改之前的数据。 如上图所示。 volatile 关键字就是用于保证内存可见性，当线程A更新了 volatile 修饰的变量时，它会立即刷新到主线程，并且将其余缓存中该变量的值清空，导致其余线程只能去主内存读取最新值。 使用 volatile 关键词修饰的变量每次读取都会得到最新的数据，不管哪个线程对这个变量的修改都会立即刷新到主内存。 synchronize和加锁也能能保证可见性，实现原理就是在释放锁之前其余线程是访问不到这个共享变量的。但是和 volatile 相比开销较大。 顺序性以下这段代码: 123int a = 100 ; //1int b = 200 ; //2int c = a + b ; //3 正常情况下的执行顺序应该是 1&gt;&gt;2&gt;&gt;3。但是有时 JVM 为了提高整体的效率会进行指令重排导致执行的顺序可能是 2&gt;&gt;1&gt;&gt;3。但是 JVM 也不能是什么都进行重排，是在保证最终结果和代码顺序执行结果一致的情况下才可能进行重排。 重排在单线程中不会出现问题，但在多线程中会出现数据不一致的问题。 Java 中可以使用 volatile 来保证顺序性，synchronize 和 lock 也可以来保证有序性，和保证原子性的方式一样，通过同一段时间只能一个线程访问来实现的。 除了通过 volatile 关键字显式的保证顺序之外， JVM 还通过 happen-before 原则来隐式的保证顺序性。 其中有一条就是适用于 volatile 关键字的，针对于 volatile 关键字的写操作肯定是在读操作之前，也就是说读取的值肯定是最新的。 volatile 的应用双重检查锁的单例模式可以用 volatile 实现一个双重检查锁的单例模式： 123456789101112131415public class Singleton&#123; private static volatile Singleton singleton ; private Singleton()&#123;&#125; public static Singleton getInstance()&#123; if(singleton == null)&#123; synchronize(Singleton.class)&#123; if(singleton == null)&#123; singleton = new Singleton(); &#125; &#125; &#125; return singleton ; &#125; &#125; 这里的 volatile 关键字主要是为了防止指令重排。如果不用 volatile ，singleton = new Singleton();，这段代码其实是分为三步： 分配内存空间。(1) 初始化对象。(2) 将 singleton 对象指向分配的内存地址。(3) 加上 volatile 是为了让以上的三步操作顺序执行，反之有可能第二步在第三步之前被执行就有可能某个线程拿到的单例对象是还没有初始化的，以致于报错。 控制停止线程的标记123456789101112private volatile boolean flag ;private void run()&#123; new Thread(new Runnable()&#123; if(flag)&#123; doSomeThing(); &#125; &#125;);&#125;private void stop()&#123; flag = false ;&#125; 这里如果没有用 volatile 来修饰 flag ，就有可能其中一个线程调用了 stop()方法修改了 flag 的值并不会立即刷新到主内存中，导致这个循环并不会立即停止。 这里主要利用的是 volatile 的内存可见性。 总结一下: volatile 关键字只能保证可见性，顺序性，不能保证原子性。]]></content>
       <categories>
         <category>Github</category>
         <category>Java-Interview</category>
@@ -881,9 +867,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Threadcore]]></title>
-    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FThreadcore%2F</url>
-    <content type="text"><![CDATA[Java 多线程三大核心原子性Java 的原子性就和数据库事物的原子性差不多，一个操作中要么全部执行成功或者失败。 JMM 只是保证了基本的原子性，但类似于 i++ 之类的操作，看似是原子操作，其实里面涉及到: 获取 i 的值。 自增。 再赋值给 i。 这三步操作，所以想要实现 i++ 这样的原子操作就需要用到 synchronize 或者是 lock 进行加锁处理。 如果是基础类的自增操作可以使用 AtomicInteger 这样的原子类来实现(其本质是利用了 CPU 级别的 的 CAS 指令来完成的)。 其中用的最多的方法就是: incrementAndGet() 以原子的方式自增。源码如下: 12345678public final long incrementAndGet() &#123; for (;;) &#123; long current = get(); long next = current + 1; if (compareAndSet(current, next)) return next; &#125; &#125; 首先是获得当前的值，然后自增 +1。接着则是最核心的 compareAndSet() 来进行原子更新。 123public final boolean compareAndSet(long expect, long update) &#123; return unsafe.compareAndSwapLong(this, valueOffset, expect, update); &#125; 其逻辑就是判断当前的值是否被更新过，是否等于 current，如果等于就说明没有更新过然后将当前的值更新为 next，如果不等于则返回false 进入循环，直到更新成功为止。 还有其中的 get() 方法也很关键，返回的是当前的值，当前值用了 volatile 关键词修饰，保证了内存可见性。 1private volatile int value; 可见性现代计算机中，由于 CPU 直接从主内存中读取数据的效率不高，所以都会对应的 CPU 高速缓存，先将主内存中的数据读取到缓存中，线程修改数据之后首先更新到缓存，之后才会更新到主内存。如果此时还没有将数据更新到主内存其他的线程此时来读取就是修改之前的数据。 如上图所示。 volatile 关键字就是用于保证内存可见性，当线程A更新了 volatile 修饰的变量时，它会立即刷新到主线程，并且将其余缓存中该变量的值清空，导致其余线程只能去主内存读取最新值。 使用 volatile 关键词修饰的变量每次读取都会得到最新的数据，不管哪个线程对这个变量的修改都会立即刷新到主内存。 synchronize和加锁也能能保证可见性，实现原理就是在释放锁之前其余线程是访问不到这个共享变量的。但是和 volatile 相比开销较大。 顺序性以下这段代码: 123int a = 100 ; //1int b = 200 ; //2int c = a + b ; //3 正常情况下的执行顺序应该是 1&gt;&gt;2&gt;&gt;3。但是有时 JVM 为了提高整体的效率会进行指令重排导致执行的顺序可能是 2&gt;&gt;1&gt;&gt;3。但是 JVM 也不能是什么都进行重排，是在保证最终结果和代码顺序执行结果一致的情况下才可能进行重排。 重排在单线程中不会出现问题，但在多线程中会出现数据不一致的问题。 Java 中可以使用 volatile 来保证顺序性，synchronize 和 lock 也可以来保证有序性，和保证原子性的方式一样，通过同一段时间只能一个线程访问来实现的。 除了通过 volatile 关键字显式的保证顺序之外， JVM 还通过 happen-before 原则来隐式的保证顺序性。 其中有一条就是适用于 volatile 关键字的，针对于 volatile 关键字的写操作肯定是在读操作之前，也就是说读取的值肯定是最新的。 volatile 的应用双重检查锁的单例模式可以用 volatile 实现一个双重检查锁的单例模式： 123456789101112131415public class Singleton&#123; private static volatile Singleton singleton ; private Singleton()&#123;&#125; public static Singleton getInstance()&#123; if(singleton == null)&#123; synchronize(Singleton.class)&#123; if(singleton == null)&#123; singleton = new Singleton(); &#125; &#125; &#125; return singleton ; &#125; &#125; 这里的 volatile 关键字主要是为了防止指令重排。如果不用 volatile ，singleton = new Singleton();，这段代码其实是分为三步： 分配内存空间。(1) 初始化对象。(2) 将 singleton 对象指向分配的内存地址。(3) 加上 volatile 是为了让以上的三步操作顺序执行，反之有可能第二步在第三步之前被执行就有可能某个线程拿到的单例对象是还没有初始化的，以致于报错。 控制停止线程的标记123456789101112private volatile boolean flag ;private void run()&#123; new Thread(new Runnable()&#123; if(flag)&#123; doSomeThing(); &#125; &#125;);&#125;private void stop()&#123; flag = false ;&#125; 这里如果没有用 volatile 来修饰 flag ，就有可能其中一个线程调用了 stop()方法修改了 flag 的值并不会立即刷新到主内存中，导致这个循环并不会立即停止。 这里主要利用的是 volatile 的内存可见性。 总结一下: volatile 关键字只能保证可见性，顺序性，不能保证原子性。]]></content>
+    <title><![CDATA[HashSet]]></title>
+    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2Fcollection%2FHashSet%2F</url>
+    <content type="text"><![CDATA[HashSetHashSet 是一个不允许存储重复元素的集合，它的实现比较简单，只要理解了 HashMap，HashSet 就水到渠成了。 成员变量首先了解下 HashSet 的成员变量: 1234private transient HashMap&lt;E,Object&gt; map;// Dummy value to associate with an Object in the backing Mapprivate static final Object PRESENT = new Object(); 发现主要就两个变量: map ：用于存放最终数据的。 PRESENT ：是所有写入 map 的 value 值。 构造函数1234567public HashSet() &#123; map = new HashMap&lt;&gt;();&#125;public HashSet(int initialCapacity, float loadFactor) &#123; map = new HashMap&lt;&gt;(initialCapacity, loadFactor);&#125; 构造函数很简单，利用了 HashMap 初始化了 map 。 add123public boolean add(E e) &#123; return map.put(e, PRESENT)==null;&#125; 比较关键的就是这个 add() 方法。可以看出它是将存放的对象当做了 HashMap 的健，value 都是相同的 PRESENT 。由于 HashMap 的 key 是不能重复的，所以每当有重复的值写入到 HashSet 时，value 会被覆盖，但 key 不会收到影响，这样就保证了 HashSet 中只能存放不重复的元素。 总结HashSet 的原理比较简单，几乎全部借助于 HashMap 来实现的。 所以 HashMap 会出现的问题 HashSet 依然不能避免。]]></content>
       <categories>
         <category>Github</category>
         <category>Java-Interview</category>
@@ -909,23 +895,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[SQL-optimization]]></title>
-    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FSQL-optimization%2F</url>
-    <content type="text"><![CDATA[SQL 优化负向查询不能使用索引1select name from user where id not in (1,3,4); 应该修改为: 1select name from user where id in (2,5,6); 前导模糊查询不能使用索引如: 1select name from user where name like '%zhangsan' 非前导则可以:1select name from user where name like 'zhangsan%' 建议可以考虑使用 Lucene 等全文索引工具来代替频繁的模糊查询。 数据区分不明显的不建议创建索引如 user 表中的性别字段，可以明显区分的才建议创建索引，如身份证等字段。 字段的默认值不要为 null这样会带来和预期不一致的查询结果。 在字段上进行计算不能命中索引1select name from user where FROM_UNIXTIME(create_time) &lt; CURDATE(); 应该修改为: 1select name from user where create_time &lt; FROM_UNIXTIME(CURDATE()); 最左前缀问题如果给 user 表中的 username pwd 字段创建了复合索引那么使用以下SQL 都是可以命中索引: 12345select username from user where username='zhangsan' and pwd ='axsedf1sd'select username from user where pwd ='axsedf1sd' and username='zhangsan'select username from user where username='zhangsan' 但是使用 1select username from user where pwd ='axsedf1sd' 是不能命中索引的。 如果明确知道只有一条记录返回1select name from user where username='zhangsan' limit 1 可以提高效率，可以让数据库停止游标移动。 不要让数据库帮我们做强制类型转换1select name from user where telno=18722222222 这样虽然可以查出数据，但是会导致全表扫描。 需要修改为1select name from user where telno=&apos;18722222222&apos; 如果需要进行 join 的字段两表的字段类型要相同不然也不会命中索引。]]></content>
-      <categories>
-        <category>Github</category>
-        <category>Java-Interview</category>
-      </categories>
-      <tags>
-        <tag>技术</tag>
-        <tag>Java</tag>
-        <tag>转载</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Spike]]></title>
-    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FSpike%2F</url>
-    <content type="text"><![CDATA[设计一个秒杀系统主要做到以下两点: 尽量将请求过滤在上游。 尽可能的利用缓存(大多数场景下都是查多于写)。 常用的系统分层结构: 针对于浏览器端，可以使用 JS 进行请求过滤，比如五秒钟之类只能点一次抢购按钮，五秒钟只能允许请求一次后端服务。(APP 同理) 这样其实就可以过滤掉大部分普通用户。 但是防不住直接抓包循环调用。这种情况可以最简单的处理:在Web层通过限制一个 UID 五秒之类的请求服务层的次数(可利用 Redis 实现)。 但如果是真的有 10W 个不同的 UID 来请求，比如黑客抓肉鸡的方式。 这种情况可以在服务层 针对于写请求使用请求队列，再通过限流算法(限流算法)每秒钟放一部分请求到队列。 对于读请求则尽量使用缓存，可以提前将数据准备好，不管是 Redis 还是其他缓存中间件效率都是非常高的。 ps : 刷新缓存情况，比如库存扣除成功这种情况不用马上刷新缓存，如果库存扣到了 0 再刷新缓存。因为大多数用户都只关心是否有货，并不关心现在还剩余多少。 总结 如果流量巨大，导致各个层的压力都很大可以适当的加机器横向扩容。如果加不了机器那就只有放弃流量直接返回失败。快速失败非常重要，至少可以保证系统的可用性。 业务分批执行：对于下单、付款等操作可以异步执行提高吞吐率。 主要目的就是尽量少的请求直接访问到 DB。]]></content>
+    <title><![CDATA[TCP-IP]]></title>
+    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FTCP-IP%2F</url>
+    <content type="text"><![CDATA[TCP/IP 协议TCP/IP 总结起来就三个要点 三次握手的意义。 超时重发。 滑动窗口。 三次握手 如图类似： 发送者问接收者我发消息了，你收到了嘛？ 接收者回复发送者我收到了，你发消息没问题，我收消息也没问题。但我不知道我的发消息有没有问题，你收到了回复我下。 发送者告诉接收者，我收到你的消息了，你发消息没问题。通信成功我们开始工作吧！ 超时重发当发送者向接收者发包后，如果过了一段时间(超时时间)依然没有收到消息，就当做本次包丢失，需要重新补发。 并且如果一次性发了三个包，只要最后一个包确认收到之后就默认前面两个也收到了。 滑动窗口假设一次性发送包的大小为3，那么每次可以发3个包，而且可以边发边接收，这样就会增强效率。这里的 3 就是滑动窗口的大小，这样的发送方式也叫滑动窗口协议。]]></content>
       <categories>
         <category>Github</category>
         <category>Java-Interview</category>
@@ -951,20 +923,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[TCP-IP]]></title>
-    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FTCP-IP%2F</url>
-    <content type="text"><![CDATA[TCP/IP 协议TCP/IP 总结起来就三个要点 三次握手的意义。 超时重发。 滑动窗口。 三次握手 如图类似： 发送者问接收者我发消息了，你收到了嘛？ 接收者回复发送者我收到了，你发消息没问题，我收消息也没问题。但我不知道我的发消息有没有问题，你收到了回复我下。 发送者告诉接收者，我收到你的消息了，你发消息没问题。通信成功我们开始工作吧！ 超时重发当发送者向接收者发包后，如果过了一段时间(超时时间)依然没有收到消息，就当做本次包丢失，需要重新补发。 并且如果一次性发了三个包，只要最后一个包确认收到之后就默认前面两个也收到了。 滑动窗口假设一次性发送包的大小为3，那么每次可以发3个包，而且可以边发边接收，这样就会增强效率。这里的 3 就是滑动窗口的大小，这样的发送方式也叫滑动窗口协议。]]></content>
-      <categories>
-        <category>Github</category>
-        <category>Java-Interview</category>
-      </categories>
-      <tags>
-        <tag>技术</tag>
-        <tag>Java</tag>
-        <tag>转载</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[SpringAOP]]></title>
     <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FSpringAOP%2F</url>
     <content type="text"><![CDATA[Spring AOP 实现原理静态代理众所周知 Spring 的 AOP 是基于动态代理实现的，谈到动态代理就不得不提下静态代理。实现如下： 假设有一接口 InterfaceA： 123public interface InterfaceA&#123; void exec();&#125; 其中有实现类 RealImplement:12345public class RealImplement implement InterfaceA&#123; public void exec()&#123; System.out.println("real impl") ; &#125;&#125; 这时也有一个代理类 ProxyImplement 也实现了 InterfaceA:12345678910111213141516public class ProxyImplement implement InterfaceA&#123; private InterfaceA interface ; public ProxyImplement()&#123; interface = new RealImplement() ; &#125; public void exec()&#123; System.out.println("dosomethings before); //实际调用 interface.exec(); System.out.println("dosomethings after); &#125; &#125; 使用如下:123456public class Main()&#123; public static void main(String[] args)&#123; InterfaceA interface = new ProxyImplement() ; interface.exec(); &#125;&#125; 可以看出这样的代理方式调用者其实都不知道被代理对象的存在。 JDK 动态代理从静态代理中可以看出: 静态代理只能代理一个具体的类，如果要代理一个接口的多个实现的话需要定义不同的代理类。 需要解决这个问题就可以用到 JDK 的动态代理。 其中有两个非常核心的类: java.lang.reflect.Proxy类。 java.lang.reflect.InvocationHandle接口。 Proxy 类是用于创建代理对象，而 InvocationHandler 接口主要你是来处理执行逻辑。 如下：1234567891011121314151617181920212223242526272829303132333435public class CustomizeHandle implements InvocationHandler &#123; private final static Logger LOGGER = LoggerFactory.getLogger(CustomizeHandle.class); private Object target; public CustomizeHandle(Class clazz) &#123; try &#123; this.target = clazz.newInstance(); &#125; catch (InstantiationException e) &#123; LOGGER.error("InstantiationException", e); &#125; catch (IllegalAccessException e) &#123; LOGGER.error("IllegalAccessException",e); &#125; &#125; @Override public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123; before(); Object result = method.invoke(target, args); after(); LOGGER.info("proxy class=&#123;&#125;", proxy.getClass()); return result; &#125; private void before() &#123; LOGGER.info("handle before"); &#125; private void after() &#123; LOGGER.info("handle after"); &#125;&#125; 其中构造方法传入被代理类的类类型。其实传代理类的实例或者是类类型并没有强制的规定，传类类型的是因为被代理对象应当有代理创建而不应该由调用方创建。 使用方式如下：123456@Testpublic void test()&#123; CustomizeHandle handle = new CustomizeHandle(ISubjectImpl.class) ; ISubject subject = (ISubject) Proxy.newProxyInstance(JDKProxyTest.class.getClassLoader(), new Class[]&#123;ISubject.class&#125;, handle); subject.execute() ;&#125; 首先传入被代理类的类类型构建代理处理器。接着使用 Proxy 的newProxyInstance 方法动态创建代理类。第一个参数为类加载器，第二个参数为代理类需要实现的接口列表，最后一个则是处理器。 其实代理类是由 这个方法动态创建出来的。将 proxyClassFile 输出到文件并进行反编译的话就可以的到代理类。1234567891011121314@Testpublic void clazzTest()&#123; byte[] proxyClassFile = ProxyGenerator.generateProxyClass( "$Proxy1", new Class[]&#123;ISubject.class&#125;, 1); try &#123; FileOutputStream out = new FileOutputStream("/Users/chenjie/Documents/$Proxy1.class") ; out.write(proxyClassFile); out.close(); &#125; catch (FileNotFoundException e) &#123; e.printStackTrace(); &#125; catch (IOException e) &#123; e.printStackTrace(); &#125;&#125; 反编译后结果如下:123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869import com.crossoverjie.proxy.jdk.ISubject;import java.lang.reflect.InvocationHandler;import java.lang.reflect.Method;import java.lang.reflect.Proxy;import java.lang.reflect.UndeclaredThrowableException;public class $Proxy1 extends Proxy implements ISubject &#123; private static Method m1; private static Method m2; private static Method m3; private static Method m0; public $Proxy1(InvocationHandler var1) throws &#123; super(var1); &#125; public final boolean equals(Object var1) throws &#123; try &#123; return ((Boolean)super.h.invoke(this, m1, new Object[]&#123;var1&#125;)).booleanValue(); &#125; catch (RuntimeException | Error var3) &#123; throw var3; &#125; catch (Throwable var4) &#123; throw new UndeclaredThrowableException(var4); &#125; &#125; public final String toString() throws &#123; try &#123; return (String)super.h.invoke(this, m2, (Object[])null); &#125; catch (RuntimeException | Error var2) &#123; throw var2; &#125; catch (Throwable var3) &#123; throw new UndeclaredThrowableException(var3); &#125; &#125; public final void execute() throws &#123; try &#123; super.h.invoke(this, m3, (Object[])null); &#125; catch (RuntimeException | Error var2) &#123; throw var2; &#125; catch (Throwable var3) &#123; throw new UndeclaredThrowableException(var3); &#125; &#125; public final int hashCode() throws &#123; try &#123; return ((Integer)super.h.invoke(this, m0, (Object[])null)).intValue(); &#125; catch (RuntimeException | Error var2) &#123; throw var2; &#125; catch (Throwable var3) &#123; throw new UndeclaredThrowableException(var3); &#125; &#125; static &#123; try &#123; m1 = Class.forName("java.lang.Object").getMethod("equals", new Class[]&#123;Class.forName("java.lang.Object")&#125;); m2 = Class.forName("java.lang.Object").getMethod("toString", new Class[0]); m3 = Class.forName("com.crossoverjie.proxy.jdk.ISubject").getMethod("execute", new Class[0]); m0 = Class.forName("java.lang.Object").getMethod("hashCode", new Class[0]); &#125; catch (NoSuchMethodException var2) &#123; throw new NoSuchMethodError(var2.getMessage()); &#125; catch (ClassNotFoundException var3) &#123; throw new NoClassDefFoundError(var3.getMessage()); &#125; &#125;&#125; 可以看到代理类继承了 Proxy 类，并实现了 ISubject 接口，由此也可以看到 JDK 动态代理为什么需要实现接口，已经继承了 Proxy是不能再继承其余类了。 其中实现了 ISubject 的 execute() 方法，并通过 InvocationHandler 中的 invoke() 方法来进行调用的。 CGLIB 动态代理cglib 是对一个小而快的字节码处理框架 ASM 的封装。他的特点是继承于被代理类，这就要求被代理类不能被 final 修饰。]]></content>
@@ -979,9 +937,23 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[MemoryAllocation]]></title>
-    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FMemoryAllocation%2F</url>
-    <content type="text"><![CDATA[Java 运行时的内存划分 程序计数器记录当前线程所执行的字节码行号，用于获取下一条执行的字节码。 当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。由此也可以看出程序计数器是每个线程私有的。 虚拟机栈虚拟机栈是有一个一个的栈帧组成，栈帧是在每一个方法调用时产生的。 每一个栈帧由局部变量区、操作数栈等组成。每创建一个栈帧压栈，当一个方法执行完毕之后则出栈。 如果出现方法递归调用出现死循环的话就会造成栈帧过多，最终会抛出 stackoverflow 异常。 这块内存区域也是线程私有的。 Java 堆Java 堆是整个虚拟机所管理的最大内存区域，所有的对象创建都是在这个区域进行内存分配。 这块区域也是垃圾回收器重点管理的区域，由于大多数垃圾回收器都采用分代回收算法，所有堆内存也分为 新生代、老年代，可以方便垃圾的准确回收。 这块内存属于线程共享区域。 方法区方法区主要用于存放已经被虚拟机加载的类信息，如常量，静态变量。这块区域也被称为永久代。 运行时常量池运行时常量池是方法区的一部分，其中存放了一些符号引用。当 new 一个对象时，会检查这个区域是否有这个符号的引用。]]></content>
+    <title><![CDATA[Spike]]></title>
+    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FSpike%2F</url>
+    <content type="text"><![CDATA[设计一个秒杀系统主要做到以下两点: 尽量将请求过滤在上游。 尽可能的利用缓存(大多数场景下都是查多于写)。 常用的系统分层结构: 针对于浏览器端，可以使用 JS 进行请求过滤，比如五秒钟之类只能点一次抢购按钮，五秒钟只能允许请求一次后端服务。(APP 同理) 这样其实就可以过滤掉大部分普通用户。 但是防不住直接抓包循环调用。这种情况可以最简单的处理:在Web层通过限制一个 UID 五秒之类的请求服务层的次数(可利用 Redis 实现)。 但如果是真的有 10W 个不同的 UID 来请求，比如黑客抓肉鸡的方式。 这种情况可以在服务层 针对于写请求使用请求队列，再通过限流算法(限流算法)每秒钟放一部分请求到队列。 对于读请求则尽量使用缓存，可以提前将数据准备好，不管是 Redis 还是其他缓存中间件效率都是非常高的。 ps : 刷新缓存情况，比如库存扣除成功这种情况不用马上刷新缓存，如果库存扣到了 0 再刷新缓存。因为大多数用户都只关心是否有货，并不关心现在还剩余多少。 总结 如果流量巨大，导致各个层的压力都很大可以适当的加机器横向扩容。如果加不了机器那就只有放弃流量直接返回失败。快速失败非常重要，至少可以保证系统的可用性。 业务分批执行：对于下单、付款等操作可以异步执行提高吞吐率。 主要目的就是尽量少的请求直接访问到 DB。]]></content>
+      <categories>
+        <category>Github</category>
+        <category>Java-Interview</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>Java</tag>
+        <tag>转载</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[SQL-optimization]]></title>
+    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FSQL-optimization%2F</url>
+    <content type="text"><![CDATA[SQL 优化负向查询不能使用索引1select name from user where id not in (1,3,4); 应该修改为: 1select name from user where id in (2,5,6); 前导模糊查询不能使用索引如: 1select name from user where name like '%zhangsan' 非前导则可以:1select name from user where name like 'zhangsan%' 建议可以考虑使用 Lucene 等全文索引工具来代替频繁的模糊查询。 数据区分不明显的不建议创建索引如 user 表中的性别字段，可以明显区分的才建议创建索引，如身份证等字段。 字段的默认值不要为 null这样会带来和预期不一致的查询结果。 在字段上进行计算不能命中索引1select name from user where FROM_UNIXTIME(create_time) &lt; CURDATE(); 应该修改为: 1select name from user where create_time &lt; FROM_UNIXTIME(CURDATE()); 最左前缀问题如果给 user 表中的 username pwd 字段创建了复合索引那么使用以下SQL 都是可以命中索引: 12345select username from user where username='zhangsan' and pwd ='axsedf1sd'select username from user where pwd ='axsedf1sd' and username='zhangsan'select username from user where username='zhangsan' 但是使用 1select username from user where pwd ='axsedf1sd' 是不能命中索引的。 如果明确知道只有一条记录返回1select name from user where username='zhangsan' limit 1 可以提高效率，可以让数据库停止游标移动。 不要让数据库帮我们做强制类型转换1select name from user where telno=18722222222 这样虽然可以查出数据，但是会导致全表扫描。 需要修改为1select name from user where telno=&apos;18722222222&apos; 如果需要进行 join 的字段两表的字段类型要相同不然也不会命中索引。]]></content>
       <categories>
         <category>Github</category>
         <category>Java-Interview</category>
@@ -1035,9 +1007,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Java-lock]]></title>
-    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FJava-lock%2F</url>
-    <content type="text"><![CDATA[对锁的一些认知 有哪些锁同一进程重入锁使用 ReentrantLock 获取锁的时候会会判断当前线程是否为获取锁的线程，如果是则将同步的状态 +1 ,释放锁的时候则将状态 -1。只有将同步状态的次数置为 0 的时候才会最终释放锁。 读写锁使用 ReentrantReadWriteLock ,同时维护一对锁：读锁和写锁。当写线程访问时则其他所有锁都将阻塞，读线程访问时则不会。通过读写锁的分离可以很大程度的提高并发量和吞吐量。 不同进程分布式锁： 基于数据库可以创建一张表，将其中的某个字段设置为唯一索引，当多个请求过来的时候只有新建记录成功的请求才算获取到锁，当使用完毕删除这条记录的时候即释放锁。 存在的问题: 数据库单点问题，挂了怎么办？ 不是重入锁，同一进程无法在释放锁之前再次获得锁，因为数据库中已经存在了一条记录了。 锁是非阻塞的，一旦 insert 失败则会立即返回，并不会进入阻塞队列只能下一次再次获取。 锁没有失效时间，如果那个进程解锁失败那就没有请求可以再次获取锁了。 解决方案: 数据库切换为主从，不存在单点。 在表中加入一个同步状态字段，每次获取锁的是加 1 ，释放锁的时候-1，当状态为 0 的时候就删除这条记录，即释放锁。 非阻塞的情况可以用 while 循环来实现，循环的时候记录时间，达到 X 秒记为超时，break。 可以开启一个定时任务每隔一段时间扫描找出多少 X 秒都没有被删除的记录，主动删除这条记录。 基于 Redis使用 setNX(key) setEX(timeout) 命令，只有在该 key 不存在的时候创建和这个 key，就相当于获取了锁。由于有超时时间，所以过了规定时间会自动删除，这样也可以避免死锁。 可以参考： 基于 Redis 的分布式锁 基于 ZK]]></content>
+    <title><![CDATA[MemoryAllocation]]></title>
+    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FMemoryAllocation%2F</url>
+    <content type="text"><![CDATA[Java 运行时的内存划分 程序计数器记录当前线程所执行的字节码行号，用于获取下一条执行的字节码。 当多线程运行时，每个线程切换后需要知道上一次所运行的状态、位置。由此也可以看出程序计数器是每个线程私有的。 虚拟机栈虚拟机栈是有一个一个的栈帧组成，栈帧是在每一个方法调用时产生的。 每一个栈帧由局部变量区、操作数栈等组成。每创建一个栈帧压栈，当一个方法执行完毕之后则出栈。 如果出现方法递归调用出现死循环的话就会造成栈帧过多，最终会抛出 stackoverflow 异常。 这块内存区域也是线程私有的。 Java 堆Java 堆是整个虚拟机所管理的最大内存区域，所有的对象创建都是在这个区域进行内存分配。 这块区域也是垃圾回收器重点管理的区域，由于大多数垃圾回收器都采用分代回收算法，所有堆内存也分为 新生代、老年代，可以方便垃圾的准确回收。 这块内存属于线程共享区域。 方法区方法区主要用于存放已经被虚拟机加载的类信息，如常量，静态变量。这块区域也被称为永久代。 运行时常量池运行时常量池是方法区的一部分，其中存放了一些符号引用。当 new 一个对象时，会检查这个区域是否有这个符号的引用。]]></content>
       <categories>
         <category>Github</category>
         <category>Java-Interview</category>
@@ -1063,9 +1035,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LinkedList]]></title>
-    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FLinkedList%2F</url>
-    <content type="text"><![CDATA[LinkedList 底层分析 如图所示 LinkedList 底层是基于双向链表实现的，也是实现了 List 接口，所以也拥有 List 的一些特点(JDK1.7/8 之后取消了循环，修改为双向链表)。 新增方法123456789101112131415161718public boolean add(E e) &#123; linkLast(e); return true;&#125; /** * Links e as last element. */void linkLast(E e) &#123; final Node&lt;E&gt; l = last; final Node&lt;E&gt; newNode = new Node&lt;&gt;(l, e, null); last = newNode; if (l == null) first = newNode; else l.next = newNode; size++; modCount++;&#125; 可见每次插入都是移动指针，和 ArrayList 的拷贝数组来说效率要高上不少。 查询方法1234567891011121314151617181920public E get(int index) &#123; checkElementIndex(index); return node(index).item;&#125;Node&lt;E&gt; node(int index) &#123; // assert isElementIndex(index); if (index &lt; (size &gt;&gt; 1)) &#123; Node&lt;E&gt; x = first; for (int i = 0; i &lt; index; i++) x = x.next; return x; &#125; else &#123; Node&lt;E&gt; x = last; for (int i = size - 1; i &gt; index; i--) x = x.prev; return x; &#125;&#125; 由此可以看出是使用二分查找来看 index 离 size 中间距离来判断是从头结点正序查还是从尾节点倒序查。 node()会以O(n/2)的性能去获取一个结点 如果索引值大于链表大小的一半，那么将从尾结点开始遍历 这样的效率是非常低的，特别是当 index 越接近 size 的中间值时。 总结： LinkedList 插入，删除都是移动指针效率很高。 查找需要进行遍历查询，效率较低。]]></content>
+    <title><![CDATA[Java-lock]]></title>
+    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FJava-lock%2F</url>
+    <content type="text"><![CDATA[对锁的一些认知 有哪些锁同一进程重入锁使用 ReentrantLock 获取锁的时候会会判断当前线程是否为获取锁的线程，如果是则将同步的状态 +1 ,释放锁的时候则将状态 -1。只有将同步状态的次数置为 0 的时候才会最终释放锁。 读写锁使用 ReentrantReadWriteLock ,同时维护一对锁：读锁和写锁。当写线程访问时则其他所有锁都将阻塞，读线程访问时则不会。通过读写锁的分离可以很大程度的提高并发量和吞吐量。 不同进程分布式锁： 基于数据库可以创建一张表，将其中的某个字段设置为唯一索引，当多个请求过来的时候只有新建记录成功的请求才算获取到锁，当使用完毕删除这条记录的时候即释放锁。 存在的问题: 数据库单点问题，挂了怎么办？ 不是重入锁，同一进程无法在释放锁之前再次获得锁，因为数据库中已经存在了一条记录了。 锁是非阻塞的，一旦 insert 失败则会立即返回，并不会进入阻塞队列只能下一次再次获取。 锁没有失效时间，如果那个进程解锁失败那就没有请求可以再次获取锁了。 解决方案: 数据库切换为主从，不存在单点。 在表中加入一个同步状态字段，每次获取锁的是加 1 ，释放锁的时候-1，当状态为 0 的时候就删除这条记录，即释放锁。 非阻塞的情况可以用 while 循环来实现，循环的时候记录时间，达到 X 秒记为超时，break。 可以开启一个定时任务每隔一段时间扫描找出多少 X 秒都没有被删除的记录，主动删除这条记录。 基于 Redis使用 setNX(key) setEX(timeout) 命令，只有在该 key 不存在的时候创建和这个 key，就相当于获取了锁。由于有超时时间，所以过了规定时间会自动删除，这样也可以避免死锁。 可以参考： 基于 Redis 的分布式锁 基于 ZK]]></content>
       <categories>
         <category>Github</category>
         <category>Java-Interview</category>
@@ -1091,9 +1063,37 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[LinkedList]]></title>
+    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FLinkedList%2F</url>
+    <content type="text"><![CDATA[LinkedList 底层分析 如图所示 LinkedList 底层是基于双向链表实现的，也是实现了 List 接口，所以也拥有 List 的一些特点(JDK1.7/8 之后取消了循环，修改为双向链表)。 新增方法123456789101112131415161718public boolean add(E e) &#123; linkLast(e); return true;&#125; /** * Links e as last element. */void linkLast(E e) &#123; final Node&lt;E&gt; l = last; final Node&lt;E&gt; newNode = new Node&lt;&gt;(l, e, null); last = newNode; if (l == null) first = newNode; else l.next = newNode; size++; modCount++;&#125; 可见每次插入都是移动指针，和 ArrayList 的拷贝数组来说效率要高上不少。 查询方法1234567891011121314151617181920public E get(int index) &#123; checkElementIndex(index); return node(index).item;&#125;Node&lt;E&gt; node(int index) &#123; // assert isElementIndex(index); if (index &lt; (size &gt;&gt; 1)) &#123; Node&lt;E&gt; x = first; for (int i = 0; i &lt; index; i++) x = x.next; return x; &#125; else &#123; Node&lt;E&gt; x = last; for (int i = size - 1; i &gt; index; i--) x = x.prev; return x; &#125;&#125; 由此可以看出是使用二分查找来看 index 离 size 中间距离来判断是从头结点正序查还是从尾节点倒序查。 node()会以O(n/2)的性能去获取一个结点 如果索引值大于链表大小的一半，那么将从尾结点开始遍历 这样的效率是非常低的，特别是当 index 越接近 size 的中间值时。 总结： LinkedList 插入，删除都是移动指针效率很高。 查找需要进行遍历查询，效率较低。]]></content>
+      <categories>
+        <category>Github</category>
+        <category>Java-Interview</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>Java</tag>
+        <tag>转载</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[GarbageCollection]]></title>
     <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FGarbageCollection%2F</url>
     <content type="text"><![CDATA[垃圾回收 垃圾回收主要思考三件事情: 哪种内存需要回收？ 什么时候回收？ 怎么回收？ 对象是否存活引用计数法这是一种非常简单易理解的回收算法。每当有一个地方引用一个对象的时候则在引用计数器上 +1，当失效的时候就 -1，无论什么时候计数器为 0 的时候则认为该对象死亡可以回收了。 这种算法虽然简单高效，但是却无法解决循环引用的问题，因此 Java 虚拟机并没有采用这种算法。 可达性分析算法主流的语言其实都是采用可达性分析算法: 可达性算法是通过一个称为 GC Roots 的对象向下搜索，整个搜索路径就称为引用链，当一个对象到 GC Roots 没有任何引用链 JVM 就认为该对象是可以被回收的。 如图:Object1、2、3、4 都是存活的对象，而 Object5、6、7都是可回收对象。 可以用作 GC-Roots 的对象有: 方法区中静态变量所引用的对象。 虚拟机栈中所引用的对象。 垃圾回收算法标记-清除算法标记清除算法分为两个步骤，标记和清除。首先将需要回收的对象标记起来，然后统一清除。但是存在两个主要的问题: 标记和清除的效率都不高。 清除之后容易出现不连续内存，当需要分配一个较大内存时就不得不需要进行一次垃圾回收。 标记清除过程如下: 复制算法复制算法是将内存划分为两块大小相等的区域，每次使用时都只用其中一块区域，当发生垃圾回收时会将存活的对象全部复制到未使用的区域，然后对之前的区域进行全部回收。 这样简单高效，而且还不存在标记清除算法中的内存碎片问题，但就是有点浪费内存。 在新生代会使用该算法。 新生代中分为一个 Eden 区和两个 Survivor 区。通常两个区域的比例是 8:1:1 ，使用时会用到 Eden 区和其中一个 Survivor 区。当发生回收时则会将还存活的对象从 Eden ，Survivor 区拷贝到另一个 Survivor 区，当该区域内存也不足时则会使用分配担保利用老年代来存放内存。 复制算法过程： 标记整理算法复制算法如果在存活对象较多时效率明显会降低，特别是在老年代中并没有多余的内存区域可以提供内存担保。 所以老年代中使用的时候分配整理算法，它的原理和分配清除算法类似，只是最后一步的清除改为了将存活对象全部移动到一端，然后再将边界之外的内存全部回收。 分代回收算法现代多数的商用 JVM 的垃圾收集器都是采用的分代回收算法，和之前所提到的算法并没有新的内容。 只是将 Java 堆分为了新生代和老年代。由于新生代中存活对象较少，所以采用复制算法，简单高效。 而老年代中对象较多，并且没有可以担保的内存区域，所以一般采用标记清除或者是标记整理算法。]]></content>
+      <categories>
+        <category>Github</category>
+        <category>Java-Interview</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>Java</tag>
+        <tag>转载</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ClassLoad]]></title>
+    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FClassLoad%2F</url>
+    <content type="text"><![CDATA[类加载机制双亲委派模型模型如下图： 双亲委派模型中除了启动类加载器之外其余都需要有自己的父类加载器 当一个类收到了类加载请求时: 自己不会首先加载，而是委派给父加载器进行加载，每个层次的加载器都是这样。 所以最终每个加载请求都会经过启动类加载器。只有当父类加载返回不能加载时子加载器才会进行加载。 双亲委派的好处 : 由于每个类加载都会经过最顶层的启动类加载器，比如 java.lang.Object这样的类在各个类加载器下都是同一个类(只有当两个类是由同一个类加载器加载的才有意义，这两个类才相等。) 如果没有双亲委派模型，由各个类加载器自行加载的话。当用户自己编写了一个 java.lang.Object类，那样系统中就会出现多个 Object，这样 Java 程序中最基本的行为都无法保证，程序会变的非常混乱。]]></content>
       <categories>
         <category>Github</category>
         <category>Java-Interview</category>
@@ -1122,20 +1122,6 @@
     <title><![CDATA[DB-split]]></title>
     <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FDB-split%2F</url>
     <content type="text"><![CDATA[数据库水平垂直拆分当数据库量非常大的时候，DB 已经成为系统瓶颈时就可以考虑进行水平垂直拆分了。 水平拆分一般水平拆分是根据表中的某一字段(通常是主键 ID )取模处理，将一张表的数据拆分到多个表中。这样每张表的表结构是相同的但是数据不同。 不但可以通过 ID 取模分表还可以通过时间分表，比如每月生成一张表。按照范围分表也是可行的:一张表只存储 0~1000W的数据，超过只就进行分表，这样分表的优点是扩展灵活，但是存在热点数据。 按照取模分表拆分之后我们的查询、修改、删除也都是取模。比如新增一条数据的时候往往需要一张临时表来生成 ID,然后根据生成的 ID 取模计算出需要写入的是哪张表(也可以使用分布式 ID 生成器来生成 ID)。 分表之后不能避免的就是查询要比以前复杂，通常不建议 join ，一般的做法是做两次查询。 垂直拆分当一张表的字段过多时则可以考虑垂直拆分。通常是将一张表的字段才分为主表以及扩展表，使用频次较高的字段在一张表，其余的在一张表。 这里的多表查询也不建议使用 join ，依然建议使用两次查询。 拆分之后带来的问题拆分之后由一张表变为了多张表，一个库变为了多个库。最突出的一个问题就是事务如何保证。 两段提交最终一致性如果业务对强一致性要求不是那么高那么最终一致性则是一种比较好的方案。 通常的做法就是补偿，比如 一个业务是 A 调用 B，两个执行成功才算最终成功，当 A 成功之后，B 执行失败如何来通知 A 呢。 比较常见的做法是 失败时 B 通过 MQ 将消息告诉 A，A 再来进行回滚。这种的前提是 A 的回滚操作得是幂等的，不然 B 重复发消息就会出现问题。]]></content>
-      <categories>
-        <category>Github</category>
-        <category>Java-Interview</category>
-      </categories>
-      <tags>
-        <tag>技术</tag>
-        <tag>Java</tag>
-        <tag>转载</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[ClassLoad]]></title>
-    <url>%2F2018%2F06%2F30%2FJava%2FInterview%2FJava-Interview%2FClassLoad%2F</url>
-    <content type="text"><![CDATA[类加载机制双亲委派模型模型如下图： 双亲委派模型中除了启动类加载器之外其余都需要有自己的父类加载器 当一个类收到了类加载请求时: 自己不会首先加载，而是委派给父加载器进行加载，每个层次的加载器都是这样。 所以最终每个加载请求都会经过启动类加载器。只有当父类加载返回不能加载时子加载器才会进行加载。 双亲委派的好处 : 由于每个类加载都会经过最顶层的启动类加载器，比如 java.lang.Object这样的类在各个类加载器下都是同一个类(只有当两个类是由同一个类加载器加载的才有意义，这两个类才相等。) 如果没有双亲委派模型，由各个类加载器自行加载的话。当用户自己编写了一个 java.lang.Object类，那样系统中就会出现多个 Object，这样 Java 程序中最基本的行为都无法保证，程序会变的非常混乱。]]></content>
       <categories>
         <category>Github</category>
         <category>Java-Interview</category>

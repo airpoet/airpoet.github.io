@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-150724.png">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-144555.jpg">
 <meta property="og:image" content="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-29-145439.jpg">
-<meta property="og:updated_time" content="2018-06-09T02:40:38.532Z">
+<meta property="og:updated_time" content="2018-09-15T07:47:47.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux学习笔记-2">
 <meta name="twitter:description" content="1. VI文本编辑器学会使用vi编辑器是学习Linux系统的必备技术之一，因为一般的Linux服务器是没有GUI界面的，Linux运维及开发人员基本上都是通过命令行的方式进行文本编辑或程序编写的。vi编辑器是Linux内置的文本编辑器，几乎所有的类unix系统中都内置了vi编辑器，而其它编辑器则不一定，另外很多软件会调用vi编辑进行内容编写，例如crontab定时任务。较之于其它编辑器或GUI编辑">
@@ -346,8 +346,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-09T10:40:38+08:00">
-                2018-06-09
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-15T15:47:47+08:00">
+                2018-09-15
               </time>
             
           </span>
@@ -689,6 +689,12 @@
 <h3 id="8-速查网址"><a href="#8-速查网址" class="headerlink" title="8. 速查网址"></a>8. 速查网址</h3><ul>
 <li><a href="https://www.ctolib.com/cheatsheets-Vim-command.html" target="_blank" rel="noopener">vim详解</a></li>
 </ul>
+<h3 id="9-vim-可视模式-选中多行"><a href="#9-vim-可视模式-选中多行" class="headerlink" title="9. vim 可视模式, 选中多行"></a>9. vim 可视模式, 选中多行</h3><ol>
+<li>用小<code>v</code>命令进入的字符可视化模式（Characterwise visual mode)。文本选择是以字符为单位的。</li>
+<li>用大<code>V</code>命令进入的行可视化模式（Linewise visual mode)。文本选择是以行为单位的。</li>
+<li>用<code>ctrl-V</code>进入的块可视化模式（Blockwise visual mode）。可以选择一个矩形内的文本。（注意：在Windows中，<code>ctrl-V</code>可能已经被影射为粘贴操作，可以使用<code>ctrl-Q</code>进入块可视化模式。）</li>
+<li>重复按一次, 即可取消此模式</li>
+</ol>
 <hr>
 <h1 id="2-网络管理"><a href="#2-网络管理" class="headerlink" title="2.  网络管理"></a>2.  网络管理</h1><h3 id="ifconfig命令"><a href="#ifconfig命令" class="headerlink" title="ifconfig命令"></a><code>ifconfig</code>命令</h3><p>ifconfig命令主要用于配置网络接口，如果不加任何参数，则ifconfig命令用于查看当前所有活动网络接口的状态信息，如下图：</p>
 <p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-05-27-141519.png" alt="image-20180527221518692"></p>
@@ -1336,7 +1342,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">129</span>
+                  <span class="site-state-item-count">127</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1347,7 +1353,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1358,7 +1364,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1428,7 +1434,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-VI文本编辑器"><span class="nav-text">1. VI文本编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-最基本用法"><span class="nav-text">1. 最基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-移动光标-一般模式"><span class="nav-text">2. 移动光标 (一般模式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-常用操作-一般模式-gt-gt-插入模式"><span class="nav-text">3. 常用操作(一般模式 &gt;&gt; 插入模式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-查找并替换"><span class="nav-text">4. 查找并替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-替换操作"><span class="nav-text">5. 替换操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-屏幕翻滚类命令"><span class="nav-text">6. 屏幕翻滚类命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-其它的小技巧"><span class="nav-text">7. 其它的小技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-速查网址"><span class="nav-text">8. 速查网址</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-网络管理"><span class="nav-text">2.  网络管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ifconfig命令"><span class="nav-text">ifconfig命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络配置"><span class="nav-text">网络配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-三种通信模式"><span class="nav-text">1. 三种通信模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-NAT网络模式的配置"><span class="nav-text">2. NAT网络模式的配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-其它的常用网络管理命令"><span class="nav-text">3.  其它的常用网络管理命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-防火墙"><span class="nav-text">4. 防火墙</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Linux系统启动级别管理"><span class="nav-text">3. Linux系统启动级别管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-用户和组"><span class="nav-text">4. 用户和组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-用户和组的概念"><span class="nav-text">1. 用户和组的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-用户操作"><span class="nav-text">2. 用户操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#选项"><span class="nav-text">选项</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数"><span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-组操作"><span class="nav-text">3. 组操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-为用户配置sudoer权限"><span class="nav-text">4. 为用户配置sudoer权限</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#普通用户免密使用sudo-amp-免密登录为root"><span class="nav-text">普通用户免密使用sudo &amp; 免密登录为root</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-切换用户"><span class="nav-text">5. 切换用户</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-文件权限"><span class="nav-text">5. 文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、linux文件权限的描述格式解读"><span class="nav-text">1、linux文件权限的描述格式解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、-修改文件权限"><span class="nav-text">2、 修改文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法"><span class="nav-text">语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-压缩打包"><span class="nav-text">6. 压缩打包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gzip"><span class="nav-text">gzip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzip"><span class="nav-text">bzip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tar"><span class="nav-text">tar</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-Linux开关机和重启"><span class="nav-text">7. Linux开关机和重启</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-VI文本编辑器"><span class="nav-text">1. VI文本编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-最基本用法"><span class="nav-text">1. 最基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-移动光标-一般模式"><span class="nav-text">2. 移动光标 (一般模式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-常用操作-一般模式-gt-gt-插入模式"><span class="nav-text">3. 常用操作(一般模式 &gt;&gt; 插入模式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-查找并替换"><span class="nav-text">4. 查找并替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-替换操作"><span class="nav-text">5. 替换操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-屏幕翻滚类命令"><span class="nav-text">6. 屏幕翻滚类命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-其它的小技巧"><span class="nav-text">7. 其它的小技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-速查网址"><span class="nav-text">8. 速查网址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-vim-可视模式-选中多行"><span class="nav-text">9. vim 可视模式, 选中多行</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-网络管理"><span class="nav-text">2.  网络管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ifconfig命令"><span class="nav-text">ifconfig命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络配置"><span class="nav-text">网络配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-三种通信模式"><span class="nav-text">1. 三种通信模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-NAT网络模式的配置"><span class="nav-text">2. NAT网络模式的配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-其它的常用网络管理命令"><span class="nav-text">3.  其它的常用网络管理命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-防火墙"><span class="nav-text">4. 防火墙</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Linux系统启动级别管理"><span class="nav-text">3. Linux系统启动级别管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-用户和组"><span class="nav-text">4. 用户和组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-用户和组的概念"><span class="nav-text">1. 用户和组的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-用户操作"><span class="nav-text">2. 用户操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#选项"><span class="nav-text">选项</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数"><span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-组操作"><span class="nav-text">3. 组操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-为用户配置sudoer权限"><span class="nav-text">4. 为用户配置sudoer权限</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#普通用户免密使用sudo-amp-免密登录为root"><span class="nav-text">普通用户免密使用sudo &amp; 免密登录为root</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-切换用户"><span class="nav-text">5. 切换用户</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-文件权限"><span class="nav-text">5. 文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、linux文件权限的描述格式解读"><span class="nav-text">1、linux文件权限的描述格式解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、-修改文件权限"><span class="nav-text">2、 修改文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法"><span class="nav-text">语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-压缩打包"><span class="nav-text">6. 压缩打包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gzip"><span class="nav-text">gzip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzip"><span class="nav-text">bzip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tar"><span class="nav-text">tar</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-Linux开关机和重启"><span class="nav-text">7. Linux开关机和重启</span></a></li></ol></div>
             
 
           </div>

@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/GarbageCollection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -310,7 +310,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/" itemprop="url">Consistent-Hash</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/GarbageCollection/" itemprop="url">GarbageCollection</a></h1>
         
 
         <div class="post-meta">
@@ -338,7 +338,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:19:36+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:20:13+08:00">
                 2018-07-09
               </time>
             
@@ -386,9 +386,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/GarbageCollection/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/GarbageCollection/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -418,14 +418,20 @@
       
         
           
-          一致 Hash 算法当我们在做数据库分库分表或者是分布式缓存时，不可避免的都会遇到一个问题:
-如何将数据均匀的分散到各个节点中，并且尽量的在加减节点时能使受影响的数据最少。
-Hash 取模随机放置就不说了，会带来很多问题。通常最容易想到的方案就是 hash 取模了。
-可以将传入的 Key 按照 in
+          垃圾回收
+垃圾回收主要思考三件事情:
+
+
+哪种内存需要回收？
+什么时候回收？
+怎么回收？
+
+对象是否存活引用计数法这是一种非常简单易理解的回收算法。每当有一个地方引用一个对象的时候则在引用计数器上 +1，当失效的时候就 -1，无论什么时候计数器为 0 的时候则认为该对象死亡可以回收了。
+这种算法虽然
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/GarbageCollection/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -847,7 +853,7 @@ Hash 取模随机放置就不说了，会带来很多问题。通常最容易想
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/GarbageCollection/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -866,7 +872,7 @@ Hash 取模随机放置就不说了，会带来很多问题。通常最容易想
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/GarbageCollection/" itemprop="url">GarbageCollection</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/" itemprop="url">Consistent-Hash</a></h1>
         
 
         <div class="post-meta">
@@ -894,7 +900,7 @@ Hash 取模随机放置就不说了，会带来很多问题。通常最容易想
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:20:13+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:19:36+08:00">
                 2018-07-09
               </time>
             
@@ -942,9 +948,9 @@ Hash 取模随机放置就不说了，会带来很多问题。通常最容易想
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/GarbageCollection/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/GarbageCollection/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -974,20 +980,14 @@ Hash 取模随机放置就不说了，会带来很多问题。通常最容易想
       
         
           
-          垃圾回收
-垃圾回收主要思考三件事情:
-
-
-哪种内存需要回收？
-什么时候回收？
-怎么回收？
-
-对象是否存活引用计数法这是一种非常简单易理解的回收算法。每当有一个地方引用一个对象的时候则在引用计数器上 +1，当失效的时候就 -1，无论什么时候计数器为 0 的时候则认为该对象死亡可以回收了。
-这种算法虽然
+          一致 Hash 算法当我们在做数据库分库分表或者是分布式缓存时，不可避免的都会遇到一个问题:
+如何将数据均匀的分散到各个节点中，并且尽量的在加减节点时能使受影响的数据最少。
+Hash 取模随机放置就不说了，会带来很多问题。通常最容易想到的方案就是 hash 取模了。
+可以将传入的 Key 按照 in
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/GarbageCollection/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Consistent-Hash/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

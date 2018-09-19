@@ -122,7 +122,7 @@
 <meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLdZHlkhfkbbFTdOcfIRcSJcavgK0vG00">
 <meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLl0iIStDJ74loYyjoCnBTyxFBKWiIYp9BthHlkhfkbbFTdO-xMXxlhlbwSmLN0wfUIb0ZG00">
 <meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLWXEJSxFIqaigWpEBofvicFtyusxkHnIyrA0AW00">
-<meta property="og:updated_time" content="2018-07-01T01:00:24.231Z">
+<meta property="og:updated_time" content="2018-09-19T10:25:34.568Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce笔记-3">
 <meta name="twitter:description" content="1.多 Job 串联1.概念当程序中有多个 Job， 并且多个 job 之间相互依赖， a ， job 需要依赖另一个b，job 的执行结果时候， 此时需要使用多 job 串联 2. 涉及到昨天的微博求共同粉丝题目 A:B,C,D,F,E,OB:A,C,E,KC:F,A,D,ID:A,E,F,LE:B,C,D,M,LF:A,B,C,D,E,O,MG:A,C,D,E,FH:A,C,D,E,OI:A,">
@@ -368,8 +368,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-01T09:00:24+08:00">
-                2018-07-01
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-19T18:25:34+08:00">
+                2018-09-19
               </time>
             
           </span>
@@ -588,12 +588,13 @@
 <hr>
 <h2 id="8-※-Shuffle-过程-※"><a href="#8-※-Shuffle-过程-※" class="headerlink" title="8.  ※ Shuffle 过程 ※"></a>8.  ※ Shuffle 过程 ※</h2><p><img src="http://p6i5vzkfk.bkt.clouddn.com/study/2018-06-11-024417.png" alt="image-20180611104416430"></p>
 <ul>
-<li>mapper 阶段处理的数据如何传递给 reducer 阶段，是 MapReduce 框架中 最关键的一个流程，这个流程就叫 Shuffle</li>
-<li>Shuffle<ul>
+<li><strong>mapper 阶段处理的数据如何传递给 reducer 阶段，是 MapReduce 框架中 最关键的一个流程，这个流程就叫 Shuffle</strong></li>
+<li><p><strong>Shuffle</strong></p>
+<ul>
 <li>即 数据混洗  ——  核心机制：数据分区，排序，局部聚合，缓存，拉取，再合并，排序； </li>
 <li>环形缓冲区<ul>
 <li>内存中的一种首尾相连的数据结构（底层是字节数组），kvbuffer 包含原始数据区和元数据区，一个mapTask任务对应一个环形缓冲区</li>
-<li>默认大小 100M，默认阈(yu)值 0.8，即当达到 80M 后，会触发 spill溢写 操作，将数据写入磁盘，此时mapper输出会继续向剩余20M中写数据<br>缓冲区大小 mapred-site.xml：mapreduce.task.io.sort.mb<br>阈值 mapred-site.xml：mapreduce.map.sort.spill.percent<br>路径：mapred-site.xml：mapreduce.cluster.local.dir</li>
+<li>默认大小 100M，默认阈(yu)值 0.8，即当达到 80M 后，会触发 spill溢写 操作，将数据写入磁盘，此时mapper输出会继续向剩余20M中写数据<br>缓冲区大小 <code>mapred-site.xml：mapreduce.task.io.sort.mb</code><br>阈值<code>mapred-site.xml：mapreduce.map.sort.spill.percent</code><br>路径：<code>mapred-site.xml：mapreduce.cluster.local.dir</code></li>
 <li>如果此80M数据写入磁盘完成前，剩余20M缓冲区也写完，则会进入阻塞状态，直到是spill完成腾出缓冲区空间</li>
 <li>赤道（equtor）：环形缓冲区中原始数据和元数据的边界<ul>
 <li>原始数据：mapTask输出的数据</li>
@@ -613,27 +614,59 @@
 </li>
 </ul>
 </li>
-<li>核心操作<ul>
-<li>\1. 分区 partition（如果 reduceTask 只有一个或者没有，那么 partition 将不起作用） </li>
-<li>\2. Sort 根据 key 排序（MapReduce 编程中的 sort 是一定会做的，并且 只能按照 key排序， 当然 如果没有 reducer 阶段，那么就不会对 key 排序） </li>
-<li>\3. Combiner 进行局部 value 的合并（Combiner 是可选的组件，作用只是为了提高任务的执行效率）</li>
+<li><strong>核心操作</strong><ul>
+<li><ol>
+<li>分区 partition（如果 reduceTask 只有一个或者没有，那么 partition 将不起作用） </li>
+</ol>
+</li>
+<li><ol start="2">
+<li>Sort 根据 key 排序（MapReduce 编程中的 sort 是一定会做的，并且 只能按照 key排序， 当然 如果没有 reducer 阶段，那么就不会对 key 排序） </li>
+</ol>
+</li>
+<li><ol start="3">
+<li>Combiner 进行局部 value 的合并（Combiner 是可选的组件，作用只是为了提高任务的执行效率）</li>
+</ol>
+</li>
 </ul>
 </li>
-<li>详细过程<ul>
-<li>\1. 一个大文件需要处理，它在在 HDFS 上是以 block 块形式存放，每个 block 默认为 128M 存 3 份；运行时每个 map 任务会处理一个切块（split），如果 block 大和 split 相同，有多少个 block 就有多少个 map 任务；所以对整个文件处理时会有很多 map 任务进行并行计算。</li>
-<li>\2. 每个 map 任务处理完输入的切块后会把结果写入到内存的一个 环形缓冲区，写入过程中会进行简单排序，当缓冲区的大小阀值，一个后台的线程就会启动把缓冲区中的数据溢写（spill）到本地磁盘中，同时Mapper继续时向环形缓冲区中写入数据。<ul>
+<li><p><strong>详细过程</strong></p>
+<ul>
+<li><ol>
+<li>一个大文件需要处理，它在在 HDFS 上是以 block 块形式存放，每个 block 默认为 128M 存 3 份；运行时每个 map 任务会处理一个切块（split），如果 block 大和 split 相同，有多少个 block 就有多少个 map 任务；所以对整个文件处理时会有很多 map 任务进行并行计算。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>每个 map 任务处理完输入的切块后会把结果写入到内存的一个 环形缓冲区，写入过程中会进行简单排序，当缓冲区的大小阀值，一个后台的线程就会启动把缓冲区中的数据溢写（spill）到本地磁盘中，同时Mapper继续时向环形缓冲区中写入数据。</li>
+</ol>
+<ul>
 <li>数据溢写入到磁盘之前，首先会根据 reducer 的数量划分成同数量的分区（partition），每个分区中的都数据会有后台线程根据 map 任务的输出结果 key 进行排序；</li>
 <li>如果有 combiner，它会在 缓冲区溢写到磁盘之前 和 mapTask排好序的输出上 运行，使写到本地磁盘和传给 reducer 的数据更少；<br>Combiner即是把同一分区中的同一key的数据进行合并，整个shuffle过程会调用两个Combiner !</li>
 <li>最后在本地生成分好区且排好序的小文件。</li>
 <li>注意：如果 map 向环形缓冲区写入数据的速度大于向本地写入数据的速度，环形缓冲区会被写满，向环形缓冲区写入数据的线程会阻塞直至缓冲区中的内容全部溢写到磁盘后再次启动，到阀值后会向本地磁盘新建一个溢写文件；</li>
 </ul>
 </li>
-<li>\3. map 任务完成之前，会把本地磁盘溢写的所有文件 不停地 合并（merge）成得到一个结果文件，合并得到的结果文件会根据小溢写文件的分区而分区，每个分区的数据会再次根据 key 进行 排序，得到的结果文件是分好区且排好序的（可以合并成一个文件的溢写文件数量默认为10）；<br>默认合并溢写文件数量 mapred-site.xml：mapreduce.task.io.sort.factor</li>
-<li>\4.  reduce 任务启动，Reducer 中的一个线程定期向 MRAppMaster 询问 Mapper 输出结果文件位置，Mapper  结束后会向 MRAppMaster 汇报信息，从而 Reducer 会得知 Mapper 状态并得到 map 结果文件目录；<br>reduce任务数配置<br>a) mapred-site.xml：mapreduce.job.reduces<br>b) job.setNumReduceTasks(num)</li>
-<li>\6. 当有一个 Mapper 结束时，reduce 任务进入复制阶段，reduce 任务通过 http 协议（hadoop 内置了netty容器）把所有 Mapper 结果文件的 对应的分区数据 拉取（fetch）过来，Reducer  可以并行复 制 Mapper 的 结果 ， 默认线程数为5； 所有 Reducer 复制完成 map 结果文件后，由于 Reducer  可能会失败，NodeManager 并不会在第一个 map 结果文件复制完成后就删除它，而是直到作业完成后 MRAppMaster 通知  NodeManager 进行删除； 另外如果 map 结果文件相当小，则会被直接复制到 reduce NodeManager  的内存；一旦缓冲区达到 reduce 的阈值大小 0.66 或 写入到 reduce NodeManager 内 存 中 文 件 个 数 达 到  map 输出阈值 1000，reduce 就会把 map 结果文件合并（merge）溢写到本地；<br>默认线程数 mapred-site.xml：mapreduce.reduce.shuffle.parallelcopies<br>缓冲区大小 mapred-site.xml:mapreduce.reduce.shuffle.input.buffer.percent，默认0.7<br>阈值：mapred-site.xml:mapreduce.reduce.shuffle.merge.percent，默认0.66<br>map输出阈值1000：mapred-site.xml:mapreduce.reduce.merge.inmem.threshold</li>
-<li>\7. 复制阶段完成后，Reducer 进入 Merge 阶段，循环地合并 map 结果文件，维持其顺序排序，合并因子默认为 10，经过不断地 Merge 后得到一个”最终文件”，可能存储在磁盘也可能存在内存中； </li>
-<li>\8. “最终文件”输入到 reduce 进行计算，计算结果输入到 HDFS。</li>
-<li>[ 注意 ]<ul>
+<li><ol start="3">
+<li>map 任务完成之前，会把本地磁盘溢写的所有文件 不停地 合并（merge）成得到一个结果文件，合并得到的结果文件会根据小溢写文件的分区而分区，每个分区的数据会再次根据 key 进行 排序，得到的结果文件是分好区且排好序的（可以合并成一个文件的溢写文件数量默认为10）；<br>默认合并溢写文件数量 <code>mapred-site.xml：mapreduce.task.io.sort.factor</code></li>
+</ol>
+</li>
+<li><ol start="4">
+<li>reduce 任务启动，Reducer 中的一个线程定期向 MRAppMaster 询问 Mapper 输出结果文件位置，Mapper  结束后会向 MRAppMaster 汇报信息，从而 Reducer 会得知 Mapper 状态并得到 map 结果文件目录；<br>reduce任务数配置<br>a)<code>mapred-site.xml：mapreduce.job.reduces</code><br>b) <code>job.setNumReduceTasks(num)</code></li>
+</ol>
+</li>
+<li><ol start="5">
+<li>当有一个 Mapper 结束时，reduce 任务进入复制阶段，reduce 任务通过 http 协议（hadoop 内置了netty容器）把所有 Mapper 结果文件的 对应的分区数据 拉取（fetch）过来，Reducer  可以并行复 制 Mapper 的 结果 ， 默认线程数为5； 所有 Reducer 复制完成 map 结果文件后，由于 Reducer  可能会失败，NodeManager 并不会在第一个 map 结果文件复制完成后就删除它，而是直到作业完成后 MRAppMaster 通知  NodeManager 进行删除； 另外如果 map 结果文件相当小，则会被直接复制到 reduce NodeManager  的内存；一旦缓冲区达到 reduce 的阈值大小 0.66 或 写入到 reduce NodeManager 内 存 中 文 件 个 数 达 到  map 输出阈值 1000，reduce 就会把 map 结果文件合并（merge）溢写到本地；<br>默认线程数 <code>mapred-site.xml：mapreduce.reduce.shuffle.parallelcopies</code><br>缓冲区大小<code>mapred-site.xml:mapreduce.reduce.shuffle.input.buffer.percent</code>，默认0.7<br>阈值：<code>mapred-site.xml:mapreduce.reduce.shuffle.merge.percent</code>，默认0.66<br>map输出阈值1000：<code>mapred-site.xml:mapreduce.reduce.merge.inmem.threshold</code></li>
+</ol>
+</li>
+<li><ol start="6">
+<li>复制阶段完成后，Reducer 进入 Merge 阶段，循环地合并 map 结果文件，维持其顺序排序，合并因子默认为 10，经过不断地 Merge 后得到一个”最终文件”，可能存储在磁盘也可能存在内存中； </li>
+</ol>
+</li>
+<li><ol start="7">
+<li>“最终文件”输入到 reduce 进行计算，计算结果输入到 HDFS。</li>
+</ol>
+</li>
+<li><p>[ 注意 ]</p>
+<ul>
 <li>溢写前会先按照分区进行排序，再按key进行排序，采用 快速排序<br>排序是按照原始数据排序，但是由于原始数据不好移动且原始数据包含了原始数据的位置信息，所以移动的其实是元数据；写入时读的是元数据，真正写入的时原始数据</li>
 <li>最后的数据如果不够80M，也会被强制flush到磁盘</li>
 <li>每个mapTask任务生成的磁盘小数据最后都会merge成一个大文件，采用 归并排序</li>

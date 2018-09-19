@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/Synchronize/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/SpringAOP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -310,7 +310,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/Synchronize/" itemprop="url">Synchronize</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/SpringAOP/" itemprop="url">SpringAOP</a></h1>
         
 
         <div class="post-meta">
@@ -338,7 +338,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:23:53+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:23:24+08:00">
                 2018-07-09
               </time>
             
@@ -386,9 +386,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/Synchronize/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/SpringAOP/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/Synchronize/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/SpringAOP/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -418,17 +418,14 @@
       
         
           
-          Synchronize 关键字原理众所周知 Synchronize 关键字是解决并发问题常用解决方案，有以下三种使用方式:
-
-同步普通方法，锁的是当前对象。
-同步静态方法，锁的是当前 Class 对象。
-同步块，锁的是 {} 中的对象。
-
-实现原理：JVM 是通过进入、退出对象监视器( Monito
+          Spring AOP 实现原理静态代理众所周知 Spring 的 AOP 是基于动态代理实现的，谈到动态代理就不得不提下静态代理。实现如下：
+假设有一接口 InterfaceA：
+123public interface InterfaceA&#123;    void exec();&#125;
+其
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Synchronize/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/SpringAOP/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -672,7 +669,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/MySQL-Index/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/ReentrantLock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -691,7 +688,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/MySQL-Index/" itemprop="url">MySQL-Index</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/ReentrantLock/" itemprop="url">ReentrantLock</a></h1>
         
 
         <div class="post-meta">
@@ -719,7 +716,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:22:05+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:23:00+08:00">
                 2018-07-09
               </time>
             
@@ -767,9 +764,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/MySQL-Index/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/ReentrantLock/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/MySQL-Index/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/ReentrantLock/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -799,13 +796,13 @@
       
         
           
-          MySQL 索引原理现在互联网应用中对数据库的使用多数都是读较多，比例可以达到 10:1。并且数据库在做查询时 IO 消耗较大，所以如果能把一次查询的 IO 次数控制在常量级那对数据库的性能提升将是非常明显的，因此基于 B+ Tree 的索引结构出现了。
-B+ Tree 的数据结构
-如图所示是 B+
+          ReentrantLock 实现原理使用 synchronize 来做同步处理时，锁的获取和释放都是隐式的，实现的原理是通过编译后加上不同的机器指令来实现。
+而 ReentrantLock 就是一个普通的类，它是基于 AQS(AbstractQueuedSynchronizer)来实现的。
+是一个重
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/MySQL-Index/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/ReentrantLock/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1226,7 +1223,7 @@ B+ Tree 的数据结构
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/ReentrantLock/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/MySQL-Index/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -1245,7 +1242,7 @@ B+ Tree 的数据结构
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/ReentrantLock/" itemprop="url">ReentrantLock</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/MySQL-Index/" itemprop="url">MySQL-Index</a></h1>
         
 
         <div class="post-meta">
@@ -1273,7 +1270,7 @@ B+ Tree 的数据结构
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:23:00+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:22:05+08:00">
                 2018-07-09
               </time>
             
@@ -1321,9 +1318,9 @@ B+ Tree 的数据结构
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/ReentrantLock/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/MySQL-Index/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/ReentrantLock/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/MySQL-Index/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1353,13 +1350,13 @@ B+ Tree 的数据结构
       
         
           
-          ReentrantLock 实现原理使用 synchronize 来做同步处理时，锁的获取和释放都是隐式的，实现的原理是通过编译后加上不同的机器指令来实现。
-而 ReentrantLock 就是一个普通的类，它是基于 AQS(AbstractQueuedSynchronizer)来实现的。
-是一个重
+          MySQL 索引原理现在互联网应用中对数据库的使用多数都是读较多，比例可以达到 10:1。并且数据库在做查询时 IO 消耗较大，所以如果能把一次查询的 IO 次数控制在常量级那对数据库的性能提升将是非常明显的，因此基于 B+ Tree 的索引结构出现了。
+B+ Tree 的数据结构
+如图所示是 B+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/ReentrantLock/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/MySQL-Index/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1410,7 +1407,7 @@ B+ Tree 的数据结构
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/Limiting/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/ID-generator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -1429,7 +1426,7 @@ B+ Tree 的数据结构
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/Limiting/" itemprop="url">Limiting</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/ID-generator/" itemprop="url">ID-generator</a></h1>
         
 
         <div class="post-meta">
@@ -1457,7 +1454,7 @@ B+ Tree 的数据结构
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:21:16+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:20:50+08:00">
                 2018-07-09
               </time>
             
@@ -1505,9 +1502,9 @@ B+ Tree 的数据结构
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/Limiting/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/ID-generator/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/Limiting/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/ID-generator/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1537,19 +1534,18 @@ B+ Tree 的数据结构
       
         
           
-          限流算法限流是解决高并发大流量的一种方案，至少是可以保证应用的可用性。
-通常有以下两种限流方案：
+          分布式 ID 生成器一个唯一 ID 在一个分布式系统中是非常重要的一个业务属性，其中包括一些如订单 ID，消息 ID ，会话 ID，他们都有一些共有的特性：
 
-漏桶算法
-令牌桶算法
+全局唯一。
+趋势递增。
 
-漏桶算法
-漏桶算法非常简单，就是将流量放入桶中并按照一定的速率流出。如果流量过大时候并不会提高流出效率，而溢出的流量也只能是抛弃掉了。
-这种算法很简单，但也非常粗暴，无法应对突
+全局唯一很好理解，目的就是唯一标识某个次请求，某个业务。
+通常有以下几种方案：
+基于数据库可以利用 MySQL 中
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Limiting/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/ID-generator/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1783,7 +1779,7 @@ B+ Tree 的数据结构
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/ID-generator/">
+    <link itemprop="mainEntityOfPage" href="https://airpoet.github.io/2018/06/30/Java/Interview/Java-Interview/Limiting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="airpoet">
@@ -1802,7 +1798,7 @@ B+ Tree 的数据结构
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/ID-generator/" itemprop="url">ID-generator</a></h1>
+                <a class="post-title-link" href="/2018/06/30/Java/Interview/Java-Interview/Limiting/" itemprop="url">Limiting</a></h1>
         
 
         <div class="post-meta">
@@ -1830,7 +1826,7 @@ B+ Tree 的数据结构
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:20:50+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-09T15:21:16+08:00">
                 2018-07-09
               </time>
             
@@ -1878,9 +1874,9 @@ B+ Tree 的数据结构
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/30/Java/Interview/Java-Interview/ID-generator/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/30/Java/Interview/Java-Interview/Limiting/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/ID-generator/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/30/Java/Interview/Java-Interview/Limiting/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1910,18 +1906,19 @@ B+ Tree 的数据结构
       
         
           
-          分布式 ID 生成器一个唯一 ID 在一个分布式系统中是非常重要的一个业务属性，其中包括一些如订单 ID，消息 ID ，会话 ID，他们都有一些共有的特性：
+          限流算法限流是解决高并发大流量的一种方案，至少是可以保证应用的可用性。
+通常有以下两种限流方案：
 
-全局唯一。
-趋势递增。
+漏桶算法
+令牌桶算法
 
-全局唯一很好理解，目的就是唯一标识某个次请求，某个业务。
-通常有以下几种方案：
-基于数据库可以利用 MySQL 中
+漏桶算法
+漏桶算法非常简单，就是将流量放入桶中并按照一定的速率流出。如果流量过大时候并不会提高流出效率，而溢出的流量也只能是抛弃掉了。
+这种算法很简单，但也非常粗暴，无法应对突
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/ID-generator/#more" rel="contents">
+            <a class="btn" href="/2018/06/30/Java/Interview/Java-Interview/Limiting/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

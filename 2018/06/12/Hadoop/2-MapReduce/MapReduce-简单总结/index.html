@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="A.P的文艺杂谈">
 <meta property="og:description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处：  输入数据接口：InputFormat FileInputFormat  (文件类型数据读取的通用抽象类)   DBInputFormat （数据库数据读取的通用抽象类） 默认使用的实现类是： TextInputFormat     job.setInputFormatClass(TextInputFo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-19T12:25:44.859Z">
+<meta property="og:updated_time" content="2018-09-19T12:30:44.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce-简单总结">
 <meta name="twitter:description" content="MapReduce在编程的时候，基本上一个固化的模式，没有太多可灵活改变的地方，除了以下几处：  输入数据接口：InputFormat FileInputFormat  (文件类型数据读取的通用抽象类)   DBInputFormat （数据库数据读取的通用抽象类） 默认使用的实现类是： TextInputFormat     job.setInputFormatClass(TextInputFo">
@@ -336,7 +336,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-19T20:25:44+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-19T20:30:44+08:00">
                 2018-09-19
               </time>
             
@@ -437,9 +437,10 @@
 </li>
 <li><h4 id="map输出的结果在shuffle阶段会被partition以及sort，此处有两个接口可自定义："><a href="#map输出的结果在shuffle阶段会被partition以及sort，此处有两个接口可自定义：" class="headerlink" title="map输出的结果在shuffle阶段会被partition以及sort，此处有两个接口可自定义："></a><strong>map输出的结果在shuffle阶段会被partition以及sort</strong>，此处有两个接口可自定义：</h4><ul>
 <li><strong>Partitioner</strong><ul>
+<li>自定义分区</li>
 <li>有默认实现 <code>HashPartitioner</code>，逻辑是根据<strong>key</strong>和<strong>numReduces</strong>来返回一个分区号:<code>key.hashCode()&amp;Integer.MAXVALUE % numReduces</code></li>
 <li>通常情况下，用默认的这个HashPartitioner就可以，如果业务上有特别的需求，可以自定义</li>
-<li>继承 <code>Partitioner</code>, 重写<code>getPartition</code>方法, 具体见<a href="https://airpoet.github.io/2018/06/09/Hadoop/2-MapReduce/MapReduce-%E7%BB%83%E4%B9%A0/">这里第三小题</a> </li>
+<li>继承 <code>Partitioner</code>, 重写<code>getPartition</code>方法, 具体见<a href="https://airpoet.github.io/2018/06/09/Hadoop/2-MapReduce/MapReduce-%E7%BB%83%E4%B9%A0/">这里第2小题</a> </li>
 </ul>
 </li>
 <li><strong>Comparable</strong><ul>
@@ -637,7 +638,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">129</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -648,7 +649,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -659,7 +660,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
